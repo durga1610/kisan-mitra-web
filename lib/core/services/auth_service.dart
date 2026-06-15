@@ -192,12 +192,20 @@ class AuthService {
     }
   }
 
-  // EmailJS Custom OTP Generation and Sending
   Future<String> sendEmailOtpViaEmailJS(String email) async {
     try {
       // Generate 6 digit OTP
       final random = Random();
       final otpCode = (100000 + random.nextInt(900000)).toString();
+
+      // Format a 15-minute expiry time string (e.g., "1:15 PM")
+      final expiryDateTime = DateTime.now().add(const Duration(minutes: 15));
+      final hour = expiryDateTime.hour > 12 
+          ? expiryDateTime.hour - 12 
+          : (expiryDateTime.hour == 0 ? 12 : expiryDateTime.hour);
+      final minute = expiryDateTime.minute.toString().padLeft(2, '0');
+      final period = expiryDateTime.hour >= 12 ? 'PM' : 'AM';
+      final expiryTimeString = "$hour:$minute $period";
 
       final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
       final response = await http.post(
@@ -215,9 +223,29 @@ class AuthService {
             'user_email': email,
             'email': email,
             'reply_to': email,
+            'message': 'Your verification code is: $otpCode. This code will expire in 15 minutes.',
+            // Variations for OTP Code variable
             'otp_code': otpCode,
             'otp': otpCode,
-            'message': 'Your verification code is: $otpCode. This code will expire in 10 minutes.',
+            'otpCode': otpCode,
+            'OTP': otpCode,
+            'OTP_CODE': otpCode,
+            'verification_code': otpCode,
+            'verificationCode': otpCode,
+            'code': otpCode,
+            'user_otp': otpCode,
+            'userOtp': otpCode,
+            // Variations for Expiry variable
+            'expiry': expiryTimeString,
+            'expiry_time': expiryTimeString,
+            'expiryTime': expiryTimeString,
+            'valid_till': expiryTimeString,
+            'validTill': expiryTimeString,
+            'time': expiryTimeString,
+            'date': expiryTimeString,
+            'expires': expiryTimeString,
+            'valid_until': expiryTimeString,
+            'validUntil': expiryTimeString,
           }
         }),
       );
