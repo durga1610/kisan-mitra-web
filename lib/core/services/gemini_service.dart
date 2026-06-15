@@ -19,12 +19,20 @@ class GeminiService {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      String apiKey = prefs.getString('custom_gemini_api_key') ?? '';
-      if (apiKey.isEmpty || apiKey == 'YOUR_GEMINI_API_KEY') {
+      String apiKey = '';
+      
+      // Priority 1: Check build-time injected key from environment variables
+      if (ApiConfig.geminiApiKey.isNotEmpty && ApiConfig.geminiApiKey != 'YOUR_GEMINI_API_KEY') {
         apiKey = ApiConfig.geminiApiKey;
       }
-
-      if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
+      
+      // Priority 2: Check custom user settings key
+      if (apiKey.isEmpty) {
+        apiKey = prefs.getString('custom_gemini_api_key') ?? '';
+      }
+      
+      // Priority 3: Fallback check
+      if (apiKey.isEmpty || apiKey == 'YOUR_GEMINI_API_KEY') {
         // Leave _model and _chat null so we trigger offline fallback mode
         return;
       }

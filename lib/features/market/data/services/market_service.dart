@@ -121,8 +121,20 @@ class MarketService {
 
   // Live API Fetching Logic
   Future<List<MarketPrice>?> _fetchLiveApiAndUpdateCache(List<String>? preferredCrops, String? preferredState) async {
-    final prefs = await SharedPreferences.getInstance();
-    String apiKey = prefs.getString('custom_mandi_api_key') ?? '';
+    String apiKey = '';
+    
+    // Priority 1: Check build-time injected key from environment variables
+    if (ApiConfig.mandiApiKey.isNotEmpty && ApiConfig.mandiApiKey != 'YOUR_MANDI_API_KEY') {
+      apiKey = ApiConfig.mandiApiKey;
+    }
+    
+    // Priority 2: Check custom user settings key
+    if (apiKey.isEmpty) {
+      final prefs = await SharedPreferences.getInstance();
+      apiKey = prefs.getString('custom_mandi_api_key') ?? '';
+    }
+    
+    // Priority 3: Fallback check
     if (apiKey.isEmpty || apiKey == 'YOUR_MANDI_API_KEY') {
       apiKey = ApiConfig.mandiApiKey;
     }

@@ -14,12 +14,19 @@ class WeatherService {
 
   Future<String> _getApiKey() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      String key = prefs.getString('custom_openweather_api_key') ?? '';
-      if (key.isEmpty || key == 'YOUR_OPENWEATHER_API_KEY') {
+      // Priority 1: Check build-time injected key from environment variables
+      if (ApiConfig.openWeatherApiKey.isNotEmpty && ApiConfig.openWeatherApiKey != 'YOUR_OPENWEATHER_API_KEY') {
         return ApiConfig.openWeatherApiKey;
       }
-      return key;
+      
+      // Priority 2: Check custom user settings key
+      final prefs = await SharedPreferences.getInstance();
+      String key = prefs.getString('custom_openweather_api_key') ?? '';
+      if (key.isNotEmpty && key != 'YOUR_OPENWEATHER_API_KEY') {
+        return key;
+      }
+      
+      return ApiConfig.openWeatherApiKey;
     } catch (e) {
       return ApiConfig.openWeatherApiKey;
     }
