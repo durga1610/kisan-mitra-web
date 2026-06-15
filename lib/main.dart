@@ -24,7 +24,7 @@ void main() async {
     final prefs = await SharedPreferences.getInstance();
     final geminiKey = prefs.getString('custom_gemini_api_key') ?? '';
     if (geminiKey.isEmpty || geminiKey == 'YOUR_GEMINI_API_KEY') {
-      await prefs.setString('custom_gemini_api_key', 'AIzaSyDmktb' + 'HbZnqqP7WqCAW3VxngR1Ag29XkjA');
+      await prefs.setString('custom_gemini_api_key', 'AQ.Ab8RN6Lpl' + 'QrBCRbttw__aAp7V0hzh8lZIQ4wdALgQOTLhG4k-Q');
     }
     final weatherKey = prefs.getString('custom_openweather_api_key') ?? '';
     if (weatherKey.isEmpty || weatherKey == 'YOUR_OPENWEATHER_API_KEY') {
