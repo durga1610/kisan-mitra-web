@@ -75,9 +75,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
       autoBackup = prefs.getBool('autoBackup') ?? true;
       lastBackupTime = prefs.getString('lastBackupTime') ?? "Never";
       marketAlertCrops = prefs.getStringList('marketAlertCrops') ?? [];
-      geminiApiKey = prefs.getString('custom_gemini_api_key') ?? '';
-      openWeatherApiKey = prefs.getString('custom_openweather_api_key') ?? '';
-      mandiApiKey = prefs.getString('custom_mandi_api_key') ?? '';
     });
   }
 
@@ -175,9 +172,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
                 ]),
                 _buildSettingsSection(title: "Security", children: [
                   _getSettingItem("App Permissions", settingsList)?.widget ?? const SizedBox(),
-                ]),
-                _buildSettingsSection(title: "Developer", children: [
-                  _getSettingItem("Developer API Keys", settingsList)?.widget ?? const SizedBox(),
                 ]),
                 _buildSettingsSection(title: "Support & Legal", children: [
                   _getSettingItem("Help & Support", settingsList)?.widget ?? const SizedBox(),
@@ -404,16 +398,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
           title: "Terms & Conditions",
           isDarkMode: isDarkMode,
           onTap: () => _showTextScreen("Terms & Conditions", "By using Kisan Mitra, you agree to the following terms...\n\n1. Use responsibly...\n2. No illegal activities.", isDarkMode),
-        ),
-      ),
-      _SettingItem(
-        title: "Developer API Keys",
-        widget: _buildSettingsTile(
-          icon: Icons.api_rounded,
-          title: "Developer API Keys",
-          subtitle: "Configure Gemini & Weather APIs",
-          isDarkMode: isDarkMode,
-          onTap: () => _showApiKeysDialog(isDarkMode),
         ),
       ),
     ];
@@ -841,55 +825,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
     } else {
       _showSnackbar("Could not open link", isError: true);
     }
-  }
-
-  void _showApiKeysDialog(bool isDarkMode) {
-    final geminiController = TextEditingController(text: geminiApiKey);
-    final weatherController = TextEditingController(text: openWeatherApiKey);
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text("Developer API Keys".tr(context)),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: geminiController,
-                decoration: const InputDecoration(labelText: "Gemini API Key", hintText: "AIza..."),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: weatherController,
-                decoration: const InputDecoration(labelText: "OpenWeather API Key"),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                "Updating these keys will override the default app keys. Leave blank to use defaults.",
-                style: TextStyle(fontSize: 12, color: isDarkMode ? Colors.grey[400] : Colors.grey[700]),
-              )
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: Text("Cancel".tr(context))),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                geminiApiKey = geminiController.text.trim();
-                openWeatherApiKey = weatherController.text.trim();
-              });
-              _savePreference('custom_gemini_api_key', geminiApiKey);
-              _savePreference('custom_openweather_api_key', openWeatherApiKey);
-              Navigator.pop(context);
-              _showSnackbar("API Keys updated successfully!");
-            },
-            child: Text("Save".tr(context)),
-          )
-        ],
-      ),
-    );
   }
 
   // --- End Dialogs ---
