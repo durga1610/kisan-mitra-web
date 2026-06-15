@@ -42,12 +42,10 @@ class GeminiService {
       _model = GenerativeModel(
         model: ApiConfig.geminiModel,
         apiKey: apiKey,
+        systemInstruction: Content.system(systemPrompt),
       );
 
-      _chat = _model!.startChat(history: [
-        Content.text(systemPrompt),
-        Content.model([TextPart('Understood. I am Kisan Mitra AI, your personalized agricultural assistant. I will respond in ${_getLanguageName(languageCode)}.')]),
-      ]);
+      _chat = _model!.startChat();
     } catch (e) {
       if (kDebugMode) print('Error initializing Gemini model: $e');
     }
@@ -212,7 +210,9 @@ class GeminiService {
 
     String farmContext = "";
     if (selectedFarm != null) {
-      farmContext = "for your farm **${selectedFarm!.name}** (${selectedFarm!.soilType} soil, located in ${selectedFarm!.district}, ${selectedFarm!.state}).";
+      final cropNames = selectedFarm!.plantedCrops.map((c) => c.cropName).toList();
+      String cropsStr = cropNames.isEmpty ? "No active crops" : "Active crops: ${cropNames.join(', ')}";
+      farmContext = "for your farm **${selectedFarm!.name}** (${selectedFarm!.soilType} soil, located in ${selectedFarm!.district}, ${selectedFarm!.state}). $cropsStr.";
     } else {
       farmContext = "to help you with your agriculture questions.";
     }
