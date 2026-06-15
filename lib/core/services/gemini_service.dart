@@ -20,7 +20,7 @@ class GeminiService {
     try {
       final prefs = await SharedPreferences.getInstance();
       String apiKey = prefs.getString('custom_gemini_api_key') ?? '';
-      if (apiKey.isEmpty) {
+      if (apiKey.isEmpty || apiKey == 'YOUR_GEMINI_API_KEY') {
         apiKey = ApiConfig.geminiApiKey;
       }
 

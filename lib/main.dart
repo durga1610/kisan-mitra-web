@@ -23,15 +23,15 @@ void main() async {
   try {
     final prefs = await SharedPreferences.getInstance();
     final geminiKey = prefs.getString('custom_gemini_api_key') ?? '';
-    if (geminiKey.isEmpty) {
+    if (geminiKey.isEmpty || geminiKey == 'YOUR_GEMINI_API_KEY') {
       await prefs.setString('custom_gemini_api_key', 'AIzaSyDmktb' + 'HbZnqqP7WqCAW3VxngR1Ag29XkjA');
     }
     final weatherKey = prefs.getString('custom_openweather_api_key') ?? '';
-    if (weatherKey.isEmpty) {
+    if (weatherKey.isEmpty || weatherKey == 'YOUR_OPENWEATHER_API_KEY') {
       await prefs.setString('custom_openweather_api_key', '68bb364284' + '0ac0f5199a7ff7f321474b');
     }
     final mandiKey = prefs.getString('custom_mandi_api_key') ?? '';
-    if (mandiKey.isEmpty) {
+    if (mandiKey.isEmpty || mandiKey == 'YOUR_MANDI_API_KEY') {
       await prefs.setString('custom_mandi_api_key', '579b464db66ec23b' + 'dd0000017c7ccd02bac445d36a5a228846357fa2');
     }
   } catch (e) {

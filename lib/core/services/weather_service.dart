@@ -16,7 +16,7 @@ class WeatherService {
     try {
       final prefs = await SharedPreferences.getInstance();
       String key = prefs.getString('custom_openweather_api_key') ?? '';
-      if (key.isEmpty) {
+      if (key.isEmpty || key == 'YOUR_OPENWEATHER_API_KEY') {
         return ApiConfig.openWeatherApiKey;
       }
       return key;

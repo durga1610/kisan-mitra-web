@@ -123,7 +123,7 @@ class MarketService {
   Future<List<MarketPrice>?> _fetchLiveApiAndUpdateCache(List<String>? preferredCrops, String? preferredState) async {
     final prefs = await SharedPreferences.getInstance();
     String apiKey = prefs.getString('custom_mandi_api_key') ?? '';
-    if (apiKey.isEmpty) {
+    if (apiKey.isEmpty || apiKey == 'YOUR_MANDI_API_KEY') {
       apiKey = ApiConfig.mandiApiKey;
     }
 
