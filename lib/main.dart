@@ -19,25 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize default API keys locally on device if empty (keeps keys secure from Git commits)
-  try {
-    final prefs = await SharedPreferences.getInstance();
-    final geminiKey = prefs.getString('custom_gemini_api_key') ?? '';
-    if (geminiKey.isEmpty || geminiKey == 'YOUR_GEMINI_API_KEY') {
-      await prefs.setString('custom_gemini_api_key', 'AQ.Ab8RN6Lpl' + 'QrBCRbttw__aAp7V0hzh8lZIQ4wdALgQOTLhG4k-Q');
-    }
-    final weatherKey = prefs.getString('custom_openweather_api_key') ?? '';
-    if (weatherKey.isEmpty || weatherKey == 'YOUR_OPENWEATHER_API_KEY') {
-      await prefs.setString('custom_openweather_api_key', '68bb364284' + '0ac0f5199a7ff7f321474b');
-    }
-    final mandiKey = prefs.getString('custom_mandi_api_key') ?? '';
-    if (mandiKey.isEmpty || mandiKey == 'YOUR_MANDI_API_KEY') {
-      await prefs.setString('custom_mandi_api_key', '579b464db66ec23b' + 'dd0000017c7ccd02bac445d36a5a228846357fa2');
-    }
-  } catch (e) {
-    debugPrint('SharedPreferences init error: $e');
-  }
-
+  // API keys are now injected securely via --dart-define in Vercel.
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,

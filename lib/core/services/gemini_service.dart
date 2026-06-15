@@ -18,18 +18,7 @@ class GeminiService {
     if (_model != null) return;
 
     try {
-      final prefs = await SharedPreferences.getInstance();
-      String apiKey = '';
-      
-      // Priority 1: Check build-time injected key from environment variables
-      if (ApiConfig.geminiApiKey.isNotEmpty && ApiConfig.geminiApiKey != 'YOUR_GEMINI_API_KEY') {
-        apiKey = ApiConfig.geminiApiKey;
-      }
-      
-      // Priority 2: Check custom user settings key
-      if (apiKey.isEmpty) {
-        apiKey = prefs.getString('custom_gemini_api_key') ?? '';
-      }
+      String apiKey = ApiConfig.geminiApiKey;
       
       // Priority 3: Fallback check
       if (apiKey.isEmpty || apiKey == 'YOUR_GEMINI_API_KEY') {
@@ -240,11 +229,7 @@ class GeminiService {
   // For Plant Disease Detection
   Future<String> detectDisease(List<int> imageBytes) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      String apiKey = prefs.getString('custom_gemini_api_key') ?? '';
-      if (apiKey.isEmpty) {
-        apiKey = ApiConfig.geminiApiKey;
-      }
+      String apiKey = ApiConfig.geminiApiKey;
 
       if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
         throw Exception('Offline mode / No API key configured');
@@ -341,11 +326,7 @@ class GeminiService {
     required WeatherModel weather,
     required String marketTrend,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    String apiKey = prefs.getString('custom_gemini_api_key') ?? '';
-    if (apiKey.isEmpty) {
-      apiKey = ApiConfig.geminiApiKey;
-    }
+    String apiKey = ApiConfig.geminiApiKey;
 
     if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
       return 'Suitable based on your soil and current market demand.';
@@ -394,11 +375,7 @@ class GeminiService {
     required WeatherModel weather,
     required List<String> availableMarketCrops,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    String apiKey = prefs.getString('custom_gemini_api_key') ?? '';
-    if (apiKey.isEmpty) {
-      apiKey = ApiConfig.geminiApiKey;
-    }
+    String apiKey = ApiConfig.geminiApiKey;
 
     if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
       return _getFallbackRecommendations();
@@ -489,11 +466,7 @@ Each object must have these exact keys and types:
     required String state,
     required String soilType,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    String apiKey = prefs.getString('custom_gemini_api_key') ?? '';
-    if (apiKey.isEmpty) {
-      apiKey = ApiConfig.geminiApiKey;
-    }
+    String apiKey = ApiConfig.geminiApiKey;
 
     if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
       return '[]';
@@ -534,11 +507,7 @@ Format:
 
   static Future<String?> checkCropSuitability(String cropName, FarmModel farm) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      String apiKey = prefs.getString('custom_gemini_api_key') ?? '';
-      if (apiKey.isEmpty) {
-        apiKey = ApiConfig.geminiApiKey;
-      }
+      String apiKey = ApiConfig.geminiApiKey;
 
       if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
         return null; // On offline/no-key, assume suitable
