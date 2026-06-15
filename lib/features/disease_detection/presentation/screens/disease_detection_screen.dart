@@ -92,7 +92,7 @@ class _DiseaseDetectionScreenState extends State<DiseaseDetectionScreen> {
         setState(() {
           _isProcessing = false;
         });
-        _showError('AI analysis failed. Please try again.');
+        _showError('AI analysis failed: ${e.toString()}');
       }
     }
   }
