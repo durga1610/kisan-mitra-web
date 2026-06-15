@@ -71,54 +71,110 @@ class _WeatherScreenState extends State<WeatherScreen> {
           }
         });
         
-        final data = await _weatherService.getWeather(position.latitude, position.longitude, lang: lang);
-        if (!mounted) return;
-        setState(() {
-          _weather = data;
-          if (_locationName == 'Unknown Location' && data.cityName != 'Unknown Location') {
-            _locationName = data.cityName;
-          }
-        });
+        try {
+          final data = await _weatherService.getWeather(position.latitude, position.longitude, lang: lang);
+          if (!mounted) return;
+          setState(() {
+            _weather = data;
+            if (_locationName == 'Unknown Location' && data.cityName != 'Unknown Location') {
+              _locationName = data.cityName;
+            }
+          });
+        } catch (apiErr) {
+          debugPrint('[Weather] GPS Weather API failed: $apiErr');
+          _setMockWeather(_locationName);
+        }
         debugPrint('[Weather] UI updated via GPS');
       } else {
         // Fallback to Farm Profile State
         final farmState = context.read<FarmProvider>().selectedFarm?.state ?? '';
+        final farmDistrict = context.read<FarmProvider>().selectedFarm?.district ?? '';
+        String fallbackLocationName = 'Thiruvallur, Tamil Nadu'; // Default
         if (farmState.isNotEmpty) {
-          debugPrint('[Weather] Falling back to Farm State: $farmState');
-          setState(() {
-            _locationName = farmState;
-          });
-          
-          final data = await _weatherService.getWeatherForLocation('', farmState, lang: lang);
+          fallbackLocationName = farmDistrict.isNotEmpty ? '$farmDistrict, $farmState' : farmState;
+        }
+        
+        setState(() {
+          _locationName = fallbackLocationName;
+        });
+
+        try {
+          final data = await _weatherService.getWeatherForLocation(farmDistrict, farmState, lang: lang);
           if (!mounted) return;
           setState(() {
             _weather = data;
           });
           debugPrint('[Weather] UI updated via Farm State');
-        } else {
-          throw Exception('Location permission denied and no Farm State profile found.');
+        } catch (apiErr) {
+          debugPrint('[Weather] Location Weather API failed: $apiErr');
+          _setMockWeather(_locationName);
         }
       }
     } catch (e) {
       if (!mounted) return;
       debugPrint('[Weather] Error: $e');
-      setState(() {
-        final errorMsg = e.toString().toLowerCase();
-        if (errorMsg.contains('socket') || errorMsg.contains('network') || errorMsg.contains('internet')) {
-          _error = 'Please check your internet connection.';
-        } else if (errorMsg.contains('permission') || errorMsg.contains('denied')) {
-          _error = 'Location permission is required to automatically detect weather.';
-        } else {
-          _error = 'Unable to load weather data. Please ensure your Farm Profile has a valid state.';
-        }
-        _weather = null;
-      });
+      _setMockWeather(_locationName);
     } finally {
       debugPrint('[Weather] Loading finished');
       if (mounted) {
         setState(() => _isLoading = false);
       }
     }
+  }
+
+  void _setMockWeather(String locationName) {
+    final month = DateTime.now().month;
+    String season = 'Kharif';
+    double temp = 28.5;
+    double humidity = 70.0;
+    double windSpeed = 10.0;
+    double rainChance = 30.0;
+    String condition = 'Cloudy';
+    String icon = '03d';
+    String description = 'scattered clouds';
+
+    if (month >= 3 && month <= 6) {
+      season = 'Zaid';
+      temp = 36.5;
+      humidity = 40.0;
+      windSpeed = 14.0;
+      rainChance = 10.0;
+      condition = 'Sunny';
+      icon = '01d';
+      description = 'clear sky';
+    } else if (month >= 7 && month <= 10) {
+      season = 'Kharif';
+      temp = 29.0;
+      humidity = 82.0;
+      windSpeed = 16.0;
+      rainChance = 75.0;
+      condition = 'Rain';
+      icon = '10d';
+      description = 'moderate rain';
+    } else {
+      season = 'Rabi';
+      temp = 18.0;
+      humidity = 60.0;
+      windSpeed = 8.0;
+      rainChance = 5.0;
+      condition = 'Partly Cloudy';
+      icon = '02d';
+      description = 'few clouds';
+    }
+
+    _weather = WeatherModel(
+      temperature: temp,
+      humidity: humidity,
+      windSpeed: windSpeed,
+      rainChance: rainChance,
+      condition: condition,
+      icon: icon,
+      description: description,
+      forecast: [],
+      season: season,
+      cityName: locationName,
+    );
+    _error = 'Using simulated weather data. Configure OPENWEATHER_API_KEY for live updates.';
   }
 
   @override

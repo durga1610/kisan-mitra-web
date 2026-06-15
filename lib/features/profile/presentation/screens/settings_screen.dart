@@ -46,6 +46,9 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
   final TextEditingController _searchController = TextEditingController();
 
   List<String> marketAlertCrops = [];
+  String geminiApiKey = "";
+  String openWeatherApiKey = "";
+  String mandiApiKey = "";
 
   @override
   void initState() {
@@ -72,6 +75,9 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
       autoBackup = prefs.getBool('autoBackup') ?? true;
       lastBackupTime = prefs.getString('lastBackupTime') ?? "Never";
       marketAlertCrops = prefs.getStringList('marketAlertCrops') ?? [];
+      geminiApiKey = prefs.getString('custom_gemini_api_key') ?? '';
+      openWeatherApiKey = prefs.getString('custom_openweather_api_key') ?? '';
+      mandiApiKey = prefs.getString('custom_mandi_api_key') ?? '';
     });
   }
 
@@ -157,6 +163,8 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
                   _getSettingItem("Edit Profile", settingsList)?.widget ?? const SizedBox(),
                   _getSettingItem("Change Password", settingsList)?.widget ?? const SizedBox(),
                   _getSettingItem("Language", settingsList)?.widget ?? const SizedBox(),
+                  _getSettingItem("Gemini API Key", settingsList)?.widget ?? const SizedBox(),
+                  _getSettingItem("OpenWeather API Key", settingsList)?.widget ?? const SizedBox(),
                 ]),
                 _buildSettingsSection(title: "App Preferences", children: [
                   _getSettingItem("Dark Mode", settingsList)?.widget ?? const SizedBox(),
@@ -268,6 +276,42 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
           subtitle: Provider.of<LanguageProvider>(context).currentLanguage.toUpperCase(),
           isDarkMode: isDarkMode,
           onTap: () => showLanguageSelectorSheet(context),
+        ),
+      ),
+      _SettingItem(
+        title: "Gemini API Key",
+        widget: _buildSettingsTile(
+          icon: Icons.vpn_key_rounded,
+          title: "Gemini API Key",
+          subtitle: geminiApiKey.isNotEmpty 
+              ? "${geminiApiKey.substring(0, (geminiApiKey.length > 8 ? 8 : geminiApiKey.length))}..." 
+              : "Not Configured (Tap to add)",
+          isDarkMode: isDarkMode,
+          onTap: () => _showGeminiApiKeyDialog(isDarkMode),
+        ),
+      ),
+      _SettingItem(
+        title: "OpenWeather API Key",
+        widget: _buildSettingsTile(
+          icon: Icons.cloud_queue_rounded,
+          title: "OpenWeather API Key",
+          subtitle: openWeatherApiKey.isNotEmpty 
+              ? "${openWeatherApiKey.substring(0, (openWeatherApiKey.length > 8 ? 8 : openWeatherApiKey.length))}..." 
+              : "Not Configured (Tap to add)",
+          isDarkMode: isDarkMode,
+          onTap: () => _showOpenWeatherApiKeyDialog(isDarkMode),
+        ),
+      ),
+      _SettingItem(
+        title: "Mandi API Key",
+        widget: _buildSettingsTile(
+          icon: Icons.storefront_rounded,
+          title: "Mandi API Key",
+          subtitle: mandiApiKey.isNotEmpty 
+              ? "${mandiApiKey.substring(0, (mandiApiKey.length > 8 ? 8 : mandiApiKey.length))}..." 
+              : "Not Configured (Tap to add)",
+          isDarkMode: isDarkMode,
+          onTap: () => _showMandiApiKeyDialog(isDarkMode),
         ),
       ),
       _SettingItem(
@@ -796,6 +840,156 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
           ],
         );
       }),
+    );
+  }
+
+  void _showGeminiApiKeyDialog(bool isDarkMode) {
+    final controller = TextEditingController(text: geminiApiKey);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Gemini API Key".tr(context)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Enter your personal Gemini API Key to enable online AI advisory. Leave empty to use offline mode.",
+              style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                labelText: "API Key",
+                hintText: "AIzaSy...",
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Cancel".tr(context)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final newKey = controller.text.trim();
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setString('custom_gemini_api_key', newKey);
+              setState(() {
+                geminiApiKey = newKey;
+              });
+              Navigator.pop(context);
+              _showSnackbar("Gemini API Key updated successfully!");
+            },
+            child: Text("Save".tr(context)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showOpenWeatherApiKeyDialog(bool isDarkMode) {
+    final controller = TextEditingController(text: openWeatherApiKey);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("OpenWeather API Key".tr(context)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Enter your personal OpenWeather API Key to enable live weather updates. Leave empty to use simulated weather.",
+              style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                labelText: "API Key",
+                hintText: "8a4f...",
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Cancel".tr(context)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final newKey = controller.text.trim();
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setString('custom_openweather_api_key', newKey);
+              setState(() {
+                openWeatherApiKey = newKey;
+              });
+              Navigator.pop(context);
+              _showSnackbar("OpenWeather API Key updated successfully!");
+            },
+            child: Text("Save".tr(context)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showMandiApiKeyDialog(bool isDarkMode) {
+    final controller = TextEditingController(text: mandiApiKey);
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Mandi API Key".tr(context)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Enter your personal Government Mandi (data.gov.in) API Key to enable live crop market price updates.",
+              style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                labelText: "API Key",
+                hintText: "579b...",
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Cancel".tr(context)),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final newKey = controller.text.trim();
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setString('custom_mandi_api_key', newKey);
+              setState(() {
+                mandiApiKey = newKey;
+              });
+              Navigator.pop(context);
+              _showSnackbar("Mandi API Key updated successfully!");
+            },
+            child: Text("Save".tr(context)),
+          ),
+        ],
+      ),
     );
   }
 

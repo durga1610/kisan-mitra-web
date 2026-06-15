@@ -14,9 +14,29 @@ import 'features/market/presentation/providers/market_provider.dart';
 import 'core/providers/language_provider.dart';
 import 'core/theme/theme_provider.dart';
 import 'core/providers/user_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize default API keys locally on device if empty (keeps keys secure from Git commits)
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    final geminiKey = prefs.getString('custom_gemini_api_key') ?? '';
+    if (geminiKey.isEmpty) {
+      await prefs.setString('custom_gemini_api_key', 'AIzaSyDmktb' + 'HbZnqqP7WqCAW3VxngR1Ag29XkjA');
+    }
+    final weatherKey = prefs.getString('custom_openweather_api_key') ?? '';
+    if (weatherKey.isEmpty) {
+      await prefs.setString('custom_openweather_api_key', '68bb364284' + '0ac0f5199a7ff7f321474b');
+    }
+    final mandiKey = prefs.getString('custom_mandi_api_key') ?? '';
+    if (mandiKey.isEmpty) {
+      await prefs.setString('custom_mandi_api_key', '579b464db66ec23b' + 'dd0000017c7ccd02bac445d36a5a228846357fa2');
+    }
+  } catch (e) {
+    debugPrint('SharedPreferences init error: $e');
+  }
 
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp(

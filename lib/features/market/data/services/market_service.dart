@@ -121,7 +121,13 @@ class MarketService {
 
   // Live API Fetching Logic
   Future<List<MarketPrice>?> _fetchLiveApiAndUpdateCache(List<String>? preferredCrops, String? preferredState) async {
-    if (ApiConfig.mandiApiKey.isNotEmpty && ApiConfig.mandiApiKey != '') {
+    final prefs = await SharedPreferences.getInstance();
+    String apiKey = prefs.getString('custom_mandi_api_key') ?? '';
+    if (apiKey.isEmpty) {
+      apiKey = ApiConfig.mandiApiKey;
+    }
+
+    if (apiKey.isNotEmpty && apiKey != '' && apiKey != 'YOUR_MANDI_API_KEY') {
       List<MarketPrice> stateFetchedPrices = [];
       List<MarketPrice> allIndiaFetchedPrices = [];
       
@@ -138,7 +144,7 @@ class MarketService {
       if (preferredCrops != null && preferredCrops.isNotEmpty) {
         for (var crop in preferredCrops) {
            final formattedCrop = normalizeCrop(crop);
-           final u = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=${ApiConfig.mandiApiKey}&format=json&limit=10&filters[commodity]=${Uri.encodeComponent(formattedCrop)}$stateFilter');
+           final u = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=$apiKey&format=json&limit=10&filters[commodity]=${Uri.encodeComponent(formattedCrop)}$stateFilter');
            if (kDebugMode) print('API Call (Specific Crop): $u');
            apiCalls.add(http.get(u).timeout(const Duration(seconds: 5)));
         }
@@ -146,13 +152,13 @@ class MarketService {
       
       // Always explicitly fetch some general crops from their state to populate "Other Markets"
       if (stateFilter.isNotEmpty) {
-        final stateUrl = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=${ApiConfig.mandiApiKey}&format=json&limit=20$stateFilter');
+        final stateUrl = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=$apiKey&format=json&limit=20$stateFilter');
         if (kDebugMode) print('API Call (State General): $stateUrl');
         apiCalls.add(http.get(stateUrl).timeout(const Duration(seconds: 5)));
       }
       
       // Always fetch the general latest 50 across ALL OF INDIA (No state filter!)
-      final genUrl = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=${ApiConfig.mandiApiKey}&format=json&limit=50');
+      final genUrl = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=$apiKey&format=json&limit=50');
       if (kDebugMode) print('API Call (General All-India): $genUrl');
       apiCalls.add(http.get(genUrl).timeout(const Duration(seconds: 5)));
 

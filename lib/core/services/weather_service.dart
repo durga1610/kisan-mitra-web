@@ -6,15 +6,29 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../features/weather/data/models/weather_model.dart';
 import 'firestore_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WeatherService {
-  final String apiKey = ApiConfig.openWeatherApiKey; 
   final String baseUrl = 'https://api.openweathermap.org/data/2.5';
   final _firestoreService = FirestoreService();
+
+  Future<String> _getApiKey() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      String key = prefs.getString('custom_openweather_api_key') ?? '';
+      if (key.isEmpty) {
+        return ApiConfig.openWeatherApiKey;
+      }
+      return key;
+    } catch (e) {
+      return ApiConfig.openWeatherApiKey;
+    }
+  }
 
   Future<WeatherModel> getWeather(double lat, double lon, {String lang = 'en'}) async {
     try {
       debugPrint('[Weather] API request started');
+      final apiKey = await _getApiKey();
       final response = await http.get(
         Uri.parse('$baseUrl/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=$lang'),
       ).timeout(const Duration(seconds: 10));
@@ -55,14 +69,16 @@ class WeatherService {
         }
         return weather;
       } else {
-        throw Exception('Failed to load weather data');
+        throw Exception('Failed to load weather data (status: ${response.statusCode})');
       }
     } catch (e) {
       throw Exception('Failed to load weather data: $e');
     }
   }
+
   Future<WeatherModel> getWeatherForLocation(String district, String state, {String lang = 'en'}) async {
     try {
+      final apiKey = await _getApiKey();
       final query = district.isNotEmpty ? '$district,IN' : '$state,IN';
       final encodedQuery = Uri.encodeComponent(query);
       
@@ -84,7 +100,7 @@ class WeatherService {
           final data = json.decode(fallbackResponse.body);
           return WeatherModel.fromJson(data);
         }
-        throw Exception('Failed to load weather data');
+        throw Exception('Failed to load weather data (status: ${fallbackResponse.statusCode})');
       }
     } catch (e) {
       throw Exception('Failed to load weather data: $e');
