@@ -236,7 +236,7 @@ class GeminiService {
       }
 
       final visionModel = GenerativeModel(
-        model: ApiConfig.geminiModel,
+        model: ApiConfig.geminiVisionModel,
         apiKey: apiKey,
       );
 

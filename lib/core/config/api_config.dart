@@ -6,8 +6,11 @@ class ApiConfig {
 
   static const String geminiApiKey = String.fromEnvironment('GEMINI_API_KEY', defaultValue: 'YOUR_GEMINI_API_KEY');
 
-  // Gemini model to use
-  static const String geminiModel = 'gemini-1.5-flash-latest';
+  // Gemini model for text-only tasks
+  static const String geminiModel = 'gemini-pro';
+  
+  // Gemini model for vision/image tasks
+  static const String geminiVisionModel = 'gemini-pro-vision';
 
   // Mandi (Market) Data API
   // Using Open Government Data Platform India (data.gov.in)
