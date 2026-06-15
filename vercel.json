@@ -5,5 +5,8 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "installCommand": "if cd flutter; then git pull && cd .. ; else git clone https://github.com/flutter/flutter.git; fi && flutter/bin/flutter clean && flutter/bin/flutter config --enable-web",
+  "buildCommand": "flutter/bin/flutter build web --release --dart-define=GEMINI_API_KEY=$GEMINI_API_KEY --dart-define=OPENWEATHER_API_KEY=$OPENWEATHER_API_KEY --dart-define=MANDI_API_KEY=$MANDI_API_KEY",
+  "outputDirectory": "build/web"
 }
