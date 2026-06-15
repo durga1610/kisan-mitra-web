@@ -294,18 +294,7 @@ class GeminiService {
       return response.text!;
     } catch (e) {
       if (kDebugMode) print('Error analyzing image: $e');
-      // Fallback to 100% accuracy mock data as requested
-      return '''
-Plant: Hybrid Cotton
-Disease: Cercospora Leaf Spot
-Confidence: 100
-Severity: High
-Symptoms: Small, round brown spots on older leaves with reddish-purple margins.
-Causes: Fungal infection (Cercospora gossypina), high humidity, warm temperatures.
-Treatment: Spray Copper Oxychloride or Mancozeb at 2.5g/litre of water.
-Prevention: Crop rotation, proper plant spacing for air circulation, removal of infected debris.
-Suggested Products: Blitox 50, Dithane M-45 (Mancozeb)
-''';
+      throw Exception('Failed to analyze image: $e');
     }
   }
 
