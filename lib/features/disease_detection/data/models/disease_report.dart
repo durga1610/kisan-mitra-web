@@ -11,9 +11,14 @@ class DiseaseReport {
   final String symptoms;
   final String causes;
   final String treatment;
+  final String organicTreatment;
   final String prevention;
   final String suggestedProducts;
+  final String explanation;
+  final String gradcamBase64;
+  final List<Map<String, dynamic>> topPredictions;
   final DateTime timestamp;
+  final String? warning;
 
   DiseaseReport({
     this.id,
@@ -26,9 +31,14 @@ class DiseaseReport {
     required this.symptoms,
     required this.causes,
     required this.treatment,
+    required this.organicTreatment,
     required this.prevention,
     required this.suggestedProducts,
+    required this.explanation,
+    required this.gradcamBase64,
+    this.topPredictions = const [],
     required this.timestamp,
+    this.warning,
   });
 
   Map<String, dynamic> toMap() {
@@ -42,9 +52,14 @@ class DiseaseReport {
       'symptoms': symptoms,
       'causes': causes,
       'treatment': treatment,
+      'organicTreatment': organicTreatment,
       'prevention': prevention,
       'suggestedProducts': suggestedProducts,
+      'explanation': explanation,
+      'gradcamBase64': gradcamBase64,
+      'topPredictions': topPredictions,
       'timestamp': Timestamp.fromDate(timestamp),
+      'warning': warning,
     };
   }
 
@@ -60,9 +75,17 @@ class DiseaseReport {
       symptoms: map['symptoms'] ?? 'No symptoms data',
       causes: map['causes'] ?? 'No causes data',
       treatment: map['treatment'] ?? 'No treatment data',
+      organicTreatment: map['organicTreatment'] ?? 'No organic treatment data',
       prevention: map['prevention'] ?? 'No prevention data',
       suggestedProducts: map['suggestedProducts'] ?? 'No product suggestions',
+      explanation: map['explanation'] ?? 'No explanation data',
+      gradcamBase64: map['gradcamBase64'] ?? '',
+      topPredictions: List<Map<String, dynamic>>.from(
+        (map['topPredictions'] ?? map['predictions'] ?? [])
+            .map((item) => Map<String, dynamic>.from(item as Map)),
+      ),
       timestamp: (map['timestamp'] as Timestamp).toDate(),
+      warning: map['warning'],
     );
   }
 }

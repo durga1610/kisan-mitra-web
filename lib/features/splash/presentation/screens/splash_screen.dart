@@ -6,6 +6,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../config/routes/app_router.dart';
 import '../../../../core/providers/auth_provider.dart';
+import '../../../../core/services/session_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -92,7 +93,27 @@ class _SplashScreenState extends State<SplashScreen>
     if (mounted) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       if (authProvider.isAuthenticated) {
-        context.go(AppRouter.home);
+        final isExpired = await SessionService.isSessionExpired();
+        if (isExpired) {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.clear();
+          await authProvider.signOut();
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Your session has expired due to inactivity. Please log in again.'),
+                backgroundColor: Colors.redAccent,
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+            context.go(AppRouter.login);
+          }
+        } else {
+          await SessionService.updateActivity();
+          if (mounted) {
+            context.go(AppRouter.home);
+          }
+        }
       } else {
         context.go(AppRouter.login);
       }

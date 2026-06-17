@@ -1,0 +1,4802 @@
+[
+  {
+    "text": "who is the owner of the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for groundnut",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "natural predators of stem borer",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to prevent leaf spot spreading in groundnut",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "temperature forecast for Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for groundnut",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "pesticides to kill thrips",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what crops does Ramesh have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "organic solutions for blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "when should I irrigate maize",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "pest management guide for mustard crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best watering practices for tomato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "does rice require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "organic treatment for stem borer attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best micronutrients for cotton growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to apply urea to groundnut",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to prevent rust spreading in soybean",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is maize currently planted in Vijay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "soil requirements for tomato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in groundnut",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is it going to rain in Haryana this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how much water does potato need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "fungicide to control mosaic virus in wheat",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "crop recommendation for Madhya Pradesh in monsoon",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Tamil Nadu",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "treat mosaic virus leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "should I plant cotton or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "soil type for growing onion",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what crops can be grown in Rabi in my location",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "management guide for powdery mildew disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "current temperature in Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how much NPK for soybean during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "when should I apply potash to tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "temperature forecast for Maharashtra",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "neem oil spray to control thrips",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best spray for spider mites in potato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to prevent leaf spot spreading in maize",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "temperature forecast for Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "soil requirements of maize",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "is maize currently planted in Sanjay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best soil for chilli",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what type of soil does maize need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Maharashtra",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best micronutrients for mustard growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Rajasthan",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "zinc application timing for onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "rice soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what is the land area of Sunita's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "suggest Rabi crops for my clayey soil",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to fertilize groundnut in Alluvial soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to fertilize mustard in Clayey soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Uttar Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Haryana in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "ideal soil for growing groundnut",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "best watering practices for cotton",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how much water does rice need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "suitable soil for potato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "manure and fertilizer management for chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "forecast for Punjab for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how is the climate in Haryana right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for chilli",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "when should I apply potash to cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is soybean currently planted in Vijay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "soil type for growing sugarcane",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for sugarcane",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to fertilize cotton in Sandy soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "when should I irrigate rice",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Tamil Nadu in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "maize soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "crop recommendation for Madhya Pradesh in winter",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Amit",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "soil requirements of cotton",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for chilli",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what are the profitable crops for winter season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how much NPK for tomato during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "which crops grow best with regular water availability",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "temperature forecast for Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Vijay",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "when should I apply potash to chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "integrated pest management for whiteflies on onion",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for soybean farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best fertilizers for onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Karnataka in winter",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is tomato currently planted in Amit's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "signs of bacterial blight on plant stem",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "watering requirement for onion in Alluvial soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "watering requirement for rice in Alluvial soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "current temperature in Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what can I plant in Clayey soil with low water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Maharashtra in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "soil requirements for maize",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to manage water for chilli during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "natural predators of whiteflies",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best fertilizers for rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for groundnut crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what type of soil does onion need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to control spider mites in tomato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "wheat soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to apply urea to wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "pesticides to kill whiteflies",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is mustard currently planted in Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how often to water cotton",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to control spider mites in chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Karnataka",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "forecast for Tamil Nadu for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to fertilize cotton in Red soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "signs of water stress in chilli",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like bacterial blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to manage water for groundnut during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what soil is best for mustard",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "crop recommendation for Tamil Nadu in winter",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best micronutrients for onion growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to eradicate thrips infestation",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "rain prediction for Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like mosaic virus",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "pest management guide for tomato crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is groundnut currently planted in Sanjay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is rice currently planted in Sunita's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Madhya Pradesh in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to cure blast in mustard",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "irrigation interval for maize in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like powdery mildew",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to control thrips in groundnut",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Andhra Pradesh in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for wheat crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "humidity levels in Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "neem oil spray to control spider mites",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what is the weather today in Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best spray for spider mites in chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Sanjay",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to fertilize chilli in Red soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Gujarat",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "zinc application timing for mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "organic solutions for early blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "symptoms of spider mites on groundnut",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best micronutrients for tomato growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "soil type for growing mustard",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "is soybean currently planted in Anil's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best crops to plant in Loamy soil",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for groundnut",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what soil is best for groundnut",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "does wheat require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is rice currently planted in Sanjay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is mustard currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for chilli farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best micronutrients for rice growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the size of my farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "preventing spider mites infection in groundnut farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what crops does Suresh have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best micronutrients for chilli growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what can I plant in Sandy soil with abundant water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "bacterial spot control in wheat",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what soil is best for soybean",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to control whiteflies in mustard",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "organic treatment for spider mites attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what can I plant in Loamy soil with low water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "forecast for Gujarat for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best spray for bollworm in soybean",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "signs of water stress in mustard",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Madhya Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how does root rot affect soybean yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "natural predators of aphids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Maharashtra",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "irrigation interval for tomato in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "preventing whiteflies infection in tomato farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to identify stem borer damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "leaf turning yellow due to late blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to prevent bacterial blight spreading in wheat",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "current temperature in Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "signs of water stress in soybean",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Tamil Nadu region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to cure mosaic virus in soybean",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "show me the weather in Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is potato currently planted in Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "weather report for Tamil Nadu for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what can I plant in Clayey soil with abundant water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how is the climate in Karnataka right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "leaf turning yellow due to bacterial blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what crops does Sunita have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is wheat currently planted in Amit's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "watering requirement for tomato in Clayey soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for maize",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Andhra Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "should I plant wheat or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "organic solutions for mosaic virus",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "pest management guide for wheat crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to manage water for cotton during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how much water does maize need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Andhra Pradesh in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how is the climate in Rajasthan right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "signs of blast on plant stem",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Rajesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to cure late blight in rice",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what can I plant in Black soil with medium water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "forecast for Haryana for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "temperature forecast for Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "weather report for Rajasthan for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "treat blast leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what is the land area of Dinesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what are the profitable crops for Zaid season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "natural predators of jassids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "weather report for Maharashtra for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Vijay",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "signs of water stress in rice",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is rice currently planted in Suresh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what can I plant in Clayey soil with medium water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "details about my farm soil type",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for sugarcane crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "leaf turning yellow due to blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "symptoms of thrips on wheat",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what type of soil does tomato need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to identify spider mites damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how does leaf spot affect cotton yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what can I plant in Alluvial soil with regular water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what soil is best for chilli",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for onion farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "show me the weather in Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best fertilizers for potato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for rice farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what crops can be grown in monsoon in my location",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is cotton currently planted in Mahesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what is the weather today in Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is chilli currently planted in Dinesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "bacterial spot control in groundnut",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to apply urea to potato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for groundnut farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to control aphids in onion",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "fungicide to control blast in mustard",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "symptoms of bacterial blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what is the weather today in Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to prevent powdery mildew spreading in soybean",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "chemical controls for spider mites",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "humidity levels in Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Uttar Pradesh in winter",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to prevent leaf spot spreading in sugarcane",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is soybean currently planted in Sunita's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the weather today in Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best spray for thrips in maize",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is onion currently planted in Amit's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to manage water for maize during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "rain prediction for Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "zinc application timing for wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "zinc application timing for rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "current temperature in Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "suitable soil for mustard",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "preventing aphids infection in tomato farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "fungicide to control early blight in soybean",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "preventing bollworm infection in soybean farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is tomato currently planted in Dinesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "signs of powdery mildew on plant stem",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what is the land area of Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is it going to rain in Karnataka this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "current temperature in Maharashtra",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Punjab",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Ramesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "show my profile and farm info",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Gujarat",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Maharashtra in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what soil is best for onion",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "bacterial spot control in mustard",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how is the climate in Maharashtra right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for rice",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Madhya Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "integrated pest management for bollworm on chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "when should I irrigate cotton",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how does blast affect chilli yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what can I plant in Sandy soil with high water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "management guide for root rot disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best watering practices for chilli",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "signs of mosaic virus on plant stem",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "pesticides to kill aphids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "chemical control for bacterial blight blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how often to water sugarcane",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what soil is best for rice",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "is potato currently planted in Amit's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Sanjay",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Mahesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "water scheduling for potato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "humidity levels in Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "pesticides to kill spider mites",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Uttar Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "natural predators of spider mites",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "rain prediction for Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "bacterial spot control in tomato",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how often to water wheat",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "symptoms of mosaic virus",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "weather report for Uttar Pradesh for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "pesticides to kill cutworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "show me the weather in Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "irrigation interval for cotton in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how does bacterial blight affect wheat yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to eradicate armyworm infestation",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best micronutrients for wheat growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is soybean currently planted in Sanjay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what soil is best for tomato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to fertilize potato in Loamy soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "weather report for Haryana for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what can I plant in Black soil with regular water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "watering requirement for maize in Red soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "suitable soil for cotton",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how much water does tomato need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how much NPK for rice during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "ideal soil for growing potato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to identify cutworm damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "crop recommendation for Andhra Pradesh in winter",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "signs of water stress in maize",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "ideal soil for growing rice",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "details of my farm in Gujarat",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "details of my farm in Madhya Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to manage water for rice during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what can I plant in Black soil with abundant water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how does root rot affect groundnut yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "crop recommendation for Tamil Nadu in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what is the weather today in Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "soil requirements of tomato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "best soil for cotton",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "treat leaf spot leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best spray for cutworm in rice",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "pest management guide for onion crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what is the land area of Amit's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "neem oil spray to control cutworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "tomato soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "management guide for leaf spot disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Madhya Pradesh region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to fertilize chilli in Clayey soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what crops does Mahesh have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "fungicide to control early blight in rice",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is potato currently planted in Sanjay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "ideal soil for growing sugarcane",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "when should I irrigate onion",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Madhya Pradesh in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to fertilize onion in Red soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to fertilize soybean in Black soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "biological control for whiteflies",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "which crops grow best with abundant water availability",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is onion currently planted in Mahesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "management guide for late blight disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to control armyworm in groundnut",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best watering practices for maize",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best spray for thrips in onion",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is mustard currently planted in Vijay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Andhra Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "symptoms of powdery mildew",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "symptoms of stem borer on chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how does root rot affect onion yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best watering practices for rice",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for tomato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Karnataka",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Anil",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "fungicide to control root rot in sugarcane",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "weather report for Punjab for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "when should I irrigate soybean",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "ideal soil for growing maize",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "chemical control for root rot blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "current temperature in Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "symptoms of aphids on wheat",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best fertilizers for soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "organic solutions for leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to control cutworm in sugarcane",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "crop recommendation for Madhya Pradesh in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for maize",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how much NPK for potato during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "which crops grow best with medium water availability",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for potato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "does sugarcane require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Suresh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is cotton currently planted in Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "rain prediction for Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "details of my farm in Haryana",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "soil requirements for chilli",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "preventing aphids infection in maize farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "integrated pest management for aphids on soybean",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "humidity levels in Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what type of soil does cotton need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how much NPK for chilli during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how often to water mustard",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "water scheduling for maize",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "show me the weather in Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "biological control for jassids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best fertilizers for sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Punjab",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for wheat farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what soil is best for maize",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "irrigation interval for mustard in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how does early blight affect tomato yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to fertilize maize in Loamy soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how does early blight affect wheat yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "signs of rust on plant stem",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for onion",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "best soil for wheat",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "should I plant sugarcane or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Uttar Pradesh in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how much NPK for onion during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "details of my farm in Punjab",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Haryana",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best crops to plant in Black soil",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Punjab in winter",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to cure root rot in onion",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "forecast for Uttar Pradesh for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how often to water onion",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "should I plant potato or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "management guide for mosaic virus disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "soybean soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what type of soil does sugarcane need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "soil type for growing tomato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Rajesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Gujarat",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "fungicide to control leaf spot in mustard",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "biological control for bollworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Dinesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is it going to rain in Tamil Nadu this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to cure bacterial blight in onion",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "biological control for stem borer",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "details of my farm in Rajasthan",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "organic treatment for thrips attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "current temperature in Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how much water does cotton need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for onion crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "forecast for Madhya Pradesh for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "does onion require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "irrigation interval for wheat in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "watering requirement for rice in Clayey soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how often to water rice",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how does root rot affect wheat yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "watering requirement for chilli in Sandy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "forecast for Karnataka for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "signs of water stress in tomato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is cotton currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best crops to plant in Sandy soil",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what crops are currently planted on my land",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "find land details for Ramesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Rajasthan",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to fertilize tomato in Loamy soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is sugarcane currently planted in Anil's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "leaf turning yellow due to powdery mildew",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "chemical controls for armyworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "which crops grow best with low water availability",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "watering requirement for maize in Alluvial soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to cure leaf spot in rice",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to cure rust in wheat",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what is the land area of Suresh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Tamil Nadu in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "preventing cutworm infection in potato farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "should I plant maize or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is mustard currently planted in Mahesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "treat bacterial blight leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "watering requirement for maize in Loamy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "symptoms of blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "leaf turning yellow due to root rot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for potato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "soil requirements for cotton",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what can I plant in Loamy soil with scarce water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "integrated pest management for spider mites on soybean",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "zinc application timing for chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "fungicide to control root rot in onion",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "zinc application timing for maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "best watering practices for sugarcane",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is it going to rain in Gujarat this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Karnataka",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Gujarat in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what is the land area of Mahesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "organic solutions for rust",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what can I plant in Loamy soil with high water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Uttar Pradesh in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what can I plant in Black soil with low water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "show my farm land area",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "symptoms of bollworm on potato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is wheat currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is cotton currently planted in Vijay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "manure and fertilizer management for rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for sugarcane farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Rajasthan in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to cure early blight in wheat",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for wheat",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "watering requirement for chilli in Loamy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "signs of water stress in sugarcane",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Sunita",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Tamil Nadu",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is potato currently planted in Dinesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is tomato currently planted in Mahesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "zinc application timing for tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what can I plant in Loamy soil with abundant water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "suitable soil for maize",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "weather report for Gujarat for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what can I plant in Black soil with high water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "biological control for thrips",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for mustard",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "organic treatment for aphids attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Punjab region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is rice currently planted in Anil's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for potato crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to identify bollworm damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how much water does onion need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to fertilize groundnut in Red soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is maize currently planted in Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "watering requirement for onion in Clayey soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Rajasthan in monsoon",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for chilli crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what crops can be grown in winter in my location",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for maize crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Rajasthan in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what is my current water availability source",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "fungicide to control bacterial blight in groundnut",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is soybean currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what type of soil does chilli need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "weather report for Karnataka for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for potato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "temperature forecast for Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for potato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "management guide for bacterial blight disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "remedies for rust",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best crops to plant in Alluvial soil",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best spray for armyworm in onion",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what can I plant in Alluvial soil with scarce water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "soil type for growing groundnut",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "organic treatment for jassids attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "potato soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to prevent powdery mildew spreading in wheat",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "signs of water stress in potato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "chilli soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is maize currently planted in Dinesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what crops can be grown in Zaid in my location",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how is the climate in Gujarat right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is tomato currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "pest management guide for soybean crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "soil requirements for rice",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "details of my farm in Andhra Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "fungicide to control late blight in sugarcane",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is wheat currently planted in Sunita's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for onion",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to prevent mosaic virus spreading in soybean",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to identify thrips damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to identify aphids damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best spray for cutworm in cotton",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to cure rust in chilli",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best micronutrients for groundnut growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for wheat",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "remedies for powdery mildew",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to apply urea to chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "soil requirements for groundnut",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "crop recommendation for Karnataka in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what is the land area of Sanjay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to prevent powdery mildew spreading in cotton",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "soil requirements for potato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "natural predators of cutworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how does mosaic virus affect potato yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how much NPK for mustard during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "leaf turning yellow due to rust",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "integrated pest management for bollworm on onion",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what can I plant in Clayey soil with regular water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "current temperature in Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what can I plant in Red soil with medium water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "remedies for mosaic virus",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "ideal soil for growing onion",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "crop recommendation for Punjab in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "watering requirement for soybean in Sandy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "show me the weather in Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what can I plant in Black soil with scarce water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to control jassids in tomato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "zinc application timing for soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what is the weather today in Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is chilli currently planted in Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to prevent leaf spot spreading in tomato",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for mustard",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to identify whiteflies damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "preventing whiteflies infection in potato farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best crops to plant in Red soil",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for cotton",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how much water does soybean need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "water scheduling for cotton",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "organic treatment for cutworm attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for chilli",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "integrated pest management for stem borer on chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Andhra Pradesh region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for wheat",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to eradicate aphids infestation",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "signs of water stress in wheat",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "bacterial spot control in chilli",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what type of soil does wheat need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how much water does groundnut need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Maharashtra in monsoon",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Gujarat region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is it going to rain in Andhra Pradesh this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "signs of late blight on plant stem",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Punjab",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to fertilize soybean in Clayey soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how does bacterial blight affect soybean yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "watering requirement for rice in Loamy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how does root rot affect maize yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Maharashtra",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Haryana in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "organic solutions for root rot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "soil requirements of wheat",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "best soil for rice",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what can I plant in Sandy soil with low water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Rajasthan in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Punjab in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "does mustard require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Karnataka in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "water scheduling for wheat",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "chemical control for rust blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to cure powdery mildew in tomato",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for soybean crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Gujarat in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "water scheduling for rice",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "watering requirement for tomato in Sandy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "neem oil spray to control aphids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to eradicate bollworm infestation",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is rice currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what type of soil does potato need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "bacterial spot control in maize",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "preventing thrips infection in mustard farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "chemical controls for stem borer",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "soil type for growing wheat",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "watering requirement for rice in Black soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is it going to rain in Punjab this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how is the climate in Punjab right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "suitable soil for groundnut",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how much NPK for wheat during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "pest management guide for chilli crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "signs of root rot on plant stem",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "preventing cutworm infection in tomato farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "suitable soil for soybean",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "leaf turning yellow due to mosaic virus",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best watering practices for soybean",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "when should I apply potash to potato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "water scheduling for soybean",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "chemical control for early blight blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what are the profitable crops for Kharif season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best micronutrients for soybean growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to prevent leaf spot spreading in chilli",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "rain prediction for Maharashtra",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Punjab in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how is the climate in Tamil Nadu right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to cure root rot in cotton",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what type of soil does rice need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "find land details for Mahesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "alternative crops to plant for crop rotation",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how does leaf spot affect maize yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "temperature forecast for Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best spray for bollworm in tomato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Haryana",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Uttar Pradesh region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "bacterial spot control in potato",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "details of my farm in Tamil Nadu",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "remedies for late blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for cotton",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "chemical controls for jassids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "current temperature in Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best soil for potato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "soil type for growing rice",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for maize",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how does blast affect soybean yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "management guide for early blight disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "crop recommendation for Maharashtra in winter",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what can I plant in Alluvial soil with low water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "irrigation interval for soybean in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "neem oil spray to control stem borer",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for cotton farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "find land details for Sunita",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to apply urea to cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "suitable soil for sugarcane",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "integrated pest management for jassids on potato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Mahesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "rain prediction for Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "suitable soil for chilli",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to prevent root rot spreading in onion",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how does mosaic virus affect tomato yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is onion currently planted in Sunita's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like rust",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to control jassids in soybean",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "watering requirement for chilli in Black soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "neem oil spray to control bollworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "find land details for Dinesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "irrigation interval for rice in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best soil for mustard",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "weather report for Andhra Pradesh for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "integrated pest management for bollworm on wheat",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "crop recommendation for Rajasthan in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "integrated pest management for thrips on potato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how does powdery mildew affect sugarcane yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "integrated pest management for stem borer on potato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "details of my farm in Karnataka",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "integrated pest management for bollworm on soybean",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best fertilizers for groundnut",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in potato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "details of my farm in Maharashtra",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is soybean currently planted in Mahesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how much water does wheat need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for tomato farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "soil type for growing soybean",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "fungicide to control mosaic virus in maize",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for tomato crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to apply urea to onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to identify armyworm damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best spray for aphids in soybean",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "forecast for Maharashtra for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "sugarcane soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how does powdery mildew affect cotton yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to control stem borer in cotton",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what type of soil does soybean need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "find land details for Suresh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for potato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Karnataka",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best spray for spider mites in cotton",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for tomato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to apply urea to tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "preventing stem borer infection in chilli farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "manure and fertilizer management for tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for chilli",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to cure rust in groundnut",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "treat root rot leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "leaf turning yellow due to leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "onion soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to cure root rot in maize",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "fungicide to control bacterial blight in maize",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to control stem borer in wheat",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "water scheduling for mustard",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Karnataka in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "irrigation interval for onion in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is it going to rain in Uttar Pradesh this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like late blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Tamil Nadu",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "organic solutions for late blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best spray for stem borer in groundnut",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "should I plant groundnut or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "chemical controls for aphids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "crop recommendation for Uttar Pradesh in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what is the weather today in Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to manage water for soybean during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Maharashtra",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what soil is best for cotton",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to fertilize onion in Alluvial soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for groundnut",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "soil type for growing maize",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Madhya Pradesh in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to control spider mites in onion",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for potato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Maharashtra",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Andhra Pradesh in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to prevent bacterial blight spreading in groundnut",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Rajasthan",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "natural predators of bollworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "biological control for spider mites",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "soil requirements of groundnut",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "best watering practices for onion",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "symptoms of root rot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for tomato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is wheat currently planted in Dinesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "symptoms of rust",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how much NPK for sugarcane during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "does tomato require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Ramesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "preventing spider mites infection in chilli farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what soil is best for wheat",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to prevent powdery mildew spreading in chilli",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what is the land area of Vijay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to fertilize groundnut in Clayey soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to prevent leaf spot spreading in mustard",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "recommend some Kharif crops to plant",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what crops does Amit have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Madhya Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "manure and fertilizer management for cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "signs of leaf spot on plant stem",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to prevent leaf spot spreading in cotton",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for rice",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "integrated pest management for jassids on sugarcane",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "crop recommendation for Gujarat in monsoon",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what is the weather today in Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "irrigation interval for groundnut in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "ideal soil for growing wheat",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to manage water for onion during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what crops can be grown in Kharif in my location",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "integrated pest management for armyworm on mustard",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to prevent late blight spreading in potato",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "show me the weather in Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to fertilize cotton in Loamy soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how is the climate in Madhya Pradesh right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "rain prediction for Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "symptoms of cutworm on chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "integrated pest management for bollworm on rice",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to control stem borer in mustard",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for sugarcane",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best fertilizers for wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "natural predators of armyworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "symptoms of jassids on wheat",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "should I plant soybean or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Uttar Pradesh in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "watering requirement for potato in Sandy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is tomato currently planted in Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best fertilizers for mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for rice",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "organic solutions for bacterial blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "signs of water stress in cotton",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for mustard crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "irrigation interval for chilli in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "watering requirement for mustard in Alluvial soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for soybean",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "chemical control for blast blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "when should I apply potash to rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Haryana",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for rice",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for tomato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what can I plant in Red soil with abundant water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "humidity levels in Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "temperature forecast for Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "symptoms of early blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "management guide for rust disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to fertilize mustard in Loamy soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "find land details for Amit",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "soil type for growing cotton",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "neem oil spray to control jassids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "when should I apply potash to sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is maize currently planted in Sunita's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "ideal soil for growing tomato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "zinc application timing for sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to prevent root rot spreading in sugarcane",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "find land details for Vijay",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "soil requirements of mustard",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "when should I apply potash to maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "pest management guide for cotton crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how often to water tomato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best spray for stem borer in chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "watering requirement for soybean in Clayey soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "preventing stem borer infection in maize farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "rain prediction for Karnataka",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Gujarat in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Madhya Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "find land details for Rajesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "watering requirement for groundnut in Loamy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "crop recommendation for Andhra Pradesh in Kharif",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best spray for jassids in rice",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for mustard",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "fungicide to control bacterial blight in chilli",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Punjab",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is it going to rain in Maharashtra this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "remedies for bacterial blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "does groundnut require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "manure and fertilizer management for maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "is maize currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "watering requirement for onion in Black soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for groundnut",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how does mosaic virus affect chilli yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "remedies for leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "where is my farm located",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what type of soil does mustard need",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to eradicate spider mites infestation",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "biological control for armyworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "show me the weather in Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to apply urea to sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "bacterial spot control in rice",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "suggest some crops for my farm",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "when should I apply potash to wheat",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Haryana region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like root rot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what are the profitable crops for monsoon season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "organic treatment for whiteflies attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "manure and fertilizer management for sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Maharashtra",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to eradicate cutworm infestation",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what can I plant in Alluvial soil with abundant water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "soil requirements for soybean",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Punjab",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Tamil Nadu",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "pesticides to kill jassids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "integrated pest management for stem borer on sugarcane",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "watering requirement for maize in Sandy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "ideal soil for growing soybean",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "treat rust leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "signs of water stress in groundnut",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what are the profitable crops for Rabi season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best watering practices for wheat",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Gujarat",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "biological control for aphids",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to manage water for wheat during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how often to water potato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "find land details for Anil",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best watering practices for potato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "temperature forecast for Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what is the land area of Anil's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is sugarcane currently planted in Sanjay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "cotton soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to cure bacterial blight in cotton",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best micronutrients for maize growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "watering requirement for wheat in Sandy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "irrigation interval for potato in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "organic solutions for powdery mildew",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "suitable soil for wheat",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "pest management guide for maize crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "preventing bollworm infection in cotton farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Uttar Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "symptoms of armyworm on maize",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for sugarcane",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "best soil for tomato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "suitable soil for rice",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what crops does Sanjay have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Maharashtra",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best watering practices for mustard",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best spray for bollworm in potato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "crop recommendation for Tamil Nadu in monsoon",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "water scheduling for groundnut",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "soil requirements of sugarcane",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like early blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best spray for jassids in tomato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best spray for bollworm in chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "weather report for Madhya Pradesh for next week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Haryana in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how much NPK for groundnut during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "integrated pest management for cutworm on cotton",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "symptoms of aphids on mustard",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how does early blight affect chilli yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "symptoms of armyworm on chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "water scheduling for sugarcane",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "should I plant onion or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "preventing thrips infection in rice farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Maharashtra region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "zinc application timing for cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for maize farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is there extreme weather expected in Maharashtra",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "fungicide to control early blight in groundnut",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "retrieve my farm location coordinates in Andhra Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how is the climate in Andhra Pradesh right now",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for soybean",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how does late blight affect sugarcane yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what crops can be grown in summer in my location",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best soil for maize",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "symptoms of aphids on chilli",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "should I plant mustard or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for sugarcane",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "integrated pest management for thrips on mustard",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "chemical controls for cutworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "treat powdery mildew leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "temperature forecast for Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for groundnut",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best fertilizers for cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "preventing jassids infection in potato farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Suresh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "remedies for early blight",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what crops does Anil have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Tamil Nadu in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what can I plant in Sandy soil with scarce water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "treat late blight leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "drip irrigation guide for groundnut",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "chemical controls for thrips",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "preventing stem borer infection in cotton farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best fertilizers for maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "remedies for blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what can I plant in Alluvial soil with medium water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is onion currently planted in Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Uttar Pradesh in monsoon",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how much NPK for maize during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "ideal soil for growing chilli",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "humidity levels in Madhya Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "soil requirements for mustard",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "crop recommendation for Karnataka in Zaid",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "give me my farm profile details",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "best soil for soybean",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "when should I irrigate chilli",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to apply urea to rice",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "when should I irrigate tomato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to cure leaf spot in chilli",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "show details for the farm owned by Sunita",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "identify leaf spots that look like blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "soil type for growing chilli",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "when should I apply potash to mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "does maize require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to apply urea to maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what are the profitable crops for summer season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to prevent bacterial blight spreading in rice",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "organic treatment for armyworm attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "groundnut soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "pest management guide for sugarcane crop",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to apply urea to soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what can I plant in Red soil with low water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "mustard soil requirement",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what crops does Vijay have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "symptoms of bollworm on rice",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "how to eradicate jassids infestation",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "ideal soil for growing cotton",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "chemical control for mosaic virus blast",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is onion currently planted in Suresh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to prevent early blight spreading in chilli",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what can I plant in Loamy soil with regular water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how to fertilize potato in Sandy soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "integrated pest management for thrips on wheat",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "rain prediction for Andhra Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "best soil for groundnut",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "is there any storm warning in Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how much water does mustard need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "is groundnut currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "details of my farm in Uttar Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what can I plant in Red soil with regular water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "fertilizer schedule for cotton crop",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "when should I irrigate groundnut",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "current temperature in Uttar Pradesh",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "rain prediction for Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what should I crop next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what soil is best for potato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how to fertilize sugarcane in Sandy soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to prevent blast spreading in onion",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "irrigation interval for sugarcane in summer",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "soil requirements for onion",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what can I plant in Alluvial soil with high water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "integrated pest management for cutworm on tomato",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "wind speed forecast for Haryana",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "how to fertilize potato in Clayey soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Andhra Pradesh in monsoon",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "watering requirement for sugarcane in Loamy soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "fungicide to control late blight in potato",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is chilli currently planted in Mahesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for maize",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to manage water for potato during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to cure rust in cotton",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "flood irrigation versus drip irrigation for wheat",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to cure mosaic virus in onion",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "optimal soil parameters for cotton",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "crop recommendation for Gujarat in winter",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best spray for whiteflies in cotton",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "zinc application timing for potato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what crops does Rajesh have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "remedies for root rot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is groundnut currently planted in Sunita's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to manage water for tomato during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "soil requirements for sugarcane",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "symptoms of aphids on onion",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best watering practices for groundnut",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best spray for whiteflies in soybean",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "preventing armyworm infection in maize farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "soil requirements of onion",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what can I plant in Clayey soil with scarce water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is groundnut currently planted in Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "give me a summary of my farm data for Uttar Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "soil requirements of potato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "will it rain tomorrow in Rajasthan",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "water scheduling for tomato",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "forecast for Rajasthan for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "treat early blight leaf spot",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how much NPK for cotton during sowing",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what can I plant in Loamy soil with medium water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for mustard",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how often to water soybean",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "symptoms of thrips on cotton",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "symptoms of cutworm on wheat",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "pesticides to kill armyworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "crop recommendation for Punjab in summer",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "preventing stem borer infection in wheat farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "potassium deficiency treatment in maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "how to apply urea to mustard",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "best soil for onion",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how often to water chilli",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "preventing jassids infection in tomato farm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "does cotton require high irrigation",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how does leaf spot affect potato yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best crops to plant in Clayey soil",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "soil requirements of chilli",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "manure and fertilizer management for onion",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Haryana in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "pesticides to kill stem borer",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "bacterial spot control in cotton",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "what crops does Dinesh have in the farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what is the land area of Rajesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "which crops grow best with scarce water availability",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "organic treatment for bollworm attack",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "recommended fertilizer dose for tomato",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "integrated pest management for stem borer on onion",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is groundnut currently planted in Suresh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is potato currently planted in Vijay's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how does leaf spot affect onion yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "which crops grow best with high water availability",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is onion currently planted in Anil's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "soil requirements of soybean",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "how does mosaic virus affect groundnut yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "ideal soil for growing mustard",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what is the weather today in Maharashtra",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "critical irrigation stages for onion",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "best soil for sugarcane",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "forecast for Andhra Pradesh for today",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "crop recommendation for Gujarat in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "organic fertilizer options for sugarcane",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for cotton",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "when should I irrigate mustard",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "bacterial spot control in sugarcane",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "best micronutrients for sugarcane growth",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "humidity levels in Gujarat",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "is sugarcane currently planted in Amit's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "best fertilizers for chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Anil",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "is it going to rain in Rajasthan this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "what is the NPK ratio for maize",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "watering requirement for mustard in Red soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what is the soil type of my land in Andhra Pradesh",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "fungicide to control root rot in rice",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "is cotton currently planted in Amit's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "what can I plant in Sandy soil with medium water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is sugarcane currently planted in Suresh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how does root rot affect chilli yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how much water does sugarcane need",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "find land details for Sanjay",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendation for Maharashtra in Rabi",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "sprinkler irrigation for potato farm",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "how to fertilize tomato in Alluvial soil",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "when should I apply potash to soybean",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "suitable soil for tomato",
+    "label": "CROP_SOIL_REQUIREMENT_QUERY"
+  },
+  {
+    "text": "what dose of nitrogen is needed for chilli",
+    "label": "FERTILIZER_QUERY"
+  },
+  {
+    "text": "what can I plant in Sandy soil with regular water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how does mosaic virus affect mustard yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how to identify jassids damage on leaves",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "best crop suggestions for Rajasthan region",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "water scheduling for onion",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "watering requirement for tomato in Black soil",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "should I plant tomato or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "is onion currently planted in Ramesh's farm",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "crop recommendations based on weather",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "best spray for armyworm in cotton",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "chemical controls for bollworm",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "symptoms of aphids on soybean",
+    "label": "PEST_QUERY"
+  },
+  {
+    "text": "is it going to rain in Madhya Pradesh this week",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "fungicide to control powdery mildew in potato",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "retrieve farm coordinates for owner Amit",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how often to water maize",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "what can I plant in Red soil with high water",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  },
+  {
+    "text": "how many acres is my farm in Haryana",
+    "label": "FARM_DATA_QUERY"
+  },
+  {
+    "text": "how to manage water for sugarcane during flowering",
+    "label": "IRRIGATION_QUERY"
+  },
+  {
+    "text": "management guide for blast disease",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "how does rust affect groundnut yield",
+    "label": "DISEASE_QUERY"
+  },
+  {
+    "text": "show me the weather in Tamil Nadu",
+    "label": "WEATHER_QUERY"
+  },
+  {
+    "text": "should I plant chilli or something else next season",
+    "label": "CROP_RECOMMENDATION_QUERY"
+  }
+]

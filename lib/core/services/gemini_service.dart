@@ -1,108 +1,48 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import '../config/api_config.dart';
 import '../models/farm_model.dart';
 import '../../features/weather/data/models/weather_model.dart';
 
 class GeminiService {
-  GenerativeModel? _model;
-  ChatSession? _chat;
-
   final FarmModel? selectedFarm;
   final String languageCode;
 
   GeminiService({this.selectedFarm, this.languageCode = 'en'});
 
   Future<void> _initModel() async {
-    if (_model != null) return;
-
-    try {
-      String apiKey = ApiConfig.geminiApiKey;
-      
-      // Priority 3: Fallback check
-      if (apiKey.isEmpty || apiKey == 'YOUR_GEMINI_API_KEY') {
-        // Leave _model and _chat null so we trigger offline fallback mode
-        return;
-      }
-
-      final langName = _getLanguageName(languageCode);
-      String systemPrompt = ApiConfig.assistantSystemPrompt + '\n\nIMPORTANT: YOU MUST RESPOND ENTIRELY IN $langName LANGUAGE.';
-      if (selectedFarm != null) {
-        final cropNames = selectedFarm!.plantedCrops.map((c) => c.cropName).toList();
-        systemPrompt += '\n\nThe user\'s current farm details:\n'
-            '- Farm Name: ${selectedFarm!.name}\n'
-            '- Location: ${selectedFarm!.village}, ${selectedFarm!.district}, ${selectedFarm!.state}\n'
-            '- Soil Type: ${selectedFarm!.soilType}\n'
-            '- Water Availability: ${selectedFarm!.waterAvailability}\n'
-            '- Planted Crops: ${cropNames.isEmpty ? "None planted yet" : cropNames.join(", ")}\n\n'
-            'Please personalize your advice based on these crops and conditions. If the user asks about their crops, you should refer to both of these crops.';
-      }
-
-      _model = GenerativeModel(
-        model: ApiConfig.geminiModel,
-        apiKey: apiKey,
-        systemInstruction: Content.system(systemPrompt),
-      );
-
-      _chat = _model!.startChat();
-    } catch (e) {
-      if (kDebugMode) print('Error initializing Gemini model: $e');
-    }
-  }
-
-  String _getLanguageName(String code) {
-    switch (code) {
-      case 'hi': return 'HINDI';
-      case 'te': return 'TELUGU';
-      case 'mr': return 'MARATHI';
-      case 'ta': return 'TAMIL';
-      case 'bn': return 'BENGALI';
-      case 'gu': return 'GUJARATI';
-      case 'kn': return 'KANNADA';
-      case 'ml': return 'MALAYALAM';
-      case 'pa': return 'PUNJABI';
-      case 'or': return 'ODIA';
-      default: return 'ENGLISH';
-    }
+    // Dummy initialization method for compatibility
   }
 
   Future<String> getResponse(String message) async {
-    await _initModel();
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/chat'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'message': message,
+          'language': languageCode,
+          'farm': selectedFarm != null ? {
+            'id': selectedFarm!.id,
+            'ownerId': selectedFarm!.ownerId,
+            'name': selectedFarm!.name,
+            'location': '${selectedFarm!.village}, ${selectedFarm!.district}, ${selectedFarm!.state}',
+            'soilType': selectedFarm!.soilType,
+            'waterAvailability': selectedFarm!.waterAvailability,
+            'landArea': selectedFarm!.landArea,
+            'plantedCrops': selectedFarm!.plantedCrops.map((c) => c.cropName).toList(),
+          } : null,
+        }),
+      ).timeout(const Duration(seconds: 15));
 
-    if (_model == null || _chat == null) {
-      return _getOfflineResponse(message);
-    }
 
-    // Retry up to 3 times with exponential backoff for rate limit errors
-    for (int attempt = 0; attempt < 3; attempt++) {
-      try {
-        final content = Content.text(message);
-        final response = await _chat!.sendMessage(content).timeout(const Duration(seconds: 10));
-        
-        if (response.text == null || response.text!.isEmpty) {
-          if (kDebugMode) print('Gemini Chat: Empty response received');
-          return _getOfflineResponse(message);
-        }
-
-        return response.text!;
-      } catch (e) {
-        final errorStr = e.toString();
-        if (kDebugMode) print('Gemini Chat Error (attempt ${attempt + 1}): $errorStr');
-        
-        // If rate limited and we have retries left, wait and retry
-        if (errorStr.contains('429') || errorStr.contains('quota') || errorStr.contains('RESOURCE_EXHAUSTED')) {
-          if (attempt < 2) {
-            final waitSeconds = (attempt + 1) * 1; // 1s, 2s
-            if (kDebugMode) print('Rate limited. Retrying in ${waitSeconds}s...');
-            await Future.delayed(Duration(seconds: waitSeconds));
-            continue;
-          }
-        }
-        
-        // On non-retryable error or exhausted retries, provide offline response
-        return _getOfflineResponse(message);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['text'] ?? _getOfflineResponse(message);
       }
+    } catch (e) {
+      if (kDebugMode) print('Error in custom API getResponse: $e');
     }
     return _getOfflineResponse(message);
   }
@@ -226,59 +166,37 @@ class GeminiService {
         'Or go to the **Disease Detection** tab to scan a crop photo!';
   }
 
-  // For Plant Disease Detection
-  Future<String> detectDisease(List<int> imageBytes) async {
+  Future<Map<String, dynamic>> detectDisease(List<int> imageBytes, {String? filename, String? crop}) async {
     try {
-      String apiKey = ApiConfig.geminiApiKey;
-
-      if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
-        throw Exception('Offline mode / No API key configured');
-      }
-
-      final visionModel = GenerativeModel(
-        model: ApiConfig.geminiVisionModel,
-        apiKey: apiKey,
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/disease/detect'),
       );
-
-      final prompt = TextPart('''
-        You are an expert Indian Agronomist. Analyze this plant leaf image and identify:
-        1. Plant type
-        2. Disease name (If the plant is healthy, write "None (Healthy)")
-        3. Confidence percentage (as a number between 0 and 100)
-        4. Severity (Low, Medium, High, or None for healthy)
-        5. Symptoms (If healthy, describe the healthy appearance)
-        6. Causes (If healthy, write "Optimal conditions")
-        7. Treatment (If healthy, write "Continue current care")
-        8. Prevention methods
-        9. Suggested Products (Recommend specific, widely available agricultural products or generic chemicals in India)
-        
-        Important: Provide the answers for lists as comma-separated items on a SINGLE line for each category. Do NOT use bullet points or dashes.
-        IMPORTANT: YOUR RESPONSE MUST BE ENTIRELY IN ${_getLanguageName(languageCode)} LANGUAGE except for the Exact Format keys which MUST remain in English (Plant:, Disease:, etc).
-        
-        Return the output in this EXACT format:
-        Plant: [Name]
-        Disease: [Name]
-        Confidence: [Number]
-        Severity: [Level]
-        Symptoms: [Comma separated list]
-        Causes: [Comma separated list]
-        Treatment: [Comma separated list]
-        Prevention: [Comma separated list]
-        Suggested Products: [Comma separated list of Indian market products]
-      ''');
-
-      final imagePart = DataPart('image/jpeg', Uint8List.fromList(imageBytes));
       
-      final response = await visionModel.generateContent([
-        Content.multi([prompt, imagePart])
-      ]).timeout(const Duration(seconds: 15));
-
-      if (response.text == null || response.text!.isEmpty) {
-        throw Exception('Empty API response');
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'file',
+          imageBytes,
+          filename: filename ?? 'image.jpg',
+        ),
+      );
+      
+      request.fields['language'] = languageCode;
+      if (crop != null) {
+        request.fields['crop'] = crop.toLowerCase();
       }
-      return response.text!;
+      
+      final streamedResponse = await request.send().timeout(const Duration(seconds: 20));
+      final response = await http.Response.fromStream(streamedResponse);
+      
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        return data;
+      } else {
+        throw Exception('Server returned status code ${response.statusCode}');
+      }
     } catch (e) {
-      if (kDebugMode) print('Error analyzing image: $e');
+      if (kDebugMode) print('Error in custom API detectDisease: $e');
       throw Exception('Failed to analyze image: $e');
     }
   }
@@ -291,19 +209,26 @@ class GeminiService {
     required String weather,
   }) async {
     try {
-      await _initModel();
-      final prompt = 'Provide specific agricultural advice for growing $crop in $soil soil at $location. Current weather is $weather. Focus on irrigation and fertilizer needs. RESPOND ENTIRELY IN ${_getLanguageName(languageCode)}.';
-      final content = [Content.text(prompt)];
-      
-      if (_model == null) {
-        return _getOfflineAdvisory(crop, soil, location, weather);
+      final response = await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/generate'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'crop': crop,
+          'soil': soil,
+          'location': location,
+          'weather': weather,
+          'language': languageCode,
+        }),
+      ).timeout(const Duration(seconds: 15));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['text'] ?? _getOfflineAdvisory(crop, soil, location, weather);
       }
-      
-      final response = await _model!.generateContent(content).timeout(const Duration(seconds: 10));
-      return response.text ?? 'No advice available at the moment.';
     } catch (e) {
-      return _getOfflineAdvisory(crop, soil, location, weather);
+      if (kDebugMode) print('Error in custom API generateAdvisory: $e');
     }
+    return _getOfflineAdvisory(crop, soil, location, weather);
   }
 
   String _getOfflineAdvisory(String crop, String soil, String location, String weather) {
@@ -326,45 +251,38 @@ class GeminiService {
     required WeatherModel weather,
     required String marketTrend,
   }) async {
-    String apiKey = ApiConfig.geminiApiKey;
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/reasoning'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'cropName': cropName,
+          'farm': {
+            'id': farm.id,
+            'ownerId': farm.ownerId,
+            'name': farm.name,
+            'location': '${farm.village}, ${farm.district}, ${farm.state}',
+            'soilType': farm.soilType,
+            'waterAvailability': farm.waterAvailability,
+            'landArea': farm.landArea,
+            'plantedCrops': farm.plantedCrops.map((c) => c.cropName).toList(),
+          },
+          'weather': {
+            'condition': weather.condition,
+            'temperature': weather.temperature,
+            'season': weather.season,
+          },
+          'marketTrend': marketTrend,
+          'language': languageCode,
+        }),
+      ).timeout(const Duration(seconds: 10));
 
-    if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
-      return 'Suitable based on your soil and current market demand.';
-    }
-
-    // Use a separate lightweight model instance for one-off reasoning calls
-    final reasoningModel = GenerativeModel(
-      model: ApiConfig.geminiModel,
-      apiKey: apiKey,
-    );
-    final prompt = 'You are an expert AI agronomist. The farmer is considering growing $cropName in ${farm.state}. '
-        'Current weather: ${weather.condition}, ${weather.temperature.toStringAsFixed(1)}°C, ${weather.season} season. '
-        'Soil type: ${farm.soilType}. Water availability: ${farm.waterAvailability}. '
-        'Market data for $cropName in their region: $marketTrend. '
-        'In exactly ONE sentence of max 20 words, explain why $cropName is a smart choice right now. Be specific about market or weather. Do NOT use asterisks or markdown. RESPOND ENTIRELY IN ${_getLanguageName(languageCode)}.';
-    
-    // Retry up to 3 times with exponential backoff for rate limit errors
-    for (int attempt = 0; attempt < 3; attempt++) {
-      try {
-        final content = [Content.text(prompt)];
-        final response = await reasoningModel.generateContent(content).timeout(const Duration(seconds: 10));
-        final text = response.text?.trim() ?? '';
-        if (text.isEmpty) return 'Excellent match for your soil conditions and current seasonal demand.';
-        return text;
-      } catch (e) {
-        final errorStr = e.toString();
-        if (kDebugMode) print('Gemini reasoning error for $cropName (attempt ${attempt + 1}): $errorStr');
-        
-        if (errorStr.contains('429') || errorStr.contains('quota') || errorStr.contains('RESOURCE_EXHAUSTED')) {
-          if (attempt < 2) {
-            final waitSeconds = (attempt + 1) * 1; // 1s, 2s
-            await Future.delayed(Duration(seconds: waitSeconds));
-            continue;
-          }
-        }
-        
-        return 'Expert analysis indicates this is a highly profitable and resilient choice for your specific farm conditions.';
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['text'] ?? 'Expert analysis indicates this is a highly profitable and resilient choice.';
       }
+    } catch (e) {
+      if (kDebugMode) print('Error in custom API generateRecommendationReasoning: $e');
     }
     return 'Expert analysis indicates this is a highly profitable and resilient choice for your specific farm conditions.';
   }
@@ -375,49 +293,38 @@ class GeminiService {
     required WeatherModel weather,
     required List<String> availableMarketCrops,
   }) async {
-    String apiKey = ApiConfig.geminiApiKey;
-
-    if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
-      return _getFallbackRecommendations();
-    }
-
-    final reasoningModel = GenerativeModel(
-      model: ApiConfig.geminiModel,
-      apiKey: apiKey,
-    );
-    
-    final prompt = '''
-You are an expert Indian Agronomist AI.
-Farm Details:
-- State: ${farm.state}, ${farm.district}
-- Soil: ${farm.soilType}
-- Water Availability: ${farm.waterAvailability}
-Current Weather: ${weather.condition}, ${weather.temperature}°C, ${weather.season} season.
-
-Currently trending crops in local market: ${availableMarketCrops.join(', ')}.
-
-Based on the farm details, weather, and ONLY considering crops that are profitable/viable, suggest the top 4 crops for this farmer to grow. YOU MUST ONLY SUGGEST CROPS THAT EXACTLY MATCH ONE OF THE CROPS IN THE TRENDING MARKET LIST. DO NOT INVENT OR SUGGEST ANY OTHER CROP.
-IMPORTANT: The "matchReason" values MUST be translated into ${_getLanguageName(languageCode)}. The "cropName" should also be translated to ${_getLanguageName(languageCode)}.
-
-Return EXACTLY a JSON array of objects. Do not include markdown formatting or backticks.
-Each object must have these exact keys and types:
-{
-  "cropName": "Name of crop",
-  "marketDemand": "High/Medium/Low",
-  "expectedProfit": "e.g., ₹50,000 - ₹75,000 / Acre",
-  "growthPeriod": "e.g., 90-120 Days",
-  "matchReason": "A 15-word reason explaining why this crop is perfect for their soil and current market.",
-  "suitabilityScore": 0.95 (number between 0.0 and 1.0)
-}
-''';
-
     try {
-      final response = await reasoningModel.generateContent([Content.text(prompt)]).timeout(const Duration(seconds: 15));
-      return response.text?.trim() ?? _getFallbackRecommendations();
+      final response = await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/recommendations'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'farm': {
+            'id': farm.id,
+            'ownerId': farm.ownerId,
+            'name': farm.name,
+            'location': '${farm.village}, ${farm.district}, ${farm.state}',
+            'soilType': farm.soilType,
+            'waterAvailability': farm.waterAvailability,
+            'landArea': farm.landArea,
+            'plantedCrops': farm.plantedCrops.map((c) => c.cropName).toList(),
+          },
+          'weather': {
+            'condition': weather.condition,
+            'temperature': weather.temperature,
+            'season': weather.season,
+          },
+          'availableMarketCrops': availableMarketCrops,
+          'language': languageCode,
+        }),
+      ).timeout(const Duration(seconds: 15));
+
+      if (response.statusCode == 200) {
+        return response.body;
+      }
     } catch (e) {
-      if (kDebugMode) print('Error generating dynamic recommendations: $e');
-      return _getFallbackRecommendations();
+      if (kDebugMode) print('Error in custom API generateDynamicRecommendations: $e');
     }
+    return _getFallbackRecommendations();
   }
 
   String _getFallbackRecommendations() {
@@ -465,80 +372,117 @@ Each object must have these exact keys and types:
     required int cropAgeDays,
     required String state,
     required String soilType,
+    String? plantingDate,
+    double? farmSize,
+    String? waterAvailability,
+    String? weatherCondition,
+    double? temperature,
+    double? humidity,
+    double? rainfallForecast,
   }) async {
-    String apiKey = ApiConfig.geminiApiKey;
-
-    if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
-      return '[]';
-    }
-
-    final reasoningModel = GenerativeModel(
-      model: ApiConfig.geminiModel,
-      apiKey: apiKey,
-    );
-    
-    final prompt = '''
-You are an expert Indian Agronomist AI.
-The farmer planted $cropName exactly $cropAgeDays days ago in $state with $soilType soil.
-Generate specific daily farming guidance for 5 consecutive days (from 2 days ago, to 2 days in the future).
-IMPORTANT: The "dailyTip" and "title" values MUST be translated into ${_getLanguageName(languageCode)}.
-
-Return EXACTLY a JSON array of 5 objects. Do not include markdown formatting or backticks.
-Format:
-[
-  {
-    "dayOffset": -2,
-    "dailyTip": "A 1-2 sentence expert tip for this specific day based on crop age.",
-    "tasks": [
-      {"title": "Specific Task", "category": "Fertilizer/Irrigation/General/Pesticide/Harvest", "time": "07:00 AM"}
-    ]
-  }
-]
-''';
-
     try {
-      final response = await reasoningModel.generateContent([Content.text(prompt)]).timeout(const Duration(seconds: 15));
-      return response.text?.trim() ?? '[]';
+      final response = await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/daily-guidance'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'cropName': cropName,
+          'cropAgeDays': cropAgeDays,
+          'state': state,
+          'soilType': soilType,
+          'language': languageCode,
+          'plantingDate': plantingDate,
+          'farmSize': farmSize,
+          'waterAvailability': waterAvailability,
+          'weatherCondition': weatherCondition,
+          'temperature': temperature,
+          'humidity': humidity,
+          'rainfallForecast': rainfallForecast,
+        }),
+      ).timeout(const Duration(seconds: 15));
+
+      if (response.statusCode == 200) {
+        return response.body;
+      }
     } catch (e) {
-      if (kDebugMode) print('Error generating daily guidance: $e');
-      return '[]';
+      if (kDebugMode) print('Error in custom API generateDailyGuidance: $e');
     }
+    return '[]';
   }
 
   static Future<String?> checkCropSuitability(String cropName, FarmModel farm) async {
     try {
-      String apiKey = ApiConfig.geminiApiKey;
+      final response = await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/suitability'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'cropName': cropName,
+          'farm': {
+            'id': farm.id,
+            'ownerId': farm.ownerId,
+            'name': farm.name,
+            'location': '${farm.village}, ${farm.district}, ${farm.state}',
+            'soilType': farm.soilType,
+            'waterAvailability': farm.waterAvailability,
+            'landArea': farm.landArea,
+            'plantedCrops': farm.plantedCrops.map((c) => c.cropName).toList(),
+          },
+        }),
+      ).timeout(const Duration(seconds: 10));
 
-      if (apiKey == 'YOUR_GEMINI_API_KEY' || apiKey.isEmpty) {
-        return null; // On offline/no-key, assume suitable
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['suitable'] == true) {
+          return null; // Suitable
+        }
+        return data['reason'];
       }
-
-      final model = GenerativeModel(
-        model: ApiConfig.geminiModel,
-        apiKey: apiKey,
-      );
-
-      final prompt = '''
-You are an expert agronomist. 
-A farmer wants to plant "$cropName" in ${farm.district}, ${farm.state}.
-Farm conditions:
-- Soil: ${farm.soilType}
-- Water Availability: ${farm.waterAvailability}
-
-Answer ONLY with "YES" if it is highly suitable or generally okay.
-If it is a BAD idea (e.g. requires high water but they have low water, or completely wrong soil), answer with a short 1-sentence warning explaining why it will fail. Do not say "NO", just give the short warning.
-''';
-
-      final response = await model.generateContent([Content.text(prompt)]);
-      final text = response.text?.trim() ?? 'YES';
-      
-      if (text.toUpperCase().startsWith('YES')) {
-        return null; // Suitable
-      }
-      return text; // Return the warning
     } catch (e) {
-      if (kDebugMode) print('Suitability check failed: $e');
-      return null; // On failure, don't block the user
+      if (kDebugMode) print('Error in custom API checkCropSuitability: $e');
+    }
+    return null; // Assume suitable on network error
+  }
+
+  static Future<Map<String, dynamic>?> validateCropSuitability(String cropName, String farmId) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/crops/validate-before-planting'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'farmId': farmId,
+          'cropName': cropName,
+        }),
+      ).timeout(const Duration(seconds: 10));
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body) as Map<String, dynamic>;
+      }
+    } catch (e) {
+      if (kDebugMode) print('Error in validateCropSuitability: $e');
+    }
+    return null;
+  }
+
+  static Future<void> logSuitabilityAudit(
+    String farmId,
+    String cropName,
+    double score,
+    String reasons,
+    bool ignoredWarning,
+  ) async {
+    try {
+      await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/crops/audit-log'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'farmId': farmId,
+          'cropName': cropName,
+          'suitabilityScore': score,
+          'reasons': reasons,
+          'ignoredWarning': ignoredWarning,
+        }),
+      ).timeout(const Duration(seconds: 5));
+    } catch (e) {
+      if (kDebugMode) print('Error in logSuitabilityAudit: $e');
     }
   }
 }

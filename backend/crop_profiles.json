@@ -1,0 +1,2485 @@
+{
+  "grape": {
+    "name": "Grape",
+    "season": "Rabi",
+    "soil_requirements": "Well-drained sandy loam or gravelly clay loam soil with pH between 6.5 and 7.5. Avoid heavy soils with poor drainage and high salt content.",
+    "water_requirements": "Moderate water requirements. Drip irrigation is highly recommended. Critical watering stages are bud burst, flowering, and berry development. Avoid waterlogging and excessive humidity to prevent fungal infections.",
+    "fertilizer_schedule": {
+      "npk": "50:50:100 kg of N:P:K per acre",
+      "application": [
+        "Apply full dose of Phosphorus and Potassium during pruning.",
+        "Apply Nitrogen in split doses: 50% post-pruning and 50% during berry growth.",
+        "Apply Boron and Zinc foliar sprays before flowering to improve fruit set."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 45,
+      "flowering": 90,
+      "fruiting": 120,
+      "harvesting": 150
+    },
+    "disease_information": "Downy Mildew, Powdery Mildew, Anthracnose, and Black Rot. Downy Mildew causes white cottony growth on the leaf underside; control by spraying copper oxychloride (3g/L) or systemic fungicides.",
+    "pest_management": "Mealybugs, Thrips, and Flea beetles are common. Thrips feed on blossoms causing scarred berries. Control using yellow sticky traps and spraying neem oil or spinosad.",
+    "harvest_information": "Harvest when berries are fully ripe, sweet, and uniform in color. Avoid harvesting after rain. Keep in cold storage at 0-2 degrees Celsius with 90% relative humidity to prolong shelf life."
+  },
+  "banana": {
+    "name": "Banana",
+    "season": "Kharif",
+    "soil_requirements": "Deep, well-drained loamy soil rich in organic matter. Optimal pH is 6.0 to 7.5. Extremely sensitive to soil waterlogging and high salinity.",
+    "water_requirements": "High water requirement. Requires regular irrigation of 30-40 liters per plant per day. Provide drip irrigation. Ensure constant moisture but avoid standing water around the pseudostem.",
+    "fertilizer_schedule": {
+      "npk": "110:35:140 kg of N:P:K per acre",
+      "application": [
+        "Apply full Phosphorus dose as basal fertilizer during planting.",
+        "Apply Nitrogen and Potassium in 4 equal splits at 2, 4, 6, and 8 months after planting.",
+        "Apply Zinc Sulphate (0.5%) and Ferrous Sulphate (0.2%) as foliar sprays to boost plant vigour."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 120,
+      "flowering": 240,
+      "fruiting": 300,
+      "harvesting": 360
+    },
+    "disease_information": "Panama Wilt (Fusarium oxysporum) and Sigatoka Leaf Spot. Sigatoka causes dark brown streaks on leaves. Control with propiconazole spray (1ml/L) and removing infected leaves.",
+    "pest_management": "Pseudostem Weevil and Rhizome Weevil. Weevil larvae tunnel into rootstocks and stems. Control by keeping the basin clean and applying neem cake to the soil.",
+    "harvest_information": "Harvest bunches when the ridges on the fruit surface become round and skin color turns from deep green to light green. Handle gently to prevent bruising."
+  },
+  "papaya": {
+    "name": "Papaya",
+    "season": "Kharif",
+    "soil_requirements": "Well-drained sandy loam or alluvial soil with pH between 6.0 and 6.5. Must have excellent drainage; water logging for even 24 hours can kill the root system.",
+    "water_requirements": "Moderate to high water requirements. Irrigate every 8-10 days in winter and 6-8 days in summer. Drip irrigation is ideal. Avoid water contact with the stem trunk to prevent stem rot.",
+    "fertilizer_schedule": {
+      "npk": "100:100:200 kg of N:P:K per acre",
+      "application": [
+        "Apply NPK in monthly splits starting from the second month after transplanting.",
+        "Incorporate well-rotted farmyard manure (FYM) and vermicompost at planting.",
+        "Spray Borax (0.1%) during flowering to prevent fruit cracking."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 60,
+      "flowering": 150,
+      "fruiting": 210,
+      "harvesting": 270
+    },
+    "disease_information": "Papaya Ring Spot Virus (PRSV), Damping-off, and Foot Rot. Ring Spot Virus is transmitted by aphids, causing mosaic symptoms. Control aphid vectors using yellow sticky traps and insecticidal soap sprays.",
+    "pest_management": "Spider Mites, Whiteflies, and Aphids. Mites cause yellowing and dry webbing under leaves. Spray wettable sulphur (3g/L) for mite control.",
+    "harvest_information": "Harvest fruits when they show yellow streaks on the green skin (color break stage). Cut with a sharp knife leaving a short stem. Store at 10-12 degrees Celsius."
+  },
+  "mango": {
+    "name": "Mango",
+    "season": "Kharif",
+    "soil_requirements": "Deep, well-drained loamy soil with pH 5.5 to 7.5. Avoid alkaline, calcareous, or stony soils.",
+    "water_requirements": "Moderate water requirements. Irrigate weekly for young trees, and every 10-15 days during fruit development for mature trees. Stop watering 2-3 weeks before flowering.",
+    "fertilizer_schedule": {
+      "npk": "80:40:80 kg of N:P:K per acre (for mature trees)",
+      "application": [
+        "Apply full dose of fertilizer in two splits: post-harvest pruning (June/July) and pre-monsoon (October).",
+        "Apply organic manure (50kg per tree) annually.",
+        "Foliar spray Zinc and Boron before flower bud initiation."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 60,
+      "flowering": 120,
+      "fruiting": 210,
+      "harvesting": 270
+    },
+    "disease_information": "Powdery Mildew, Anthracnose, and Mango Malformation. Anthracnose causes black spots on leaves and fruit. Spray carbendazim (1g/L) to manage Anthracnose.",
+    "pest_management": "Mango Hopper, Mealybugs, and Fruit Fly. Hoppers suck sap from inflorescence, causing flower drop. Spray neem formulations or imidacloprid during early panicle stage.",
+    "harvest_information": "Harvest fruits when they are fully mature (shoulders outgrow the stalk). Pluck with stalk attached to prevent latex burn. Wipe latex off fruits."
+  },
+  "pomegranate": {
+    "name": "Pomegranate",
+    "season": "Kharif",
+    "soil_requirements": "Deep loam or sandy loam soil with pH 6.0 to 8.0. Tolerates slightly alkaline soil but requires excellent root zone drainage.",
+    "water_requirements": "Low to moderate water requirement. Regular drip irrigation is necessary to prevent dry periods, which lead to severe fruit cracking.",
+    "fertilizer_schedule": {
+      "npk": "50:25:25 kg of N:P:K per acre",
+      "application": [
+        "Apply Nitrogen and Potassium in split doses during bahar treatment (flowering induction).",
+        "Apply full Phosphorus dose basal during pruning.",
+        "Apply micronutrients (Zinc and Boron) to reduce fruit splitting."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 45,
+      "flowering": 90,
+      "fruiting": 150,
+      "harvesting": 210
+    },
+    "disease_information": "Bacterial Blight (Oily Spot disease) and Wilt. Bacterial blight causes black spots on leaves and fruits; prune affected stems and spray streptocycline (0.5g/L).",
+    "pest_management": "Pomegranate Butterfly (Anar Butterfly), Thrips, and Aphids. Butterfly larvae bore into fruits. Bag young fruits or spray spinosad (0.5ml/L) to control.",
+    "harvest_information": "Harvest fruits when skin turns yellowish-red, becomes hard, and produces a metallic sound when tapped. Avoid pulling fruits; cut using secateurs."
+  },
+  "rose": {
+    "name": "Rose",
+    "season": "Zaid",
+    "soil_requirements": "Well-drained sandy loam soil rich in organic matter. Ideal pH is 6.0 to 6.5. Avoid heavy clay soils which restrict aeration.",
+    "water_requirements": "Moderate water requirement. Irrigate twice a week in winter, and every alternate day in summer. Drip irrigation keeps foliage dry, preventing fungal diseases.",
+    "fertilizer_schedule": {
+      "npk": "40:40:40 kg of N:P:K per acre",
+      "application": [
+        "Apply well-rotted cow manure (FYM) post-pruning.",
+        "Apply NPK split doses during vegetative and bud initiation stages.",
+        "Apply magnesium sulphate and micronutrients to improve flower size and color."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 100
+    },
+    "disease_information": "Black Spot, Powdery Mildew, and Dieback. Dieback causes blackening of branches downwards from pruned ends. Apply copper oxychloride paste to pruned tips.",
+    "pest_management": "Thrips, Aphids, and Red Spider Mites. Thrips cause brown scarring on flower petals. Control by spraying neem oil (5ml/L) or imidacloprid.",
+    "harvest_information": "Harvest in the cool early morning or late evening. Cut flowers at the tight bud stage when color starts showing. Place stems immediately in clean water."
+  },
+  "marigold": {
+    "name": "Marigold",
+    "season": "Kharif",
+    "soil_requirements": "Well-drained loamy or sandy loam soil with pH 7.0 to 7.5. Tolerates a wide variety of soils but avoid waterlogged clay zones.",
+    "water_requirements": "Low to moderate water requirements. Water weekly. Avoid overhead watering as it causes flower rot and damping-off.",
+    "fertilizer_schedule": {
+      "npk": "40:80:40 kg of N:P:K per acre",
+      "application": [
+        "Apply full Phosphorus dose and half of Nitrogen and Potassium as basal.",
+        "Apply the remaining Nitrogen and Potassium 30 days after transplanting.",
+        "Perform pinch-off (removing apical buds) to promote branching and flowering."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 80,
+      "harvesting": 90
+    },
+    "disease_information": "Damping-off of seedlings, Alternaria Leaf Spot, and Flower Bud Rot. Bud rot causes brown discoloration. Spray copper-based fungicides to control.",
+    "pest_management": "Red Spider Mites and Aphids. Mites cause leaf yellowing and webbing. Spray wettable sulphur (2g/L) to control mites.",
+    "harvest_information": "Harvest fully opened flowers when they achieve mature size. Harvest in mornings. Store in ventilated crates and keep cool."
+  },
+  "jasmine": {
+    "name": "Jasmine",
+    "season": "Zaid",
+    "soil_requirements": "Well-drained sandy loam or clay loam soil with pH 6.5 to 7.5. Prefers soil rich in organic humus.",
+    "water_requirements": "Moderate water requirement. Water twice a week during dry seasons and prune regularly to stimulate fresh shoots and flower buds.",
+    "fertilizer_schedule": {
+      "npk": "30:60:60 kg of N:P:K per acre",
+      "application": [
+        "Apply fertilizer in two equal splits: immediately after annual pruning (December/January) and during the peak monsoon.",
+        "Apply compost and vermicompost around root basins.",
+        "Use foliar iron sprays if leaves show chlorosis (yellowing)."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 40,
+      "flowering": 80,
+      "fruiting": 110,
+      "harvesting": 120
+    },
+    "disease_information": "Leaf Blight and Rust. Leaf blight causes reddish-brown spots. Spray mancozeb (2g/L) for control.",
+    "pest_management": "Bud Worm and Jasmine Leaf Folder. Bud worm larvae bore into jasmine buds making them turn pinkish and drop. Spray spinosad or neem formulations.",
+    "harvest_information": "Harvest flower buds in the early morning (before sunrise) when they are white and fully developed but unopened. Keep buds cool to avoid browning."
+  },
+  "chilli": {
+    "name": "Chilli",
+    "season": "Kharif",
+    "soil_requirements": "Well-drained black soil or sandy loam soil rich in organic matter. Ideal pH range is 6.0 to 7.0. Very sensitive to waterlogging.",
+    "water_requirements": "Moderate water requirements. Avoid water stress during flowering and fruit development stages, which causes flower drop and low pungency.",
+    "fertilizer_schedule": {
+      "npk": "60:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply 50% Nitrogen and full dose of Phosphorus and Potassium as basal dose.",
+        "Apply remaining Nitrogen in two equal splits at 30 and 60 days after transplanting."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 110,
+      "harvesting": 140
+    },
+    "disease_information": "Damping-off, Powdery Mildew, and Chilli Leaf Curl Virus. Leaf curl virus is spread by whiteflies, causing leaves to curl upward and stunt plant growth. Control whiteflies.",
+    "pest_management": "Thrips, Aphids, and Whiteflies. Thrips cause leaf edges to curl upwards. Spray neem oil (5ml/L) or fipronil to control.",
+    "harvest_information": "Harvest green chillies when fully grown and firm. Harvest red chillies when they turn completely red. Dry red chillies in sun on clean sheets."
+  },
+  "onion": {
+    "name": "Onion",
+    "season": "Rabi",
+    "soil_requirements": "Sandy loam or alluvial loamy soil with pH 6.0 to 7.0. Avoid heavy clay or stony soils that restrict bulb expansion.",
+    "water_requirements": "Moderate water requirement. Needs regular irrigation every 7-10 days. Stop irrigation 10-15 days before harvesting to ensure long shelf life.",
+    "fertilizer_schedule": {
+      "npk": "40:20:30 kg of N:P:K per acre",
+      "application": [
+        "Apply half Nitrogen and full Phosphorus and Potassium as basal.",
+        "Apply remaining Nitrogen 30 days after transplanting.",
+        "Apply Sulphur (15kg/acre) to improve onion bulb pungency and quality."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 40,
+      "flowering": 90,
+      "fruiting": 120,
+      "harvesting": 140
+    },
+    "disease_information": "Purple Blotch and Downy Mildew. Purple blotch causes purple concentric lesions on leaves. Spray mancozeb or copper oxychloride.",
+    "pest_management": "Onion Thrips are the primary pest, causing silver streaks on leaves. Control with yellow sticky traps and neem oil sprays.",
+    "harvest_information": "Harvest when 50-70% of the crop canopy falls over (neck fall stage). Pull out bulbs, cure in shade for 3-5 days, and trim tops before storing."
+  },
+  "garlic": {
+    "name": "Garlic",
+    "season": "Rabi",
+    "soil_requirements": "Well-drained rich loamy soil with pH 6.0 to 7.0. Heavy soils lead to deformed garlic bulbs and rot.",
+    "water_requirements": "Moderate water requirements. Water every 8-10 days during vegetative growth. Reduce watering as bulbs mature and stop entirely 2 weeks before harvest.",
+    "fertilizer_schedule": {
+      "npk": "50:20:25 kg of N:P:K per acre",
+      "application": [
+        "Apply organic manure and full Phosphorus/Potassium as basal.",
+        "Apply Nitrogen in two splits at 30 and 45 days after sowing.",
+        "Sulphur application is essential to promote garlic bulb yield and flavor compounds."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 45,
+      "flowering": 100,
+      "fruiting": 130,
+      "harvesting": 150
+    },
+    "disease_information": "White Rot and Purple Blotch. White rot causes root decay with white cottony mycelium. Ensure crop rotation and use healthy seed cloves.",
+    "pest_management": "Thrips and Nematodes. Thrips suck sap from leaves causing silvering. Apply neem seed kernel extract (NSKE 5%) or dimethoate.",
+    "harvest_information": "Harvest when leaves turn yellow-brown and start drying. Dig bulbs carefully, cure in dry shade for a week, and store in well-ventilated dry spaces."
+  },
+  "turmeric": {
+    "name": "Turmeric",
+    "season": "Kharif",
+    "soil_requirements": "Sandy loam or clay loam soil rich in humus with pH 6.0 to 7.5. Requires highly porous soil to facilitate rhizome expansion.",
+    "water_requirements": "High water requirement. Requires regular irrigation every 7-10 days. Very sensitive to water logging, which causes rhizome rot.",
+    "fertilizer_schedule": {
+      "npk": "50:25:50 kg of N:P:K per acre",
+      "application": [
+        "Apply full Phosphorus and half Potassium as basal dose.",
+        "Apply Nitrogen and remaining Potassium in splits at 30, 60, and 90 days.",
+        "Apply organic mulch to retain soil moisture and reduce weeds."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 60,
+      "flowering": 120,
+      "fruiting": 200,
+      "harvesting": 240
+    },
+    "disease_information": "Rhizome Rot (Pythium species) and Leaf Spot. Rhizome rot causes leaves to turn yellow and roots to decay. Avoid waterlogging and drench soil with copper fungicides.",
+    "pest_management": "Rhizome Scale and Shoot Borer. Shoot borer larvae tunnel into pseudostems causing leaf drying. Spray neem oil (0.5%) to manage.",
+    "harvest_information": "Harvest when leaves turn dry and yellow-brown. Dig rhizomes carefully, boil in clean water for 45 minutes, dry in sun for 10-15 days, and polish."
+  },
+  "groundnut": {
+    "name": "Groundnut",
+    "season": "Kharif",
+    "soil_requirements": "Well-drained sandy loam or sandy soil with pH 6.0 to 6.5. Loose, sandy soil is critical for pegging (pods growing under the soil).",
+    "water_requirements": "Low to moderate water requirement. Critical watering stages are flowering, pegging, and pod development. Avoid dry soils during pegging.",
+    "fertilizer_schedule": {
+      "npk": "10:20:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all NPK as basal dose during sowing.",
+        "Apply Gypsum (200kg/acre) at 40-45 days (pegging stage) to supply Calcium for pod shell formation.",
+        "Apply Boron to prevent 'hollow-heart' disease in seeds."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 120
+    },
+    "disease_information": "Tikka Leaf Spot and Rust. Tikka spot causes small dark brown leaf lesions. Spray chlorothalonil or mancozeb to manage.",
+    "pest_management": "Red Hairy Caterpillar, Leaf Miner, and Aphids. Red hairy caterpillars defoliate fields. Collect caterpillars manually and install light traps.",
+    "harvest_information": "Harvest when leaves turn yellow and inner shell of pods shows blackish coloration. Pull out plants, dry pods in sun for 3-5 days to reduce moisture to 8%."
+  },
+  "millets": {
+    "name": "Millets",
+    "season": "Kharif",
+    "soil_requirements": "Highly resilient crop. Grows in sandy loam, gravelly, or marginal soils with pH 5.5 to 8.0. Sensitive to clay compaction.",
+    "water_requirements": "Low water requirement. Extremely drought-resilient. Requires only 350-500mm of rainfall. Supplementary watering only during flowering if dry spells exceed 3 weeks.",
+    "fertilizer_schedule": {
+      "npk": "20:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply half Nitrogen and full Phosphorus and Potassium as basal.",
+        "Apply remaining Nitrogen at active tillering (30 days after sowing).",
+        "Apply organic compost or vermicompost to enrich marginal soils."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 80,
+      "harvesting": 95
+    },
+    "disease_information": "Downy Mildew (Green Ear disease) and Ergot. Ergot causes sticky sugary liquid on earheads, turning dark. Destroy infected earheads and practice crop rotation.",
+    "pest_management": "Shoot Fly and Stem Borer. Shoot fly larvae cause 'dead-hearts' in young seedlings. Sow early and apply neem cake to soil.",
+    "harvest_information": "Harvest when grains become hard, and moisture drops below 15%. Cut earheads first, thresh, clean, and dry grains to 10-12% moisture for safe storage."
+  },
+  "cotton": {
+    "name": "Cotton",
+    "season": "Kharif",
+    "soil_requirements": "Requires deep, well-drained black clayey or rich alluvial soil with pH between 6.0 and 8.0. Avoid waterlogged or quick-draining sandy soils.",
+    "water_requirements": "Moderate water requirement. Drip irrigation is ideal. Critical watering stages are squaring, flowering, and boll development. Avoid waterlogging and excessive rainfall during maturity to prevent boll rot.",
+    "fertilizer_schedule": {
+      "npk": "40:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply full dose of Phosphorus and Potassium during sowing as basal.",
+        "Apply Nitrogen in split doses: 1/3rd at sowing, 1/3rd at squaring (40-45 days), and 1/3rd at peak flowering (70-75 days).",
+        "Spray Magnesium Sulphate (1%) and Potassium Nitrate (1-2%) during boll development to prevent leaf reddening."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 140,
+      "harvesting": 180
+    },
+    "disease_information": "Cotton Leaf Curl Virus, Bacterial Blight, and Root Rot. Leaf Curl Virus is transmitted by whiteflies; control by using resistant varieties and yellow sticky traps.",
+    "pest_management": "Bollworms (American, Pink, Spotted), Whiteflies, Aphids, and Thrips. Install pheromone traps and spray NSKE (5%) or spinosad for bollworms.",
+    "harvest_information": "Harvest when bolls are fully open and dry. Pick in dry weather and separate stained or damaged cotton. Store in clean, dry, well-ventilated rooms."
+  },
+  "rice": {
+    "name": "Rice",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained alluvial or clayey soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "48:24:24 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Rice are Blast, Bacterial Leaf Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Stem Borer, Leaf Folder. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "wheat": {
+    "name": "Wheat",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained clayey loam or alluvial soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "48:24:12 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Wheat are Rust, Leaf Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Termites, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "maize": {
+    "name": "Maize",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained well-drained loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "48:24:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Maize are Downy Mildew, Leaf Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fall Armyworm, Stem Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "barley": {
+    "name": "Barley",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained well-drained loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "24:12:12 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Barley are Rust, Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Armyworms. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "oats": {
+    "name": "Oats",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "24:12:12 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Oats are Leaf Spot, Smut. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Thrips. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "sorghum": {
+    "name": "Sorghum",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained loam to clay loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:15:15 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Sorghum are Grain Smut, Anthracnose. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Shoot Fly, Stem Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "pearl millet": {
+    "name": "Pearl Millet",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Pearl Millet are Downy Mildew, Ergot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Shoot Fly, White Grubs. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "finger millet": {
+    "name": "Finger Millet",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained red loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:15:15 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Finger Millet are Blast disease. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Stem Borer, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "foxtail millet": {
+    "name": "Foxtail Millet",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Foxtail Millet are Blast, Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Armyworm, Grasshopper. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "kodo millet": {
+    "name": "Kodo Millet",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained poor marginal soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Kodo Millet are Head Smut. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Stem Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "barnyard millet": {
+    "name": "Barnyard Millet",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Barnyard Millet are Smut. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Shoot Fly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "proso millet": {
+    "name": "Proso Millet",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Proso Millet are Head Smut. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "black gram": {
+    "name": "Black Gram",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained loam or clayey soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:20:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Black Gram are Powdery Mildew, Leaf Spot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Whitefly, Pod Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "green gram": {
+    "name": "Green Gram",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:20:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Green Gram are Yellow Mosaic Virus, Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Whitefly, Thrips. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "bengal gram": {
+    "name": "Bengal Gram",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:25:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Bengal Gram are Wilt, Ascochyta Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Pod Borer, Cutworm. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "pigeon pea": {
+    "name": "Pigeon Pea",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained well-drained loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:30:15 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Pigeon Pea are Fusarium Wilt, Sterility Mosaic. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Pod Borer, Plume Moth. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "lentil": {
+    "name": "Lentil",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained loamy or sandy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:20:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Lentil are Wilt, Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Pod Borer, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "peas": {
+    "name": "Peas",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:30:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Peas are Powdery Mildew, Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Pod Borer, Leaf Miner. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "cowpea": {
+    "name": "Cowpea",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:20:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Cowpea are Mosaic Virus, Wilt. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Pod Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "horse gram": {
+    "name": "Horse Gram",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained marginal red/sandy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:15:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Horse Gram are Dry Root Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Leaf Hopper. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "tomato": {
+    "name": "Tomato",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam to clayey soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Tomato are Early Blight, Late Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Borer, Whiteflies. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "potato": {
+    "name": "Potato",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "48:24:36 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Potato are Late Blight, Early Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Potato Tuber Moth. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "mustard": {
+    "name": "Mustard",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam to alluvial soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:15:15 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Mustard are White Rust, Alternaria Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Mustard Sawfly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "sugarcane": {
+    "name": "Sugarcane",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained deep clayey loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "120:60:60 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Sugarcane are Red Rot, Smut. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Early Shoot Borer, Whitefly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "soybean": {
+    "name": "Soybean",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained well-drained loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:30:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Soybean are Rust, Yellow Mosaic. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Girdle Beetle, Tobacco Caterpillar. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "ginger": {
+    "name": "Ginger",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam to laterite soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Ginger are Soft Rot, Leaf Spot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Shoot Borer, Rhizome Scale. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "bitter gourd": {
+    "name": "Bitter Gourd",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Bitter Gourd are Downy Mildew, Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly, Epilachna Beetle. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "bottle gourd": {
+    "name": "Bottle Gourd",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:25:25 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Bottle Gourd are Powdery Mildew, Mosaic. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "ridge gourd": {
+    "name": "Ridge Gourd",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:25:25 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Ridge Gourd are Downy Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly, Mites. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "sponge gourd": {
+    "name": "Sponge Gourd",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:25:25 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Sponge Gourd are Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "snake gourd": {
+    "name": "Snake Gourd",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:25:25 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Snake Gourd are Mosaic Virus. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "pumpkin": {
+    "name": "Pumpkin",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained loam to sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Pumpkin are Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly, Red Pumpkin Beetle. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "cucumber": {
+    "name": "Cucumber",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:20:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Cucumber are Downy Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Red Pumpkin Beetle, Fruit Fly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "watermelon": {
+    "name": "Watermelon",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Watermelon are Fusarium Wilt, Bud Necrosis. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Red Pumpkin Beetle, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "muskmelon": {
+    "name": "Muskmelon",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Muskmelon are Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly, Beetle. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "okra": {
+    "name": "Okra",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam to loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Okra are Yellow Vein Mosaic Virus. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Shoot and Fruit Borer, Whitefly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "brinjal": {
+    "name": "Brinjal",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam to silt loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:40:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Brinjal are Phomopsis Blight, Little Leaf. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Shoot and Fruit Borer, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "cabbage": {
+    "name": "Cabbage",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam to clay loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:40:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Cabbage are Black Rot, Club Root. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Diamondback Moth, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "cauliflower": {
+    "name": "Cauliflower",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam to clay loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:40:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Cauliflower are Downy Mildew, Black Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Diamondback Moth. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "spinach": {
+    "name": "Spinach",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Spinach are Damping-off, Leaf Spot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Caterpillars. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "radish": {
+    "name": "Radish",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Radish are White Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Mustard Sawfly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "carrot": {
+    "name": "Carrot",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained deep sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Carrot are Alternaria Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Rust Fly, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "beetroot": {
+    "name": "Beetroot",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:40:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Beetroot are Leaf Spot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Leaf Miner, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "sweet potato": {
+    "name": "Sweet Potato",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:20:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Sweet Potato are Scurf, Black Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Sweet Potato Weevil. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "yam": {
+    "name": "Yam",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained deep sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:60 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Yam are Anthracnose. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Scale Insects. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "colocasia": {
+    "name": "Colocasia",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:20:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Colocasia are Leaf Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Spider Mites. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "drumstick": {
+    "name": "Drumstick",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam to loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:60:60 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Drumstick are Twig Canker. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Bud Worm, Hairy Caterpillar. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "coriander leaves": {
+    "name": "Coriander Leaves",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Coriander Leaves are Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "mint": {
+    "name": "Mint",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam to clay loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Mint are Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Spider Mites. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "chrysanthemum": {
+    "name": "Chrysanthemum",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained well-drained loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:40:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Chrysanthemum are Leaf Spot, Wilt. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Thrips. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "anthurium": {
+    "name": "Anthurium",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained porous rich humus soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:10:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Anthurium are Bacterial Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Thrips, Spider Mites. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "orchid": {
+    "name": "Orchid",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained bark/coconut fiber soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Orchid are Root Rot, Black Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Mealybugs, Scales. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "gerbera": {
+    "name": "Gerbera",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:60 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Gerbera are Powdery Mildew, Root Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Whitefly, Leaf Miner. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "carnation": {
+    "name": "Carnation",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:30:50 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Carnation are Wilt, Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Red Spider Mite, Thrips. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "gladiolus": {
+    "name": "Gladiolus",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:80:80 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Gladiolus are Corm Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Thrips, Cutworm. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "tuberose": {
+    "name": "Tuberose",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:80:80 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Tuberose are Stem Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Nematodes, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "cardamom": {
+    "name": "Cardamom",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained forest loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:60 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Cardamom are Katte virus, Capsule Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Thrips, Stem Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "coriander": {
+    "name": "Coriander",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:15:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Coriander are Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "cumin": {
+    "name": "Cumin",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:15:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Cumin are Wilt, Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Thrips. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "fennel": {
+    "name": "Fennel",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained loam to sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:20:15 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Fennel are Stem Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "fenugreek": {
+    "name": "Fenugreek",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:20:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Fenugreek are Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "black pepper": {
+    "name": "Black Pepper",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained laterite or loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:40:80 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Black Pepper are Quick Wilt, Foot Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Pollu Beetle, Scale Insects. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "tea": {
+    "name": "Tea",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained laterite acidic soil soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Tea are Blister Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Tea Mosquito Bug, Red Crevice Mite. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "coffee": {
+    "name": "Coffee",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained laterite or volcanic loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:40:60 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Coffee are Coffee Leaf Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are White Stem Borer, Berry Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "rubber": {
+    "name": "Rubber",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained laterite acidic soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Rubber are Abnormal Leaf Fall. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Scale Insects, Mealybugs. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "coconut": {
+    "name": "Coconut",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy or loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "500g:320g:1200g per tree kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Coconut are Bud Rot, Stem Bleeding. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Rhinoceros Beetle, Red Palm Weevil. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "areca nut": {
+    "name": "Areca nut",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained laterite or red loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "100g:40g:140g per tree kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Areca nut are Mahali fruit rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Spindle Bug, Yellow Leaf disease. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "cashew": {
+    "name": "Cashew",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained laterite or sandy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "80:40:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Cashew are Dieback, Root Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Tea Mosquito Bug, Stem Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "tobacco": {
+    "name": "Tobacco",
+    "season": "Rabi",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:30:80 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 35,
+      "flowering": 75,
+      "fruiting": 105,
+      "harvesting": 130
+    },
+    "disease_information": "Common diseases affecting Tobacco are Frog eye spot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Budworm, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "jute": {
+    "name": "Jute",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained alluvial loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Jute are Stem Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Yellow Mite, Semilooper. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "guava": {
+    "name": "Guava",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained alluvial or loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:30:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Guava are Wilt, Anthracnose. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly, Tea Mosquito Bug. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "citrus": {
+    "name": "Citrus",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:30:45 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Citrus are Citrus Canker, Gummosis. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Citrus Psylla, Leaf Miner. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "orange": {
+    "name": "Orange",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained well-drained loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:30:45 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Orange are Citrus Canker. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Sucking Moth, Psylla. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "mosambi": {
+    "name": "Mosambi",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained well-drained loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:30:45 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Mosambi are Gummosis. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Leaf Miner, Psylla. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "apple": {
+    "name": "Apple",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained loamy rich organic soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:30:60 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Apple are Apple Scab, Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Codling Moth, Woolly Aphid. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "pear": {
+    "name": "Pear",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:20:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Pear are Fire Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Psylla, Codling Moth. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "peach": {
+    "name": "Peach",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Peach are Leaf Curl. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Peach Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "plum": {
+    "name": "Plum",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:25:35 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Plum are Plum Pocket. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Aphids, Fruit Fly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "apricot": {
+    "name": "Apricot",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:25:35 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Apricot are Brown Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Scale Insects. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "almond": {
+    "name": "Almond",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained deep loamy soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "50:40:60 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Almond are Leaf Spot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Spider Mites, Borers. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "walnut": {
+    "name": "Walnut",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained deep loamy silt soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "60:40:80 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Walnut are Walnut Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Codling Moth. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "pineapple": {
+    "name": "Pineapple",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam acidic soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:15:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Pineapple are Heart Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Mealybugs. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "jackfruit": {
+    "name": "Jackfruit",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained deep alluvial or loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "50:30:50 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Jackfruit are Fruit Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Bud Borer, Shoot Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "sapota": {
+    "name": "Sapota",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained alluvial or sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:20:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Sapota are Leaf Spot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Chiku Bud Borer, Scale Insects. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "custard apple": {
+    "name": "Custard Apple",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Custard Apple are Anthracnose. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Mealybugs, Scale Insects. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "fig": {
+    "name": "Fig",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:20:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Fig are Fig Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fig Fly, Borers. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "amla": {
+    "name": "Amla",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam or dry soils soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Amla are Rust. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Bark Eating Caterpillar. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "jamun": {
+    "name": "Jamun",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained deep loam alluvial soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:30:40 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Jamun are Leaf Spot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Fruit Fly. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "tamarind": {
+    "name": "Tamarind",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained alluvial or poor soils soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "30:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Tamarind are Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Scale Insects, Borers. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "aloe vera": {
+    "name": "Aloe Vera",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "10:10:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Aloe Vera are Root Rot. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Mealybugs, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "ashwagandha": {
+    "name": "Ashwagandha",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam or red soil soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "15:20:10 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 30,
+      "flowering": 60,
+      "fruiting": 90,
+      "harvesting": 115
+    },
+    "disease_information": "Common diseases affecting Ashwagandha are Seedling Wilt. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Mites, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "lemongrass": {
+    "name": "Lemongrass",
+    "season": "Kharif",
+    "soil_requirements": "Requires well-drained sandy loam or gravelly soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "20:20:20 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Lemongrass are Leaf Blight. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Stem Borer. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  },
+  "mentha": {
+    "name": "Mentha",
+    "season": "Zaid",
+    "soil_requirements": "Requires well-drained sandy loam rich in organic soil. Optimal soil pH is 6.0 to 7.5.",
+    "water_requirements": "High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
+    "fertilizer_schedule": {
+      "npk": "40:30:30 kg of N:P:K per acre",
+      "application": [
+        "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+        "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+        "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+      ]
+    },
+    "growth_stages": {
+      "vegetative": 50,
+      "flowering": 100,
+      "fruiting": 150,
+      "harvesting": 180
+    },
+    "disease_information": "Common diseases affecting Mentha are Rust, Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.",
+    "pest_management": "Common pests are Termites, Cutworm. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+    "harvest_information": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
+  }
+}

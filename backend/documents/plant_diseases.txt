@@ -1,0 +1,34 @@
+Plant Disease: Rice Blast (Pyricularia oryzae)
+Symptoms: Spindle-shaped lesions with grayish centers and brown borders on leaves. Collar rot can cause the leaf blade to detach. Neck rot infects the panicle neck, causing it to break and result in empty grains.
+Causes: Fungal pathogen favored by high humidity (above 90%), prolonged leaf wetness, and high nitrogen fertilizer application.
+Recommended Action: Spray Tricyclazole at 0.6 grams per liter or Carbendazim at 1 gram per liter. Use resistant varieties.
+Prevention Tips: Avoid excess nitrogenous fertilizer. Keep fields clear of weeds. Destroy infected crop residue.
+Best Practices: Space plants properly for aeration. Practice crop rotation with non-host crops.
+
+Plant Disease: Potato/Tomato Late Blight (Phytophthora infestans)
+Symptoms: Dark, water-soaked lesions on leaves and stems. In humid conditions, white moldy growth appears on the lower side of leaves. Tubers show dry brown rot, and tomatoes turn leathery and brown.
+Causes: Oomycete pathogen spreading rapidly in cool (15-20°C), wet, and foggy weather.
+Recommended Action: Apply Metalaxyl + Mancozeb (Ridomil Gold) at 2 grams per liter or copper-based fungicides.
+Prevention Tips: Use certified disease-free seeds/tubers. Avoid overhead irrigation.
+Best Practices: Ensure good air circulation. Plant resistant varieties. Remove and burn infected foliage immediately after harvest.
+
+Plant Disease: Potato/Tomato Early Blight (Alternaria solani)
+Symptoms: Concentric dark rings (target-board pattern) on older leaves. Lesions are dry and surrounded by yellow halos. Causes premature defoliation.
+Causes: Fungal pathogen thriving in warm temperatures and alternating wet and dry leaf conditions.
+Recommended Action: Spray Chlorothalonil or Mancozeb at 2 grams per liter of water.
+Prevention Tips: Rotate crops with non-solanaceous crops. Keep foliage dry using drip irrigation.
+Best Practices: Maintain crop vigor with balanced NPK fertilizer. Mulch soil to prevent spores from splashing onto leaves.
+
+Plant Disease: Cotton Leaf Curl Virus (CLCuV)
+Symptoms: Upward or downward curling of leaf margins, thickening of veins, and leaf-like outgrowths (enations) on the underside of leaves. Stunted plant growth.
+Causes: Geminivirus transmitted by the whitefly vector (Bemisia tabaci).
+Recommended Action: Spray systemic insecticides like Imidacloprid at 0.5 ml per liter to control the whitefly vector. Remove infected plants.
+Prevention Tips: Grow virus-resistant Bt cotton varieties. Remove weed hosts.
+Best Practices: Practice clean cultivation. Avoid monoculture and rotate crops.
+
+Plant Disease: Rice Bacterial Leaf Blight (Xanthomonas oryzae)
+Symptoms: Linear, wavy, straw-colored stripes starting from leaf tips and margins, progressing downwards. Droplets of bacterial ooze (milky/yellowish) on leaves under high humidity.
+Causes: Bacterial pathogen favored by warm temperatures (25-30°C), high humidity, wind, and rain splashes.
+Recommended Action: Spray Streptocycline at 0.1 grams + Copper Oxychloride at 2 grams per liter of water.
+Prevention Tips: Avoid excess nitrogen. Maintain proper field drainage.
+Best Practices: Cultivate resistant varieties. Avoid deep water in nurseries.

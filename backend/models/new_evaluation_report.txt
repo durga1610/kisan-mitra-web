@@ -1,0 +1,58 @@
+======================================================================
+        TWO-STAGE RECOVERED MODEL EVALUATION REPORT
+======================================================================
+Overall Top-1 Accuracy: 100.00%
+Overall Top-3 Accuracy: 100.00%
+======================================================================
+Class Name                                    | Precision | Recall    | F1-Score  | Support
+----------------------------------------------------------------------
+Apple___Black_Rot                             |   100.00% |   100.00% |   100.00% | 5      
+Apple___Cedar_Apple_Rust                      |   100.00% |   100.00% |   100.00% | 5      
+Apple___Healthy                               |   100.00% |   100.00% |   100.00% | 5      
+Apple___Scab                                  |   100.00% |   100.00% |   100.00% | 5      
+Blueberry___Healthy                           |   100.00% |   100.00% |   100.00% | 5      
+Cherry___Healthy                              |   100.00% |   100.00% |   100.00% | 5      
+Cherry___Powdery_Mildew                       |   100.00% |   100.00% |   100.00% | 5      
+Corn___Common_Rust                            |   100.00% |   100.00% |   100.00% | 5      
+Corn___Gray_Leaf_Spot                         |   100.00% |   100.00% |   100.00% | 5      
+Corn___Healthy                                |   100.00% |   100.00% |   100.00% | 5      
+Corn___Northern_Leaf_Blight                   |   100.00% |   100.00% |   100.00% | 5      
+Cotton___Bacterial_Blight                     |   100.00% |   100.00% |   100.00% | 5      
+Cotton___Healthy                              |   100.00% |   100.00% |   100.00% | 5      
+Cotton___Leaf_Curl                            |   100.00% |   100.00% |   100.00% | 5      
+Grape___Black_Rot                             |   100.00% |   100.00% |   100.00% | 5      
+Grape___Esca                                  |   100.00% |   100.00% |   100.00% | 5      
+Grape___Healthy                               |   100.00% |   100.00% |   100.00% | 5      
+Grape___Leaf_Blight                           |   100.00% |   100.00% |   100.00% | 5      
+Orange___Haunglongbing                        |   100.00% |   100.00% |   100.00% | 5      
+Peach___Bacterial_Spot                        |   100.00% |   100.00% |   100.00% | 5      
+Peach___Healthy                               |   100.00% |   100.00% |   100.00% | 5      
+Pepper_Bell___Bacterial_Spot                  |   100.00% |   100.00% |   100.00% | 5      
+Pepper_Bell___Healthy                         |   100.00% |   100.00% |   100.00% | 5      
+Potato___Early_Blight                         |   100.00% |   100.00% |   100.00% | 5      
+Potato___Healthy                              |   100.00% |   100.00% |   100.00% | 5      
+Potato___Late_Blight                          |   100.00% |   100.00% |   100.00% | 5      
+Raspberry___Healthy                           |   100.00% |   100.00% |   100.00% | 5      
+Rice___Bacterial_Leaf_Blight                  |   100.00% |   100.00% |   100.00% | 5      
+Rice___Blast                                  |   100.00% |   100.00% |   100.00% | 5      
+Rice___Brown_Spot                             |   100.00% |   100.00% |   100.00% | 5      
+Rice___Healthy                                |   100.00% |   100.00% |   100.00% | 5      
+Soybean___Healthy                             |   100.00% |   100.00% |   100.00% | 5      
+Squash___Powdery_Mildew                       |   100.00% |   100.00% |   100.00% | 5      
+Strawberry___Healthy                          |   100.00% |   100.00% |   100.00% | 5      
+Strawberry___Leaf_Scorch                      |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Bacterial_Spot                       |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Early_Blight                         |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Healthy                              |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Late_Blight                          |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Leaf_Mold                            |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Mosaic_Virus                         |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Septoria_Leaf_Spot                   |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Spider_Mites                         |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Target_Spot                          |   100.00% |   100.00% |   100.00% | 5      
+Tomato___Yellow_Leaf_Curl_Virus               |   100.00% |   100.00% |   100.00% | 5      
+----------------------------------------------------------------------
+Macro Average                                 |   100.00% |   100.00% |   100.00% | 225    
+======================================================================
+Grape <-> Potato Cross-Classifications: 0
+======================================================================

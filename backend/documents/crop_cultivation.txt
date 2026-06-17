@@ -1,0 +1,34 @@
+Crop Cultivation: Rice (Paddy)
+Sowing Season: Rice is primarily grown in the Kharif season (June-July sowing, November-December harvesting). In some southern and eastern regions, it is also grown as a Rabi crop (November-December sowing).
+Optimal Temperature: 21°C to 37°C is optimal. It requires high humidity and abundant rainfall or assured irrigation.
+Soil Type: Clayey or clay loam soils with high water retention properties are ideal. Alluvial soils are also highly suitable.
+Seed Rate & Spacing: 15-20 kg per acre for transplanting. Spacing should be 20cm x 15cm.
+Crop Rotation: Rotate with legumes like Chickpea, Lentil, or green manure crops to restore nitrogen levels.
+
+Crop Cultivation: Tomato
+Sowing Season: Tomatoes can be grown throughout the year. The three main seasons are: Kharif (June-July sowing), Rabi (October-November sowing), and Summer (January-February sowing).
+Optimal Temperature: 21°C to 24°C is optimal. High temperatures (above 38°C) cause blossom drop and poor fruit set.
+Soil Type: Well-drained sandy loam or clay loam soils rich in organic matter. Optimal pH is 6.0 to 7.0.
+Seed Rate & Spacing: 100-150 grams per acre for hybrid seeds. Spacing should be 60cm x 45cm or 75cm x 60cm.
+Crop Rotation: Avoid rotating with Solanaceous crops (Potato, Eggplant, Pepper) to prevent disease buildup. Rotate with Maize, Beans, or Marigold.
+
+Crop Cultivation: Cotton
+Sowing Season: Grown as a Kharif crop. Sowing is usually done from April to June depending on irrigation and monsoon onset.
+Optimal Temperature: 21°C to 30°C. Requires at least 180 frost-free days.
+Soil Type: Deep black soils (Regur) are highly suitable due to high water-retention capacity. Well-drained alluvial soils are also suitable.
+Seed Rate & Spacing: 2-3 kg per acre for Bt Cotton. Spacing is usually 90cm x 60cm or 120cm x 60cm.
+Crop Rotation: Rotate with Soybeans, Maize, Groundnuts, or Sorghum to break pest cycles and improve soil structure.
+
+Crop Cultivation: Wheat
+Sowing Season: Grown strictly as a Rabi (winter) crop. Sowing is best done from November to December.
+Optimal Temperature: 10°C to 15°C during germination and growth, and 20°C to 25°C during ripening and harvesting.
+Soil Type: Well-drained fertile loamy or clayey soils. Clayey alluvial soils are highly suitable.
+Seed Rate & Spacing: 40-50 kg per acre. Spacing should be 22.5cm between rows.
+Crop Rotation: Rotate with Kharif crops like Paddy Rice, Maize, Cotton, or Mungbean.
+
+Crop Cultivation: Maize (Corn)
+Sowing Season: Can be grown in Kharif (June-July), Rabi (October-November), and Spring (Jan-Feb).
+Optimal Temperature: 21°C to 27°C. It is sensitive to frost and waterlogging.
+Soil Type: Deep, fertile, well-drained loamy soils with pH 5.5 to 7.5.
+Seed Rate & Spacing: 6-8 kg per acre. Spacing should be 60cm x 20cm.
+Crop Rotation: Rotate with legumes (Soybean, Groundnut) to restore soil fertility.

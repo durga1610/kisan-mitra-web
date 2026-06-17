@@ -112,4 +112,90 @@ class LocationService {
       return {'state': '', 'district': '', 'village': ''};
     }
   }
+
+  Future<Map<String, double>?> getLatLngFromAddress(String village, String district, String state) async {
+    try {
+      final query = [
+        if (village.isNotEmpty) village,
+        if (district.isNotEmpty) district,
+        if (state.isNotEmpty) state,
+        'India'
+      ].join(', ');
+      
+      debugPrint('[LocationService] Geocoding query: $query');
+      
+      // Try native geocoding first
+      try {
+        List<Location> locations = await locationFromAddress(query).timeout(const Duration(seconds: 3));
+        if (locations.isNotEmpty) {
+          final loc = locations.first;
+          debugPrint('[LocationService] Native geocoding success: ${loc.latitude}, ${loc.longitude}');
+          return {
+            'latitude': loc.latitude,
+            'longitude': loc.longitude,
+          };
+        }
+      } catch (e) {
+        debugPrint('[LocationService] Native geocoding failed, trying OSM search');
+      }
+
+      // Fallback for Windows/Web using OpenStreetMap Nominatim Search API
+      final encodedQuery = Uri.encodeComponent(query);
+      final url = Uri.parse('https://nominatim.openstreetmap.org/search?q=$encodedQuery&format=json&limit=1');
+      final response = await http.get(url, headers: {
+        'User-Agent': 'KisanMitraApp/1.0',
+      }).timeout(const Duration(seconds: 5));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        if (data.isNotEmpty) {
+          final lat = double.tryParse(data[0]['lat']?.toString() ?? '');
+          final lon = double.tryParse(data[0]['lon']?.toString() ?? '');
+          if (lat != null && lon != null) {
+            debugPrint('[LocationService] OSM geocoding success: $lat, $lon');
+            return {
+              'latitude': lat,
+              'longitude': lon,
+            };
+          }
+        }
+      }
+      
+      // Fallback if village-specific search fails, search by district and state
+      if (village.isNotEmpty) {
+        final fallbackQuery = [
+          if (district.isNotEmpty) district,
+          if (state.isNotEmpty) state,
+          'India'
+        ].join(', ');
+        
+        debugPrint('[LocationService] Fallback geocoding query: $fallbackQuery');
+        final encodedFallbackQuery = Uri.encodeComponent(fallbackQuery);
+        final fallbackUrl = Uri.parse('https://nominatim.openstreetmap.org/search?q=$encodedFallbackQuery&format=json&limit=1');
+        final fallbackResponse = await http.get(fallbackUrl, headers: {
+          'User-Agent': 'KisanMitraApp/1.0',
+        }).timeout(const Duration(seconds: 5));
+
+        if (fallbackResponse.statusCode == 200) {
+          final List<dynamic> data = json.decode(fallbackResponse.body);
+          if (data.isNotEmpty) {
+            final lat = double.tryParse(data[0]['lat']?.toString() ?? '');
+            final lon = double.tryParse(data[0]['lon']?.toString() ?? '');
+            if (lat != null && lon != null) {
+              debugPrint('[LocationService] Fallback OSM geocoding success: $lat, $lon');
+              return {
+                'latitude': lat,
+                'longitude': lon,
+              };
+            }
+          }
+        }
+      }
+      
+      return null;
+    } catch (e) {
+      debugPrint('[LocationService] Geocoding error: $e');
+      return null;
+    }
+  }
 }

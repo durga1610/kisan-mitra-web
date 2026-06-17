@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../data/models/market_price.dart';
 import '../../data/services/market_service.dart';
-import '../../../notifications/data/models/km_notification_type.dart';
-import '../../../notifications/data/services/notification_service.dart';
+
 enum MarketSortBy { priceHigh, priceLow, distance, trend, state }
 
 class MarketProvider extends ChangeNotifier {
@@ -100,22 +99,7 @@ class MarketProvider extends ChangeNotifier {
         _applyFilters();
         notifyListeners();
         
-        // Simulate a notification if the random change is significant
-        // Pick one of the changed prices to notify if it's a planted crop
-        final largeChanges = _myCropPrices.where((p) => p.updatedTime.difference(DateTime.now()).inSeconds.abs() < 5 && p.trendPercentage.abs() > 1.5).toList();
-        if (largeChanges.isNotEmpty) {
-           final changedCrop = largeChanges.first;
-           final direction = changedCrop.trendPercentage > 0 ? "Up" : "Down";
-           try {
-             NotificationService().triggerCustomNotification(
-               title: 'Market Price Alert',
-               body: '${changedCrop.cropName} price is $direction by ${changedCrop.trendPercentage.toStringAsFixed(1)}% in ${changedCrop.marketName}!',
-               type: KmNotificationType.market,
-             );
-           } catch (e) {
-             debugPrint('Error triggering notification: $e');
-           }
-        }
+
       }
     });
   }

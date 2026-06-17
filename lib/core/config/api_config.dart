@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
+
 class ApiConfig {
   ApiConfig._();
 
   // OpenWeather API Key
-  static const String openWeatherApiKey = String.fromEnvironment('OPENWEATHER_API_KEY', defaultValue: 'YOUR_OPENWEATHER_API_KEY');
+  static const String openWeatherApiKey = String.fromEnvironment('OPENWEATHER_API_KEY', defaultValue: '68bb3642840ac0f5199a7ff7f321474b');
 
   static const String geminiApiKey = String.fromEnvironment('GEMINI_API_KEY', defaultValue: 'YOUR_GEMINI_API_KEY');
 
@@ -12,10 +14,17 @@ class ApiConfig {
   // Gemini model for vision/image tasks
   static const String geminiVisionModel = 'gemini-2.5-flash';
 
-  // Mandi (Market) Data API
-  // Using Open Government Data Platform India (data.gov.in)
-  // TODO: Add real data.gov.in API Key
-  static const String mandiApiKey = String.fromEnvironment('MANDI_API_KEY', defaultValue: 'YOUR_MANDI_API_KEY'); 
+  // Custom AI Backend URL
+  // Default to 10.0.2.2:8000 for Android emulator, or http://localhost:8000 for web/iOS
+  static String get customAiBackendUrl {
+    const customUrl = String.fromEnvironment('CUSTOM_AI_BACKEND_URL');
+    if (customUrl.isNotEmpty) return customUrl;
+    if (kIsWeb) return 'http://localhost:8000';
+    return 'http://10.0.2.2:8000';
+  }
+
+  // Mandi (Market) Data API — data.gov.in (Ministry of Agriculture)
+  static const String mandiApiKey = String.fromEnvironment('MANDI_API_KEY', defaultValue: '579b464db66ec23bdd0000017c7ccd02bac445d36a5a228846357fa2'); 
   static const String mandiApiBaseUrl = 'https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070';
 
   // AI Assistant System Prompt

@@ -1,0 +1,23 @@
+Fertilizers: NPK Balance and Fertilizer Basics
+Nitrogen (N): Essential for vegetative growth, leaf color, and protein synthesis. Source: Urea.
+Phosphorus (P): Crucial for root development, flowering, seed formation, and early maturity. Source: Diammonium Phosphate (DAP), Single Super Phosphate (SSP).
+Potassium (K): Enhances disease resistance, water-use efficiency, fruit size, and quality. Source: Muriate of Potash (MOP).
+Soil Testing: Always conduct a soil test once every 2-3 years to determine baseline nutrient availability and adjust fertilizer rates accordingly.
+
+Fertilizers: Paddy Rice (Paddy) Recommendations
+Paddy Rice Fertilizer: Recommended dose of NPK is 48:24:24 kg per acre. Apply all P and K, and 1/3rd of N as a basal dose during transplanting. Apply the remaining N in two equal splits: at active tillering (30 days) and panicle initiation (60 days).
+
+Fertilizers: Tomato Recommendations
+Tomato Fertilizer: Recommended dose is 60:30:30 kg of N:P:K per acre. Apply full dose of P and K and half N as basal. Apply remaining N in two splits at 30 and 45 days after transplanting. Top dress with calcium nitrate during fruiting.
+
+Fertilizers: Cotton Recommendations
+Cotton Fertilizer: Bt Cotton requires 60:30:30 kg of N:P:K per acre under irrigated conditions. Split N application: 50% basal, 25% at square formation (45 days), and 25% at flowering (70 days).
+
+Fertilizers: Wheat Recommendations
+Wheat Fertilizer: Recommended NPK dose is 48:24:12 kg per acre. Apply basal dose of full P, K, and half N. Apply remaining N after the first irrigation (21-25 days) at crown root initiation.
+
+Fertilizers: Application Methods and Best Practices
+Basal Application: Mixing fertilizer with soil during land preparation or placing it in rows at sowing time.
+Top Dressing: Broadcasting fertilizer (typically nitrogen) onto the standing crop. Best done when the soil is moist, followed by light irrigation.
+Foliar Spraying: Spraying liquid nutrients (like Urea or micro-nutrient mixes) directly onto leaves for rapid absorption during critical stress periods.
+Micro-nutrient Application: Zinc sulfate (10 kg/acre) and Boron (2-4 kg/acre) should be applied to soil if deficiencies are detected to avoid yellowing and poor grain filling.

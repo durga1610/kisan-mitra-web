@@ -85,7 +85,7 @@ class _CropRecommendationScreenState extends State<CropRecommendationScreen> {
 
     try {
       final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-      _weather = await _weatherService.getWeatherForLocation(farm.district, farm.state, lang: lang);
+      _weather = await _weatherService.getWeatherForLocation(farm.village, farm.district, farm.state, lang: lang);
       _recommendations = await RecommendationService.getRecommendations(farm: farm, weather: _weather!, languageCode: lang);
 
       if (_recommendations.isEmpty) {

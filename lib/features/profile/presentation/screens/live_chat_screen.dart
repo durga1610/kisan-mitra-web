@@ -262,7 +262,7 @@ class _LiveChatScreenState extends State<LiveChatScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            isUser
+            message.isUser
                 ? Text(
                     message.text,
                     style: GoogleFonts.poppins(

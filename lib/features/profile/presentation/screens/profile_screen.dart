@@ -206,9 +206,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             }),
-            _menuItem(Icons.notifications_outlined, 'Notifications'.tr(context), () {
-              context.push(AppRouter.notifications);
-            }),
             _menuItem(Icons.language_outlined, 'Language'.tr(context), () {
               showLanguageSelectorSheet(context);
             }),

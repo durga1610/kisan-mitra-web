@@ -12,6 +12,7 @@ import '../../../../core/services/gemini_service.dart';
 import '../../../../core/providers/farm_provider.dart';
 import '../../../../core/providers/language_provider.dart';
 import '../../data/models/chat_message.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AIAdvisoryScreen extends StatefulWidget {
   const AIAdvisoryScreen({super.key});
@@ -26,6 +27,9 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
   late final GeminiService _geminiService;
   final List<ChatMessage> _messages = [];
   bool _isTyping = false;
+  
+  List<Map<String, dynamic>> _sessions = [];
+  String? _currentSessionId;
 
   @override
   void initState() {
@@ -43,10 +47,47 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
     super.dispose();
   }
 
+  String get _sessionsKey {
+    final farmProvider = Provider.of<FarmProvider>(context, listen: false);
+    final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+    final farmId = farmProvider.selectedFarm?.id ?? 'default';
+    return 'ai_chat_sessions_${userId}_$farmId';
+  }
+
+  String get _historyKey {
+    final farmProvider = Provider.of<FarmProvider>(context, listen: false);
+    final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+    final farmId = farmProvider.selectedFarm?.id ?? 'default';
+    return 'ai_chat_history_${userId}_${farmId}_${_currentSessionId ?? "default"}';
+  }
+
   Future<void> _loadChatHistory() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final historyJson = prefs.getString('ai_chat_history');
+      
+      // Load sessions first
+      final sessionsJson = prefs.getString(_sessionsKey);
+      if (sessionsJson != null) {
+        final List<dynamic> decoded = jsonDecode(sessionsJson);
+        _sessions = List<Map<String, dynamic>>.from(decoded);
+      }
+
+      if (_sessions.isEmpty) {
+        // Create a default first session
+        _currentSessionId = DateTime.now().millisecondsSinceEpoch.toString();
+        _sessions.add({
+          'id': _currentSessionId,
+          'title': 'New Chat',
+          'timestamp': DateTime.now().toIso8601String(),
+        });
+        await _saveSessions();
+      } else {
+        _currentSessionId = _sessions.first['id'];
+      }
+
+      // Load messages for current session
+      _messages.clear();
+      final historyJson = prefs.getString(_historyKey);
       if (historyJson != null) {
         final List<dynamic> decoded = jsonDecode(historyJson);
         setState(() {
@@ -54,7 +95,6 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
         });
         _scrollToBottom();
       } else {
-        // Add welcome message
         setState(() {
           _messages.add(ChatMessage(
             text: 'Hello! I am Kisan Mitra AI. How can I help you with your farming today?',
@@ -62,6 +102,7 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
             timestamp: DateTime.now(),
           ));
         });
+        await _saveChatHistory();
       }
     } catch (e) {
       debugPrint('Error loading chat history: $e');
@@ -72,9 +113,105 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final historyJson = jsonEncode(_messages.map((m) => m.toMap()).toList());
-      await prefs.setString('ai_chat_history', historyJson);
+      await prefs.setString(_historyKey, historyJson);
     } catch (e) {
       debugPrint('Error saving chat history: $e');
+    }
+  }
+
+  Future<void> _saveSessions() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_sessionsKey, jsonEncode(_sessions));
+    } catch (e) {
+      debugPrint('Error saving chat sessions: $e');
+    }
+  }
+
+  Future<void> _switchSession(String sessionId) async {
+    if (_currentSessionId == sessionId) return;
+    setState(() {
+      _currentSessionId = sessionId;
+      _messages.clear();
+      _isTyping = false;
+    });
+
+    final prefs = await SharedPreferences.getInstance();
+    final historyJson = prefs.getString(_historyKey);
+    if (historyJson != null) {
+      final List<dynamic> decoded = jsonDecode(historyJson);
+      setState(() {
+        _messages.addAll(decoded.map((m) => ChatMessage.fromMap(m)).toList());
+      });
+      _scrollToBottom();
+    } else {
+      setState(() {
+        _messages.add(ChatMessage(
+          text: 'Hello! I am Kisan Mitra AI. How can I help you with your farming today?',
+          isUser: false,
+          timestamp: DateTime.now(),
+        ));
+      });
+      await _saveChatHistory();
+    }
+  }
+
+  Future<void> _createNewChat() async {
+    final newSessionId = DateTime.now().millisecondsSinceEpoch.toString();
+    setState(() {
+      _sessions.insert(0, {
+        'id': newSessionId,
+        'title': 'New Chat',
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+      _currentSessionId = newSessionId;
+      _messages.clear();
+      _messages.add(ChatMessage(
+        text: 'Hello! I am Kisan Mitra AI. How can I help you with your farming today?',
+        isUser: false,
+        timestamp: DateTime.now(),
+      ));
+      _isTyping = false;
+    });
+    await _saveSessions();
+    await _saveChatHistory();
+    _scrollToBottom();
+  }
+
+  Future<void> _deleteSession(String sessionId) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete Chat'.tr(context)),
+        content: Text('Are you sure you want to delete this chat session?'.tr(context)),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context, false), child: Text('Cancel'.tr(context))),
+          TextButton(onPressed: () => Navigator.pop(context, true), child: Text('Delete'.tr(context), style: const TextStyle(color: Colors.red))),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      final prefs = await SharedPreferences.getInstance();
+      
+      final farmProvider = Provider.of<FarmProvider>(context, listen: false);
+      final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+      final farmId = farmProvider.selectedFarm?.id ?? 'default';
+      final histKey = 'ai_chat_history_${userId}_${farmId}_$sessionId';
+      await prefs.remove(histKey);
+
+      setState(() {
+        _sessions.removeWhere((s) => s['id'] == sessionId);
+      });
+      await _saveSessions();
+
+      if (_currentSessionId == sessionId) {
+        if (_sessions.isNotEmpty) {
+          await _switchSession(_sessions.first['id']!);
+        } else {
+          await _createNewChat();
+        }
+      }
     }
   }
 
@@ -105,6 +242,15 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
     });
     _scrollToBottom();
 
+    // Auto-update title if it's default "New Chat"
+    final currentSession = _sessions.firstWhere((s) => s['id'] == _currentSessionId);
+    if (currentSession['title'] == 'New Chat' || currentSession['title'] == 'नया चैट') {
+      setState(() {
+        currentSession['title'] = text.length > 25 ? '${text.substring(0, 22)}...' : text;
+      });
+      await _saveSessions();
+    }
+
     try {
       final response = await _geminiService.getResponse(text);
       if (mounted) {
@@ -123,7 +269,7 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
       if (mounted) {
         setState(() {
           _messages.add(ChatMessage(
-            text: 'I am sorry, something went wrong. Please check your internet connection and API key.',
+            text: 'I am sorry, something went wrong. Please check your internet connection.',
             isUser: false,
             timestamp: DateTime.now(),
           ));
@@ -136,9 +282,10 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      
       appBar: _buildAppBar(),
+      drawer: _buildChatHistoryDrawer(isDarkMode),
       body: Column(
         children: [
           Expanded(
@@ -167,6 +314,102 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
     );
   }
 
+  Widget _buildChatHistoryDrawer(bool isDarkMode) {
+    return Drawer(
+      child: Container(
+        color: isDarkMode ? const Color(0xFF1E1E1E) : Colors.white,
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                gradient: AppColors.primaryGradient,
+              ),
+              currentAccountPicture: const CircleAvatar(
+                backgroundColor: Colors.white24,
+                child: Icon(Icons.auto_awesome, color: Colors.white, size: 36),
+              ),
+              accountName: Text(
+                'AI Advisory History'.tr(context),
+                style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 16),
+              ),
+              accountEmail: const SizedBox.shrink(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pop(context); // close drawer
+                  _createNewChat();
+                },
+                icon: const Icon(Icons.add_rounded, color: Colors.white),
+                label: Text('New Chat'.tr(context), style: GoogleFonts.poppins(fontWeight: FontWeight.w600, color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+            ),
+            const Divider(),
+            Expanded(
+              child: _sessions.isEmpty
+                  ? Center(
+                      child: Text(
+                        'No chat history yet'.tr(context),
+                        style: GoogleFonts.poppins(color: AppColors.textHint),
+                      ),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      itemCount: _sessions.length,
+                      itemBuilder: (context, index) {
+                        final session = _sessions[index];
+                        final isSelected = session['id'] == _currentSessionId;
+                        return Container(
+                          margin: const EdgeInsets.symmetric(vertical: 4),
+                          decoration: BoxDecoration(
+                            color: isSelected 
+                                ? (isDarkMode ? Colors.white10 : AppColors.primary.withOpacity(0.1))
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.pop(context); // close drawer
+                              _switchSession(session['id']!);
+                            },
+                            leading: Icon(
+                              Icons.chat_bubble_outline_rounded,
+                              color: isSelected ? AppColors.primary : AppColors.textHint,
+                              size: 20,
+                            ),
+                            title: Text(
+                              session['title'] ?? 'Chat',
+                              style: GoogleFonts.poppins(
+                                fontSize: 13.5,
+                                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                                color: isSelected 
+                                    ? AppColors.primary 
+                                    : (isDarkMode ? Colors.white70 : AppColors.textPrimary),
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete_outline_rounded, size: 18, color: Colors.redAccent),
+                              onPressed: () => _deleteSession(session['id']!),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildSuggestionChips() {
     final suggestions = [
       'Pest Control',
@@ -187,7 +430,7 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
             child: ActionChip(
               label: Text(suggestions[index], style: GoogleFonts.poppins(fontSize: 12)),
               
-              onPressed: () {
+              onPressed: _isTyping ? null : () {
                 _controller.text = 'Tell me about ${suggestions[index]} for my farm.';
                 _handleSendMessage();
               },
@@ -200,6 +443,12 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
+      leading: Builder(
+        builder: (context) => IconButton(
+          icon: const Icon(Icons.menu_rounded, color: Colors.white),
+          onPressed: () => Scaffold.of(context).openDrawer(),
+        ),
+      ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -217,38 +466,8 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
           ),
         ],
       ),
-      
       elevation: 1,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.delete_sweep_outlined, color: AppColors.error),
-          onPressed: () async {
-            final confirmed = await showDialog<bool>(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: Text('Clear Chat'.tr(context)),
-                content: Text('Are you sure you want to clear all chat history?'.tr(context)),
-                actions: [
-                  TextButton(onPressed: () => Navigator.pop(context, false), child: Text('Cancel'.tr(context))),
-                  TextButton(onPressed: () => Navigator.pop(context, true), child: Text('Clear'.tr(context), style: TextStyle(color: Colors.red))),
-                ],
-              ),
-            );
-            if (confirmed == true) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.remove('ai_chat_history');
-              setState(() {
-                _messages.clear();
-                _messages.add(ChatMessage(
-                  text: 'History cleared. How can I help you today?',
-                  isUser: false,
-                  timestamp: DateTime.now(),
-                ));
-              });
-            }
-          },
-        ),
-      ],
+      actions: const [],
     );
   }
 
@@ -400,26 +619,28 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
               ),
               child: TextField(
                 controller: _controller,
+                enabled: !_isTyping,
                 style: GoogleFonts.poppins(fontSize: 14),
                 decoration: InputDecoration(
-                  hintText: 'Ask anything about your crops...',
+                  hintText: _isTyping ? 'Waiting for response...' : 'Ask anything about your crops...',
                   hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 14),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 14),
                 ),
-                onSubmitted: (_) => _handleSendMessage(),
+                onSubmitted: _isTyping ? null : (_) => _handleSendMessage(),
               ),
             ),
           ),
           const SizedBox(width: 12),
           GestureDetector(
-            onTap: _handleSendMessage,
+            onTap: _isTyping ? null : _handleSendMessage,
             child: Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                gradient: AppColors.primaryGradient,
+                gradient: _isTyping ? null : AppColors.primaryGradient,
+                color: _isTyping ? Colors.grey[400] : null,
                 shape: BoxShape.circle,
-                boxShadow: [
+                boxShadow: _isTyping ? null : [
                   BoxShadow(
                     color: Theme.of(context).cardColor.withValues(alpha: 0.3),
                     blurRadius: 10,
@@ -427,7 +648,11 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
                   ),
                 ],
               ),
-              child: const Icon(Icons.send_rounded, color: Colors.white, size: 22),
+              child: Icon(
+                _isTyping ? Icons.hourglass_empty_rounded : Icons.send_rounded,
+                color: Colors.white,
+                size: 22,
+              ),
             ),
           ),
         ],

@@ -1,0 +1,6 @@
+Vegetative: Apply DAP at 35 kg/acre and Urea at 20 kg/acre.
+Flowering: Apply Urea at 30 kg/acre and Magnesium Sulphate at 10 kg/acre.
+Fruiting: Apply Potash (MOP) at 25 kg/acre during boll development.
+Dosage: 35 kg/acre
+Method: Side-dressing in lines near the plants, followed by light tilling.
+Precautions: Do not apply Urea during dry soil conditions without irrigation.

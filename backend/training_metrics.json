@@ -1,0 +1,29 @@
+{
+  "best_model": "XGBoost",
+  "results": {
+    "RandomForest": {
+      "accuracy": 0.9104,
+      "precision": 0.911014312383323,
+      "recall": 0.8275862068965517,
+      "f1_score": 0.8672985781990521
+    },
+    "XGBoost": {
+      "accuracy": 0.963,
+      "precision": 0.9610011641443539,
+      "recall": 0.933295647258338,
+      "f1_score": 0.9469457986808144
+    },
+    "LightGBM": {
+      "accuracy": 0.9612,
+      "precision": 0.9586488060570763,
+      "recall": 0.9304691916336914,
+      "f1_score": 0.9443488238668961
+    },
+    "CatBoost": {
+      "accuracy": 0.9492,
+      "precision": 0.9406631762652705,
+      "recall": 0.9140757490107405,
+      "f1_score": 0.9271788990825688
+    }
+  }
+}

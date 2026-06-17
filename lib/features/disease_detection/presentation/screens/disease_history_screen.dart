@@ -38,7 +38,7 @@ class DiseaseHistoryScreen extends StatelessWidget {
             padding: const EdgeInsets.all(AppDimensions.paddingLG),
             itemCount: history.length,
             itemBuilder: (context, index) {
-              return _buildHistoryCard(context, history[index]);
+              return _buildHistoryCard(context, history[index], detectionService);
             },
           );
         },
@@ -67,7 +67,7 @@ class DiseaseHistoryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHistoryCard(BuildContext context, DiseaseReport report) {
+  Widget _buildHistoryCard(BuildContext context, DiseaseReport report, DiseaseDetectionService service) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -104,26 +104,78 @@ class DiseaseHistoryScreen extends StatelessWidget {
             ),
           ],
         ),
-        trailing: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          decoration: BoxDecoration(
-            color: _getSeverityColor(context, report.severity).withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Text(
-            report.severity,
-            style: GoogleFonts.poppins(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: _getSeverityColor(context, report.severity),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: _getSeverityColor(context, report.severity).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                report.severity,
+                style: GoogleFonts.poppins(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: _getSeverityColor(context, report.severity),
+                ),
+              ),
             ),
-          ),
+            const SizedBox(width: 8),
+            IconButton(
+              icon: const Icon(Icons.delete_outline_rounded, color: AppColors.error, size: 22),
+              onPressed: () => _confirmDelete(context, service, report),
+            ),
+          ],
         ),
         onTap: () {
           // You could navigate to a detail view here, 
           // or just show a simplified version of the result card
         },
       ),
+    );
+  }
+
+  void _confirmDelete(BuildContext context, DiseaseDetectionService service, DiseaseReport report) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Delete Scan Record'.tr(context), style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+          content: Text('Are you sure you want to delete this disease scan report? This action cannot be undone.'.tr(context), style: GoogleFonts.poppins()),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text('Cancel'.tr(context), style: GoogleFonts.poppins(color: Colors.grey)),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(dialogContext).pop();
+                try {
+                  if (report.id != null) {
+                    await service.deleteReport(report.id!);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Scan record deleted successfully.'.tr(context)),
+                        backgroundColor: AppColors.success,
+                      ),
+                    );
+                  }
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Failed to delete scan record.'.tr(context)),
+                      backgroundColor: AppColors.error,
+                    ),
+                  );
+                }
+              },
+              child: Text('Delete'.tr(context), style: GoogleFonts.poppins(color: AppColors.error, fontWeight: FontWeight.w600)),
+            ),
+          ],
+        );
+      },
     );
   }
 

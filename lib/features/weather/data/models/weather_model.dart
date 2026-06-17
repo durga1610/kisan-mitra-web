@@ -34,9 +34,9 @@ class WeatherModel {
     // Simple season detection based on month
     final month = DateTime.now().month;
     String season = 'Kharif'; // Default
-    if (month >= 3 && month <= 6) {
+    if (month >= 3 && month <= 5) {
       season = 'Zaid';
-    } else if (month >= 7 && month <= 10) {
+    } else if (month >= 6 && month <= 10) {
       season = 'Kharif';
     } else {
       season = 'Rabi';
@@ -56,18 +56,57 @@ class WeatherModel {
     );
   }
 
-  factory WeatherModel.mock() {
+  factory WeatherModel.mock({String cityName = 'Delhi'}) {
+    final month = DateTime.now().month;
+    String season = 'Kharif';
+    double temp = 28.5;
+    double humidity = 70.0;
+    double windSpeed = 10.0;
+    double rainChance = 30.0;
+    String condition = 'Cloudy';
+    String icon = '03d';
+    String description = 'scattered clouds';
+
+    if (month >= 3 && month <= 5) {
+      season = 'Zaid';
+      temp = 36.5;
+      humidity = 40.0;
+      windSpeed = 14.0;
+      rainChance = 10.0;
+      condition = 'Sunny';
+      icon = '01d';
+      description = 'clear sky';
+    } else if (month >= 6 && month <= 10) {
+      season = 'Kharif';
+      temp = 29.0;
+      humidity = 82.0;
+      windSpeed = 16.0;
+      rainChance = 75.0;
+      condition = 'Rain';
+      icon = '10d';
+      description = 'moderate rain';
+    } else {
+      season = 'Rabi';
+      temp = 18.0;
+      humidity = 60.0;
+      windSpeed = 8.0;
+      rainChance = 5.0;
+      condition = 'Partly Cloudy';
+      icon = '02d';
+      description = 'few clouds';
+    }
+
     return WeatherModel(
-      temperature: 28.5,
-      humidity: 65,
-      windSpeed: 12.0,
-      rainChance: 20.0,
-      condition: 'Sunny',
-      icon: '01d',
-      description: 'clear sky',
+      temperature: temp,
+      humidity: humidity,
+      windSpeed: windSpeed,
+      rainChance: rainChance,
+      condition: condition,
+      icon: icon,
+      description: description,
       forecast: [],
-      season: 'Rabi',
-      cityName: 'Delhi',
+      season: season,
+      cityName: cityName,
     );
   }
 }

@@ -497,64 +497,180 @@ class CropsScreen extends StatelessWidget {
 
                       setState(() => _isChecking = true);
                       
-                      // Ask Gemini if this is a bad idea
-                      final warning = await GeminiService.checkCropSuitability(cropName, farm);
+                      final validationResult = await GeminiService.validateCropSuitability(cropName, farm.id!);
                       
                       setState(() => _isChecking = false);
                       
-                      if (warning != null && context.mounted) {
-                        // Show Warning Dialog
+                      if (context.mounted) {
+                        Navigator.pop(dialogContext); // Close Add Custom Crop dialog
+                      }
+
+                      if (validationResult != null && context.mounted) {
+                        final bool isSuitable = validationResult['suitable'] ?? true;
+                        final int score = validationResult['score'] ?? 100;
+                        final List<dynamic> reasons = validationResult['reasons'] ?? [];
+                        final List<dynamic> alternatives = validationResult['alternatives'] ?? [];
+
                         final proceed = await showDialog<bool>(
                           context: context,
-                          builder: (context) => AlertDialog(
-                            title: Row(
-                              children: [
-                                const Icon(Icons.warning_amber_rounded, color: Colors.orange),
-                                const SizedBox(width: 8),
-                                Text('Agronomy Warning', style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Colors.orange)),
+                          barrierDismissible: false,
+                          builder: (context) {
+                            final Color scoreColor = isSuitable ? AppColors.success : Colors.orange;
+                            return AlertDialog(
+                              title: Row(
+                                children: [
+                                  Icon(
+                                    isSuitable ? Icons.check_circle_outline_rounded : Icons.warning_amber_rounded,
+                                    color: scoreColor,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    isSuitable ? 'AI Crop Suitability: Suitable' : 'AI Crop Suitability Warning',
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                      decoration: BoxDecoration(
+                                        color: scoreColor.withValues(alpha: 0.1),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            isSuitable ? 'Suitable' : 'Not Recommended',
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.bold,
+                                              color: scoreColor,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Score: $score%',
+                                            style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.bold,
+                                              color: scoreColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'Suitability Factors:',
+                                      style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 12),
+                                    ),
+                                    const SizedBox(height: 6),
+                                    ...reasons.map((r) => Padding(
+                                      padding: const EdgeInsets.only(bottom: 6),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          const Text('• ', style: TextStyle(fontWeight: FontWeight.bold)),
+                                          Expanded(
+                                            child: Text(
+                                              r.toString(),
+                                              style: GoogleFonts.poppins(fontSize: 12),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                    if (!isSuitable && alternatives.isNotEmpty) ...[
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        'Recommended Alternatives:',
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      ...alternatives.map((alt) => Padding(
+                                        padding: const EdgeInsets.only(bottom: 4),
+                                        child: Row(
+                                          children: [
+                                            const Icon(Icons.eco_rounded, size: 14, color: Colors.green),
+                                            const SizedBox(width: 6),
+                                            Text(
+                                              alt.toString(),
+                                              style: GoogleFonts.poppins(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                    ]
+                                  ],
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, false),
+                                  child: Text('Cancel', style: GoogleFonts.poppins()),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: isSuitable ? AppColors.success : Colors.red,
+                                    foregroundColor: Colors.white,
+                                  ),
+                                  onPressed: () => Navigator.pop(context, true),
+                                  child: Text(
+                                    isSuitable ? 'Plant Crop' : 'Plant Anyway',
+                                    style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ],
-                            ),
-                            content: Text(warning, style: GoogleFonts.poppins()),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, false),
-                                child: Text('Cancel'),
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
-                                onPressed: () => Navigator.pop(context, true),
-                                child: Text('Plant Anyway'),
-                              ),
-                            ],
-                          ),
-                        );
-                        if (proceed != true) return;
-                      }
-
-                      final newCrops = List<PlantedCropModel>.from(farm.plantedCrops);
-                      if (!newCrops.any((c) => c.cropName.toLowerCase() == cropName.toLowerCase())) {
-                        newCrops.add(PlantedCropModel(
-                          cropName: cropName,
-                          plantedDate: DateTime.now(),
-                          landArea: val ?? 0.0,
-                        ));
-                        
-                        final newPreferred = List<String>.from(farm.preferredCrops);
-                        if (!newPreferred.any((p) => p.toLowerCase() == cropName.toLowerCase())) {
-                          newPreferred.add(cropName);
-                        }
-
-                        await FirestoreService().setData(
-                          path: 'farms/${farm.id}',
-                          data: {
-                            'plantedCrops': newCrops.map((c) => c.toMap()).toList(),
-                            'preferredCrops': newPreferred,
+                            );
                           },
-                          merge: true,
                         );
+
+                        if (proceed == true) {
+                          // Post Audit Log
+                          final reasonsStr = reasons.join(', ');
+                          await GeminiService.logSuitabilityAudit(
+                            farm.id!,
+                            cropName,
+                            score.toDouble(),
+                            reasonsStr,
+                            !isSuitable,
+                          );
+
+                          // Plant the crop
+                          final newCrops = List<PlantedCropModel>.from(farm.plantedCrops);
+                          if (!newCrops.any((c) => c.cropName.toLowerCase() == cropName.toLowerCase())) {
+                            newCrops.add(PlantedCropModel(
+                              cropName: cropName,
+                              plantedDate: DateTime.now(),
+                              landArea: val ?? 0.0,
+                            ));
+                            
+                            final newPreferred = List<String>.from(farm.preferredCrops);
+                            if (!newPreferred.any((p) => p.toLowerCase() == cropName.toLowerCase())) {
+                              newPreferred.add(cropName);
+                            }
+
+                            await FirestoreService().setData(
+                              path: 'farms/${farm.id}',
+                              data: {
+                                'plantedCrops': newCrops.map((c) => c.toMap()).toList(),
+                                'preferredCrops': newPreferred,
+                              },
+                              merge: true,
+                            );
+                          }
+                        }
                       }
                     }
-                    if (context.mounted) Navigator.pop(dialogContext);
                   },
                   child: Text('Plant Crop'.tr(context)),
                 ),

@@ -1,0 +1,12 @@
+feature,importance
+season,0.45578983
+target_crop,0.15290762
+water_availability,0.13649024
+soil_type,0.07236154
+previous_crop,0.06776853
+rainfall,0.046967797
+temperature,0.03199192
+humidity,0.016688855
+farm_size,0.0064883297
+state,0.006425095
+district,0.0061202

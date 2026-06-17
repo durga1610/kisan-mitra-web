@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/localization/app_translations.dart';
-import '../../../../features/notifications/data/services/notification_service.dart';
-import '../../../../features/notifications/data/models/notification_model.dart';
 
 class DashboardHeader extends StatelessWidget {
   final String greeting;
@@ -16,9 +14,8 @@ class DashboardHeader extends StatelessWidget {
   final List<String> allFarmNames;
   final int selectedFarmIndex;
   final Function(int) onFarmSelected;
-  final VoidCallback onNotificationTap;
-  final VoidCallback onAvatarTap;
   final VoidCallback onLogoutTap;
+  final String? profileImageUrl;
 
   const DashboardHeader({
     super.key,
@@ -31,9 +28,8 @@ class DashboardHeader extends StatelessWidget {
     required this.allFarmNames,
     required this.selectedFarmIndex,
     required this.onFarmSelected,
-    required this.onNotificationTap,
-    required this.onAvatarTap,
     required this.onLogoutTap,
+    this.profileImageUrl,
   });
 
   @override
@@ -54,19 +50,21 @@ class DashboardHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Avatar
-                GestureDetector(
-                  onTap: onAvatarTap,
-                  child: Container(
-                    width: 46,
-                    height: 46,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor.withValues(alpha: 0.2),
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.5), width: 2),
-                    ),
-                    child: const Icon(Icons.person_rounded,
-                        color: Colors.white, size: 24),
+                Container(
+                  width: 46,
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor.withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.5), width: 2),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(23),
+                    child: profileImageUrl != null && profileImageUrl!.isNotEmpty
+                        ? Image.network(profileImageUrl!, fit: BoxFit.cover)
+                        : const Icon(Icons.person_rounded,
+                            color: Colors.white, size: 24),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -122,49 +120,6 @@ class DashboardHeader extends StatelessWidget {
                       color: Colors.white,
                       size: 20,
                     ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-
-                // Notification
-                GestureDetector(
-                  onTap: onNotificationTap,
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 42,
-                        height: 42,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor.withValues(alpha: 0.15),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.notifications_outlined,
-                          color: Colors.white,
-                          size: 22,
-                        ),
-                      ),
-                      StreamBuilder<NotificationModel>(
-                        stream: NotificationService().notificationsStream,
-                        builder: (context, snapshot) {
-                          final hasUnread = NotificationService().history.any((n) => !n.isRead);
-                          if (!hasUnread) return const SizedBox.shrink();
-                          return Positioned(
-                            right: 8,
-                            top: 8,
-                            child: Container(
-                              width: 9,
-                              height: 9,
-                              decoration: BoxDecoration(
-                                color: AppColors.secondary,
-                                shape: BoxShape.circle,
-                                border: Border.all(color: Theme.of(context).cardColor, width: 1.5),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
                   ),
                 ),
               ],

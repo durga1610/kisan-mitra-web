@@ -1,0 +1,16 @@
+Irrigation: Methods and Systems
+Drip Irrigation: Applies water directly to the plant's root zone through a network of valves, pipes, and emitters. Saves 40-70% water compared to surface irrigation, reduces weed growth, and is ideal for row crops like Tomato, Cotton, and orchards.
+Sprinkler Irrigation: Water is sprayed into the air and falls like rain. Best for sandy soils, closely spaced crops, and undulating terrains. Not recommended for tall crops or fields with high wind speeds.
+Furrow Irrigation: Water is run down small trenches (furrows) created between crop rows. Good for crops like Potato, Maize, and Sugarcane that are planted on ridges. Requires level land and can lead to water loss through deep percolation.
+
+Irrigation: Paddy Rice (Paddy) Water Requirements
+Water Requirements for Paddy: Rice is highly water-intensive. Maintain a thin layer of water (2-5 cm) in the field during tillering and flowering stages. Drain water 10-15 days before harvesting.
+
+Irrigation: Tomato Water Requirements
+Water Requirements for Tomato: Tomatoes require regular, moderate watering. Avoid alternating periods of drought and waterlogging to prevent blossom-end rot and fruit cracking. Maintain uniform soil moisture using drip systems.
+
+Irrigation: Cotton Water Requirements
+Water Requirements for Cotton: Cotton needs critical irrigations during square formation, flowering, and boll development. Over-irrigation in the early stage causes excessive vegetative growth at the expense of boll formation.
+
+Irrigation: Wheat Water Requirements
+Water Requirements for Wheat: Wheat requires 4 to 6 irrigations during its lifecycle. Critical growth stages for irrigation are: Crown Root Initiation (21-25 days), Tillering (40-45 days), Late Jointing (70-75 days), Flowering (90-95 days), and Milking (110-115 days).

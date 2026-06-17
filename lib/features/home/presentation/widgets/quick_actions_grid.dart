@@ -79,14 +79,18 @@ class QuickActionsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final crossAxisCount = width > 900 ? 6 : (width > 600 ? 4 : 3);
+    final childAspectRatio = width > 900 ? 2.2 : (width > 600 ? 1.8 : 1.75);
+
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
-        childAspectRatio: 1.0,
+        childAspectRatio: childAspectRatio,
       ),
       itemCount: _actions.length,
       itemBuilder: (context, index) {
@@ -158,8 +162,8 @@ class _QuickActionTileState extends State<_QuickActionTile>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 48,
-                height: 48,
+                width: 36,
+                height: 36,
                 decoration: BoxDecoration(
                   color: widget.action.bgColor,
                   shape: BoxShape.circle,
@@ -167,18 +171,20 @@ class _QuickActionTileState extends State<_QuickActionTile>
                 child: Icon(
                   widget.action.icon,
                   color: widget.action.color,
-                  size: 24,
+                  size: 18,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
               Text(
                 widget.action.label.tr(context),
                 style: GoogleFonts.poppins(
-                  fontSize: 11,
+                  fontSize: 10,
                   fontWeight: FontWeight.w600,
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
                 textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

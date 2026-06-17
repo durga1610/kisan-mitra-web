@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kisan_mitra/core/localization/app_translations.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +14,8 @@ import '../../../../core/models/farm_model.dart';
 import '../../../../core/services/gemini_service.dart';
 import '../../../../core/providers/language_provider.dart';
 import '../../data/assistant_data.dart';
+import '../../../../core/services/weather_service.dart';
+import '../../../../features/weather/data/models/weather_model.dart';
 
 class AIAssistantScreen extends StatefulWidget {
   const AIAssistantScreen({super.key});
@@ -22,64 +24,104 @@ class AIAssistantScreen extends StatefulWidget {
   State<AIAssistantScreen> createState() => _AIAssistantScreenState();
 }
 
-class _AIAssistantScreenState extends State<AIAssistantScreen> {
+class _AIAssistantScreenState extends State<AIAssistantScreen>
+    with SingleTickerProviderStateMixin {
   int _selectedCropIndex = 0;
-  int _selectedDayIndex = 2; // Default to 'Today' which is index 2 in our 5-day list
   late GeminiService _geminiService;
-  
-  List<GuidanceDay>? _liveGuidance;
-  bool _isLoadingGuidance = false;
+
+  DailyAssistant? _assistant;
+  bool _isLoading = false;
+  WeatherModel? _weather;
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
     final farmProvider = Provider.of<FarmProvider>(context, listen: false);
     final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-    _geminiService = GeminiService(selectedFarm: farmProvider.selectedFarm, languageCode: lang);
-    
-    // Fetch live AI guidance after layout
+    _geminiService = GeminiService(
+        selectedFarm: farmProvider.selectedFarm, languageCode: lang);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _fetchLiveGuidanceForCurrentCrop();
+      _fetchAssistant();
     });
   }
 
-  Future<void> _fetchLiveGuidanceForCurrentCrop() async {
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _fetchAssistant() async {
     final farmProvider = Provider.of<FarmProvider>(context, listen: false);
     final farm = farmProvider.selectedFarm;
     if (farm == null || farm.plantedCrops.isEmpty) return;
 
     if (_selectedCropIndex >= farm.plantedCrops.length) {
-       _selectedCropIndex = 0;
+      _selectedCropIndex = 0;
     }
     final crop = farm.plantedCrops[_selectedCropIndex];
-    final ageDays = DateTime.now().difference(DateTime(crop.plantedDate.year, crop.plantedDate.month, crop.plantedDate.day)).inDays;
+    final ageDays = DateTime.now()
+        .difference(DateTime(crop.plantedDate.year, crop.plantedDate.month,
+            crop.plantedDate.day))
+        .inDays;
 
     setState(() {
-      _isLoadingGuidance = true;
-      _liveGuidance = null;
+      _isLoading = true;
+      _assistant = null;
     });
 
+    // Fetch weather
+    WeatherModel? weather;
+    try {
+      final weatherService = WeatherService();
+      weather = await weatherService.getWeatherForLocation(
+          farm.village, farm.district, farm.state,
+          farmName: farm.name);
+    } catch (e) {
+      debugPrint('[AIAssistant] Weather fetch failed: $e');
+    }
+
+
+    if (mounted) setState(() => _weather = weather);
+
+    // Call backend
     final jsonStr = await _geminiService.generateDailyGuidance(
       cropName: crop.cropName,
       cropAgeDays: ageDays,
       state: farm.state,
       soilType: farm.soilType,
+      plantingDate: crop.plantedDate.toIso8601String(),
+      farmSize: farm.landArea,
+      waterAvailability: farm.waterAvailability,
+      weatherCondition: weather?.condition,
+      temperature: weather?.temperature,
+      humidity: weather?.humidity,
+      rainfallForecast: weather?.rainChance,
     );
 
     if (mounted) {
       setState(() {
-        // Clean markdown from json just in case
-        final cleanJson = jsonStr.replaceAll('```json', '').replaceAll('```', '').trim();
-        if (cleanJson.length > 5 && cleanJson.startsWith('[')) {
-           _liveGuidance = AssistantData.parseLiveGuidance(cleanJson, crop.plantedDate);
-        } else {
-           // Fallback to local if AI fails or rate limited
-           _liveGuidance = AssistantData.getGuidanceForCrop(cropName: crop.cropName, plantedDate: crop.plantedDate);
-        }
-        _isLoadingGuidance = false;
+        try {
+          final clean = jsonStr
+              .replaceAll('```json', '')
+              .replaceAll('```', '')
+              .trim();
+          if (clean.length > 5 && clean.startsWith('{')) {
+            _assistant = AssistantData.parseDailyAssistant(clean);
+          }
+        } catch (_) {}
+        _assistant ??= DailyAssistant.fallback(
+            cropName: crop.cropName, ageDays: ageDays);
+        _isLoading = false;
       });
     }
   }
+
+  // ────────────────────────────────────────────────────────────────────────────
+  // Build
+  // ────────────────────────────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -87,84 +129,23 @@ class _AIAssistantScreenState extends State<AIAssistantScreen> {
     final farm = farmProvider.selectedFarm;
 
     if (farm == null) {
-      return Scaffold(
-        
-        appBar: AppBar(
-          title: Text(
-            'AI Farming Assistant',
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18),
-          ),
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.grass_rounded, size: 64, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
-                const SizedBox(height: 16),
-                Text(
-                  'No field selected',
-                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Please select or add a field to get AI guidance.',
-                  style: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-        ),
+      return _buildEmptyState(
+        icon: Icons.grass_rounded,
+        title: 'No field selected',
+        subtitle: 'Please select or add a field to get AI guidance.',
       );
     }
 
     final plantedCrops = farm.plantedCrops;
 
     if (plantedCrops.isEmpty) {
-      return Scaffold(
-        
-        appBar: AppBar(
-          title: Text(
-            'AI Farming Assistant',
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18),
-          ),
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.eco_rounded, size: 64, color: Colors.green),
-                const SizedBox(height: 16),
-                Text(
-                  'No crops planted yet',
-                  style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Plant a crop from recommendations or analyze one to start getting AI guidance.',
-                  style: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton.icon(
-                  onPressed: () => context.push(AppRouter.cropRecommendation),
-                  icon: const Icon(Icons.add_circle_outline_rounded),
-                  label: Text('Go to Recommendations'.tr(context)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+      return _buildEmptyState(
+        icon: Icons.eco_rounded,
+        title: 'No crops planted yet',
+        subtitle:
+            'Plant a crop from recommendations to start getting AI guidance.',
+        actionLabel: 'Go to Recommendations',
+        onAction: () => context.push(AppRouter.cropRecommendation),
       );
     }
 
@@ -172,91 +153,51 @@ class _AIAssistantScreenState extends State<AIAssistantScreen> {
       _selectedCropIndex = 0;
     }
 
-    final selectedPlantedCrop = plantedCrops[_selectedCropIndex];
-    final guidance = _liveGuidance ?? AssistantData.getGuidanceForCrop(
-      cropName: selectedPlantedCrop.cropName,
-      plantedDate: selectedPlantedCrop.plantedDate,
-    );
-
-    if (_selectedDayIndex >= guidance.length) {
-      _selectedDayIndex = 2; // Reset to Today
-    }
-    final currentDay = guidance[_selectedDayIndex];
-
     return Scaffold(
-      
       appBar: AppBar(
-        title: Text(
-          'AI Farming Assistant',
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18),
-        ),
+        title: Text('AI Farming Assistant',
+            style:
+                GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.help_outline_rounded, color: Colors.white),
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('AI Assistant provides real-time guidance based on your selected field and crops.'.tr(context))),
-              );
-            },
+            icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+            onPressed: _fetchAssistant,
+            tooltip: 'Refresh',
           ),
         ],
       ),
-      body: Stack(
+      body: Column(
         children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: 100),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildCropDropdown(plantedCrops),
-                const Divider(height: 1, color: AppColors.divider),
-                if (_isLoadingGuidance)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 80.0),
-                    child: Center(
-                      child: Column(
-                        children: [
-                          const CircularProgressIndicator(color: AppColors.primary),
-                          const SizedBox(height: 16),
-                          Text('AI is analyzing your crop stage...'.tr(context), style: const TextStyle(color: Colors.grey)),
-                        ],
-                      ),
-                    ),
-                  )
-                else
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildDaySelector(guidance),
-                      Padding(
-                        padding: const EdgeInsets.all(AppDimensions.paddingLG),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _buildDailyGuidanceCard(currentDay.dailyTip),
-                            const SizedBox(height: 24),
-                            _buildSectionTitle('Today\'s Schedule'),
-                            const SizedBox(height: 16),
-                            _buildTaskTimeline(currentDay.tasks),
-                            const SizedBox(height: 32),
-                            _buildSpecializedRecommendations(),
-                            const SizedBox(height: 24),
-                            _buildHarvestTracker(selectedPlantedCrop.cropName, selectedPlantedCrop.plantedDate),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-              ],
+          _buildCropSelector(plantedCrops),
+          if (_isLoading) _buildLoadingBar(),
+          if (!_isLoading && _assistant != null) ...[
+            _buildStatusBanner(_assistant!),
+            _buildTabBar(),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _buildScheduleTab(_assistant!),
+                  _buildRecommendationsTab(_assistant!),
+                  _buildAlertsTab(_assistant!),
+                ],
+              ),
             ),
-          ),
-          _buildChatFloatingButton(),
+          ],
+          if (!_isLoading && _assistant == null)
+            const Expanded(
+              child: Center(
+                child: Text('Loading assistant data...'),
+              ),
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildCropDropdown(List<PlantedCropModel> crops) {
+  // ── Crop Selector ────────────────────────────────────────────────────────────
+
+  Widget _buildCropSelector(List<PlantedCropModel> crops) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       color: AppColors.primary,
@@ -264,32 +205,32 @@ class _AIAssistantScreenState extends State<AIAssistantScreen> {
         children: [
           const Icon(Icons.spa_outlined, color: Colors.white),
           const SizedBox(width: 12),
-          Text(
-            'Active Crop:',
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 14, color: Colors.white),
-          ),
+          Text('Active Crop:',
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                  color: Colors.white)),
           const SizedBox(width: 12),
           Expanded(
             child: DropdownButtonHideUnderline(
               child: DropdownButton<int>(
                 value: _selectedCropIndex,
                 icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                dropdownColor: AppColors.primaryDark,
                 items: List.generate(crops.length, (index) {
                   return DropdownMenuItem<int>(
                     value: index,
-                    child: Text(
-                      crops[index].cropName,
-                      style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 15),
-                    ),
+                    child: Text(crops[index].cropName,
+                        style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15,
+                            color: Colors.white)),
                   );
                 }),
                 onChanged: (val) {
                   if (val != null && val != _selectedCropIndex) {
-                    setState(() {
-                      _selectedCropIndex = val;
-                      _selectedDayIndex = 2; // reset to today
-                    });
-                    _fetchLiveGuidanceForCurrentCrop();
+                    setState(() => _selectedCropIndex = val);
+                    _fetchAssistant();
                   }
                 },
               ),
@@ -300,381 +241,492 @@ class _AIAssistantScreenState extends State<AIAssistantScreen> {
     );
   }
 
-  Widget _buildDaySelector(List<GuidanceDay> guidance) {
-    return Container(
-      height: 100,
-      color: Colors.white,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        itemCount: guidance.length,
-        itemBuilder: (context, index) {
-          final isSelected = _selectedDayIndex == index;
-          final date = guidance[index].date;
-          final age = guidance[index].cropAgeDays;
-          
-          String ageText = age >= 0 ? 'Day $age' : 'Prep';
-          if (age == 0) ageText = 'Planted';
-          
-          return GestureDetector(
-            onTap: () => setState(() => _selectedDayIndex = index),
-            child: AnimatedContainer(
-              duration: 300.ms,
-              width: 75,
-              margin: const EdgeInsets.only(right: 12),
-              decoration: BoxDecoration(
-                color: isSelected ? AppColors.primary : AppColors.surfaceVariant,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: isSelected
-                    ? [BoxShadow(color: Colors.white.withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 4))]
-                    : [],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    ageText,
-                    style: GoogleFonts.poppins(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: isSelected ? Colors.white.withValues(alpha: 0.8) : AppColors.primary,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    DateFormat('E').format(date),
-                    style: GoogleFonts.poppins(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: isSelected ? Colors.white.withValues(alpha: 0.8) : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                    ),
-                  ),
-                  Text(
-                    DateFormat('d').format(date),
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
-                    ),
-                  ),
-                ],
-              ),
+  // ── Loading Bar ──────────────────────────────────────────────────────────────
+
+  Widget _buildLoadingBar() {
+    return Expanded(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const CircularProgressIndicator(color: AppColors.primary),
+            const SizedBox(height: 20),
+            Text(
+              'AI is analysing your crop & weather...',
+              style: GoogleFonts.poppins(color: AppColors.textSecondary),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildDailyGuidanceCard(String tip) {
+  // ── Status Banner ────────────────────────────────────────────────────────────
+
+  Widget _buildStatusBanner(DailyAssistant a) {
     return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: AppColors.primaryGradient,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.white.withValues(alpha: 0.2),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      a.cropName,
+                      style: GoogleFonts.poppins(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Day ${a.cropAgeDays}  •  ${a.currentStageName}',
+                      style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          color: Colors.white.withValues(alpha: 0.9)),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  DateFormat('d MMM').format(DateTime.now()),
+                  style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          // Weather pill
+          Row(
+            children: [
+              const Icon(Icons.cloud_rounded, color: Colors.white70, size: 14),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  a.weatherSummary,
+                  style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: Colors.white.withValues(alpha: 0.85)),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (a.expectedHarvestDate.isNotEmpty) ...[
+                const SizedBox(width: 12),
+                const Icon(Icons.agriculture_rounded,
+                    color: Colors.white70, size: 14),
+                const SizedBox(width: 4),
+                Text(
+                  'Harvest: ${a.expectedHarvestDate}',
+                  style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      color: Colors.white.withValues(alpha: 0.85)),
+                ),
+              ],
+            ],
           ),
         ],
       ),
-      child: Row(
+    ).animate().fadeIn(duration: 300.ms).slideY(begin: -0.05, end: 0);
+  }
+
+  // ── Tab Bar ──────────────────────────────────────────────────────────────────
+
+  Widget _buildTabBar() {
+    return Container(
+      color: Colors.white,
+      child: TabBar(
+        controller: _tabController,
+        indicatorColor: AppColors.primary,
+        labelColor: AppColors.primary,
+        unselectedLabelColor: AppColors.textSecondary,
+        labelStyle:
+            GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 13),
+        unselectedLabelStyle:
+            GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 13),
+        tabs: const [
+          Tab(text: 'Schedule', icon: Icon(Icons.schedule_rounded, size: 18)),
+          Tab(text: 'AI Advice', icon: Icon(Icons.auto_awesome_rounded, size: 18)),
+          Tab(text: 'Alerts', icon: Icon(Icons.notifications_active_rounded, size: 18)),
+        ],
+      ),
+    );
+  }
+
+  // ── Schedule Tab ─────────────────────────────────────────────────────────────
+
+  Widget _buildScheduleTab(DailyAssistant a) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(AppDimensions.paddingLG),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          _buildSlotCard(
+            icon: Icons.wb_sunny_rounded,
+            label: 'Morning',
+            color: const Color(0xFFFF8F00),
+            tasks: a.schedule.morning,
+          ),
+          const SizedBox(height: 16),
+          _buildSlotCard(
+            icon: Icons.wb_cloudy_rounded,
+            label: 'Afternoon',
+            color: const Color(0xFF0288D1),
+            tasks: a.schedule.afternoon,
+          ),
+          const SizedBox(height: 16),
+          _buildSlotCard(
+            icon: Icons.nights_stay_rounded,
+            label: 'Evening',
+            color: const Color(0xFF5E35B1),
+            tasks: a.schedule.evening,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSlotCard({
+    required IconData icon,
+    required String label,
+    required Color color,
+    required List<String> tasks,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.08),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            child: Row(
               children: [
-                Text(
-                  'Daily Guidance',
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white.withValues(alpha: 0.9),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  child: Icon(icon, color: color, size: 20),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(width: 12),
                 Text(
-                  tip,
+                  label,
                   style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                    height: 1.4,
-                  ),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: color),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor.withValues(alpha: 0.2),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.lightbulb_outline_rounded, color: Colors.white, size: 28),
-          ),
-        ],
-      ),
-    ).animate().fadeIn().slideX(begin: -0.1, end: 0);
-  }
-
-  Widget _buildSectionTitle(String title) {
-    return Text(
-      title,
-      style: GoogleFonts.poppins(
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-        color: Theme.of(context).colorScheme.onSurface,
-      ),
-    );
-  }
-
-  Widget _buildTaskTimeline(List<FarmTask> tasks) {
-    return Column(
-      children: tasks.map((task) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  Container(
-                    width: 48,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: task.color.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Icon(task.icon, color: task.color, size: 24),
-                  ),
-                  const SizedBox(height: 4),
-                  Container(width: 2, height: 30, color: AppColors.divider),
-                ],
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: AppColors.divider),
-                  ),
-                  child: Column(
+          // Tasks
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: tasks.asMap().entries.map((entry) {
+                final i = entry.key;
+                final task = entry.value;
+                return Padding(
+                  padding: EdgeInsets.only(bottom: i < tasks.length - 1 ? 12 : 0),
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            task.title,
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 4, right: 12),
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          color: color.withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '${i + 1}',
+                            style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: color),
                           ),
-                          Text(
-                            task.time,
-                            style: GoogleFonts.poppins(
-                              fontSize: 11,
-                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        task.category,
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: task.color,
-                          fontWeight: FontWeight.w500,
+                      Expanded(
+                        child: Text(
+                          task,
+                          style: GoogleFonts.poppins(
+                              fontSize: 13,
+                              height: 1.45,
+                              color: AppColors.textSecondary),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-            ],
+                );
+              }).toList(),
+            ),
           ),
-        );
-      }).toList(),
+        ],
+      ),
+    ).animate().fadeIn(duration: 350.ms).slideY(begin: 0.05, end: 0);
+  }
+
+  // ── Recommendations Tab ──────────────────────────────────────────────────────
+
+  Widget _buildRecommendationsTab(DailyAssistant a) {
+    return ListView.separated(
+      padding: const EdgeInsets.all(AppDimensions.paddingLG),
+      itemCount: a.recommendations.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      itemBuilder: (context, index) {
+        final rec = a.recommendations[index];
+        return _buildRecommendationCard(rec, index);
+      },
     );
   }
 
-  Widget _buildSpecializedRecommendations() {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildSmallAdviceCard(
-            'Fertilizer',
-            'Check Fertilizer Screen',
-            Icons.grass_rounded,
-            Colors.green,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildSmallAdviceCard(
-            'Irrigation',
-            'Check Soil Moisture',
-            Icons.water_drop_outlined,
-            Colors.cyan,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSmallAdviceCard(String title, String subtitle, IconData icon, Color color) {
+  Widget _buildRecommendationCard(AIRecommendation rec, int index) {
+    final color = rec.typeColor;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: color, size: 20),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            style: GoogleFonts.poppins(fontSize: 11, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
-          ),
-          Text(
-            subtitle,
-            style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.onSurface),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.06),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildHarvestTracker(String cropName, DateTime plantedDate) {
-    final now = DateTime.now();
-    final elapsedDays = now.difference(plantedDate).inDays;
-    const totalDays = 90; // Standard growth cycle length
-    final progress = (elapsedDays / totalDays).clamp(0.0, 1.0);
-    final estHarvest = plantedDate.add(const Duration(days: totalDays));
-    
-    String stage = "Germination";
-    if (elapsedDays > 75) {
-      stage = "Maturity";
-    } else if (elapsedDays > 45) {
-      stage = "Flowering / Fruiting";
-    } else if (elapsedDays > 14) {
-      stage = "Vegetative Growth";
-    } else if (elapsedDays > 3) {
-      stage = "Seedling";
-    }
-
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: AppColors.divider),
-      ),
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildSectionTitle('Harvest Tracker'),
-              const Icon(Icons.trending_up_rounded, color: AppColors.success, size: 20),
-            ],
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.10),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(rec.iconData, color: color, size: 22),
           ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Icon(Icons.event_note_rounded, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7), size: 16),
-              const SizedBox(width: 8),
-              Text(
-                'Est. Harvest: ${DateFormat('dd MMMM yyyy').format(estHarvest)}',
-                style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: LinearProgressIndicator(
-              value: progress,
-              minHeight: 8,
-              backgroundColor: AppColors.surfaceVariant,
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.success),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        rec.title,
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textPrimary),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: color.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        rec.type.toUpperCase(),
+                        style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.w800,
+                            color: color,
+                            letterSpacing: 0.5),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  rec.detail,
+                  style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      height: 1.45,
+                      color: AppColors.textSecondary),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            '${(progress * 100).toInt()}% Progress - Growth Stage: $stage',
-            style: GoogleFonts.poppins(fontSize: 11, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
-          ),
         ],
       ),
+    )
+        .animate(delay: (index * 60).ms)
+        .fadeIn(duration: 300.ms)
+        .slideX(begin: 0.05, end: 0);
+  }
+
+  // ── Alerts Tab ───────────────────────────────────────────────────────────────
+
+  Widget _buildAlertsTab(DailyAssistant a) {
+    return ListView.separated(
+      padding: const EdgeInsets.all(AppDimensions.paddingLG),
+      itemCount: a.alerts.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      itemBuilder: (context, index) {
+        final alert = a.alerts[index];
+        return _buildAlertCard(alert, index);
+      },
     );
   }
 
-  Widget _buildChatFloatingButton() {
-    return Positioned(
-      bottom: 20,
-      left: 20,
-      right: 20,
-      child: GestureDetector(
-        onTap: () => context.push(AppRouter.aiAdvisory),
-        child: Container(
-          height: 65,
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(35),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.3),
-                blurRadius: 15,
-                offset: const Offset(0, 8),
-              ),
-            ],
+  Widget _buildAlertCard(DailyAlert alert, int index) {
+    final color = alert.levelColor;
+    final bg = alert.levelBg;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.15),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(alert.iconData, color: color, size: 22),
           ),
-          child: Row(
-            children: [
-              const SizedBox(width: 8),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary.withOpacity(0.1), shape: BoxShape.circle),
-                child: Icon(Icons.auto_awesome, color: Theme.of(context).colorScheme.primary, size: 24),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Text(
-                  'Ask AI Assistant...',
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: color.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        alert.level.toUpperCase(),
+                        style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.w800,
+                            color: color,
+                            letterSpacing: 0.5),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  alert.message,
                   style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                    fontWeight: FontWeight.w500,
+                      fontSize: 13.5,
+                      height: 1.45,
+                      fontWeight: FontWeight.w500,
+                      color: color.withValues(alpha: 0.85)),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    )
+        .animate(delay: (index * 60).ms)
+        .fadeIn(duration: 300.ms)
+        .slideY(begin: 0.05, end: 0);
+  }
+
+  // ── Empty State ──────────────────────────────────────────────────────────────
+
+  Widget _buildEmptyState({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    String? actionLabel,
+    VoidCallback? onAction,
+  }) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AI Farming Assistant',
+            style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w700, fontSize: 18)),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 64, color: AppColors.primary.withValues(alpha: 0.5)),
+              const SizedBox(height: 16),
+              Text(title,
+                  style: GoogleFonts.poppins(
+                      fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Text(subtitle,
+                  style: GoogleFonts.poppins(
+                      color: AppColors.textSecondary),
+                  textAlign: TextAlign.center),
+              if (actionLabel != null && onAction != null) ...[
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  onPressed: onAction,
+                  icon: const Icon(Icons.add_circle_outline_rounded),
+                  label: Text(actionLabel.tr(context)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 14),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
                   ),
                 ),
-              ),
-              IconButton(
-                icon: Icon(Icons.mic_none_rounded, color: Theme.of(context).colorScheme.onSurface, size: 26),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Voice assistant coming soon!'.tr(context))),
-                  );
-                },
-              ),
-              const SizedBox(width: 8),
+              ],
             ],
           ),
         ),
-      ).animate().slideY(begin: 1, end: 0, delay: 500.ms, curve: Curves.elasticOut),
+      ),
     );
   }
 }

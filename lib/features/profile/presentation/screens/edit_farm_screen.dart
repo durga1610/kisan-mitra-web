@@ -94,8 +94,17 @@ class _EditFarmScreenState extends State<EditFarmScreen> {
       };
 
       if (widget.farm?.id != null) {
+        final hasAddressChanged = widget.farm!.village != _villageController.text.trim() ||
+            widget.farm!.district != _districtController.text.trim() ||
+            widget.farm!.state != _stateController.text.trim();
+        if (hasAddressChanged) {
+          farmData['latitude'] = null;
+          farmData['longitude'] = null;
+        }
         await FirebaseFirestore.instance.collection('farms').doc(widget.farm!.id).update(farmData);
       } else {
+        farmData['latitude'] = null;
+        farmData['longitude'] = null;
         await FirebaseFirestore.instance.collection('farms').add(farmData);
       }
 

@@ -39,6 +39,8 @@ class FarmModel {
   final List<String> preferredCrops;
   final List<PlantedCropModel> plantedCrops;
   final DateTime updatedAt;
+  final double? latitude;
+  final double? longitude;
 
   FarmModel({
     this.id,
@@ -53,6 +55,8 @@ class FarmModel {
     required this.preferredCrops,
     this.plantedCrops = const [],
     required this.updatedAt,
+    this.latitude,
+    this.longitude,
   });
 
   Map<String, dynamic> toMap() {
@@ -68,6 +72,8 @@ class FarmModel {
       'preferredCrops': preferredCrops,
       'plantedCrops': plantedCrops.map((c) => c.toMap()).toList(),
       'updatedAt': updatedAt.toIso8601String(),
+      'latitude': latitude,
+      'longitude': longitude,
     };
   }
 
@@ -103,6 +109,8 @@ class FarmModel {
       preferredCrops: preferredCrops,
       plantedCrops: planted,
       updatedAt: DateTime.parse(map['updatedAt'] ?? DateTime.now().toIso8601String()),
+      latitude: (map['latitude'] as num?)?.toDouble(),
+      longitude: (map['longitude'] as num?)?.toDouble(),
     );
   }
 }

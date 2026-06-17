@@ -45,75 +45,107 @@ class _WeatherScreenState extends State<WeatherScreen> {
     });
 
     try {
-      Position? position;
-      try {
-        position = await _locationService.getCurrentPosition();
-      } catch (e) {
-        debugPrint('[Weather] Location service failed: $e');
-      }
-      
-      if (!mounted) return;
+      final farmProvider = context.read<FarmProvider>();
+      final farm = farmProvider.selectedFarm;
       final lang = context.read<LanguageProvider>().currentLanguage;
-      
-      if (position != null) {
-        final address = await _locationService.getAddressFromLatLng(position);
-        final district = address['district'] ?? '';
-        final state = address['state'] ?? '';
-        
+
+      if (farm != null) {
+        final district = farm.district;
+        final state = farm.state;
+        final village = farm.village;
+        final locationName = (village.isNotEmpty && district.isNotEmpty)
+            ? '$village, $district'
+            : (district.isNotEmpty ? district : state);
+
         if (!mounted) return;
         setState(() {
-          if (district.isNotEmpty && state.isNotEmpty) {
-            _locationName = '$district, $state';
-          } else if (district.isNotEmpty || state.isNotEmpty) {
-            _locationName = district.isNotEmpty ? district : state;
-          } else {
-            _locationName = 'Unknown Location';
-          }
-        });
-        
-        try {
-          final data = await _weatherService.getWeather(position.latitude, position.longitude, lang: lang);
-          if (!mounted) return;
-          setState(() {
-            _weather = data;
-            if (_locationName == 'Unknown Location' && data.cityName != 'Unknown Location') {
-              _locationName = data.cityName;
-            }
-          });
-        } catch (apiErr) {
-          debugPrint('[Weather] GPS Weather API failed: $apiErr');
-          _setMockWeather(_locationName);
-        }
-        debugPrint('[Weather] UI updated via GPS');
-      } else {
-        // Fallback to Farm Profile State
-        final farmState = context.read<FarmProvider>().selectedFarm?.state ?? '';
-        final farmDistrict = context.read<FarmProvider>().selectedFarm?.district ?? '';
-        String fallbackLocationName = 'Thiruvallur, Tamil Nadu'; // Default
-        if (farmState.isNotEmpty) {
-          fallbackLocationName = farmDistrict.isNotEmpty ? '$farmDistrict, $farmState' : farmState;
-        }
-        
-        setState(() {
-          _locationName = fallbackLocationName;
+          _locationName = locationName;
         });
 
         try {
-          final data = await _weatherService.getWeatherForLocation(farmDistrict, farmState, lang: lang);
+          WeatherModel data;
+          if (farm.latitude != null && farm.longitude != null) {
+            debugPrint('[Weather] Fetching by farm coordinates: ${farm.latitude}, ${farm.longitude}');
+            data = await _weatherService.getWeather(farm.latitude!, farm.longitude!, lang: lang, farmName: farm.name);
+          } else {
+            debugPrint('[Weather] Coordinates missing for ${farm.name}, using location query fallback');
+            data = await _weatherService.getWeatherForLocation(village, district, state, lang: lang, farmName: farm.name);
+          }
           if (!mounted) return;
           setState(() {
             _weather = data;
+            _error = null;
           });
-          debugPrint('[Weather] UI updated via Farm State');
+          debugPrint('[Weather] UI updated via Farm');
         } catch (apiErr) {
-          debugPrint('[Weather] Location Weather API failed: $apiErr');
-          _setMockWeather(_locationName);
+          debugPrint('[Weather] Farm Weather API failed: $apiErr');
+          if (mounted) {
+            setState(() {
+              _weather = null;
+              _error = 'Live weather service unavailable';
+            });
+          }
+        }
+      } else {
+        Position? position;
+        try {
+          position = await _locationService.getCurrentPosition();
+        } catch (e) {
+          debugPrint('[Weather] Location service failed: $e');
+        }
+
+        if (!mounted) return;
+
+        if (position != null) {
+          final address = await _locationService.getAddressFromLatLng(position);
+          final district = address['district'] ?? '';
+          final state = address['state'] ?? '';
+
+          if (!mounted) return;
+          setState(() {
+            if (district.isNotEmpty && state.isNotEmpty) {
+              _locationName = '$district, $state';
+            } else if (district.isNotEmpty || state.isNotEmpty) {
+              _locationName = district.isNotEmpty ? district : state;
+            } else {
+              _locationName = 'Unknown Location';
+            }
+          });
+
+          try {
+            final data = await _weatherService.getWeather(position.latitude, position.longitude, lang: lang);
+            if (!mounted) return;
+            setState(() {
+              _weather = data;
+              _error = null;
+              if (_locationName == 'Unknown Location' && data.cityName != 'Unknown Location') {
+                _locationName = data.cityName;
+              }
+            });
+          } catch (apiErr) {
+            debugPrint('[Weather] GPS Weather API failed: $apiErr');
+            if (mounted) {
+              setState(() {
+                _weather = null;
+                _error = 'Live weather service unavailable';
+              });
+            }
+          }
+          debugPrint('[Weather] UI updated via GPS');
+        } else {
+          setState(() {
+            _weather = null;
+            _error = 'Live weather service unavailable';
+          });
         }
       }
     } catch (e) {
       if (!mounted) return;
       debugPrint('[Weather] Error: $e');
-      _setMockWeather(_locationName);
+      setState(() {
+        _weather = null;
+        _error = 'Live weather service unavailable';
+      });
     } finally {
       debugPrint('[Weather] Loading finished');
       if (mounted) {
@@ -122,60 +154,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
   }
 
-  void _setMockWeather(String locationName) {
-    final month = DateTime.now().month;
-    String season = 'Kharif';
-    double temp = 28.5;
-    double humidity = 70.0;
-    double windSpeed = 10.0;
-    double rainChance = 30.0;
-    String condition = 'Cloudy';
-    String icon = '03d';
-    String description = 'scattered clouds';
-
-    if (month >= 3 && month <= 6) {
-      season = 'Zaid';
-      temp = 36.5;
-      humidity = 40.0;
-      windSpeed = 14.0;
-      rainChance = 10.0;
-      condition = 'Sunny';
-      icon = '01d';
-      description = 'clear sky';
-    } else if (month >= 7 && month <= 10) {
-      season = 'Kharif';
-      temp = 29.0;
-      humidity = 82.0;
-      windSpeed = 16.0;
-      rainChance = 75.0;
-      condition = 'Rain';
-      icon = '10d';
-      description = 'moderate rain';
-    } else {
-      season = 'Rabi';
-      temp = 18.0;
-      humidity = 60.0;
-      windSpeed = 8.0;
-      rainChance = 5.0;
-      condition = 'Partly Cloudy';
-      icon = '02d';
-      description = 'few clouds';
-    }
-
-    _weather = WeatherModel(
-      temperature: temp,
-      humidity: humidity,
-      windSpeed: windSpeed,
-      rainChance: rainChance,
-      condition: condition,
-      icon: icon,
-      description: description,
-      forecast: [],
-      season: season,
-      cityName: locationName,
-    );
-    _error = 'Using simulated weather data. Configure OPENWEATHER_API_KEY for live updates.';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,6 +204,43 @@ class _WeatherScreenState extends State<WeatherScreen> {
                               child: Text(
                                 _error!,
                                 style: GoogleFonts.poppins(color: AppColors.error, fontSize: 13, fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (_error == null && _weather != null)
+                      Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.only(bottom: 16),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: AppColors.success.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: AppColors.success.withOpacity(0.5)),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.check_circle_outline_rounded, color: AppColors.success, size: 24),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Live Weather Updated',
+                                    style: GoogleFonts.poppins(color: AppColors.success, fontSize: 14, fontWeight: FontWeight.w700),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Location: ${_locationName.split(',').first.trim()}',
+                                    style: GoogleFonts.poppins(color: AppColors.success, fontSize: 12, fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    'Updated Time: ${DateFormat('hh:mm a').format(DateTime.now())}',
+                                    style: GoogleFonts.poppins(color: AppColors.success, fontSize: 12, fontWeight: FontWeight.w500),
+                                  ),
+                                ],
                               ),
                             ),
                           ],

@@ -26,8 +26,8 @@ import '../../../../core/services/location_service.dart';
 import '../../../../core/services/weather_service.dart';
 import '../../../weather/data/models/weather_model.dart';
 import '../../../../core/models/farm_model.dart';
-import '../../../../features/notifications/data/services/notification_service.dart';
-import '../../../../features/notifications/data/models/km_notification_type.dart';
+import '../../../../core/providers/user_provider.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,10 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool _isLoading = true;
   String? _error;
-  Map<String, dynamic>? _farmerData;
   WeatherModel? _weatherData;
   String _currentLocationName = 'Detecting location...';
   String? _lastFetchedFarmId;
+  double? _lastFetchedLat;
+  double? _lastFetchedLon;
   Timer? _refreshTimer;
 
   @override
@@ -58,23 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-  void _checkDailySchedule(FarmProvider farmProvider) {
-    final crops = farmProvider.selectedFarm?.plantedCrops ?? [];
-    if (crops.isNotEmpty) {
-      final history = NotificationService().history;
-      final alreadyNotified = history.any((n) => n.type == KmNotificationType.system && n.title == 'Daily Schedule' && DateTime.now().difference(n.timestamp).inHours < 24);
-      
-      if (!alreadyNotified) {
-        final cropNames = crops.map((c) => c.cropName).join(' and ');
-        NotificationService().triggerCustomNotification(
-          title: 'Daily Schedule',
-          body: 'You have scheduled tasks for your $cropNames crops today. Check the AI Assistant tab for details.',
-          type: KmNotificationType.system,
-          priority: 'Medium'
-        );
-      }
-    }
-  }
+
 
   void _startAutoRefresh() {
     _refreshTimer?.cancel();
@@ -102,16 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
       if (user == null) {
         throw Exception('User not logged in');
       }
-
-      // 1. Setup real-time profile stream
-      _firestoreService.streamDocument('users/${user.uid}').listen((snapshot) {
-        if (snapshot.exists && mounted) {
-          setState(() {
-            _farmerData = snapshot.data() as Map<String, dynamic>?;
-          });
-        }
-      });
-      
     } catch (e) {
       _error = 'Failed to load data: $e';
     } finally {
@@ -123,9 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _fetchWeatherForFarm(FarmModel? farm) async {
     if (farm == null) return;
-    if (_lastFetchedFarmId == farm.id && _weatherData != null) return; 
-    
     _lastFetchedFarmId = farm.id;
+    _lastFetchedLat = farm.latitude;
+    _lastFetchedLon = farm.longitude;
     
     try {
       final district = farm.district;
@@ -137,18 +112,27 @@ class _HomeScreenState extends State<HomeScreen> {
       });
 
       final lang = context.read<LanguageProvider>().currentLanguage;
-      final weather = await _weatherService.getWeatherForLocation(district, state, lang: lang);
+      WeatherModel weather;
+      if (farm.latitude != null && farm.longitude != null) {
+        debugPrint('[Weather] Fetching by farm coordinates: ${farm.latitude}, ${farm.longitude}');
+        weather = await _weatherService.getWeather(farm.latitude!, farm.longitude!, lang: lang, farmName: farm.name);
+      } else {
+        debugPrint('[Weather] Coordinates missing for ${farm.name}, using location query fallback');
+        weather = await _weatherService.getWeatherForLocation(village, district, state, lang: lang, farmName: farm.name);
+      }
       
       if (mounted) {
         setState(() {
           _weatherData = weather;
+          _error = null;
         });
       }
     } catch (e) {
       debugPrint('Weather fetch error: $e');
       if (mounted) {
         setState(() {
-          _weatherData = WeatherModel.mock();
+          _weatherData = null;
+          _error = 'Live weather service unavailable';
         });
       }
     }
@@ -203,17 +187,22 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final farmProvider = context.watch<FarmProvider>();
     final selectedFarm = farmProvider.selectedFarm;
+    final userProvider = context.watch<UserProvider>();
+    final userModel = userProvider.userModel;
     
-    if (selectedFarm != null && _lastFetchedFarmId != selectedFarm.id) {
+    if (selectedFarm != null &&
+        (_lastFetchedFarmId != selectedFarm.id ||
+         _lastFetchedLat != selectedFarm.latitude ||
+         _lastFetchedLon != selectedFarm.longitude ||
+         _weatherData == null)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _fetchWeatherForFarm(selectedFarm);
       });
     }
 
-    final isPageLoading = _isLoading || farmProvider.isLoading;
+    final isPageLoading = _isLoading || farmProvider.isLoading || userProvider.isLoading;
 
     return Scaffold(
-      
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: _loadInitialData,
@@ -225,7 +214,8 @@ class _HomeScreenState extends State<HomeScreen> {
               SliverToBoxAdapter(
                 child: DashboardHeader(
                   greeting: AppUtils.getGreeting().tr(context),
-                  farmerName: _farmerData?['name'] ?? 'Farmer'.tr(context),
+                  farmerName: userModel?.name ?? 'Farmer'.tr(context),
+                  profileImageUrl: userModel?.profileImageUrl,
                   date: AppUtils.getTodayDateFormatted(),
                   farmArea: selectedFarm?.landArea?.toString() ?? '0',
                   location: _currentLocationName,
@@ -233,17 +223,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   allFarmNames: farmProvider.farms.map((f) => f.name).toList(),
                   selectedFarmIndex: farmProvider.selectedFarmIndex,
                   onFarmSelected: (index) => _onFarmSelected(context, index),
-                  onNotificationTap: () => context.push(AppRouter.notifications),
-                  onAvatarTap: () => context.go(AppRouter.profile),
                   onLogoutTap: _handleLogout,
                 ),
               ),
 
-              if (isPageLoading)
+              if (isPageLoading && userModel == null && farmProvider.farms.isEmpty)
                 const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator(color: Colors.white)),
                 )
-              else if (_error != null)
+              else if (_error != null && userModel == null && farmProvider.farms.isEmpty)
                 SliverFillRemaining(
                   child: Center(
                     child: Padding(
@@ -269,13 +257,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(height: 16),
 
                       // Weather Card
-                      WeatherCard(
-                        temperature: _weatherData != null ? '${_weatherData!.temperature.toInt()}°C' : '--°C',
-                        condition: _weatherData?.condition ?? '--',
-                        humidity: _weatherData != null ? '${_weatherData!.humidity.toInt()}%' : '--%',
-                        windSpeed: _weatherData != null ? '${_weatherData!.windSpeed.toInt()} km/h' : '-- km/h',
-                        location: _currentLocationName,
-                        rainChance: _weatherData != null ? '${_weatherData!.rainChance.toInt()}%' : '--%',
+                      GestureDetector(
+                        onTap: () => context.push(AppRouter.weatherDashboard),
+                        child: WeatherCard(
+                          temperature: _weatherData != null ? '${_weatherData!.temperature.toInt()}°C' : '--°C',
+                          condition: _weatherData?.condition ?? '--',
+                          humidity: _weatherData != null ? '${_weatherData!.humidity.toInt()}%' : '--%',
+                          windSpeed: _weatherData != null ? '${_weatherData!.windSpeed.toInt()} km/h' : '-- km/h',
+                          location: _currentLocationName,
+                          rainChance: _weatherData != null ? '${_weatherData!.rainChance.toInt()}%' : '--%',
+                        ),
                       ),
                       const SizedBox(height: 20),
 
@@ -324,10 +315,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: HomeBottomNav(
-        currentIndex: _currentIndex,
-        onTap: _onNavTap,
       ),
     );
   }

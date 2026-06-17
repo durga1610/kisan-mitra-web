@@ -68,10 +68,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
   Future<void> _loadPreferences() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      pushNotifications = prefs.getBool('pushNotifications') ?? true;
-      weatherAlerts = prefs.getBool('weatherAlerts') ?? true;
-      weatherAlertFrequency = prefs.getString('weatherAlertFrequency') ?? 'Daily';
-      marketAlerts = prefs.getBool('marketAlerts') ?? false;
       autoBackup = prefs.getBool('autoBackup') ?? true;
       lastBackupTime = prefs.getString('lastBackupTime') ?? "Never";
       marketAlertCrops = prefs.getStringList('marketAlertCrops') ?? [];
@@ -163,9 +159,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
                 ]),
                 _buildSettingsSection(title: "App Preferences", children: [
                   _getSettingItem("Dark Mode", settingsList)?.widget ?? const SizedBox(),
-                  _getSettingItem("Push Notifications", settingsList)?.widget ?? const SizedBox(),
-                  _getSettingItem("Weather Alerts", settingsList)?.widget ?? const SizedBox(),
-                  _getSettingItem("Market Price Alerts", settingsList)?.widget ?? const SizedBox(),
                 ]),
                 _buildSettingsSection(title: "Data & Sync", children: [
                   _getSettingItem("Auto Backup Data", settingsList)?.widget ?? const SizedBox(),
@@ -283,40 +276,7 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
           onChanged: (val) => themeProvider.toggleTheme(val),
         ),
       ),
-      _SettingItem(
-        title: "Push Notifications",
-        widget: _buildSwitchTile(
-          icon: Icons.notifications_active_outlined,
-          title: "Push Notifications",
-          value: pushNotifications,
-          isDarkMode: isDarkMode,
-          onChanged: (val) {
-            setState(() => pushNotifications = val);
-            _savePreference('pushNotifications', val);
-            _showSnackbar(val ? "Push notifications enabled" : "Push notifications disabled");
-          },
-        ),
-      ),
-      _SettingItem(
-        title: "Weather Alerts",
-        widget: _buildSettingsTile(
-          icon: Icons.cloud_outlined,
-          title: "Weather Alerts",
-          subtitle: weatherAlerts ? "Enabled ($weatherAlertFrequency)" : "Disabled",
-          isDarkMode: isDarkMode,
-          onTap: () => _showWeatherAlertSettings(isDarkMode),
-        ),
-      ),
-      _SettingItem(
-        title: "Market Price Alerts",
-        widget: _buildSettingsTile(
-          icon: Icons.trending_up_rounded,
-          title: "Market Price Alerts",
-          subtitle: marketAlerts ? "${marketAlertCrops.length} crops selected" : "Disabled",
-          isDarkMode: isDarkMode,
-          onTap: () => _showMarketAlertSettings(isDarkMode),
-        ),
-      ),
+
       _SettingItem(
         title: "Auto Backup Data",
         widget: _buildSettingsTile(

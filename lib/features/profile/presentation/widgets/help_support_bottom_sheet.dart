@@ -46,16 +46,16 @@ class HelpSupportBottomSheet extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildHandle(),
+                _buildHandle(context),
                 _buildHeader(context),
                 const SizedBox(height: 24),
                 _buildEmergencyBanner(context),
                 const SizedBox(height: 32),
-                _buildSectionTitle('Contact Options'.tr(context)),
+                _buildSectionTitle(context, 'Contact Options'.tr(context)),
                 const SizedBox(height: 16),
                 _buildContactOptions(context),
                 const SizedBox(height: 32),
-                _buildSectionTitle('Quick Help'.tr(context)),
+                _buildSectionTitle(context, 'Quick Help'.tr(context)),
                 const SizedBox(height: 16),
                 _buildQuickHelpOptions(context),
                 const SizedBox(height: 40),
@@ -68,7 +68,7 @@ class HelpSupportBottomSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildHandle() {
+  Widget _buildHandle(BuildContext context) {
     return Center(
       child: Container(
         margin: const EdgeInsets.only(top: 12, bottom: 24),
@@ -188,7 +188,7 @@ class HelpSupportBottomSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(BuildContext context, String title) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Text(

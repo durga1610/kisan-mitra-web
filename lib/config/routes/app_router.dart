@@ -22,8 +22,9 @@ import '../../features/advisory/presentation/screens/ai_advisory_screen.dart';
 import '../../features/disease_detection/presentation/screens/disease_history_screen.dart';
 import '../../features/disease_detection/presentation/screens/disease_result_screen.dart';
 import '../../features/disease_detection/data/models/disease_report.dart';
-import '../../features/notifications/presentation/screens/notification_history_screen.dart';
 import '../../features/advisory/presentation/screens/fertilizer_screen.dart';
+
+import '../../features/home/presentation/screens/main_navigation_shell.dart';
 
 class AppRouter {
   static const String splash = '/';
@@ -42,8 +43,15 @@ class AppRouter {
   static const String diseaseHistory = '/disease-history';
   static const String weatherDashboard = '/weather-dashboard';
   static const String profitAnalyzer = '/profit-analyzer';
-  static const String notifications = '/notifications';
   static const String fertilizer = '/fertilizer';
+
+  static String initialRoute = home;
+
+  static void setInitialRoute(String? route) {
+    if (route != null && (route == home || route == crops || route == profile)) {
+      initialRoute = route;
+    }
+  }
 
   static final GoRouter router = GoRouter(
     initialLocation: splash,
@@ -59,7 +67,7 @@ class AppRouter {
         return null;
       }
 
-      if (isLoggingIn || isSplashing) return home;
+      if (isLoggingIn || isSplashing) return initialRoute;
 
       return null;
     },
@@ -82,31 +90,25 @@ class AppRouter {
           },
         ),
       ),
-      GoRoute(
-        path: home,
-        name: 'home',
-        builder: (context, state) => const HomeScreen(),
-        pageBuilder: (context, state) => CustomTransitionPage(
-          key: state.pageKey,
-          child: const HomeScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeOutCubic,
-              )),
-              child: child,
-            );
-          },
-        ),
-      ),
-      GoRoute(
-        path: crops,
-        name: 'crops',
-        builder: (context, state) => const CropsScreen(),
+      ShellRoute(
+        builder: (context, state, child) => MainNavigationShell(child: child),
+        routes: [
+          GoRoute(
+            path: home,
+            name: 'home',
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: crops,
+            name: 'crops',
+            builder: (context, state) => const CropsScreen(),
+          ),
+          GoRoute(
+            path: profile,
+            name: 'profile',
+            builder: (context, state) => const ProfileScreen(),
+          ),
+        ],
       ),
       GoRoute(
         path: market,
@@ -117,11 +119,6 @@ class AppRouter {
         path: advisory,
         name: 'advisory',
         builder: (context, state) => const AIAdvisoryScreen(),
-      ),
-      GoRoute(
-        path: profile,
-        name: 'profile',
-        builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(
         path: profileSetup,
@@ -152,7 +149,17 @@ class AppRouter {
         path: diseaseResult,
         name: 'diseaseResult',
         builder: (context, state) {
-          final report = state.extra as DiseaseReport;
+          final report = state.extra as DiseaseReport?;
+          if (report == null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              context.go(AppRouter.home);
+            });
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
           return DiseaseResultScreen(report: report);
         },
       ),
@@ -170,11 +177,6 @@ class AppRouter {
         path: profitAnalyzer,
         name: 'profitAnalyzer',
         builder: (context, state) => const ProfitAnalyzerScreen(),
-      ),
-      GoRoute(
-        path: notifications,
-        name: 'notifications',
-        builder: (context, state) => const NotificationHistoryScreen(),
       ),
       GoRoute(
         path: fertilizer,
