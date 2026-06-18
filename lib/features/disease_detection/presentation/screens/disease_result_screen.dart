@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
-import 'dart:js' as js;
+import 'mock_js.dart' if (dart.library.js) 'dart:js' as js;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:kisan_mitra/core/localization/app_translations.dart';

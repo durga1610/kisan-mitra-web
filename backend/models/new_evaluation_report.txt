@@ -1,58 +1,44 @@
-======================================================================
-        TWO-STAGE RECOVERED MODEL EVALUATION REPORT
-======================================================================
-Overall Top-1 Accuracy: 100.00%
-Overall Top-3 Accuracy: 100.00%
-======================================================================
-Class Name                                    | Precision | Recall    | F1-Score  | Support
-----------------------------------------------------------------------
-Apple___Black_Rot                             |   100.00% |   100.00% |   100.00% | 5      
-Apple___Cedar_Apple_Rust                      |   100.00% |   100.00% |   100.00% | 5      
-Apple___Healthy                               |   100.00% |   100.00% |   100.00% | 5      
-Apple___Scab                                  |   100.00% |   100.00% |   100.00% | 5      
-Blueberry___Healthy                           |   100.00% |   100.00% |   100.00% | 5      
-Cherry___Healthy                              |   100.00% |   100.00% |   100.00% | 5      
-Cherry___Powdery_Mildew                       |   100.00% |   100.00% |   100.00% | 5      
-Corn___Common_Rust                            |   100.00% |   100.00% |   100.00% | 5      
-Corn___Gray_Leaf_Spot                         |   100.00% |   100.00% |   100.00% | 5      
-Corn___Healthy                                |   100.00% |   100.00% |   100.00% | 5      
-Corn___Northern_Leaf_Blight                   |   100.00% |   100.00% |   100.00% | 5      
-Cotton___Bacterial_Blight                     |   100.00% |   100.00% |   100.00% | 5      
-Cotton___Healthy                              |   100.00% |   100.00% |   100.00% | 5      
-Cotton___Leaf_Curl                            |   100.00% |   100.00% |   100.00% | 5      
-Grape___Black_Rot                             |   100.00% |   100.00% |   100.00% | 5      
-Grape___Esca                                  |   100.00% |   100.00% |   100.00% | 5      
-Grape___Healthy                               |   100.00% |   100.00% |   100.00% | 5      
-Grape___Leaf_Blight                           |   100.00% |   100.00% |   100.00% | 5      
-Orange___Haunglongbing                        |   100.00% |   100.00% |   100.00% | 5      
-Peach___Bacterial_Spot                        |   100.00% |   100.00% |   100.00% | 5      
-Peach___Healthy                               |   100.00% |   100.00% |   100.00% | 5      
-Pepper_Bell___Bacterial_Spot                  |   100.00% |   100.00% |   100.00% | 5      
-Pepper_Bell___Healthy                         |   100.00% |   100.00% |   100.00% | 5      
-Potato___Early_Blight                         |   100.00% |   100.00% |   100.00% | 5      
-Potato___Healthy                              |   100.00% |   100.00% |   100.00% | 5      
-Potato___Late_Blight                          |   100.00% |   100.00% |   100.00% | 5      
-Raspberry___Healthy                           |   100.00% |   100.00% |   100.00% | 5      
-Rice___Bacterial_Leaf_Blight                  |   100.00% |   100.00% |   100.00% | 5      
-Rice___Blast                                  |   100.00% |   100.00% |   100.00% | 5      
-Rice___Brown_Spot                             |   100.00% |   100.00% |   100.00% | 5      
-Rice___Healthy                                |   100.00% |   100.00% |   100.00% | 5      
-Soybean___Healthy                             |   100.00% |   100.00% |   100.00% | 5      
-Squash___Powdery_Mildew                       |   100.00% |   100.00% |   100.00% | 5      
-Strawberry___Healthy                          |   100.00% |   100.00% |   100.00% | 5      
-Strawberry___Leaf_Scorch                      |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Bacterial_Spot                       |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Early_Blight                         |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Healthy                              |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Late_Blight                          |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Leaf_Mold                            |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Mosaic_Virus                         |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Septoria_Leaf_Spot                   |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Spider_Mites                         |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Target_Spot                          |   100.00% |   100.00% |   100.00% | 5      
-Tomato___Yellow_Leaf_Curl_Virus               |   100.00% |   100.00% |   100.00% | 5      
-----------------------------------------------------------------------
-Macro Average                                 |   100.00% |   100.00% |   100.00% | 225    
-======================================================================
-Grape <-> Potato Cross-Classifications: 0
-======================================================================
+==========================================================================================
+                 KISAN MITRA PRODUCTION MODEL EVALUATION REPORT (FIELD SET)
+==========================================================================================
+Validation accuracy (Training Best): 79.05%
+Overall Field Accuracy (Retrained) : 47.31%
+Overall Field Accuracy (Baseline)  : 46.24%
+------------------------------------------------------------------------------------------
+Macro Precision (Retrained)        : 43.62%
+Macro Recall (Retrained)           : 51.83%
+Macro F1 Score (Retrained)         : 45.03%
+==========================================================================================
+
+--- Crop Accuracy Comparison (Field Validation Set) ---
+Crop Category   | Baseline (45-Class)       | Retrained (20-Class)     
+---------------------------------------------------------------------------
+Cotton          | 17/17 (100.00%)           | 16/17 (94.12%)           
+Grape           | 6/20 (30.00%)             | 6/20 (30.00%)            
+Potato          | 6/20 (30.00%)             | 6/20 (30.00%)            
+Rice            | 8/16 (50.00%)             | 9/16 (56.25%)            
+Tomato          | 6/20 (30.00%)             | 7/20 (35.00%)            
+Rice Blast Only | 1/5 (20.00%)              | 4/5 (80.00%)             
+==========================================================================================
+
+--- Top Confused Disease Pairs (20-Class Model) ---
+  True: Plant_Healthy                    -> Pred: Rice___Blast                     | Errors: 5
+  True: Plant_Healthy                    -> Pred: Grape___Esca                     | Errors: 4
+  True: Plant_Healthy                    -> Pred: Potato___Early_Blight            | Errors: 3
+  True: Grape___Esca                     -> Pred: Plant_Healthy                    | Errors: 2
+  True: Grape___Leaf_Blight              -> Pred: Grape___Black_Rot                | Errors: 2
+  True: Potato___Early_Blight            -> Pred: Tomato___Early_Blight            | Errors: 2
+  True: Potato___Early_Blight            -> Pred: Potato___Late_Blight             | Errors: 2
+  True: Plant_Healthy                    -> Pred: Tomato___Early_Blight            | Errors: 2
+  True: Plant_Healthy                    -> Pred: Tomato___Spider_Mites            | Errors: 2
+  True: Plant_Healthy                    -> Pred: Cotton___Leaf_Curl               | Errors: 1
+==========================================================================================
+
+--- Comparison Table: 45-Class vs 24-Class (Est.) vs 20-Class ---
+Metric                    | 45-Class Model   | 24-Class Model (Est) | 20-Class Model (New)
+------------------------------------------------------------------------------------------
+Overall Field Accuracy    | 46.24% | ~74.50% | **47.31%**
+Rice Blast Accuracy       | 20.00% | ~50.00% | **80.00%**
+Max Class Imbalance       | 86.20x | 86.20x | **6.46x**
+Data Homogeneity          | Real+Synth | Real+Synth | **100% Real**
+==========================================================================================
