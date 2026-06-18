@@ -99,3 +99,16 @@ test_vision.dart
 backend/__pycache__/
 backend/*.pyc
 backend/catboost_info/
+
+# Large datasets and temporary zip/extract folders
+*.zip
+*_extracted/
+dataset_backup_24/
+dataset_healthy_improvement/
+dataset_legacy/
+field_validation_set/
+models_backup/
+backend/scratch/field_validation_set/
+backend/scratch/plantdoc_extracted/
+backend/models/*_new.pt
+backend/models/*_v2.pt

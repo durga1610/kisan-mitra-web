@@ -2,7 +2,7 @@ name: kisan_mitra
 description: "Kisan Mitra - Your Smart Agriculture Companion"
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0-rc.1+1
 
 environment:
   sdk: ^3.11.5

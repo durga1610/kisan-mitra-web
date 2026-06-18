@@ -4,7 +4,7 @@ class ApiConfig {
   ApiConfig._();
 
   // OpenWeather API Key
-  static const String openWeatherApiKey = String.fromEnvironment('OPENWEATHER_API_KEY', defaultValue: '68bb3642840ac0f5199a7ff7f321474b');
+  static const String openWeatherApiKey = String.fromEnvironment('OPENWEATHER_API_KEY', defaultValue: 'YOUR_OPENWEATHER_API_KEY');
 
   static const String geminiApiKey = String.fromEnvironment('GEMINI_API_KEY', defaultValue: 'YOUR_GEMINI_API_KEY');
 
@@ -24,7 +24,7 @@ class ApiConfig {
   }
 
   // Mandi (Market) Data API — data.gov.in (Ministry of Agriculture)
-  static const String mandiApiKey = String.fromEnvironment('MANDI_API_KEY', defaultValue: '579b464db66ec23bdd0000017c7ccd02bac445d36a5a228846357fa2'); 
+  static const String mandiApiKey = String.fromEnvironment('MANDI_API_KEY', defaultValue: 'YOUR_MANDI_API_KEY'); 
   static const String mandiApiBaseUrl = 'https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070';
 
   // AI Assistant System Prompt
