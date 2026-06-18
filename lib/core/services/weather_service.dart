@@ -33,28 +33,57 @@ class WeatherService {
   }
 
   Future<WeatherModel> getWeather(double lat, double lon, {String lang = 'en', String? farmName}) async {
+    final String cacheKey = 'cached_weather_${lat.toStringAsFixed(2)}_${lon.toStringAsFixed(2)}';
+    SharedPreferences? prefs;
+    String? cachedStr;
+    try {
+      prefs = await SharedPreferences.getInstance();
+      cachedStr = prefs.getString(cacheKey);
+      if (cachedStr != null) {
+        final cachedObj = json.decode(cachedStr);
+        final timestamp = cachedObj['timestamp'] as int;
+        final data = cachedObj['data'] as Map<String, dynamic>;
+        final age = DateTime.now().millisecondsSinceEpoch - timestamp;
+        if (age < 30 * 60 * 1000) {
+          debugPrint('[Weather] Cache HIT and valid. Returning cached weather.');
+          return WeatherModel.fromJson(data);
+        }
+      }
+    } catch (e) {
+      debugPrint('[Weather] SharedPreferences cache read error: $e');
+    }
+
     try {
       debugPrint('[Weather] API request started');
       final apiKey = await _getApiKey();
-      final url = '$baseUrl/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=$lang';
+      final urlWeather = '$baseUrl/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=$lang';
+      final urlForecast = '$baseUrl/forecast?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=$lang';
       
       debugPrint('[Weather] Farm Name: ${farmName ?? 'N/A'}');
       debugPrint('[Weather] Latitude: $lat');
       debugPrint('[Weather] Longitude: $lon');
       debugPrint('[Weather] Loaded API Key Length: ${apiKey.length}');
-      debugPrint('[Weather] Request URL: $url');
+      debugPrint('[Weather] Current Weather URL: $urlWeather');
+      debugPrint('[Weather] Forecast URL: $urlForecast');
       
-      final response = await http.get(
-        Uri.parse(url),
-      ).timeout(const Duration(seconds: 10));
+      final responses = await Future.wait([
+        http.get(Uri.parse(urlWeather)).timeout(const Duration(seconds: 10)),
+        http.get(Uri.parse(urlForecast)).timeout(const Duration(seconds: 10)),
+      ]);
       
-      debugPrint('[Weather] Response Status Code: ${response.statusCode}');
-      debugPrint('[Weather] Response Body: ${response.body}');
+      final weatherResponse = responses[0];
+      final forecastResponse = responses[1];
+      
+      debugPrint('[Weather] Weather Status Code: ${weatherResponse.statusCode}');
+      debugPrint('[Weather] Forecast Status Code: ${forecastResponse.statusCode}');
 
-      if (response.statusCode == 200) {
+      if (weatherResponse.statusCode == 200 && forecastResponse.statusCode == 200) {
         debugPrint('[Weather] Parsing started');
-        final data = json.decode(response.body);
-        final weather = WeatherModel.fromJson(data);
+        final currentData = json.decode(weatherResponse.body);
+        final forecastData = json.decode(forecastResponse.body);
+        final forecastList = forecastData['list'] as List<dynamic>;
+        
+        final weather = WeatherModel.fromJson(currentData, forecastList);
         debugPrint('[Weather] Parsing complete');
         
         debugPrint('[Weather] Temperature: ${weather.temperature}');
@@ -68,10 +97,27 @@ class WeatherService {
           data: {
             'lat': lat,
             'lon': lon,
-            'data': data,
+            'current_data': currentData,
+            'forecast_data': forecastData,
             'timestamp': DateTime.now().toIso8601String(),
           },
-        ).catchError((e) => debugPrint('[Weather] Firestore cache error: $e'));
+        ).then((_) => null, onError: (e) {
+          debugPrint('[Weather] Firestore cache error: $e');
+        });
+        
+        // Cache locally to SharedPreferences
+        if (prefs != null) {
+          try {
+            final cacheData = {
+              'timestamp': DateTime.now().millisecondsSinceEpoch,
+              'data': weather.toJson(),
+            };
+            await prefs.setString(cacheKey, json.encode(cacheData));
+            debugPrint('[Weather] Successfully saved to SharedPreferences cache.');
+          } catch (e) {
+            debugPrint('[Weather] SharedPreferences cache write error: $e');
+          }
+        }
         
         return weather;
       } else {
@@ -81,6 +127,17 @@ class WeatherService {
         }));
       }
     } catch (e) {
+      debugPrint('[Weather] Exception occurred: $e');
+      if (cachedStr != null) {
+        try {
+          final cachedObj = json.decode(cachedStr);
+          final data = cachedObj['data'] as Map<String, dynamic>;
+          debugPrint('[Weather] API request failed, falling back to cached weather: $e');
+          return WeatherModel.fromJson(data);
+        } catch (ex) {
+          debugPrint('[Weather] Failed to fall back to cache: $ex');
+        }
+      }
       if (e is! Exception || !e.toString().contains('weather_unavailable')) {
         throw Exception(jsonEncode({
           "status": "weather_unavailable",

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kisan_mitra/core/localization/app_translations.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../config/routes/app_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -250,6 +252,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       _buildMainWeatherCard(_weather!),
                       const SizedBox(height: 24),
                       _buildMetricsGrid(_weather!),
+                      const SizedBox(height: 24),
+                      _buildWeeklyForecastButton(context, _weather!),
                       const SizedBox(height: 32),
                       _buildSectionTitle('Agricultural Outlook'),
                       const SizedBox(height: 16),
@@ -469,5 +473,80 @@ class _WeatherScreenState extends State<WeatherScreen> {
         );
       }).toList(),
     ).animate().fadeIn(delay: 300.ms);
+  }
+
+  Widget _buildWeeklyForecastButton(BuildContext context, WeatherModel weather) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.divider),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: () {
+            context.push(AppRouter.weeklyForecast, extra: weather);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.calendar_month_rounded,
+                    color: AppColors.primary,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'View Weekly Forecast'.tr(context),
+                        style: GoogleFonts.poppins(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'See 7-day agricultural weather trends'.tr(context),
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+                  size: 16,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ).animate().fadeIn(delay: 200.ms).slideX(begin: 0.1, end: 0);
   }
 }

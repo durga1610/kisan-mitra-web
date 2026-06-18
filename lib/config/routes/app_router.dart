@@ -12,6 +12,8 @@ import '../../features/crop_recommendation/presentation/screens/crop_recommendat
 import '../../features/ai_assistant/presentation/screens/ai_assistant_screen.dart';
 import '../../features/disease_detection/presentation/screens/disease_detection_screen.dart';
 import '../../features/weather/presentation/screens/weather_screen.dart';
+import '../../features/weather/presentation/screens/weekly_forecast_screen.dart';
+import '../../features/weather/data/models/weather_model.dart';
 import '../../features/profit_analyzer/presentation/screens/profit_analyzer_screen.dart';
 
 import '../../core/providers/auth_provider.dart';
@@ -42,6 +44,7 @@ class AppRouter {
   static const String diseaseResult = '/disease-result';
   static const String diseaseHistory = '/disease-history';
   static const String weatherDashboard = '/weather-dashboard';
+  static const String weeklyForecast = '/weekly-forecast';
   static const String profitAnalyzer = '/profit-analyzer';
   static const String fertilizer = '/fertilizer';
 
@@ -108,80 +111,98 @@ class AppRouter {
             name: 'profile',
             builder: (context, state) => const ProfileScreen(),
           ),
+          GoRoute(
+            path: market,
+            name: 'market',
+            builder: (context, state) => const MarketScreen(),
+          ),
+          GoRoute(
+            path: advisory,
+            name: 'advisory',
+            builder: (context, state) => const AIAdvisoryScreen(),
+          ),
+          GoRoute(
+            path: profileSetup,
+            name: 'profileSetup',
+            builder: (context, state) => const ProfileSetupScreen(),
+          ),
+          GoRoute(
+            path: cropRecommendation,
+            name: 'cropRecommendation',
+            builder: (context, state) => const CropRecommendationScreen(),
+          ),
+          GoRoute(
+            path: aiAssistant,
+            name: 'aiAssistant',
+            builder: (context, state) => const AIAssistantScreen(),
+          ),
+          GoRoute(
+            path: aiAdvisory,
+            name: 'aiAdvisory',
+            builder: (context, state) => const AIAdvisoryScreen(),
+          ),
+          GoRoute(
+            path: diseaseDetection,
+            name: 'diseaseDetection',
+            builder: (context, state) => const DiseaseDetectionScreen(),
+          ),
+          GoRoute(
+            path: diseaseResult,
+            name: 'diseaseResult',
+            builder: (context, state) {
+              final report = state.extra as DiseaseReport?;
+              if (report == null) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  context.go(AppRouter.home);
+                });
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              return DiseaseResultScreen(report: report);
+            },
+          ),
+          GoRoute(
+            path: diseaseHistory,
+            name: 'diseaseHistory',
+            builder: (context, state) => const DiseaseHistoryScreen(),
+          ),
+          GoRoute(
+            path: weatherDashboard,
+            name: 'weatherDashboard',
+            builder: (context, state) => const WeatherScreen(),
+          ),
+          GoRoute(
+            path: weeklyForecast,
+            name: 'weeklyForecast',
+            builder: (context, state) {
+              final weather = state.extra as WeatherModel?;
+              if (weather == null) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  context.go(AppRouter.weatherDashboard);
+                });
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              return WeeklyForecastScreen(weather: weather);
+            },
+          ),
+          GoRoute(
+            path: profitAnalyzer,
+            name: 'profitAnalyzer',
+            builder: (context, state) => const ProfitAnalyzerScreen(),
+          ),
+          GoRoute(
+            path: fertilizer,
+            name: 'fertilizer',
+            builder: (context, state) => const FertilizerScreen(),
+          ),
         ],
-      ),
-      GoRoute(
-        path: market,
-        name: 'market',
-        builder: (context, state) => const MarketScreen(),
-      ),
-      GoRoute(
-        path: advisory,
-        name: 'advisory',
-        builder: (context, state) => const AIAdvisoryScreen(),
-      ),
-      GoRoute(
-        path: profileSetup,
-        name: 'profileSetup',
-        builder: (context, state) => const ProfileSetupScreen(),
-      ),
-      GoRoute(
-        path: cropRecommendation,
-        name: 'cropRecommendation',
-        builder: (context, state) => const CropRecommendationScreen(),
-      ),
-      GoRoute(
-        path: aiAssistant,
-        name: 'aiAssistant',
-        builder: (context, state) => const AIAssistantScreen(),
-      ),
-      GoRoute(
-        path: aiAdvisory,
-        name: 'aiAdvisory',
-        builder: (context, state) => const AIAdvisoryScreen(),
-      ),
-      GoRoute(
-        path: diseaseDetection,
-        name: 'diseaseDetection',
-        builder: (context, state) => const DiseaseDetectionScreen(),
-      ),
-      GoRoute(
-        path: diseaseResult,
-        name: 'diseaseResult',
-        builder: (context, state) {
-          final report = state.extra as DiseaseReport?;
-          if (report == null) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              context.go(AppRouter.home);
-            });
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          return DiseaseResultScreen(report: report);
-        },
-      ),
-      GoRoute(
-        path: diseaseHistory,
-        name: 'diseaseHistory',
-        builder: (context, state) => const DiseaseHistoryScreen(),
-      ),
-      GoRoute(
-        path: weatherDashboard,
-        name: 'weatherDashboard',
-        builder: (context, state) => const WeatherScreen(),
-      ),
-      GoRoute(
-        path: profitAnalyzer,
-        name: 'profitAnalyzer',
-        builder: (context, state) => const ProfitAnalyzerScreen(),
-      ),
-      GoRoute(
-        path: fertilizer,
-        name: 'fertilizer',
-        builder: (context, state) => const FertilizerScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(
