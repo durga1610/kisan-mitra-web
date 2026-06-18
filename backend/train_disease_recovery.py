@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision import datasets, transforms, models
 
 # Configurations
-DATASET_DIR = "dataset"
+DATASET_DIR = r"c:\Users\durga\kisan_mitra\dataset"
 CROP_MODEL_PATH = "models/crop_model.pt"
 DISEASE_MODEL_PATH = "models/disease_model.pt"
 CLASSES_JSON_PATH = "models/classes.json"
@@ -31,18 +31,20 @@ class FocalLoss(nn.Module):
         focal_loss = ((1 - pt) ** self.gamma) * ce_loss
         return focal_loss.mean()
 
-# Data transforms without any random augmentations to preserve watermarks
+from disease_transforms import DISEASE_TRANSFORM
+
+# Data transforms with random augmentations for train to generalize to real backgrounds
 data_transforms = {
     'train': transforms.Compose([
         transforms.Resize((128, 128)),
+        transforms.RandomHorizontalFlip(),
+        transforms.RandomVerticalFlip(),
+        transforms.RandomRotation(15),
+        transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
-    'val': transforms.Compose([
-        transforms.Resize((128, 128)),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ])
+    'val': DISEASE_TRANSFORM
 }
 
 # Custom Dataset Wrapper to return both crop and disease labels
@@ -94,8 +96,8 @@ def train_model(model_type, model, train_loader, val_loader, dataset_sizes, clas
     weights_tensor = torch.tensor(weights, dtype=torch.float).to(device)
 
     criterion = FocalLoss(alpha=weights_tensor, gamma=2.0)
-    optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-2)
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=num_epochs)
+    optimizer = None
+    scheduler = None
 
     best_acc = 0.0
     best_model_weights = model.state_dict()
@@ -105,6 +107,14 @@ def train_model(model_type, model, train_loader, val_loader, dataset_sizes, clas
     for epoch in range(num_epochs):
         log(f"Epoch {epoch+1}/{num_epochs}")
         log("-" * 20)
+
+        if epoch == 0:
+            # Unfreeze all parameters from the start
+            for param in model.parameters():
+                param.requires_grad = True
+            optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-2)
+            scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=num_epochs)
+            log("  [All Unfrozen] Fine-tuning all layers from the start.")
 
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
@@ -194,10 +204,8 @@ def main():
         'val': len(val_dataset)
     }
 
-    # 2. Train the Stage 1: Crop Model (16 classes) - Fully Unfrozen, lr=1e-3
+    # 2. Train the Stage 1: Crop Model (16 classes)
     crop_model = get_efficientnet_b0(len(crop_names))
-    for param in crop_model.parameters():
-        param.requires_grad = True
 
     crop_model, val_crop_acc = train_model(
         model_type="crop",
@@ -206,17 +214,15 @@ def main():
         val_loader=val_loader,
         dataset_sizes=dataset_sizes,
         class_names=crop_names,
-        num_epochs=5,
-        lr=1e-3
+        num_epochs=12,
+        lr=3e-4
     )
 
     torch.save(crop_model.state_dict(), CROP_MODEL_PATH)
     log(f"Saved crop model weights to {CROP_MODEL_PATH}")
 
-    # 3. Train the Stage 2: Disease Model (45 classes) - Fully Unfrozen, lr=1e-3
+    # 3. Train the Stage 2: Disease Model (45 classes)
     disease_model = get_efficientnet_b0(len(disease_classes))
-    for param in disease_model.parameters():
-        param.requires_grad = True
 
     disease_model, val_disease_acc = train_model(
         model_type="disease",
@@ -225,8 +231,8 @@ def main():
         val_loader=val_loader,
         dataset_sizes=dataset_sizes,
         class_names=disease_classes,
-        num_epochs=6,
-        lr=1e-3
+        num_epochs=15,
+        lr=3e-4
     )
 
     torch.save(disease_model.state_dict(), DISEASE_MODEL_PATH)

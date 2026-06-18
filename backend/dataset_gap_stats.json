@@ -1,0 +1,142 @@
+{
+  "Cotton___Bacterial_Blight": {
+    "train": 200,
+    "val": 50,
+    "test": 0,
+    "type": "Real (Rebuilt)",
+    "ratio": 6.465
+  },
+  "Cotton___Leaf_Curl": {
+    "train": 200,
+    "val": 50,
+    "test": 181,
+    "type": "Real (Rebuilt)",
+    "ratio": 6.465
+  },
+  "Rice___Bacterial_Leaf_Blight": {
+    "train": 200,
+    "val": 50,
+    "test": 0,
+    "type": "Real (Rebuilt)",
+    "ratio": 6.465
+  },
+  "Rice___Blast": {
+    "train": 200,
+    "val": 50,
+    "test": 107,
+    "type": "Real (Rebuilt)",
+    "ratio": 6.465
+  },
+  "Rice___Brown_Spot": {
+    "train": 200,
+    "val": 50,
+    "test": 124,
+    "type": "Real (Rebuilt)",
+    "ratio": 6.465
+  },
+  "Tomato___Bacterial_Spot": {
+    "train": 286,
+    "val": 72,
+    "test": 1478,
+    "type": "Real (Rebuilt)",
+    "ratio": 4.520979020979021
+  },
+  "Tomato___Early_Blight": {
+    "train": 268,
+    "val": 68,
+    "test": 725,
+    "type": "Real (Rebuilt)",
+    "ratio": 4.824626865671642
+  },
+  "Tomato___Late_Blight": {
+    "train": 287,
+    "val": 72,
+    "test": 1549,
+    "type": "Real (Rebuilt)",
+    "ratio": 4.505226480836237
+  },
+  "Tomato___Leaf_Mold": {
+    "train": 271,
+    "val": 68,
+    "test": 625,
+    "type": "Real (Rebuilt)",
+    "ratio": 4.771217712177122
+  },
+  "Tomato___Mosaic_Virus": {
+    "train": 241,
+    "val": 61,
+    "test": 102,
+    "type": "Real (Rebuilt)",
+    "ratio": 5.365145228215767
+  },
+  "Tomato___Septoria_Leaf_Spot": {
+    "train": 319,
+    "val": 80,
+    "test": 1475,
+    "type": "Real (Rebuilt)",
+    "ratio": 4.053291536050157
+  },
+  "Tomato___Spider_Mites": {
+    "train": 247,
+    "val": 62,
+    "test": 1066,
+    "type": "Real (Rebuilt)",
+    "ratio": 5.234817813765182
+  },
+  "Tomato___Target_Spot": {
+    "train": 245,
+    "val": 62,
+    "test": 1044,
+    "type": "Real (Rebuilt)",
+    "ratio": 5.277551020408163
+  },
+  "Tomato___Yellow_Leaf_Curl_Virus": {
+    "train": 259,
+    "val": 65,
+    "test": 4471,
+    "type": "Real (Rebuilt)",
+    "ratio": 4.992277992277992
+  },
+  "Grape___Black_Rot": {
+    "train": 247,
+    "val": 62,
+    "test": 743,
+    "type": "Real (Rebuilt)",
+    "ratio": 5.234817813765182
+  },
+  "Grape___Esca": {
+    "train": 243,
+    "val": 61,
+    "test": 861,
+    "type": "Real (Rebuilt)",
+    "ratio": 5.320987654320987
+  },
+  "Grape___Leaf_Blight": {
+    "train": 243,
+    "val": 61,
+    "test": 802,
+    "type": "Real (Rebuilt)",
+    "ratio": 5.320987654320987
+  },
+  "Potato___Early_Blight": {
+    "train": 285,
+    "val": 72,
+    "test": 748,
+    "type": "Real (Rebuilt)",
+    "ratio": 4.536842105263158
+  },
+  "Potato___Late_Blight": {
+    "train": 274,
+    "val": 69,
+    "test": 713,
+    "type": "Real (Rebuilt)",
+    "ratio": 4.718978102189781
+  },
+  "Plant_Healthy": {
+    "train": 1293,
+    "val": 328,
+    "test": 1266,
+    "type": "Synthetic (Legacy)",
+    "ratio": 1.0
+  }
+}

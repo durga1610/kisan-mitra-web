@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Configurations
-DATASET_DIR = "dataset"
+DATASET_DIR = r"c:\Users\durga\kisan_mitra\dataset"
 CROP_MODEL_PATH = "models/crop_model.pt"
 DISEASE_MODEL_PATH = "models/disease_model.pt"
 CLASSES_JSON_PATH = "models/classes.json"
@@ -32,12 +32,10 @@ with open(CLASSES_JSON_PATH, "r") as f:
 CROPS = sorted(list(set(c.split("___")[0] for c in CLASSES)))
 disease_to_crop_idx = [CROPS.index(c.split("___")[0]) for c in CLASSES]
 
+from disease_transforms import DISEASE_TRANSFORM
+
 # Transforms
-data_transform = transforms.Compose([
-    transforms.Resize((128, 128)),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-])
+data_transform = DISEASE_TRANSFORM
 
 def load_models(device):
     # Initialize EfficientNet-B0 models
@@ -84,7 +82,7 @@ def main():
         log(f"Error: Test split not found at {test_dir}")
         sys.exit(1)
 
-    test_dataset = datasets.ImageFolder(test_dir, data_transform)
+    test_dataset = datasets.ImageFolder(test_dir, data_transform, allow_empty=True)
     test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False, num_workers=0)
 
     crop_model, disease_model = load_models(device)

@@ -6,18 +6,15 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms, models
 
+from disease_transforms import DISEASE_TRANSFORM
+
 # Configuration
 DATASET_DIR = "dataset"
-MODEL_SAVE_PATH = "models/disease_model.pt"
+MODEL_SAVE_PATH = "models/plant_disease_resnet.pt"
 CLASS_MAP_PATH = "models/classes.json"
 
 # Transforms
-data_transforms = transforms.Compose([
-    transforms.Resize(256),
-    transforms.CenterCrop(224),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-])
+data_transforms = DISEASE_TRANSFORM
 
 def build_model(num_classes):
     model = models.resnet18()

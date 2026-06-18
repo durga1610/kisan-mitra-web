@@ -48,7 +48,7 @@ def main():
     model.eval()
 
     # Create a dummy input matching training size: [batch, channels, height, width]
-    dummy_input = torch.randn(1, 3, 224, 224, requires_grad=True)
+    dummy_input = torch.randn(1, 3, 128, 128, requires_grad=True)
 
     print(f"Exporting PyTorch model to ONNX format at '{ONNX_SAVE_PATH}'...")
     

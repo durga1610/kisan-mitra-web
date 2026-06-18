@@ -1,6 +1,10 @@
+import logging
 import os
 import json
 import pickle
+from security_utils import safe_pickle_load
+
+logger = logging.getLogger(__name__)
 import sqlite3
 from datetime import datetime
 from typing import Dict, List, Any, Optional
@@ -19,7 +23,7 @@ def load_crop_profiles():
                 with open(profiles_path, "r", encoding="utf-8") as f:
                     _crop_profiles = json.load(f)
             except Exception as e:
-                print(f"[SuitabilityEngine] Error loading crop_profiles.json: {e}")
+                logger.warning(f"[SuitabilityEngine] Error loading crop_profiles.json: {e}")
     return _crop_profiles
 
 
@@ -199,7 +203,7 @@ def evaluate_crop_suitability(farm_id: str, target_crop: str) -> dict:
             active_crops = [r["crop_name"].lower() for r in cursor.fetchall()]
             conn.close()
         except Exception as e:
-            print(f"[SuitabilityEngine] SQLite error: {e}")
+            logger.info(f"[SuitabilityEngine] SQLite error: {e}")
             
     # Resolve pre-processed inputs
     soil_norm = normalize_soil(soil)
@@ -231,10 +235,8 @@ def evaluate_crop_suitability(farm_id: str, target_crop: str) -> dict:
         
     try:
         import pandas as pd
-        with open(PREPROCESSORS_PATH, "rb") as f:
-            preprocessors = pickle.load(f)
-        with open(MODEL_PATH, "rb") as f:
-            model = pickle.load(f)
+        preprocessors = safe_pickle_load(PREPROCESSORS_PATH)  # F-05
+        model = safe_pickle_load(MODEL_PATH)  # F-05
             
         label_encoders = preprocessors["label_encoders"]
         scaler = preprocessors["scaler"]
@@ -286,7 +288,7 @@ def evaluate_crop_suitability(farm_id: str, target_crop: str) -> dict:
         confidence = round(prob_suitable, 2)
         
     except Exception as e:
-        print(f"[SuitabilityEngine] Model prediction failed: {e}")
+        logger.warning(f"[SuitabilityEngine] Model prediction failed: {e}")
         score = 65
         suitable = True
         confidence = 0.65
@@ -319,7 +321,7 @@ def evaluate_crop_suitability(farm_id: str, target_crop: str) -> dict:
             recs = predict_crop_recommendations(features)
             alternatives = [r["crop"].title() for r in recs if r["crop"].lower() != target_crop.lower()][:3]
         except Exception as e:
-            print(f"[SuitabilityEngine] Alternatives lookup failed: {e}")
+            logger.warning(f"[SuitabilityEngine] Alternatives lookup failed: {e}")
             
         # Fallback
         if not alternatives:

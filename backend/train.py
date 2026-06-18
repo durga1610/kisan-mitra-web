@@ -8,6 +8,8 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms, models
 
+from disease_transforms import DISEASE_TRANSFORM
+
 # Configuration
 DATASET_DIR = "dataset"
 MODEL_SAVE_PATH = "models/disease_model.pt"
@@ -15,20 +17,8 @@ CLASS_MAP_PATH = "models/classes.json"
 
 # Transforms
 data_transforms = {
-    'train': transforms.Compose([
-        transforms.RandomResizedCrop(224),
-        transforms.RandomHorizontalFlip(),
-        transforms.RandomRotation(20),
-        transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-    'val': transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ])
+    'train': DISEASE_TRANSFORM,
+    'val': DISEASE_TRANSFORM
 }
 
 def build_model(model_name, num_classes):

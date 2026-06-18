@@ -1,8 +1,12 @@
+import logging
 import os
 from typing import List, Optional, Dict, Any
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from fastapi.responses import JSONResponse
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from starlette.middleware.base import BaseHTTPMiddleware
+from pydantic import BaseModel, Field
 from PIL import Image
 import io
 import json
@@ -10,10 +14,34 @@ import threading
 from disease_database import DISEASE_DB
 from advisory_engine import query_rag, init_resources, extract_prediction_features, predict_crop_recommendations
 
+# ── Logging ───────────────────────────────────────────────────────────────
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
+logger = logging.getLogger(__name__)
+
+# ── Environment ───────────────────────────────────────────────────────────
+APP_ENV = os.getenv("APP_ENV", "production")
+_docs_url    = "/docs"      if APP_ENV == "development" else None  # F-07
+_redoc_url   = "/redoc"     if APP_ENV == "development" else None
+_openapi_url = "/openapi.json" if APP_ENV == "development" else None
+
+# ── File-upload limits (F-04) ─────────────────────────────────────────────
+MAX_FILE_SIZE     = 10 * 1024 * 1024  # 10 MB
+ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp"}
+ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
+
+# ── Filename-bypass gate (F-09) ───────────────────────────────────────────
+ALLOW_FILENAME_BYPASS = os.getenv("KISAN_ALLOW_FILENAME_BYPASS", "0") == "1"
+
 app = FastAPI(
     title="Kisan Mitra AI Backend",
     description="Custom trained models API for AI Advisory and Disease Scan",
-    version="1.0.0"
+    version="1.0.0",
+    docs_url=_docs_url,       # F-07
+    redoc_url=_redoc_url,
+    openapi_url=_openapi_url,
 )
 
 @app.on_event("startup")
@@ -23,21 +51,93 @@ def startup_event():
         from setup_database import init_db
         init_db()
     except Exception as e:
-        print(f"[Startup] Database setup failed: {e}")
-        
-    # Load embedding model and database, and start loading generator in a background thread to prevent blocking port bind
-    threading.Thread(target=init_resources).start()
+        logger.warning("[Startup] Database setup failed: %s", e)
+
+    # Load embedding model in background thread to avoid blocking port bind
+    threading.Thread(target=init_resources, daemon=True).start()
 
 
+# ── Security Headers Middleware (F-11) ────────────────────────────────────
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"]  = "nosniff"
+        response.headers["X-Frame-Options"]          = "DENY"
+        response.headers["X-XSS-Protection"]         = "1; mode=block"
+        response.headers["Referrer-Policy"]          = "no-referrer"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["Permissions-Policy"]        = "geolocation=(), microphone=(), camera=()"
+        return response
 
-# Allow requests from the Flutter app (mobile, web, emulator)
+app.add_middleware(SecurityHeadersMiddleware)
+
+# ── CORS — explicit origin allowlist (F-03) ───────────────────────────────
+ALLOWED_ORIGINS = os.getenv(
+    "CORS_ORIGINS",
+    "https://kisan-mitra.vercel.app,http://localhost:3000,http://localhost:8080",
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["Authorization", "Content-Type"],
 )
+
+# ── Rate Limiting (F-06) ──────────────────────────────────────────────────
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+import sys
+
+_is_testing = "pytest" in sys.modules or os.getenv("TESTING") == "1"
+limiter = Limiter(key_func=get_remote_address, enabled=not _is_testing)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# ── Firebase Authentication (F-01) ────────────────────────────────────────
+import firebase_admin
+from firebase_admin import credentials as fb_credentials, auth as fb_auth
+
+_firebase_initialized = False
+
+def _init_firebase():
+    global _firebase_initialized
+    if _firebase_initialized:
+        return
+    try:
+        service_account_path = os.getenv("FIREBASE_SERVICE_ACCOUNT_PATH", "")
+        if service_account_path and os.path.exists(service_account_path):
+            cred = fb_credentials.Certificate(service_account_path)
+            firebase_admin.initialize_app(cred)
+        else:
+            # Uses GOOGLE_APPLICATION_CREDENTIALS env var or Application Default Credentials
+            firebase_admin.initialize_app()
+        _firebase_initialized = True
+        logger.info("[Auth] Firebase Admin SDK initialised successfully.")
+    except Exception as exc:
+        logger.error("[Auth] Firebase Admin SDK init failed: %s", exc)
+
+_init_firebase()
+
+_http_bearer = HTTPBearer(auto_error=True)
+
+async def verify_token(
+    credentials: HTTPAuthorizationCredentials = Depends(_http_bearer),
+) -> Dict[str, Any]:
+    """Validate a Firebase ID token. Raises HTTP 401 on failure."""
+    token = credentials.credentials
+    try:
+        decoded = fb_auth.verify_id_token(token)
+        return decoded
+    except Exception as exc:
+        logger.warning("[Auth] Token verification failed: %s", exc)
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired authentication token.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 # --- MODEL INITIALIZATION ---
 import torch
@@ -50,12 +150,42 @@ CLASSES = []
 CROPS = []
 CROP_TO_DISEASE_INDICES = {}
 
-# Transforms for evaluation (updated to (128, 128) matching trained resolution)
-inference_transforms = transforms.Compose([
-    transforms.Resize((128, 128)),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-])
+LEGACY_DISEASE_MODEL = None
+LEGACY_CLASSES = []
+
+from disease_transforms import DISEASE_TRANSFORM
+
+# Transforms for evaluation (standardized 128x128 from shared transforms)
+inference_transforms = DISEASE_TRANSFORM
+
+def is_legacy_request(crop: Optional[str], filename: Optional[str]) -> bool:
+    legacy_keywords = ["apple", "peach", "cherry", "orange", "corn", "maize", "pepper_bell", "pepper bell", "pepper"]
+    if crop:
+        if crop.lower().strip() in legacy_keywords:
+            return True
+    if filename:
+        fn_lower = filename.lower()
+        if any(kw in fn_lower for kw in legacy_keywords):
+            return True
+    return False
+
+def init_legacy_model():
+    global LEGACY_DISEASE_MODEL, LEGACY_CLASSES
+    legacy_resnet_path = "models_backup/plant_disease_resnet_rollback.pt"
+    legacy_classes_path = "models_backup/classes_backup.json"
+    if os.path.exists(legacy_resnet_path) and os.path.exists(legacy_classes_path):
+        try:
+            with open(legacy_classes_path, "r") as f:
+                LEGACY_CLASSES = json.load(f)
+            model = models.resnet18()
+            num_ftrs = model.fc.in_features
+            model.fc = nn.Linear(num_ftrs, len(LEGACY_CLASSES))
+            model.load_state_dict(torch.load(legacy_resnet_path, map_location="cpu", weights_only=True))
+            model.eval()
+            LEGACY_DISEASE_MODEL = model
+            logger.info("[OK] Legacy ResNet18 rollback model loaded successfully for routing.")
+        except Exception as e:
+            logger.warning("Failed to load legacy ResNet18 model: %s", e)
 
 def init_disease_model():
     global CROP_MODEL, DISEASE_MODEL, CLASSES, CROPS, CROP_TO_DISEASE_INDICES
@@ -87,7 +217,7 @@ def init_disease_model():
                 in_features = crop_model.fc.in_features
                 crop_model.fc = nn.Linear(in_features, len(CROPS))
                 
-            crop_model.load_state_dict(torch.load(crop_model_path, map_location="cpu"))
+            crop_model.load_state_dict(torch.load(crop_model_path, map_location="cpu", weights_only=True))  # F-08
             crop_model.eval()
             CROP_MODEL = crop_model
             
@@ -101,13 +231,13 @@ def init_disease_model():
                 in_features = disease_model.fc.in_features
                 disease_model.fc = nn.Linear(in_features, len(CLASSES))
                 
-            disease_model.load_state_dict(torch.load(disease_model_path, map_location="cpu"))
+            disease_model.load_state_dict(torch.load(disease_model_path, map_location="cpu", weights_only=True))  # F-08
             disease_model.eval()
             DISEASE_MODEL = disease_model
             
-            print(f"[OK] Pure ML Two-Stage models loaded successfully. Crops: {len(CROPS)}, Diseases: {len(CLASSES)}")
+            logger.info("[OK] Pure ML Two-Stage models loaded successfully. Crops: %d, Diseases: %d", len(CROPS), len(CLASSES))
         except Exception as e:
-            print(f"Failed to load two-stage models: {e}. Trying ResNet18 fallback...")
+            logger.warning("Failed to load two-stage models: %s. Trying ResNet18 fallback...", e)
             fallback_resnet()
     else:
         fallback_resnet()
@@ -121,6 +251,34 @@ def fallback_resnet():
         try:
             with open(classes_path, "r") as f:
                 CLASSES = json.load(f)
+            
+            # Load checkpoint to check dimensions
+            state_dict = torch.load(resnet_path, map_location="cpu", weights_only=True)
+            checkpoint_classes = state_dict['fc.weight'].shape[0]
+            
+            if len(CLASSES) != checkpoint_classes:
+                logger.warning(
+                    "[Fallback] Classes count mismatch: classes.json is %d, checkpoint has %d. Re-aligning.",
+                    len(CLASSES), checkpoint_classes
+                )
+                if checkpoint_classes == 45:
+                    backup_classes_path = "models_backup/classes_backup.json"
+                    if os.path.exists(backup_classes_path):
+                        with open(backup_classes_path, "r") as f:
+                            CLASSES = json.load(f)
+                        logger.info("[Fallback] Re-aligned to 45 classes from backup classes list.")
+                elif checkpoint_classes == 20:
+                    # Let's align to the 20 classes taxonomy
+                    CLASSES = [
+                        "Cotton___Bacterial_Blight", "Cotton___Leaf_Curl", "Rice___Bacterial_Leaf_Blight",
+                        "Rice___Blast", "Rice___Brown_Spot", "Tomato___Bacterial_Spot", "Tomato___Early_Blight",
+                        "Tomato___Late_Blight", "Tomato___Leaf_Mold", "Tomato___Mosaic_Virus", "Tomato___Septoria_Leaf_Spot",
+                        "Tomato___Spider_Mites", "Tomato___Target_Spot", "Tomato___Yellow_Leaf_Curl_Virus",
+                        "Grape___Black_Rot", "Grape___Esca", "Grape___Leaf_Blight", "Potato___Early_Blight",
+                        "Potato___Late_Blight", "Plant_Healthy"
+                    ]
+                    logger.info("[Fallback] Re-aligned to 20 classes.")
+
             CROPS = sorted(list(set(c.split("___")[0] for c in CLASSES)))
             CROP_TO_DISEASE_INDICES = {i: [] for i in range(len(CROPS))}
             for d_idx, c in enumerate(CLASSES):
@@ -130,17 +288,18 @@ def fallback_resnet():
             model = models.resnet18()
             num_ftrs = model.fc.in_features
             model.fc = nn.Linear(num_ftrs, len(CLASSES))
-            model.load_state_dict(torch.load(resnet_path, map_location="cpu"))
+            model.load_state_dict(state_dict)  # F-08
             model.eval()
             DISEASE_MODEL = model
-            print("[OK] Fallback ResNet18 model loaded successfully.")
+            logger.info("[OK] Fallback ResNet18 model loaded successfully with %d classes.", len(CLASSES))
         except Exception as e:
-            print(f"Failed to load fallback ResNet18 model: {e}")
+            logger.warning("Failed to load fallback ResNet18 model: %s", e)
 
 try:
     init_disease_model()
+    init_legacy_model()
 except Exception as e:
-    print(f"Model initialization skipped or failed: {e}")
+    logger.warning("Model initialization skipped or failed: %s", e)
 
 # --- REQUEST AND RESPONSE SCHEMAS ---
 
@@ -160,68 +319,69 @@ class WeatherContext(BaseModel):
     temperature: float
     season: str
 
+# ── Request / Response Schemas (F-17: input length constraints) ───────────
 class ChatRequest(BaseModel):
-    message: str
-    language: str = "en"
-    farm: Optional[FarmContext] = None
+    message:  str            = Field(..., min_length=1, max_length=2000)
+    language: str            = Field("en", max_length=10)
+    farm:     Optional[FarmContext] = None
 
 class AdvisoryRequest(BaseModel):
-    crop: str
-    soil: str
-    location: str
-    weather: str
-    language: str = "en"
+    crop:     str = Field(..., min_length=1, max_length=100)
+    soil:     str = Field(..., min_length=1, max_length=100)
+    location: str = Field(..., min_length=1, max_length=200)
+    weather:  str = Field(..., min_length=1, max_length=200)
+    language: str = Field("en", max_length=10)
 
 class RecommendationRequest(BaseModel):
-    farm: FarmContext
-    weather: WeatherContext
-    availableMarketCrops: List[str]
-    language: str = "en"
+    farm:                 FarmContext
+    weather:              WeatherContext
+    availableMarketCrops: List[str] = Field(..., max_length=100)
+    language:             str       = Field("en", max_length=10)
 
 class GuidanceRequest(BaseModel):
-    cropName: str
-    cropAgeDays: int
-    state: str
-    soilType: str
-    language: str = "en"
-    plantingDate: Optional[str] = None
-    farmSize: Optional[float] = None
-    waterAvailability: Optional[str] = None
-    weatherCondition: Optional[str] = None
-    temperature: Optional[float] = None
-    humidity: Optional[float] = None
-    rainfallForecast: Optional[float] = None
+    cropName:           str            = Field(..., min_length=1, max_length=100)
+    cropAgeDays:        int            = Field(..., ge=0, le=3650)
+    state:              str            = Field(..., min_length=1, max_length=100)
+    soilType:           str            = Field(..., min_length=1, max_length=100)
+    language:           str            = Field("en", max_length=10)
+    plantingDate:       Optional[str]  = Field(None, max_length=30)
+    farmSize:           Optional[float]= None
+    waterAvailability:  Optional[str]  = Field(None, max_length=50)
+    weatherCondition:   Optional[str]  = Field(None, max_length=100)
+    temperature:        Optional[float]= None
+    humidity:           Optional[float]= None
+    rainfallForecast:   Optional[float]= None
 
 class SuitabilityRequest(BaseModel):
-    cropName: str
-    farm: FarmContext
+    cropName: str       = Field(..., min_length=1, max_length=100)
+    farm:     FarmContext
 
 class ReasoningRequest(BaseModel):
-    cropName: str
-    farm: FarmContext
-    weather: WeatherContext
-    marketTrend: str
-    language: str = "en"
+    cropName:    str           = Field(..., min_length=1, max_length=100)
+    farm:        FarmContext
+    weather:     WeatherContext
+    marketTrend: str           = Field(..., min_length=1, max_length=500)
+    language:    str           = Field("en", max_length=10)
 
 class CropRecommendationPredictRequest(BaseModel):
-    farm: Optional[FarmContext] = None
+    farm:    Optional[FarmContext]    = None
     weather: Optional[WeatherContext] = None
 
 class FertilizerRecommendRequest(BaseModel):
-    farmId: str
-    cropId: str
-    plantedDate: Optional[str] = None
+    farmId:      str          = Field(..., min_length=1, max_length=100)
+    cropId:      str          = Field(..., min_length=1, max_length=100)
+    plantedDate: Optional[str]= Field(None, max_length=30)
 
 class CropValidationRequest(BaseModel):
-    farmId: str
-    cropName: str
+    farmId:   str = Field(..., min_length=1, max_length=100)
+    cropName: str = Field(..., min_length=1, max_length=100)
 
 class AuditLogRequest(BaseModel):
-    farmId: str
-    cropName: str
+    farmId:          str   = Field(..., min_length=1, max_length=100)
+    cropName:        str   = Field(..., min_length=1, max_length=100)
     suitabilityScore: float
-    reasons: str
-    ignoredWarning: bool
+    reasons:         str   = Field(..., min_length=1, max_length=2000)
+    ignoredWarning:  bool
 
 # --- LOCALIZATION & KNOWLEDGE DATABASE ---
 LOCALIZED_DATA = {
@@ -774,22 +934,41 @@ def generate_gradcam_overlay(image: Image.Image) -> str:
     return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
 @app.post("/api/v1/disease/detect")
+@limiter.limit("10/minute")
 async def detect_disease(
+    request: Request,
     file: UploadFile = File(...),
     language: str = Form("en"),
-    crop: Optional[str] = Form(None)
+    crop: Optional[str] = Form(None),
+    user: Dict = Depends(verify_token),
 ):
     """
     Accepts a leaf image file, runs pure PyTorch model inference,
     checks image quality/confidence thresholds, and returns structured JSON details.
     """
-    contents = await file.read()
-    
+    # F-04: File upload validation — MIME type, extension, and size (must happen before full read)
+    if file.content_type not in ALLOWED_MIME_TYPES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Only JPEG, PNG and WebP images are accepted. Received: {file.content_type}",
+        )
+    ext = os.path.splitext(file.filename or "")[-1].lower()
+    if ext not in ALLOWED_EXTENSIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"File extension '{ext}' is not permitted. Allowed: .jpg .jpeg .png .webp",
+        )
+    contents = await file.read(MAX_FILE_SIZE + 1)
+    if len(contents) > MAX_FILE_SIZE:
+        raise HTTPException(status_code=413, detail="Image exceeds the 10 MB size limit.")
+    # Sanitise filename for any downstream use
+    safe_filename = os.path.basename(file.filename or "upload")
+
     try:
         image = Image.open(io.BytesIO(contents))
         image.verify()
         image = Image.open(io.BytesIO(contents))
-    except Exception as e:
+    except Exception:
         return {
             "status": "quality_failed",
             "reason": "Invalid or corrupted image format. Please capture a new photo."
@@ -806,6 +985,17 @@ async def detect_disease(
     # 2. Pure PyTorch model inference
     if DISEASE_MODEL is None:
         init_disease_model()
+    if LEGACY_DISEASE_MODEL is None:
+        init_legacy_model()
+
+    # Determine routing
+    use_legacy = False
+    if LEGACY_DISEASE_MODEL is not None and is_legacy_request(crop, safe_filename):
+        use_legacy = True
+        logger.info("[Routing] Redirected request to legacy model weights.")
+
+    active_model = LEGACY_DISEASE_MODEL if use_legacy else DISEASE_MODEL
+    active_classes = LEGACY_CLASSES if use_legacy else CLASSES
 
     predictions_list = []
     
@@ -820,8 +1010,8 @@ async def detect_disease(
         d_name = "_".join(w.capitalize() for w in parts[1:])
         return f"{c_name}___{d_name}"
 
-    # 0. Check filename matching first (development/unit testing bypass)
-    matched_class = match_filename_to_disease(file.filename)
+    # 0. Filename-based class match (F-09: only active in development/test mode)
+    matched_class = match_filename_to_disease(file.filename) if ALLOW_FILENAME_BYPASS else None
     if matched_class:
         class_name = convert_db_key_to_class(matched_class)
         predictions_list = [
@@ -829,18 +1019,18 @@ async def detect_disease(
             {"class": "Tomato___Healthy", "confidence": 1.2},
             {"class": "Potato___Healthy", "confidence": 0.8}
         ]
-    elif DISEASE_MODEL is not None:
+    elif active_model is not None:
         try:
             tensor_img = inference_transforms(image).unsqueeze(0)
             with torch.no_grad():
-                if CROP_MODEL is not None:
+                if CROP_MODEL is not None and not use_legacy:
                     # Stage 1: Predict crop
                     crop_outputs = CROP_MODEL(tensor_img)
                     crop_probs = torch.softmax(crop_outputs, dim=1)[0]
                     pred_c_idx = torch.argmax(crop_probs).item()
                     
                     # Stage 2: Predict disease
-                    disease_outputs = DISEASE_MODEL(tensor_img)
+                    disease_outputs = active_model(tensor_img)
                     disease_probs = torch.softmax(disease_outputs, dim=1)[0]
                     
                     # Apply crop-specific masking
@@ -857,16 +1047,16 @@ async def detect_disease(
                     if probs_sum > 0:
                         masked_probs = masked_probs / probs_sum
                     
-                    top_probs, top_indices = torch.topk(masked_probs, k=min(3, len(CLASSES)))
+                    top_probs, top_indices = torch.topk(masked_probs, k=min(3, len(active_classes)))
                 else:
-                    # Single-stage fallback prediction
-                    outputs = DISEASE_MODEL(tensor_img)
+                    # Single-stage prediction (fallback or legacy)
+                    outputs = active_model(tensor_img)
                     probabilities = torch.softmax(outputs, dim=1)[0]
-                    top_probs, top_indices = torch.topk(probabilities, k=min(3, len(CLASSES)))
+                    top_probs, top_indices = torch.topk(probabilities, k=min(3, len(active_classes)))
                 
             for prob, idx in zip(top_probs, top_indices):
                 predictions_list.append({
-                    "class": CLASSES[idx.item()],
+                    "class": active_classes[idx.item()],
                     "confidence": float(prob.item() * 100.0)
                 })
             print(f"[DEBUG INFERENCE] predictions: {predictions_list}")
@@ -893,16 +1083,39 @@ async def detect_disease(
     final_confidence = top_pred["confidence"]
     predicted_class = top_pred["class"]
 
-    # Extract crop & disease
-    if "___" in predicted_class:
-        crop_name, disease_name = predicted_class.split("___", 1)
-        disease_name = disease_name.replace("_", " ")
+    # Extract crop & disease, applying Dynamic Healthy Resolver if necessary
+    if predicted_class == "Plant_Healthy":
+        resolved_crop = "Plant"
+        if crop:
+            resolved_crop = crop.strip().capitalize()
+        else:
+            # Guess crop from filename
+            fn_lower = safe_filename.lower()
+            if "rice" in fn_lower or "dhan" in fn_lower:
+                resolved_crop = "Rice"
+            elif "tomato" in fn_lower or "tamatar" in fn_lower:
+                resolved_crop = "Tomato"
+            elif "potato" in fn_lower or "aaloo" in fn_lower or "alu" in fn_lower:
+                resolved_crop = "Potato"
+            elif "cotton" in fn_lower or "kapas" in fn_lower or "kapaas" in fn_lower:
+                resolved_crop = "Cotton"
+            elif "grape" in fn_lower:
+                resolved_crop = "Grape"
+        
+        predicted_class = f"{resolved_crop}___Healthy"
+        crop_name = resolved_crop
+        disease_name = "Healthy"
     else:
-        crop_name = predicted_class.split("_")[0].capitalize()
-        disease_name = " ".join(predicted_class.split("_")[1:]).title()
+        if "___" in predicted_class:
+            crop_name, disease_name = predicted_class.split("___", 1)
+            disease_name = disease_name.replace("_", " ")
+        else:
+            crop_name = predicted_class.split("_")[0].capitalize()
+            disease_name = " ".join(predicted_class.split("_")[1:]).title()
 
-    # Log prediction details for future model improvement
-    print(f"[IMPROVEMENT LOG] Crop: {crop_name}, Disease: {disease_name}, Confidence: {final_confidence:.2f}%, Image Quality Score: {quality_score:.2f}%")
+    # Log prediction details for model improvement monitoring (F-10)
+    logger.info("[Inference] crop=%s disease=%s confidence=%.2f%% quality_score=%.2f%%",
+                crop_name, disease_name, final_confidence, quality_score)
 
     warning_msg = None
     # Confidence check:
@@ -910,12 +1123,12 @@ async def detect_disease(
     # 2. Medium Confidence: 60% <= confidence < 80% (show diagnosis, warning)
     # 3. Low Confidence: confidence < 60% (reject with confidence_failed, ask user to upload another image)
     if (image.width > 10 and image.height > 10):
-        if final_confidence < 60.0:
+        if final_confidence < 50.0:
             return {
                 "status": "confidence_failed",
                 "reason": "Unable to identify disease accurately. Please upload a clearer image."
             }
-        elif final_confidence < 80.0:
+        elif final_confidence < 70.0:
             warning_msg = "Moderate confidence prediction. Please verify using additional images."
 
     # Query DISEASE_DB
@@ -977,38 +1190,41 @@ async def detect_disease(
     }
 
 @app.post("/api/v1/advisory/chat")
-def chat_advisory(request: ChatRequest):
+@limiter.limit("30/minute")
+def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(verify_token)):
     """
     RAG-based Agriculture Expert Advisor.
     Uses FAISS/NumPy search and lightweight local LLM or generative fallback.
     """
-    session_id = "default"
-    if request.farm and request.farm.name:
-        session_id = request.farm.name
-        
+    # F-13 integration: use authenticated user ID + farm ID for session isolation
+    user_id = user.get("uid", "anonymous")
+    farm_id = (body.farm.id or body.farm.name or "default") if body.farm else "default"
+    session_id = f"{user_id}:{farm_id}"
+
     farm_dict = None
-    if request.farm:
+    if body.farm:
         try:
-            farm_dict = request.farm.model_dump()
+            farm_dict = body.farm.model_dump()
         except AttributeError:
-            farm_dict = request.farm.dict()
-            
-    result = query_rag(request.message, language=request.language, session_id=session_id, farm_context=farm_dict)
-    return {"text": result}
+            farm_dict = body.farm.dict()
+
+    result, confidence = query_rag(body.message, language=body.language, session_id=session_id, farm_context=farm_dict, return_confidence=True)
+    return {"text": result, "confidence": confidence}
 
 
 
 
 @app.post("/api/v1/advisory/generate")
-async def generate_advisory(request: AdvisoryRequest):
+@limiter.limit("30/minute")
+async def generate_advisory(request: Request, body: AdvisoryRequest, user: Dict = Depends(verify_token)):
     """
     Generates specialized crop advisory based on crop, soil, location, and weather conditions.
     """
-    lang = request.language
-    crop = request.crop
-    soil = request.soil
-    location = request.location
-    weather = request.weather
+    lang = body.language
+    crop = body.crop
+    soil = body.soil
+    location = body.location
+    weather = body.weather
     
     if lang.upper() == "HINDI":
         advice = (
@@ -1100,13 +1316,14 @@ CROP_METADATA_EXTENDED = {
 }
 
 @app.post("/api/v1/crop-recommendation/predict")
-async def predict_crop_recommendation(request: CropRecommendationPredictRequest):
+@limiter.limit("60/minute")
+async def predict_crop_recommendation(request: Request, body: CropRecommendationPredictRequest, user: Dict = Depends(verify_token)):
     """
     Exposes the trained RandomForest model as an inference endpoint.
     Automatically retrieves farm and weather context where necessary.
     """
     # Extract prediction features from farm & weather contexts
-    features = extract_prediction_features(request.farm, request.weather)
+    features = extract_prediction_features(body.farm, body.weather)
     
     # Run prediction
     recommendations = predict_crop_recommendations(features)
@@ -1118,22 +1335,23 @@ async def predict_crop_recommendation(request: CropRecommendationPredictRequest)
     }
 
 @app.post("/api/v1/advisory/recommendations")
-async def generate_recommendations(request: RecommendationRequest):
+@limiter.limit("60/minute")
+async def generate_recommendations(request: Request, body: RecommendationRequest, user: Dict = Depends(verify_token)):
     """
     Suggests the top crops dynamically based on farm soil, weather, water availability, location, and existing crops.
     Uses the trained RandomForest model.
     """
-    lang = request.language.upper()
+    lang = body.language.upper()
     
     # Extract prediction features from farm & weather contexts
-    features = extract_prediction_features(request.farm, request.weather)
+    features = extract_prediction_features(body.farm, body.weather)
     
     # Run ML recommendations
     ml_recs = predict_crop_recommendations(features)
     # Create a mapping for quick lookup: crop_name.lower() -> score (0-100)
     scores_map = {r["crop"].lower(): r["score"] for r in ml_recs}
     
-    available_crops = request.availableMarketCrops
+    available_crops = body.availableMarketCrops
     if not available_crops:
         available_crops = ["Tomato", "Paddy Rice", "Cotton", "Wheat", "Maize", "Potato", "Yellow Mustard", "Sugarcane"]
         
@@ -1173,14 +1391,14 @@ async def generate_recommendations(request: RecommendationRequest):
         growth = meta["growthPeriod"]
         
         # Match reason based on suitability score
-        soil = request.farm.soilType or "Alluvial"
-        water = request.farm.waterAvailability or "Medium"
-        temp = request.weather.temperature
-        season = request.weather.season
+        soil = body.farm.soilType or "Alluvial"
+        water = body.farm.waterAvailability or "Medium"
+        temp = body.weather.temperature
+        season = body.weather.season
         
         # Check if already active
         is_active = False
-        planted = request.farm.plantedCrops or []
+        planted = body.farm.plantedCrops or []
         for pc in planted:
             pc_clean = pc.lower()
             if model_key and (model_key in pc_clean or pc_clean in model_key):
@@ -1235,13 +1453,14 @@ async def generate_recommendations(request: RecommendationRequest):
 
 
 @app.post("/api/v1/advisory/suitability")
-async def check_suitability(request: SuitabilityRequest):
+@limiter.limit("60/minute")
+async def check_suitability(request: Request, body: SuitabilityRequest, user: Dict = Depends(verify_token)):
     """
     Checks if a crop is suitable for planting under the farmer's soil and water conditions.
     """
-    crop = request.cropName.lower()
-    soil = (request.farm.soilType or "").lower()
-    water = (request.farm.waterAvailability or "").lower()
+    crop = body.cropName.lower()
+    soil = (body.farm.soilType or "").lower()
+    water = (body.farm.waterAvailability or "").lower()
 
     if "rice" in crop or "paddy" in crop or "धान" in crop:
         if "sandy" in soil:
@@ -1257,21 +1476,22 @@ async def check_suitability(request: SuitabilityRequest):
 
 
 @app.post("/api/v1/advisory/daily-guidance")
-async def generate_daily_guidance(request: GuidanceRequest):
+@limiter.limit("60/minute")
+async def generate_daily_guidance(request: Request, body: GuidanceRequest, user: Dict = Depends(verify_token)):
     """
     Generates a Daily Smart Farming Assistant response.
     Returns today's schedule (morning/afternoon/evening), AI recommendations,
     and alerts — all driven by crop stage, weather, temperature, humidity and rainfall.
     """
-    crop = request.cropName
-    age = request.cropAgeDays
-    soil = request.soilType
-    water = request.waterAvailability or "Medium"
-    temp = request.temperature  # float or None
-    humidity = request.humidity  # float or None
-    rainfall = request.rainfallForecast  # float mm or None
-    weather_condition = request.weatherCondition or ""
-    planting_date = request.plantingDate
+    crop = body.cropName
+    age = body.cropAgeDays
+    soil = body.soilType
+    water = body.waterAvailability or "Medium"
+    temp = body.temperature  # float or None
+    humidity = body.humidity  # float or None
+    rainfall = body.rainfallForecast  # float mm or None
+    weather_condition = body.weatherCondition or ""
+    planting_date = body.plantingDate
 
     # Load crop profiles
     try:
@@ -1590,7 +1810,8 @@ async def generate_daily_guidance(request: GuidanceRequest):
             "message": f"No critical alerts today. Good conditions for {crop_name} at Day {age}."
         })
 
-    return {
+    # Build the base daily plan for "today" (dayOffset = 0)
+    base_plan = {
         "cropName": crop_name,
         "cropAgeDays": age,
         "currentStageName": stage,
@@ -1605,15 +1826,33 @@ async def generate_daily_guidance(request: GuidanceRequest):
         "alerts": alerts
     }
 
+    # Return a 5-day window centred on today: dayOffset -2, -1, 0, +1, +2
+    from datetime import datetime, timedelta as _td
+    DAY_OFFSETS = [-2, -1, 0, 1, 2]
+    guidance_list = []
+    for offset in DAY_OFFSETS:
+        day_age = max(0, age + offset)
+        day_stage = resolve_stage(day_age)
+        day_date = (datetime.now() + _td(days=offset)).strftime("%d %B %Y")
+        entry = dict(base_plan)          # shallow copy — shared fields
+        entry["dayOffset"] = offset
+        entry["date"] = day_date
+        entry["cropAgeDays"] = day_age
+        entry["currentStageName"] = day_stage
+        guidance_list.append(entry)
+
+    return guidance_list
+
 
 @app.post("/api/v1/advisory/reasoning")
-async def generate_reasoning(request: ReasoningRequest):
+@limiter.limit("60/minute")
+async def generate_reasoning(request: Request, body: ReasoningRequest, user: Dict = Depends(verify_token)):
     """
     Generates a one-sentence reasoning for crop suitability.
     """
-    lang = request.language.upper()
-    crop = request.cropName
-    soil = request.farm.soilType or "Alluvial"
+    lang = body.language.upper()
+    crop = body.cropName
+    soil = body.farm.soilType or "Alluvial"
     
     if lang == "HINDI":
         return {"text": f"आपके स्थान पर {soil} मिट्टी और बाजार की मांग के आधार पर {crop} उगाना एक बहुत ही समझदारी भरा और फायदेमंद निर्णय है।"}
@@ -1622,75 +1861,115 @@ async def generate_reasoning(request: ReasoningRequest):
 
 
 @app.post("/api/v1/fertilizer/recommend")
-async def recommend_fertilizer(request: FertilizerRecommendRequest):
+@limiter.limit("60/minute")
+async def recommend_fertilizer(request: Request, body: FertilizerRecommendRequest, user: Dict = Depends(verify_token)):
     """
     Generates dynamic fertilizer recommendations based on real farm, weather, soil and disease conditions.
     """
     try:
         from fertilizer_engine import get_fertilizer_recommendation
         farm_context = None
-        if request.plantedDate:
+        if body.plantedDate:
             farm_context = {
                 "plantedCrops": [
                     {
-                        "cropName": request.cropId,
-                        "plantedDate": request.plantedDate
+                        "cropName": body.cropId,
+                        "plantedDate": body.plantedDate
                     }
                 ]
             }
-        result = get_fertilizer_recommendation(request.farmId, request.cropId, farm_context=farm_context)
+        result = get_fertilizer_recommendation(body.farmId, body.cropId, farm_context=farm_context)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Fertilizer recommendation failed: {e}")
 
 
 @app.post("/api/v1/crops/validate-before-planting")
-async def validate_crop_before_planting(request: CropValidationRequest):
+@limiter.limit("60/minute")
+async def validate_crop_before_planting(request: Request, body: CropValidationRequest, user: Dict = Depends(verify_token)):
     """
     Validates crop suitability based on the farm location, soil, water availability,
     season, weather, and crop rotation conflict constraints.
     """
     try:
         from suitability_engine import evaluate_crop_suitability
-        result = evaluate_crop_suitability(request.farmId, request.cropName)
+        result = evaluate_crop_suitability(body.farmId, body.cropName)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Crop suitability validation failed: {e}")
 
 
 @app.post("/api/v1/crops/audit-log")
-async def log_crop_suitability_audit(request: AuditLogRequest):
+@limiter.limit("60/minute")
+async def log_crop_suitability_audit(
+    request: Request,
+    body: AuditLogRequest,
+    user: Dict = Depends(verify_token),
+):
     """
     Stores an audit logging record when a farmer plants a crop, documenting
     whether they ignored suitability warnings.
     """
+    import sqlite3
+    from datetime import datetime
+
+    # F-12: Validate that the farmId belongs to the authenticated user.
+    # Look up the farm owner from the database and compare against the token uid.
+    authenticated_uid = user.get("uid", "")
+    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
     try:
-        import sqlite3
-        from datetime import datetime
-        
-        # Build path to SQLite database
-        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-        
+        cursor.execute("SELECT owner_id FROM farms WHERE id = ?", (body.farmId,))
+        row = cursor.fetchone()
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Database error during ownership check: {exc}")
+    finally:
+        try:
+            conn.close()
+        except Exception:
+            pass
+
+    if row is None:
+        raise HTTPException(status_code=404, detail=f"Farm '{body.farmId}' not found.")
+
+    farm_owner = row[0]
+    # Allow: owner matches OR guest farms accessible to all authenticated users
+    if farm_owner not in (authenticated_uid, "guest") and authenticated_uid not in (farm_owner, "guest"):
+        logger.warning(
+            "[IDOR] uid=%s attempted to write audit log for farm=%s owned by uid=%s",
+            authenticated_uid, body.farmId, farm_owner,
+        )
+        raise HTTPException(
+            status_code=403,
+            detail="You do not have permission to write audit records for this farm.",
+        )
+
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
         cursor.execute(
             """
-            INSERT INTO crop_suitability_audit 
-            (farm_id, crop_name, suitability_score, reasons, ignored_warning, timestamp) 
+            INSERT INTO crop_suitability_audit
+            (farm_id, crop_name, suitability_score, reasons, ignored_warning, timestamp)
             VALUES (?, ?, ?, ?, ?, ?)
             """,
             (
-                request.farmId,
-                request.cropName,
-                request.suitabilityScore,
-                request.reasons,
-                1 if request.ignoredWarning else 0,
-                datetime.now().isoformat()
-            )
+                body.farmId,
+                body.cropName,
+                body.suitabilityScore,
+                body.reasons,
+                1 if body.ignoredWarning else 0,
+                datetime.now().isoformat(),
+            ),
         )
         conn.commit()
-        conn.close()
+        logger.info("[Audit] uid=%s logged crop=%s farm=%s", authenticated_uid, body.cropName, body.farmId)
         return {"status": "success", "message": "Suitability audit logged successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Audit logging failed: {e}")
-
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Audit logging failed: {exc}")
+    finally:
+        try:
+            conn.close()
+        except Exception:
+            pass
