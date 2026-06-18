@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/providers/farm_provider.dart';
 import '../../../../core/config/api_config.dart';
@@ -19,10 +20,27 @@ class _FertilizerScreenState extends State<FertilizerScreen> {
   Map<String, Map<String, dynamic>> _recommendations = {};
   bool _isLoading = true;
 
+  bool _isInitialized = false;
+  String? _lastFarmId;
+
   @override
   void initState() {
     super.initState();
-    _loadRecommendations();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final farmProvider = Provider.of<FarmProvider>(context);
+    final farmId = farmProvider.selectedFarm?.id;
+    if (!_isInitialized || _lastFarmId != farmId) {
+      _isInitialized = true;
+      _lastFarmId = farmId;
+      setState(() {
+        _isLoading = true;
+      });
+      _loadRecommendations();
+    }
   }
 
   Future<void> _loadRecommendations() async {
@@ -38,11 +56,15 @@ class _FertilizerScreenState extends State<FertilizerScreen> {
     try {
       final String farmId = farm.id ?? 'default';
       final Map<String, Map<String, dynamic>> loadedRecs = {};
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken();
       
       for (final crop in farm.plantedCrops) {
         final response = await http.post(
           Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/fertilizer/recommend'),
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            if (token != null) 'Authorization': 'Bearer $token',
+          },
           body: jsonEncode({
             'farmId': farmId,
             'cropId': crop.cropName,

@@ -24,9 +24,11 @@ class AIAdvisoryScreen extends StatefulWidget {
 class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  late final GeminiService _geminiService;
+  late GeminiService _geminiService;
   final List<ChatMessage> _messages = [];
   bool _isTyping = false;
+  bool _isInitialized = false;
+  String? _lastFarmId;
   
   List<Map<String, dynamic>> _sessions = [];
   String? _currentSessionId;
@@ -34,10 +36,20 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
   @override
   void initState() {
     super.initState();
-    final farmProvider = Provider.of<FarmProvider>(context, listen: false);
-    final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-    _geminiService = GeminiService(selectedFarm: farmProvider.selectedFarm, languageCode: lang);
-    _loadChatHistory();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final farmProvider = Provider.of<FarmProvider>(context);
+    final farmId = farmProvider.selectedFarm?.id;
+    if (!_isInitialized || _lastFarmId != farmId) {
+      _isInitialized = true;
+      _lastFarmId = farmId;
+      final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
+      _geminiService = GeminiService(selectedFarm: farmProvider.selectedFarm, languageCode: lang);
+      _loadChatHistory();
+    }
   }
 
   @override

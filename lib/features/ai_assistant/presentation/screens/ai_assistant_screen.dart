@@ -28,6 +28,8 @@ class _AIAssistantScreenState extends State<AIAssistantScreen>
     with SingleTickerProviderStateMixin {
   int _selectedCropIndex = 0;
   late GeminiService _geminiService;
+  bool _isInitialized = false;
+  String? _lastFarmId;
 
   DailyAssistant? _assistant;
   bool _isLoading = false;
@@ -38,13 +40,25 @@ class _AIAssistantScreenState extends State<AIAssistantScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    final farmProvider = Provider.of<FarmProvider>(context, listen: false);
-    final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-    _geminiService = GeminiService(
-        selectedFarm: farmProvider.selectedFarm, languageCode: lang);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _fetchAssistant();
-    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final farmProvider = Provider.of<FarmProvider>(context);
+    final farmId = farmProvider.selectedFarm?.id;
+    if (!_isInitialized || _lastFarmId != farmId) {
+      _isInitialized = true;
+      _lastFarmId = farmId;
+      final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
+      _geminiService = GeminiService(
+          selectedFarm: farmProvider.selectedFarm, languageCode: lang);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _fetchAssistant();
+        }
+      });
+    }
   }
 
   @override

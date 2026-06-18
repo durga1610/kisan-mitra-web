@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 import '../config/api_config.dart';
 import '../models/farm_model.dart';
 import '../../features/weather/data/models/weather_model.dart';
@@ -11,6 +12,14 @@ class GeminiService {
 
   GeminiService({this.selectedFarm, this.languageCode = 'en'});
 
+  static Future<Map<String, String>> _getHeaders() async {
+    final token = await FirebaseAuth.instance.currentUser?.getIdToken();
+    return {
+      'Content-Type': 'application/json',
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
+  }
+
   Future<void> _initModel() async {
     // Dummy initialization method for compatibility
   }
@@ -19,7 +28,7 @@ class GeminiService {
     try {
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/chat'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: jsonEncode({
           'message': message,
           'language': languageCode,
@@ -172,6 +181,10 @@ class GeminiService {
         'POST',
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/disease/detect'),
       );
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      if (token != null) {
+        request.headers['Authorization'] = 'Bearer $token';
+      }
       
       request.files.add(
         http.MultipartFile.fromBytes(
@@ -211,7 +224,7 @@ class GeminiService {
     try {
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/generate'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: jsonEncode({
           'crop': crop,
           'soil': soil,
@@ -254,7 +267,7 @@ class GeminiService {
     try {
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/reasoning'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: jsonEncode({
           'cropName': cropName,
           'farm': {
@@ -296,7 +309,7 @@ class GeminiService {
     try {
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/recommendations'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: jsonEncode({
           'farm': {
             'id': farm.id,
@@ -383,7 +396,7 @@ class GeminiService {
     try {
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/daily-guidance'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: jsonEncode({
           'cropName': cropName,
           'cropAgeDays': cropAgeDays,
@@ -413,7 +426,7 @@ class GeminiService {
     try {
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/suitability'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: jsonEncode({
           'cropName': cropName,
           'farm': {
@@ -446,7 +459,7 @@ class GeminiService {
     try {
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/crops/validate-before-planting'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: jsonEncode({
           'farmId': farmId,
           'cropName': cropName,
@@ -472,7 +485,7 @@ class GeminiService {
     try {
       await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/crops/audit-log'),
-        headers: {'Content-Type': 'application/json'},
+        headers: await _getHeaders(),
         body: jsonEncode({
           'farmId': farmId,
           'cropName': cropName,
