@@ -1,0 +1,70 @@
+{
+  "release": "v1.0.0-production",
+  "frozen": true,
+  "total_classes": 20,
+  "total_supported_crops": 6,
+  "classes": [
+    "Cotton___Bacterial_Blight",
+    "Cotton___Leaf_Curl",
+    "Grape___Black_Rot",
+    "Grape___Esca",
+    "Grape___Leaf_Blight",
+    "Plant_Healthy",
+    "Potato___Early_Blight",
+    "Potato___Late_Blight",
+    "Rice___Bacterial_Leaf_Blight",
+    "Rice___Blast",
+    "Rice___Brown_Spot",
+    "Tomato___Bacterial_Spot",
+    "Tomato___Early_Blight",
+    "Tomato___Late_Blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Mosaic_Virus",
+    "Tomato___Septoria_Leaf_Spot",
+    "Tomato___Spider_Mites",
+    "Tomato___Target_Spot",
+    "Tomato___Yellow_Leaf_Curl_Virus"
+  ],
+  "by_crop": {
+    "Cotton": [
+      "Bacterial_Blight",
+      "Leaf_Curl"
+    ],
+    "Grape": [
+      "Black_Rot",
+      "Esca",
+      "Leaf_Blight"
+    ],
+    "Plant_Healthy": [
+      "Healthy"
+    ],
+    "Potato": [
+      "Early_Blight",
+      "Late_Blight"
+    ],
+    "Rice": [
+      "Bacterial_Leaf_Blight",
+      "Blast",
+      "Brown_Spot"
+    ],
+    "Tomato": [
+      "Bacterial_Spot",
+      "Early_Blight",
+      "Late_Blight",
+      "Leaf_Mold",
+      "Mosaic_Virus",
+      "Septoria_Leaf_Spot",
+      "Spider_Mites",
+      "Target_Spot",
+      "Yellow_Leaf_Curl_Virus"
+    ]
+  },
+  "supported_crops_list": [
+    "Cotton",
+    "Grape",
+    "Plant_Healthy",
+    "Potato",
+    "Rice",
+    "Tomato"
+  ]
+}

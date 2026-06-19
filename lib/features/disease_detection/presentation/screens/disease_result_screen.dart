@@ -369,6 +369,32 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
   }
 
   Widget _buildConfidenceCard(BuildContext context) {
+    final band = widget.report.confidenceBand;
+    Color bandColor;
+    String bandLabel;
+    IconData bandIcon;
+    switch (band) {
+      case 'high':
+        bandColor = AppColors.success;
+        bandLabel = 'High Confidence';
+        bandIcon = Icons.verified_rounded;
+        break;
+      case 'moderate':
+        bandColor = Colors.orange;
+        bandLabel = 'Moderate Confidence';
+        bandIcon = Icons.info_rounded;
+        break;
+      case 'low':
+        bandColor = Colors.deepOrange;
+        bandLabel = 'Low Confidence — AI Assist';
+        bandIcon = Icons.warning_rounded;
+        break;
+      default:
+        bandColor = AppColors.primary;
+        bandLabel = 'Confidence';
+        bandIcon = Icons.analytics_rounded;
+    }
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -396,15 +422,43 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-              Text(
-                '${widget.report.confidence.toStringAsFixed(1)}%',
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.primary,
-                ),
+              Row(
+                children: [
+                  Text(
+                    '${widget.report.confidence.toStringAsFixed(1)}%',
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: bandColor,
+                    ),
+                  ),
+                ],
               ),
             ],
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              color: bandColor.withOpacity(0.12),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: bandColor.withOpacity(0.3)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(bandIcon, color: bandColor, size: 14),
+                const SizedBox(width: 6),
+                Text(
+                  bandLabel,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: bandColor,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 12),
           ClipRRect(
@@ -413,9 +467,7 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
               value: widget.report.confidence / 100.0,
               minHeight: 12,
               backgroundColor: Colors.grey.withOpacity(0.2),
-              valueColor: AlwaysStoppedAnimation<Color>(
-                widget.report.confidence >= 90 ? AppColors.success : Colors.orange,
-              ),
+              valueColor: AlwaysStoppedAnimation<Color>(bandColor),
             ),
           ),
         ],

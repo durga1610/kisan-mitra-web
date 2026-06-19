@@ -1,0 +1,91 @@
+{
+  "release": "v1.0.0-production",
+  "release_date": "2026-06-19",
+  "frozen": true,
+  "description": "Kisan Mitra production disease detection confidence band configuration. DO NOT MODIFY without creating a new release.",
+
+  "model": {
+    "file": "plant_disease_resnet.pt",
+    "architecture": "ResNet18",
+    "num_classes": 20,
+    "sha256": "21974109d6fb3df62be176e5fae99162684f2acda9f70282896bef777b9e6026",
+    "size_bytes": 44826827,
+    "framework": "PyTorch",
+    "training_set": "PlantVillage + field images (20-class subset)",
+    "field_accuracy": "69.89%",
+    "macro_f1": "59.37%"
+  },
+
+  "inference_transform": {
+    "resize": [128, 128],
+    "center_crop": null,
+    "normalize_mean": [0.485, 0.456, 0.406],
+    "normalize_std": [0.229, 0.224, 0.225],
+    "note": "Defined in disease_transforms.py. Must NOT be changed without retraining the model."
+  },
+
+  "confidence_bands": {
+    "HIGH": {
+      "range": ">=70.0%",
+      "threshold_min": 70.0,
+      "action": "CNN diagnosis shown to farmer without warning",
+      "ui_color": "green",
+      "ui_label": "High Confidence",
+      "ui_icon": "verified_rounded"
+    },
+    "MODERATE": {
+      "range": "50.0% to <70.0%",
+      "threshold_min": 50.0,
+      "threshold_max": 70.0,
+      "action": "CNN diagnosis shown with verification warning",
+      "ui_color": "orange",
+      "ui_label": "Moderate Confidence",
+      "ui_icon": "info_rounded",
+      "warning_message": "Moderate confidence prediction. Please verify using additional images."
+    },
+    "LOW": {
+      "range": "35.0% to <50.0%",
+      "threshold_min": 35.0,
+      "threshold_max": 50.0,
+      "action_with_crop": "Route to AI Vision fallback using the farmer-supplied crop name",
+      "action_without_crop": "confidence_failed — ask farmer to specify crop name",
+      "ui_color": "deep_orange",
+      "ui_label": "Low Confidence — AI Assist",
+      "ui_icon": "warning_rounded"
+    },
+    "REJECT": {
+      "range": "<35.0%",
+      "threshold_max": 35.0,
+      "action": "Hard confidence_failed — ask farmer to upload a clearer image",
+      "ui_color": null,
+      "ui_label": null,
+      "error_status": "confidence_failed",
+      "error_message": "Unable to identify disease accurately. Please upload a clearer image of the affected leaf."
+    }
+  },
+
+  "quality_gates": {
+    "min_resolution_px": 128,
+    "min_leaf_pixel_pct": 3.0,
+    "min_brightness": 40.0,
+    "min_laplacian_variance": 5.0,
+    "leaf_color_masks": {
+      "green": "G > R*1.02 AND G > B*1.02 AND G > 35",
+      "brown": "R > G*1.05 AND G > B*1.05 AND R > 40",
+      "yellow": "R > 90 AND G > 90 AND B < R*0.75"
+    }
+  },
+
+  "routing_logic": {
+    "order": [
+      "1. quality_gate: check_image_quality()",
+      "2. unsupported_crop_bypass: if crop not in CNN classes -> AI Vision fallback",
+      "3. legacy_routing: is_legacy_request() for crops in legacy keyword list (apple, peach, cherry, etc.)",
+      "4. cnn_inference: run ResNet18 forward pass",
+      "5. confidence_band_routing: apply band logic to top-1 confidence",
+      "6. disease_db_lookup: retrieve report from DISEASE_DB"
+    ],
+    "supported_crops_cnn_20class": ["cotton", "grape", "plant_healthy", "potato", "rice", "tomato"],
+    "legacy_routing_crops": ["apple", "peach", "cherry", "orange", "corn", "maize", "pepper_bell", "pepper"]
+  }
+}

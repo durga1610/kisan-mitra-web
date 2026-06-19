@@ -73,6 +73,7 @@ class DiseaseDetectionService {
             topPredictions: topPredictions,
             timestamp: DateTime.now(),
             warning: aiResponse['warning']?.toString(),
+            confidenceBand: aiResponse['confidenceBand']?.toString() ?? 'high',
           );
           
           await docRef.set(report.toMap());
@@ -80,7 +81,7 @@ class DiseaseDetectionService {
           // 5. Fire-and-forget Firebase Storage upload (background)
           final fileName = 'disease_${DateTime.now().millisecondsSinceEpoch}.jpg';
           final storageRef = _storage.ref().child('disease_scans/$userId/$fileName');
-          
+
           storageRef.putData(
             imageBytes,
             SettableMetadata(contentType: 'image/jpeg'),
@@ -116,6 +117,7 @@ class DiseaseDetectionService {
         topPredictions: topPredictions,
         timestamp: DateTime.now(),
         warning: aiResponse['warning']?.toString(),
+        confidenceBand: aiResponse['confidenceBand']?.toString() ?? 'high',
       );
 
     } catch (e) {

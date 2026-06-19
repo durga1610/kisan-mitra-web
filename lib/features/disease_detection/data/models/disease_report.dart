@@ -19,6 +19,7 @@ class DiseaseReport {
   final List<Map<String, dynamic>> topPredictions;
   final DateTime timestamp;
   final String? warning;
+  final String confidenceBand;
 
   DiseaseReport({
     this.id,
@@ -39,6 +40,7 @@ class DiseaseReport {
     this.topPredictions = const [],
     required this.timestamp,
     this.warning,
+    this.confidenceBand = 'high',
   });
 
   Map<String, dynamic> toMap() {
@@ -60,6 +62,7 @@ class DiseaseReport {
       'topPredictions': topPredictions,
       'timestamp': Timestamp.fromDate(timestamp),
       'warning': warning,
+      'confidenceBand': confidenceBand,
     };
   }
 
@@ -86,6 +89,7 @@ class DiseaseReport {
       ),
       timestamp: (map['timestamp'] as Timestamp).toDate(),
       warning: map['warning'],
+      confidenceBand: map['confidenceBand'] ?? 'high',
     );
   }
 }

@@ -1,0 +1,35 @@
+==========================================================================================
+                 PRODUCTION MODEL V2 EVALUATION REPORT (FIELD SET)
+==========================================================================================
+Metric                              | Production v1 (Baseline)  | Production v2 (New Model)
+------------------------------------------------------------------------------------------
+Overall Field Accuracy              | 47.31% | **69.89%**
+Healthy Leaf False Positive Rate    | 79.17% (19/24) | **16.67% (4/24)**
+Rice Healthy False Positive Rate    | 100.00% (5/5) | **20.00% (1/5)**
+Rice Blast Accuracy                 | 80.00% | **80.00%**
+Macro F1 Score                      | 45.03% | **59.37%**
+------------------------------------------------------------------------------------------
+Production v2 Macro Precision: 60.27%
+Production v2 Macro Recall   : 65.24%
+Production v2 Macro F1 Score : 59.37%
+==========================================================================================
+
+--- Top Confused Disease Pairs (Production v2 Model) ---
+  True: Grape___Leaf_Blight              -> Pred: Grape___Black_Rot                | Errors: 5
+  True: Rice___Brown_Spot                -> Pred: Rice___Blast                     | Errors: 5
+  True: Grape___Esca                     -> Pred: Grape___Black_Rot                | Errors: 4
+  True: Potato___Early_Blight            -> Pred: Potato___Late_Blight             | Errors: 2
+  True: Tomato___Septoria_Leaf_Spot      -> Pred: Tomato___Target_Spot             | Errors: 2
+  True: Tomato___Spider_Mites            -> Pred: Tomato___Target_Spot             | Errors: 2
+  True: Tomato___Yellow_Leaf_Curl_Virus  -> Pred: Tomato___Target_Spot             | Errors: 2
+  True: Plant_Healthy                    -> Pred: Cotton___Leaf_Curl               | Errors: 1
+  True: Plant_Healthy                    -> Pred: Grape___Esca                     | Errors: 1
+  True: Plant_Healthy                    -> Pred: Potato___Late_Blight             | Errors: 1
+==========================================================================================
+
+--- Deployment Recommendation ---
+RECOMMENDATION: PROMOTE PRODUCTION V2 TO ACTIVE PRODUCTION
+  - Overall field accuracy improved from 47.31% to 69.89% (+22.58% absolute).
+  - Healthy leaf false positive rate slashed from 79.17% to 16.67% (78.9% relative reduction).
+  - Rice Blast accuracy maintained at 80.00%.
+==========================================================================================
