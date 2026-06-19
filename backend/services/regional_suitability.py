@@ -7,7 +7,7 @@ from typing import Dict, List, Any, Optional
 
 logger = logging.getLogger(__name__)
 
-DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "app_data.db")
+from config import DB_PATH
 
 CROP_SUITABLE_STATES = {
     "grape": ["maharashtra", "karnataka", "tamil nadu", "andhra pradesh"],

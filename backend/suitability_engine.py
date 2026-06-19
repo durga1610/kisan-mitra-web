@@ -9,7 +9,7 @@ import sqlite3
 from datetime import datetime
 from typing import Dict, List, Any, Optional
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+from config import DB_PATH
 MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "crop_suitability_model.pkl")
 PREPROCESSORS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "crop_suitability_preprocessors.pkl")
 

@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+from config import DB_PATH
 
 
 # ---------------------------------------------------------------------------

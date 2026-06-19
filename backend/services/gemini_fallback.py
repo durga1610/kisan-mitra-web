@@ -22,7 +22,7 @@ def _clean_json_text(text: str) -> str:
         cleaned = cleaned[:-3]
     return cleaned.strip()
 
-DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "app_data.db")
+from config import DB_PATH
 
 # Initialize Gemini client
 api_key = os.getenv("GEMINI_API_KEY")

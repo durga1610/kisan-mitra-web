@@ -15,6 +15,8 @@ from security_utils import safe_pickle_load, KNOWN_MODEL_HASHES
 # ── Logging ───────────────────────────────────────────────────────────
 logger = logging.getLogger(__name__)
 
+from config import DB_PATH
+
 # Set cache directories inside workspace to avoid writing to system paths
 os.environ["HF_HOME"] = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "huggingface")
 
@@ -360,7 +362,7 @@ def get_crop_catalog() -> List[str]:
     Retrieves the list of crops dynamically from the crop_catalog database table.
     """
     crops_list = []
-    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+    db_path = DB_PATH
     if os.path.exists(db_path):
         try:
             conn = sqlite3.connect(db_path)
@@ -532,7 +534,7 @@ def get_farm_details(farm_id: str, farm_context: Optional[Dict[str, Any]] = None
     """
     # 1. Fetch from SQLite if it exists
     sqlite_farm = None
-    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+    db_path = DB_PATH
     if os.path.exists(db_path):
         try:
             conn = sqlite3.connect(db_path)
@@ -742,7 +744,7 @@ def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str
         # Load market data briefly
         market_data = []
         try:
-            db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+            db_path = DB_PATH
             conn = sqlite3.connect(db_path)
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
@@ -799,7 +801,7 @@ def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str
     if pc:
         active_crops = [c.lower() for c in pc]
     else:
-        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+        db_path = DB_PATH
         if os.path.exists(db_path):
             try:
                 conn = sqlite3.connect(db_path)
@@ -1207,7 +1209,7 @@ def resolve_farm_data_query_direct(query: str, farm_id: str, language: str, farm
             )
             return translate_to_language(ans, language)
 
-    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+    db_path = DB_PATH
     if not os.path.exists(db_path):
         return translate_to_language("Application database not found. Please contact support.", language)
         
@@ -2434,7 +2436,7 @@ def extract_prediction_features(farm_ctx: Optional[Any], weather_ctx: Optional[A
     if pc:
         active_crops = [c.lower() for c in pc]
     else:
-        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+        db_path = DB_PATH
         if os.path.exists(db_path):
             try:
                 conn = sqlite3.connect(db_path)

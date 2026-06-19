@@ -3,7 +3,7 @@ import sqlite3
 import json
 from suitability_engine import evaluate_crop_suitability
 
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+from config import DB_PATH
 
 def set_test_farm_state(soil_type, water_availability, state, district, active_crops=None):
     if active_crops is None:

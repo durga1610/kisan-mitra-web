@@ -12,6 +12,7 @@ import io
 import json
 import threading
 from disease_database import DISEASE_DB
+from config import DB_PATH
 from advisory_engine import query_rag, init_resources, extract_prediction_features, predict_crop_recommendations
 
 # ── Logging ───────────────────────────────────────────────────────────────
@@ -127,8 +128,14 @@ def _init_firebase():
     if _firebase_initialized:
         return
     try:
+        firebase_json = os.getenv("FIREBASE_SERVICE_ACCOUNT_JSON")
         service_account_path = os.getenv("FIREBASE_SERVICE_ACCOUNT_PATH", "")
-        if service_account_path and os.path.exists(service_account_path):
+        if firebase_json and firebase_json.strip():
+            logger.info("[Auth] Initializing Firebase Admin SDK via FIREBASE_SERVICE_ACCOUNT_JSON.")
+            cred = fb_credentials.Certificate(json.loads(firebase_json))
+            firebase_admin.initialize_app(cred)
+        elif service_account_path and os.path.exists(service_account_path):
+            logger.info("[Auth] Initializing Firebase Admin SDK via FIREBASE_SERVICE_ACCOUNT_PATH: %s", service_account_path)
             cred = fb_credentials.Certificate(service_account_path)
             firebase_admin.initialize_app(cred)
         else:
@@ -271,7 +278,8 @@ def init_disease_model():
     disease_model_path = "models/disease_model.pt"
     classes_path = "models/classes.json"
     
-    if os.path.exists(crop_model_path) and os.path.exists(disease_model_path) and os.path.exists(classes_path):
+    use_two_stage = os.getenv("USE_TWO_STAGE_MODEL", "0") == "1"
+    if use_two_stage and os.path.exists(crop_model_path) and os.path.exists(disease_model_path) and os.path.exists(classes_path):
         try:
             with open(classes_path, "r") as f:
                 CLASSES = json.load(f)
@@ -375,7 +383,6 @@ def fallback_resnet():
 
 try:
     init_disease_model()
-    init_legacy_model()
 except Exception as e:
     logger.warning("Model initialization skipped or failed: %s", e)
 
@@ -1134,7 +1141,7 @@ def generate_plausible_disease_report(crop_name: str, disease_keyword: Optional[
 def increment_opt_stat(metric_name: str):
     try:
         import sqlite3
-        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+        db_path = DB_PATH
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS gemini_optimization_stats (metric_name TEXT PRIMARY KEY, metric_value INTEGER DEFAULT 0)")
@@ -1148,7 +1155,7 @@ def get_opt_stats() -> dict:
     stats = {"local_verification_count": 0, "gemini_verification_count": 0}
     try:
         import sqlite3
-        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+        db_path = DB_PATH
         if os.path.exists(db_path):
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
@@ -1282,14 +1289,15 @@ async def detect_disease(
     # 2. Pure PyTorch model inference
     if DISEASE_MODEL is None:
         init_disease_model()
-    if LEGACY_DISEASE_MODEL is None:
-        init_legacy_model()
 
     # Determine routing
     use_legacy = False
-    if LEGACY_DISEASE_MODEL is not None and is_legacy_request(crop, safe_filename):
-        use_legacy = True
-        logger.info("[Routing] Redirected request to legacy model weights.")
+    if is_legacy_request(crop, safe_filename):
+        if LEGACY_DISEASE_MODEL is None:
+            init_legacy_model()
+        if LEGACY_DISEASE_MODEL is not None:
+            use_legacy = True
+            logger.info("[Routing] Redirected request to legacy model weights.")
 
     active_model = LEGACY_DISEASE_MODEL if use_legacy else DISEASE_MODEL
     active_classes = LEGACY_CLASSES if use_legacy else CLASSES
@@ -1319,7 +1327,7 @@ async def detect_disease(
         
         user_uid = user.get("uid", "anonymous")
         farm_ctx = None
-        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+        db_path = DB_PATH
         if os.path.exists(db_path):
             try:
                 import sqlite3
@@ -1665,7 +1673,7 @@ async def detect_disease(
                 
                 user_uid = user.get("uid", "anonymous")
                 farm_ctx = None
-                db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+                db_path = DB_PATH
                 if os.path.exists(db_path):
                     try:
                         import sqlite3
@@ -1913,7 +1921,7 @@ async def submit_disease_feedback(
     feedback_id = None
     dataset_saved = False
     dataset_v2_path = None
-    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+    db_path = DB_PATH
 
     # ── 1. Backward-compat: persist to disease_feedback table ─────────────────
     try:
@@ -1988,7 +1996,7 @@ async def submit_disease_feedback(
 @limiter.limit("10/minute")
 async def get_feedback_stats(request: Request, user: Dict = Depends(verify_token)):
     """Returns aggregate feedback statistics for monitoring model accuracy."""
-    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+    db_path = DB_PATH
     stats = {
         "total_feedback": 0,
         "correct": 0,
@@ -2274,7 +2282,7 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
             # Load market data briefly
             market_data = []
             try:
-                db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+                db_path = DB_PATH
                 conn = sqlite3.connect(db_path)
                 conn.row_factory = sqlite3.Row
                 cursor = conn.cursor()
@@ -2897,7 +2905,7 @@ async def log_crop_suitability_audit(
     # F-12: Validate that the farmId belongs to the authenticated user.
     # Look up the farm owner from the database and compare against the token uid.
     authenticated_uid = user.get("uid", "")
-    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+    db_path = DB_PATH
     try:
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
