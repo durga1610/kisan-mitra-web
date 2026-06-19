@@ -46,6 +46,24 @@ app = FastAPI(
 
 @app.on_event("startup")
 def startup_event():
+    # ── SECURITY: Validate required secrets at startup ────────────────────
+    _gemini_key = os.getenv("GEMINI_API_KEY")
+    if not _gemini_key:
+        logger.critical(
+            "=" * 70 + "\n"
+            "[STARTUP FAILURE] GEMINI_API_KEY environment variable is not set.\n"
+            "  Backend will start but ALL Gemini fallback paths will be disabled.\n"
+            "  Set the key before launching:\n"
+            "    PowerShell : $env:GEMINI_API_KEY='AIzaSy...'\n"
+            "    bash/Linux : export GEMINI_API_KEY='AIzaSy...'\n"
+            "    .env file  : GEMINI_API_KEY=AIzaSy...   (never commit .env)\n"
+            "=" * 70
+        )
+    else:
+        # Mask key in logs: show first 8 + last 4 chars only
+        masked = _gemini_key[:8] + "..." + _gemini_key[-4:]
+        logger.info("[Startup] GEMINI_API_KEY loaded successfully. Key: %s", masked)
+
     # Setup/verify SQLite database schema
     try:
         from setup_database import init_db
@@ -55,6 +73,7 @@ def startup_event():
 
     # Load embedding model in background thread to avoid blocking port bind
     threading.Thread(target=init_resources, daemon=True).start()
+
 
 
 # ── Security Headers Middleware (F-11) ────────────────────────────────────
@@ -713,13 +732,11 @@ def check_image_quality(image: Image.Image) -> tuple[bool, str, float]:
     leaf_pixels = np.sum(green_mask | brown_mask | yellow_mask)
     total_pixels = image.width * image.height
     if leaf_pixels < (total_pixels * 0.03):
-        return False, "Unable to identify a plant leaf in this photo. Please capture a clear leaf image.", 0.0
+        return False, "IMAGE_NOT_A_PLANT", 0.0
 
-    # Convert to grayscale for light/blur analysis
     gray = image.convert("L")
     img_np = np.array(gray).astype(float)
 
-    # 3. Low light check
     avg_brightness = np.mean(img_np)
     if avg_brightness < 40.0:
         return False, "Low-light image detected. Please retake the photo in a brighter area.", 0.0
@@ -1114,6 +1131,35 @@ def generate_plausible_disease_report(crop_name: str, disease_keyword: Optional[
         "en": en_entry,
         "hi": hi_entry
     }
+def increment_opt_stat(metric_name: str):
+    try:
+        import sqlite3
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS gemini_optimization_stats (metric_name TEXT PRIMARY KEY, metric_value INTEGER DEFAULT 0)")
+        cursor.execute("INSERT INTO gemini_optimization_stats (metric_name, metric_value) VALUES (?, 1) ON CONFLICT(metric_name) DO UPDATE SET metric_value = metric_value + 1", (metric_name,))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        logger.error(f"Error incrementing optimization stat: {e}")
+
+def get_opt_stats() -> dict:
+    stats = {"local_verification_count": 0, "gemini_verification_count": 0}
+    try:
+        import sqlite3
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+        if os.path.exists(db_path):
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute("CREATE TABLE IF NOT EXISTS gemini_optimization_stats (metric_name TEXT PRIMARY KEY, metric_value INTEGER DEFAULT 0)")
+            cursor.execute("SELECT metric_name, metric_value FROM gemini_optimization_stats")
+            for row in cursor.fetchall():
+                stats[row[0]] = row[1]
+            conn.close()
+    except Exception as e:
+        logger.error(f"Error retrieving optimization stats: {e}")
+    return stats
 
 
 @app.post("/api/v1/disease/detect")
@@ -1165,6 +1211,74 @@ async def detect_disease(
             "reason": quality_message
         }
 
+    # 1b. Step 2: Plant Detection Validation (using Optimized Gemini Vision / Local Hybrid Verification)
+    img_rgb = np.array(image.convert("RGB"))
+    R = img_rgb[:, :, 0].astype(float)
+    G = img_rgb[:, :, 1].astype(float)
+    B = img_rgb[:, :, 2].astype(float)
+    green_mask = (G > R * 1.02) & (G > B * 1.02) & (G > 35)
+    brown_mask = (R > G * 1.05) & (G > B * 1.05) & (R > 40)
+    yellow_mask = (R > 90) & (G > 90) & (B < R * 0.75)
+    leaf_pixels = np.sum(green_mask | brown_mask | yellow_mask)
+    total_pixels = image.width * image.height
+    leaf_ratio = leaf_pixels / total_pixels
+    local_leaf_confidence = min(100.0, (leaf_ratio / 0.20) * 100.0)
+
+    # Optimization: Filter out computer-generated graphics, screenshots, documents, and blank images locally
+    # Natural camera photos have high color complexity (sensor noise/gradients), exceeding 1000 unique colors.
+    h, w, c = img_rgb.shape
+    diff_r = np.all(img_rgb[:, :-1, :] == img_rgb[:, 1:, :], axis=2)
+    diff_d = np.all(img_rgb[:-1, :, :] == img_rgb[1:, :, :], axis=2)
+    frac_r = np.sum(diff_r) / (h * (w - 1)) if w > 1 else 0.0
+    frac_d = np.sum(diff_d) / ((h - 1) * w) if h > 1 else 0.0
+    identical_ratio = max(frac_r, frac_d)
+
+    gray = image.convert("L")
+    gray_np = np.array(gray).astype(float)
+    lap = np.abs(gray_np[1:-1, 1:-1] * 4 - gray_np[:-2, 1:-1] - gray_np[2:, 1:-1] - gray_np[1:-1, :-2] - gray_np[1:-1, 2:])
+    var_lap = np.var(lap)
+
+    colors = image.getcolors(maxcolors=1000)
+    if colors is not None or var_lap < 5.0 or (identical_ratio > 0.70 and var_lap > 100.0):
+        local_leaf_confidence = 0.0
+
+    if local_leaf_confidence > 70.0:
+        contains_leaf = True
+        leaf_confidence = local_leaf_confidence
+        suitable = True
+        increment_opt_stat("local_verification_count")
+        logger.info(f"[Optimization] Skipping Gemini Leaf Verification. Local Leaf Confidence: {local_leaf_confidence:.2f}%")
+    elif local_leaf_confidence < 10.0:
+        increment_opt_stat("local_verification_count")
+        logger.info(f"[Optimization] Rejecting non-plant image locally. Local Leaf Confidence: {local_leaf_confidence:.2f}%")
+        return {
+            "status": "quality_failed",
+            "reason": "IMAGE_NOT_A_PLANT",
+            "leaf_confidence": local_leaf_confidence,
+            "contains_leaf": False
+        }
+    else:
+        user_uid = user.get("uid", "anonymous")
+        from services.gemini_fallback import verify_leaf_presence
+        verification = verify_leaf_presence(contents, user_uid)
+        contains_leaf = verification.get("contains_leaf", False)
+        leaf_confidence = verification.get("leaf_confidence", 0.0)
+        suitable = verification.get("suitable_for_diagnosis", False)
+        increment_opt_stat("gemini_verification_count")
+        logger.info(f"[Optimization] Invoked Gemini Leaf Verification. Local Leaf Confidence: {local_leaf_confidence:.2f}%, Gemini response: contains_leaf={contains_leaf}")
+
+        if not contains_leaf or leaf_confidence < 50.0 or not suitable:
+            logger.warning(
+                f"[Verification Failed] Rejecting image. contains_leaf={contains_leaf}, "
+                f"leaf_confidence={leaf_confidence}%, suitable={suitable}, reason={verification.get('reason')}"
+            )
+            return {
+                "status": "quality_failed",
+                "reason": "IMAGE_NOT_A_PLANT",
+                "leaf_confidence": leaf_confidence,
+                "contains_leaf": contains_leaf
+            }
+
     # 2. Pure PyTorch model inference
     if DISEASE_MODEL is None:
         init_disease_model()
@@ -1201,7 +1315,103 @@ async def detect_disease(
         is_supported = True
 
     if not is_supported:
-        logger.info("[AI Vision Fallback] Crop '%s' is not supported by CNN model. Routing to AI Vision fallback.", crop)
+        logger.info("[AI Vision Fallback] Crop '%s' is not supported by CNN model. Routing to Gemini Vision fallback.", crop)
+        
+        user_uid = user.get("uid", "anonymous")
+        farm_ctx = None
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+        if os.path.exists(db_path):
+            try:
+                import sqlite3
+                conn = sqlite3.connect(db_path)
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM farms WHERE owner_id = ? LIMIT 1", (user_uid,))
+                row = cursor.fetchone()
+                if row:
+                    farm_ctx = dict(row)
+                conn.close()
+            except Exception as e:
+                logger.warning(f"Error fetching farm details for user in unsupported crop vision fallback: {e}")
+                
+        weather_ctx = {
+            "condition": "Humid and Overcast" if farm_ctx else "Sunny and Hot",
+            "temperature": 29.5 if farm_ctx else 32.0,
+            "humidity": 82.0 if farm_ctx else 45.0,
+            "season": "Kharif"
+        }
+        
+        from services.gemini_fallback import analyze_disease_vision
+        gemini_result = analyze_disease_vision(
+            image_bytes=contents,
+            crop_hint=crop,
+            weather_context=weather_ctx,
+            farm_context=farm_ctx,
+            user_uid=user_uid
+        )
+
+        # V2 Hard Case Collection: unsupported crop → Gemini fallback used
+        try:
+            from dataset_collector import save_hard_case as _save_hc_gf
+            _gf_bytes = bytes(contents)
+            _gf_crop = crop or "unknown"
+            threading.Thread(
+                target=lambda: _save_hc_gf(
+                    image_bytes=_gf_bytes, reason="gemini_fallback",
+                    crop=_gf_crop, predicted_disease="unknown_crop",
+                    confidence=0.0, confidence_band="gemini",
+                    source="GEMINI_FALLBACK", user_uid=user_uid,
+                ),
+                daemon=True
+            ).start()
+        except Exception as _gf_err:
+            logger.debug("[HardCase] Gemini fallback save skipped: %s", _gf_err)
+
+        if gemini_result:
+            splay = lambda text: [s.strip() for s in text.split(",") if s.strip()] if isinstance(text, str) else text
+            
+            crop_name = crop.strip().capitalize() if crop else "Unknown"
+            disease_name = gemini_result.get("disease_name", "Healthy")
+            final_confidence = float(gemini_result.get("confidence", 90.0))
+            severity = gemini_result.get("severity", "Medium")
+            
+            response_text = (
+                f"Plant: {crop_name}\n"
+                f"Disease: {disease_name}\n"
+                f"Confidence: {final_confidence:.1f}\n"
+                f"Severity: {severity}\n"
+                f"Symptoms: {gemini_result.get('symptoms')}\n"
+                f"Treatment: {gemini_result.get('treatment')}\n"
+                f"Prevention: {gemini_result.get('prevention')}\n"
+                f"Organic Solution: {gemini_result.get('organic_solution')}\n"
+                f"Chemical Solution: {gemini_result.get('chemical_solution')}"
+            )
+            
+            return {
+                "status": "success",
+                "crop": crop_name,
+                "disease": disease_name,
+                "leaf_confidence": leaf_confidence,
+                "contains_leaf": contains_leaf,
+                "confidence": final_confidence,
+                "severity": severity,
+                "symptoms": splay(gemini_result.get("symptoms", "")),
+                "treatment": splay(gemini_result.get("treatment", "")),
+                "prevention": splay(gemini_result.get("prevention", "")),
+                "warning": "AI Vision Fallback diagnostic prediction.",
+                "text": response_text,
+                "plantName": crop_name,
+                "diseaseName": disease_name,
+                "causes": "Environmental or Pathogenic",
+                "organicTreatment": gemini_result.get("organic_solution", "No organic treatments listed."),
+                "suggestedProducts": gemini_result.get("chemical_solution", "N/A"),
+                "explanation": "Predicted based on Gemini Vision fallback model.",
+                "gradcamBase64": generate_gradcam_overlay(image),
+                "predictions": [{"class": f"{crop_name}___{disease_name.replace(' ', '_')}", "confidence": final_confidence}],
+                "source": "GEMINI_FALLBACK"
+            }
+            
+        # Fallback to local report if Gemini Vision fails
         disease_keyword = None
         fn_lower = safe_filename.lower()
         for kw in ["blast", "blight", "rot", "curl", "healthy", "clean", "spot"]:
@@ -1242,6 +1452,8 @@ async def detect_disease(
             "status": "success",
             "crop": crop_name,
             "disease": disease_name,
+            "leaf_confidence": leaf_confidence,
+            "contains_leaf": contains_leaf,
             "confidence": final_confidence,
             "severity": severity,
             "symptoms": symptoms_list,
@@ -1256,7 +1468,8 @@ async def detect_disease(
             "suggestedProducts": report["Suggested Products"],
             "explanation": "Predicted based on AI Vision fallback model visualization.",
             "gradcamBase64": gradcam_base64,
-            "predictions": [{"class": f"{crop_name}___{disease_name.replace(' ', '_')}", "confidence": 90.0}]
+            "predictions": [{"class": f"{crop_name}___{disease_name.replace(' ', '_')}", "confidence": 90.0}],
+            "source": "LOCAL_ENGINE"
         }
     if LEGACY_DISEASE_MODEL is not None and is_legacy_request(crop, safe_filename):
         use_legacy = True
@@ -1351,7 +1564,30 @@ async def detect_disease(
     final_confidence = top_pred["confidence"]
     predicted_class = top_pred["class"]
 
-    # Extract crop & disease, applying Dynamic Healthy Resolver if necessary
+    # V2 Hard Case Collection: top-2 predictions within 15% → crop confusion case
+    if len(predictions_list) >= 2:
+        top1_conf = predictions_list[0]["confidence"]
+        top2_conf = predictions_list[1]["confidence"]
+        if abs(top1_conf - top2_conf) < 15.0 and top1_conf > 20.0:
+            try:
+                from dataset_collector import save_hard_case as _save_hc_cc
+                _cc_bytes = bytes(contents)
+                _cc_disease = f"{predictions_list[0]['class']} vs {predictions_list[1]['class']}"
+                threading.Thread(
+                    target=lambda: _save_hc_cc(
+                        image_bytes=_cc_bytes, reason="crop_confusion",
+                        crop=(crop or crop_name or "unknown"),
+                        predicted_disease=_cc_disease[:80],
+                        confidence=top1_conf, confidence_band="moderate",
+                        source="LOCAL_ENGINE", user_uid=user.get("uid", "anonymous"),
+                    ),
+                    daemon=True
+                ).start()
+                logger.debug("[HardCase] Crop confusion detected: top1=%.1f%% top2=%.1f%%", top1_conf, top2_conf)
+            except Exception as _cc_err:
+                logger.debug("[HardCase] Confusion save skipped: %s", _cc_err)
+
+
     if predicted_class == "Plant_Healthy":
         resolved_crop = "Plant"
         if crop:
@@ -1401,9 +1637,111 @@ async def detect_disease(
             }
         elif final_confidence < 50.0:
             confidence_band = "low"
+            # V2 Hard Case Collection: auto-save low-confidence images in background
+            try:
+                from dataset_collector import save_hard_case as _save_hc
+                _hc_bytes = bytes(contents)
+                _hc_meta = {
+                    "crop": crop_name, "predicted_disease": predicted_class,
+                    "confidence": final_confidence, "confidence_band": "low",
+                    "source": "LOCAL_ENGINE", "user_uid": user.get("uid", "anonymous"),
+                }
+                import threading
+                threading.Thread(
+                    target=lambda: _save_hc(
+                        image_bytes=_hc_bytes, reason="low_confidence",
+                        crop=_hc_meta["crop"], predicted_disease=_hc_meta["predicted_disease"],
+                        confidence=_hc_meta["confidence"], confidence_band="low",
+                        source="LOCAL_ENGINE", user_uid=_hc_meta["user_uid"],
+                    ),
+                    daemon=True
+                ).start()
+            except Exception as _hc_err:
+                logger.debug("[HardCase] Save skipped: %s", _hc_err)
+
             # Low confidence: prefer AI Vision fallback when crop is specified
             if crop:
-                logger.info("[Confidence] LOW band: %.2f%% — routing to AI Vision fallback for crop '%s'.", final_confidence, crop)
+                logger.info("[Confidence] LOW band: %.2f%% — routing to Gemini Vision fallback for crop '%s'.", final_confidence, crop)
+                
+                user_uid = user.get("uid", "anonymous")
+                farm_ctx = None
+                db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+                if os.path.exists(db_path):
+                    try:
+                        import sqlite3
+                        conn = sqlite3.connect(db_path)
+                        conn.row_factory = sqlite3.Row
+                        cursor = conn.cursor()
+                        cursor.execute("SELECT * FROM farms WHERE owner_id = ? LIMIT 1", (user_uid,))
+                        row = cursor.fetchone()
+                        if row:
+                            farm_ctx = dict(row)
+                        conn.close()
+                    except Exception as e:
+                        logger.warning(f"Error fetching farm details for user in low confidence vision fallback: {e}")
+                        
+                weather_ctx = {
+                    "condition": "Humid and Overcast" if farm_ctx else "Sunny and Hot",
+                    "temperature": 29.5 if farm_ctx else 32.0,
+                    "humidity": 82.0 if farm_ctx else 45.0,
+                    "season": "Kharif"
+                }
+                
+                from services.gemini_fallback import analyze_disease_vision
+                gemini_result = analyze_disease_vision(
+                    image_bytes=contents,
+                    crop_hint=crop,
+                    weather_context=weather_ctx,
+                    farm_context=farm_ctx,
+                    user_uid=user_uid
+                )
+                
+                if gemini_result:
+                    splay = lambda text: [s.strip() for s in text.split(",") if s.strip()] if isinstance(text, str) else text
+                    
+                    fb_crop_name = crop.strip().capitalize()
+                    fb_disease_name = gemini_result.get("disease_name", "Healthy")
+                    fb_severity = gemini_result.get("severity", "Medium")
+                    gradcam_b64 = generate_gradcam_overlay(image)
+                    
+                    fb_text = (
+                        f"Plant: {fb_crop_name}\n"
+                        f"Disease: {fb_disease_name}\n"
+                        f"Confidence: {final_confidence:.1f} (Low — AI Vision assist)\n"
+                        f"Severity: {fb_severity}\n"
+                        f"Symptoms: {gemini_result.get('symptoms')}\n"
+                        f"Treatment: {gemini_result.get('treatment')}\n"
+                        f"Prevention: {gemini_result.get('prevention')}\n"
+                        f"Organic Solution: {gemini_result.get('organic_solution')}\n"
+                        f"Chemical Solution: {gemini_result.get('chemical_solution')}"
+                    )
+                    
+                    return {
+                        "status": "success",
+                        "crop": fb_crop_name,
+                        "disease": fb_disease_name,
+                        "leaf_confidence": leaf_confidence,
+                        "contains_leaf": contains_leaf,
+                        "confidence": final_confidence,
+                        "confidenceBand": "low",
+                        "severity": fb_severity,
+                        "symptoms": splay(gemini_result.get("symptoms", "")),
+                        "treatment": splay(gemini_result.get("treatment", "")),
+                        "prevention": splay(gemini_result.get("prevention", "")),
+                        "warning": "Low CNN confidence — AI Vision assist used. Verify with another image.",
+                        "text": fb_text,
+                        "plantName": fb_crop_name,
+                        "diseaseName": fb_disease_name,
+                        "causes": "Environmental or Pathogenic",
+                        "organicTreatment": gemini_result.get("organic_solution", "No organic treatments listed."),
+                        "suggestedProducts": gemini_result.get("chemical_solution", "N/A"),
+                        "explanation": "Low confidence CNN prediction supplemented by Gemini Vision diagnostic assist.",
+                        "gradcamBase64": gradcam_b64,
+                        "predictions": predictions_list,
+                        "source": "GEMINI_FALLBACK"
+                    }
+                
+                # Fallback to local report generator if Gemini Vision fails
                 disease_keyword = None
                 fn_lower = safe_filename.lower()
                 for kw in ["blast", "blight", "rot", "curl", "healthy", "clean", "spot", "wilt", "rust", "mold"]:
@@ -1432,6 +1770,8 @@ async def detect_disease(
                     "status": "success",
                     "crop": fb_crop_name,
                     "disease": fb_disease_name,
+                    "leaf_confidence": leaf_confidence,
+                    "contains_leaf": contains_leaf,
                     "confidence": final_confidence,
                     "confidenceBand": "low",
                     "severity": fb_severity,
@@ -1447,7 +1787,8 @@ async def detect_disease(
                     "suggestedProducts": fb_report["Suggested Products"],
                     "explanation": "Low confidence CNN prediction supplemented by AI Vision diagnostic assist.",
                     "gradcamBase64": gradcam_b64,
-                    "predictions": predictions_list
+                    "predictions": predictions_list,
+                    "source": "LOCAL_ENGINE"
                 }
             else:
                 # No crop specified and low confidence → reject
@@ -1502,6 +1843,8 @@ async def detect_disease(
         "status": "success",
         "crop": crop_name,
         "disease": disease_name,
+        "leaf_confidence": leaf_confidence,
+        "contains_leaf": contains_leaf,
         "confidence": final_confidence,
         "confidenceBand": confidence_band,
         "severity": severity,
@@ -1518,13 +1861,222 @@ async def detect_disease(
         "suggestedProducts": report["Suggested Products"],
         "explanation": report.get("Explanation", "Predicted based on deep learning CNN model visualization."),
         "gradcamBase64": gradcam_base64,
-        "predictions": predictions_list
+        "predictions": predictions_list,
+        "source": "LOCAL_ENGINE"
     }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# V2 – Real Image Collection Pipeline
+# POST /api/v1/disease/feedback  (extended with dataset_v2 routing)
+# ─────────────────────────────────────────────────────────────────────────────
+
+class DiseaseFeedbackRequest(BaseModel):
+    diagnosis_id: str = Field(..., description="Unique ID for this diagnosis")
+    crop: str = Field(..., description="Crop name from the detection result")
+    predicted_disease: str = Field(..., description="Disease name predicted by the model")
+    confidence: float = Field(..., description="Confidence score (0–100)")
+    is_correct: bool = Field(..., description="True = farmer confirms correct, False = wrong")
+    image_base64: Optional[str] = Field(None, description="Base64-encoded JPEG image")
+    language: str = Field("en", description="UI language code")
+    # V2 extended fields
+    confidence_band: str = Field("unknown", description="high | moderate | low")
+    source: str = Field("LOCAL_ENGINE", description="LOCAL_ENGINE | GEMINI_FALLBACK | HYBRID_ENGINE")
+    state: Optional[str] = Field(None, description="Indian state (for regional analysis)")
+    district: Optional[str] = Field(None, description="District name")
+    weather_snapshot: Optional[Dict[str, Any]] = Field(None, description="Weather context at scan time")
+
+
+@app.post("/api/v1/disease/feedback")
+@limiter.limit("30/minute")
+async def submit_disease_feedback(
+    request: Request,
+    body: DiseaseFeedbackRequest,
+    user: Dict = Depends(verify_token),
+):
+    """
+    V2: Captures farmer feedback and routes the image to the real dataset.
+
+    Routes:
+      is_correct=True  → dataset_v2/<crop>/confirmed_correct/
+      is_correct=False → dataset_v2/<crop>/needs_review/
+
+    Also maintains backward-compat disease_feedback SQLite table.
+    Returns: { status, feedback_id, dataset_saved, dataset_v2_path }
+    """
+    import base64
+    from datetime import datetime
+    from dataset_collector import save_to_dataset_v2
+
+    user_uid = user.get("uid", "anonymous")
+    timestamp = datetime.utcnow().isoformat()
+    feedback_id = None
+    dataset_saved = False
+    dataset_v2_path = None
+    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+
+    # ── 1. Backward-compat: persist to disease_feedback table ─────────────────
+    try:
+        import sqlite3 as _sq
+        conn = _sq.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS disease_feedback (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_uid TEXT NOT NULL, diagnosis_id TEXT NOT NULL,
+                crop TEXT NOT NULL, predicted_disease TEXT NOT NULL,
+                confidence REAL NOT NULL, is_correct INTEGER NOT NULL,
+                image_path TEXT, language TEXT DEFAULT 'en', timestamp TEXT NOT NULL
+            )
+        """)
+        cursor.execute(
+            "INSERT INTO disease_feedback "
+            "(user_uid, diagnosis_id, crop, predicted_disease, confidence, is_correct, image_path, language, timestamp) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (user_uid, body.diagnosis_id, body.crop, body.predicted_disease,
+             body.confidence, 1 if body.is_correct else 0, None, body.language, timestamp),
+        )
+        feedback_id = cursor.lastrowid
+        conn.commit()
+        conn.close()
+        logger.info("[Feedback] db id=%s crop=%s correct=%s", feedback_id, body.crop, body.is_correct)
+    except Exception as e:
+        logger.error("[Feedback] SQLite write failed: %s", e)
+
+    # ── 2. Route image to dataset_v2/ ─────────────────────────────────────────
+    if body.image_base64:
+        try:
+            img_bytes = base64.b64decode(body.image_base64)
+            collection_type = "confirmed_correct" if body.is_correct else "needs_review"
+
+            def _do_save():
+                path = save_to_dataset_v2(
+                    image_bytes=img_bytes,
+                    crop=body.crop,
+                    predicted_disease=body.predicted_disease,
+                    confidence=body.confidence,
+                    confidence_band=body.confidence_band,
+                    source=body.source,
+                    user_uid=user_uid,
+                    collection_type=collection_type,
+                    diagnosis_id=body.diagnosis_id,
+                    state=body.state,
+                    district=body.district,
+                    weather_snapshot=body.weather_snapshot,
+                )
+                if path:
+                    logger.info("[Feedback] V2 dataset saved: %s", path)
+                return path
+
+            import threading
+            t = threading.Thread(target=_do_save, daemon=True)
+            t.start()
+            t.join(timeout=2.0)   # wait up to 2s; fire-and-forget if slower
+            dataset_saved = True
+        except Exception as e:
+            logger.warning("[Feedback] V2 dataset save failed (non-critical): %s", e)
+
+    return {
+        "status": "saved",
+        "feedback_id": feedback_id,
+        "dataset_saved": dataset_saved,
+        "message": "Thank you! Your feedback is helping build a better AI model for every farmer.",
+    }
+
+
+@app.get("/api/v1/disease/feedback/stats")
+@limiter.limit("10/minute")
+async def get_feedback_stats(request: Request, user: Dict = Depends(verify_token)):
+    """Returns aggregate feedback statistics for monitoring model accuracy."""
+    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+    stats = {
+        "total_feedback": 0,
+        "correct": 0,
+        "incorrect": 0,
+        "accuracy_rate": 0.0,
+        "by_crop": {},
+    }
+    try:
+        import sqlite3 as _sq
+        conn = _sq.connect(db_path)
+        conn.row_factory = _sq.Row
+        cursor = conn.cursor()
+
+        # Check table exists
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='disease_feedback'")
+        if not cursor.fetchone():
+            conn.close()
+            return stats
+
+        cursor.execute("SELECT is_correct, crop FROM disease_feedback")
+        rows = cursor.fetchall()
+        conn.close()
+
+        stats["total_feedback"] = len(rows)
+        stats["correct"] = sum(1 for r in rows if r["is_correct"])
+        stats["incorrect"] = stats["total_feedback"] - stats["correct"]
+        stats["accuracy_rate"] = round(stats["correct"] / stats["total_feedback"] * 100, 1) if rows else 0.0
+
+        crop_stats: Dict[str, Dict] = {}
+        for r in rows:
+            crop = r["crop"]
+            if crop not in crop_stats:
+                crop_stats[crop] = {"total": 0, "correct": 0}
+            crop_stats[crop]["total"] += 1
+            if r["is_correct"]:
+                crop_stats[crop]["correct"] += 1
+        stats["by_crop"] = {
+            c: {
+                "total": v["total"],
+                "correct": v["correct"],
+                "accuracy": round(v["correct"] / v["total"] * 100, 1),
+            }
+            for c, v in crop_stats.items()
+        }
+    except Exception as e:
+        logger.error("[Feedback] Stats retrieval failed: %s", e)
+
+    return stats
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# V2 Dataset Statistics & Readiness Endpoints
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.get("/api/v1/dataset/stats")
+@limiter.limit("20/minute")
+async def get_dataset_stats_endpoint(request: Request, user: Dict = Depends(verify_token)):
+    """Returns comprehensive dataset_v2 collection statistics."""
+    from dataset_collector import get_dataset_stats
+    return get_dataset_stats()
+
+
+@app.get("/api/v1/dataset/readiness")
+@limiter.limit("10/minute")
+async def get_dataset_readiness_endpoint(request: Request, user: Dict = Depends(verify_token)):
+    """Returns per-class readiness scores: real count, gap to 200, gap to 500."""
+    from dataset_collector import get_readiness_scores
+    return get_readiness_scores()
+
+
+@app.get("/api/v1/dataset/training-readiness")
+@limiter.limit("5/minute")
+async def get_training_readiness_endpoint(request: Request, user: Dict = Depends(verify_token)):
+    """
+    Training trigger check.
+    Returns { ready: bool, message: str, blocking_classes: [...] }
+    Declares 'Dataset Ready For EfficientNet-B2 Training' when all
+    production classes have >= 200 confirmed real images.
+    """
+    from dataset_collector import check_training_readiness
+    return check_training_readiness()
+
 
 @app.post("/api/v1/advisory/chat")
 @limiter.limit("30/minute")
 def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(verify_token)):
     """
+
     RAG-based Agriculture Expert Advisor.
     Uses FAISS/NumPy search and lightweight local LLM or generative fallback.
     """
@@ -1547,7 +2099,7 @@ def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(veri
         except AttributeError:
             weather_dict = body.weather.dict()
 
-    result, confidence = query_rag(
+    result, confidence, source = query_rag(
         body.message,
         language=body.language,
         session_id=session_id,
@@ -1555,7 +2107,7 @@ def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(veri
         weather_context=weather_dict,
         return_confidence=True
     )
-    return {"text": result, "confidence": confidence}
+    return {"text": result, "confidence": confidence, "source": source}
 
 
 
@@ -1694,8 +2246,73 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
     
     # Run ML recommendations
     ml_recs = predict_crop_recommendations(features)
-    # Create a mapping for quick lookup: crop_name.lower() -> score (0-100)
-    scores_map = {r["crop"].lower(): r["score"] for r in ml_recs}
+    
+    # Check if we should use Gemini recommendation fallback (ML returned 0 recs, or all scores are < 50)
+    has_good_recs = ml_recs and any(r.get("score", 0) >= 50 for r in ml_recs)
+    
+    source = "LOCAL_ENGINE"
+    if not has_good_recs:
+        logger.info("[generate_recommendations] ML model returned low confidence recommendations or no recommendations. Triggering Gemini fallback.")
+        try:
+            from services.gemini_fallback import generate_crop_recommendations
+            import sqlite3
+            
+            user_uid = user.get("uid", "anonymous")
+            
+            # Parse state and district from location or farm info if possible
+            state = "Punjab"
+            district = "Ludhiana"
+            loc = body.farm.location or ""
+            if "," in loc:
+                parts = [p.strip() for p in loc.split(",")]
+                if len(parts) >= 2:
+                    district = parts[-2]
+                    state = parts[-1]
+                elif len(parts) == 1:
+                    state = parts[0]
+                    
+            # Load market data briefly
+            market_data = []
+            try:
+                db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+                conn = sqlite3.connect(db_path)
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='market_prices'")
+                if cursor.fetchone()[0] > 0:
+                    cursor.execute("SELECT * FROM market_prices WHERE state = ?", (state,))
+                    market_data = [dict(r) for r in cursor.fetchall()]
+                conn.close()
+            except Exception as e_db:
+                logger.warning(f"[generate_recommendations] Error loading market prices for fallback: {e_db}")
+                
+            weather_ctx = {
+                "temperature": body.weather.temperature,
+                "humidity": body.weather.humidity or 60.0,
+                "rainfall": body.weather.rainChance or 500.0,
+                "season": body.weather.season or "Kharif"
+            }
+            
+            gemini_recs = generate_crop_recommendations(
+                state=state,
+                district=district,
+                weather=weather_ctx,
+                soil=body.farm.soilType or "Alluvial",
+                water=body.farm.waterAvailability or "Medium",
+                land_area=body.farm.landArea or 5.0,
+                market_data=market_data,
+                user_uid=user_uid
+            )
+            if gemini_recs:
+                scores_map = {item["crop_name"].lower(): int(item["suitability_score"]) for item in gemini_recs}
+                source = "GEMINI_FALLBACK"
+            else:
+                scores_map = {r["crop"].lower(): r["score"] for r in ml_recs}
+        except Exception as e_fallback:
+            logger.warning(f"[generate_recommendations] Gemini recommendation fallback failed: {e_fallback}")
+            scores_map = {r["crop"].lower(): r["score"] for r in ml_recs}
+    else:
+        scores_map = {r["crop"].lower(): r["score"] for r in ml_recs}
     
     available_crops = body.availableMarketCrops
     if not available_crops:
@@ -1720,6 +2337,8 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
         score_val = 50
         if model_key and model_key in scores_map:
             score_val = scores_map[model_key]
+        elif c_lower in scores_map:
+            score_val = scores_map[c_lower]
             
         # Suitability score is float between 0.0 and 1.0
         suitability_score = float(score_val / 100.0)
@@ -1782,7 +2401,8 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
                 "expectedProfit": profit_tr,
                 "growthPeriod": growth_tr,
                 "matchReason": reason_tr,
-                "suitabilityScore": suitability_score
+                "suitabilityScore": suitability_score,
+                "source": source
             })
         else:
             results.append({
@@ -1791,7 +2411,8 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
                 "expectedProfit": profit,
                 "growthPeriod": growth,
                 "matchReason": reason,
-                "suitabilityScore": suitability_score
+                "suitabilityScore": suitability_score,
+                "source": source
             })
             
     results.sort(key=lambda x: x["suitabilityScore"], reverse=True)
@@ -2245,6 +2866,20 @@ async def validate_crop_before_planting(request: Request, body: CropValidationRe
         raise HTTPException(status_code=500, detail=f"Crop suitability validation failed: {e}")
 
 
+@app.post("/api/v1/crops/regional-suitability")
+@limiter.limit("60/minute")
+async def regional_suitability(request: Request, body: CropValidationRequest, user: Dict = Depends(verify_token)):
+    """
+    Evaluates 6-factor regional crop suitability with hard blocks.
+    """
+    try:
+        from services.regional_suitability import calculate_suitability
+        result = calculate_suitability(body.farmId, body.cropName)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Regional suitability check failed: {e}")
+
+
 @app.post("/api/v1/crops/audit-log")
 @limiter.limit("60/minute")
 async def log_crop_suitability_audit(
@@ -2319,3 +2954,183 @@ async def log_crop_suitability_audit(
             conn.close()
         except Exception:
             pass
+
+
+@app.get("/api/v1/market/prices")
+@limiter.limit("60/minute")
+def get_market_prices(
+    request: Request,
+    crops: Optional[str] = None,
+    state: Optional[str] = None,
+    user: Dict = Depends(verify_token),
+):
+    """
+    Get crop market prices from Agmarknet API or fallback to cached/realistic data.
+    """
+    import urllib.request
+    import urllib.parse
+    import urllib.error
+    import json
+    import ssl
+    from datetime import datetime
+
+    mandi_api_key = os.getenv("MANDI_API_KEY")
+    crops_list = [c.strip() for c in crops.split(",")] if crops else []
+    
+    # 5. Diagnostic: log incoming request
+    logger.info("[Mandi Proxy] Request from uid=%s crops=%s state=%s", user.get("uid"), crops, state)
+
+    fallback_records = [
+        {"id": "tomato_tn_1", "state": "Tamil Nadu", "district": "Tiruvallur", "market": "Tiruvallur", "commodity": "Tomato", "min_price": "1800", "max_price": "2600", "modal_price": "2200", "arrival_date": "2026-06-19"},
+        {"id": "tomato_tn_2", "state": "Tamil Nadu", "district": "Chennai", "market": "Koyambedu", "commodity": "Tomato", "min_price": "2000", "max_price": "2800", "modal_price": "2400", "arrival_date": "2026-06-19"},
+        {"id": "tomato_mh_1", "state": "Maharashtra", "district": "Pune", "market": "Pune", "commodity": "Tomato", "min_price": "1600", "max_price": "2400", "modal_price": "2000", "arrival_date": "2026-06-19"},
+        {"id": "tomato_up_1", "state": "Uttar Pradesh", "district": "Lucknow", "market": "Lucknow", "commodity": "Tomato", "min_price": "1500", "max_price": "2200", "modal_price": "1900", "arrival_date": "2026-06-19"},
+        {"id": "potato_up_1", "state": "Uttar Pradesh", "district": "Agra", "market": "Agra", "commodity": "Potato", "min_price": "1300", "max_price": "1900", "modal_price": "1600", "arrival_date": "2026-06-19"},
+        {"id": "potato_wb_1", "state": "West Bengal", "district": "Hooghly", "market": "Sheoraphuly", "commodity": "Potato", "min_price": "1500", "max_price": "2100", "modal_price": "1850", "arrival_date": "2026-06-19"},
+        {"id": "potato_mh_1", "state": "Maharashtra", "district": "Pune", "market": "Pune", "commodity": "Potato", "min_price": "1400", "max_price": "2200", "modal_price": "1800", "arrival_date": "2026-06-19"},
+        {"id": "onion_mh_1", "state": "Maharashtra", "district": "Nashik", "market": "Lasalgaon", "commodity": "Onion", "min_price": "1100", "max_price": "1800", "modal_price": "1450", "arrival_date": "2026-06-19"},
+        {"id": "onion_mh_2", "state": "Maharashtra", "district": "Pune", "market": "Pune(Khadki)", "commodity": "Onion", "min_price": "1200", "max_price": "1900", "modal_price": "1550", "arrival_date": "2026-06-19"},
+        {"id": "onion_ka_1", "state": "Karnataka", "district": "Bangalore", "market": "Yeshwanthpur", "commodity": "Onion", "min_price": "1300", "max_price": "2000", "modal_price": "1650", "arrival_date": "2026-06-19"},
+        {"id": "rice_pb_1", "state": "Punjab", "district": "Amritsar", "market": "Amritsar", "commodity": "Paddy(Dhan)(Common)", "min_price": "2200", "max_price": "2600", "modal_price": "2450", "arrival_date": "2026-06-19"},
+        {"id": "rice_ap_1", "state": "Andhra Pradesh", "district": "West Godavari", "market": "Bhimavaram", "commodity": "Paddy(Dhan)(Common)", "min_price": "2300", "max_price": "2700", "modal_price": "2500", "arrival_date": "2026-06-19"},
+        {"id": "rice_wb_1", "state": "West Bengal", "district": "Burdwan", "market": "Burdwan", "commodity": "Paddy(Dhan)(Common)", "min_price": "2100", "max_price": "2500", "modal_price": "2300", "arrival_date": "2026-06-19"},
+        {"id": "cotton_gj_1", "state": "Gujarat", "district": "Rajkot", "market": "Rajkot", "commodity": "Cotton", "min_price": "6800", "max_price": "8200", "modal_price": "7500", "arrival_date": "2026-06-19"},
+        {"id": "cotton_mh_1", "state": "Maharashtra", "district": "Yavatmal", "market": "Yavatmal", "commodity": "Cotton", "min_price": "6500", "max_price": "7800", "modal_price": "7200", "arrival_date": "2026-06-19"},
+        {"id": "cotton_ts_1", "state": "Telangana", "district": "Warangal", "market": "Warangal", "commodity": "Cotton", "min_price": "6700", "max_price": "8000", "modal_price": "7400", "arrival_date": "2026-06-19"},
+    ]
+
+    def normalize_crop_name(c):
+        c_lower = c.lower().strip()
+        if "tomato" in c_lower: return "Tomato"
+        if "potato" in c_lower: return "Potato"
+        if "onion" in c_lower: return "Onion"
+        if "rice" in c_lower or "paddy" in c_lower: return "Paddy(Dhan)(Common)"
+        if "cotton" in c_lower: return "Cotton"
+        return c.strip()
+
+    normalized_search_crops = [normalize_crop_name(c) for c in crops_list]
+
+    # Try live request if API key is valid
+    if mandi_api_key and mandi_api_key != "YOUR_MANDI_API_KEY" and mandi_api_key.strip():
+        # Setup SSL bypass just in case of local/development gateway issues
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+
+        base_url = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070"
+        query_params = {
+            "api-key": mandi_api_key,
+            "format": "json",
+            "limit": "50"
+        }
+        if state:
+            # Format state using title casing as expected by the government DB
+            formatted_state = state.title().strip()
+            query_params["filters[state.keyword]"] = formatted_state
+
+        encoded_params = urllib.parse.urlencode(query_params)
+        full_url = f"{base_url}?{encoded_params}"
+
+        logger.info("[Mandi Proxy] Requesting live API URL: %s (api-key masked)", f"{base_url}?api-key=***&{urllib.parse.urlencode({k:v for k,v in query_params.items() if k != 'api-key'})}")
+
+        try:
+            req = urllib.request.Request(
+                full_url,
+                headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+            )
+            with urllib.request.urlopen(req, context=ctx, timeout=5.0) as response:
+                status_code = response.getcode()
+                # 5. Diagnostic: log status code
+                logger.info("[Mandi Proxy] Live API response code: %d", status_code)
+
+                if status_code == 200:
+                    body = response.read().decode('utf-8')
+                    try:
+                        data = json.loads(body)
+                        records = data.get("records", [])
+                        
+                        # Filter by commodity if query specifies
+                        if normalized_search_crops:
+                            records = [r for r in records if normalize_crop_name(r.get("commodity", "")) in normalized_search_crops]
+
+                        logger.info("[Mandi Proxy] Successfully parsed %d records from Live API", len(records))
+                        return {
+                            "isFallback": False,
+                            "lastUpdated": datetime.now().isoformat(),
+                            "records": records
+                        }
+                    except Exception as parse_err:
+                        # 5. Diagnostic: log parsing failure
+                        logger.error("[Mandi Proxy] Parsing failure: %s", parse_err)
+                else:
+                    logger.warning("[Mandi Proxy] Live API returned non-200 code: %d", status_code)
+        except urllib.error.HTTPError as e:
+            # 5. Diagnostic: log HTTP status codes
+            logger.warning("[Mandi Proxy] Live API request failed with HTTPError: %d. Response: %s", e.code, e.read().decode('utf-8', errors='ignore'))
+        except urllib.error.URLError as e:
+            # 5. Diagnostic: log timeout failures or other network failures
+            if "timed out" in str(e.reason).lower():
+                logger.warning("[Mandi Proxy] Timeout failure requesting Live API: %s", e.reason)
+            else:
+                logger.warning("[Mandi Proxy] Live API network request failure: %s", e.reason)
+        except Exception as e:
+            logger.warning("[Mandi Proxy] General failure requesting Live API: %s", e)
+
+    # 5. Diagnostic: log cache fallback activation
+    logger.info("[Mandi Proxy] Cache fallback activated. Returning cached/realistic prices.")
+    
+    # Filter fallback records by state and crops
+    matched_records = []
+    
+    # Clean state parameter
+    state_lower = state.lower().strip() if state else None
+    if state_lower:
+        if "andhra" in state_lower: state_filter = "Andhra Pradesh"
+        elif "tamil" in state_lower: state_filter = "Tamil Nadu"
+        elif "uttar" in state_lower: state_filter = "Uttar Pradesh"
+        elif "madhya" in state_lower: state_filter = "Madhya Pradesh"
+        elif "bengal" in state_lower: state_filter = "West Bengal"
+        elif "maharashtra" in state_lower: state_filter = "Maharashtra"
+        elif "karnataka" in state_lower: state_filter = "Karnataka"
+        elif "punjab" in state_lower: state_filter = "Punjab"
+        elif "haryana" in state_lower: state_filter = "Haryana"
+        elif "rajasthan" in state_lower: state_filter = "Rajasthan"
+        elif "telangana" in state_lower: state_filter = "Telangana"
+        elif "gujarat" in state_lower: state_filter = "Gujarat"
+        else: state_filter = state.strip()
+    else:
+        state_filter = None
+
+    for record in fallback_records:
+        crop_match = True
+        if normalized_search_crops:
+            crop_match = normalize_crop_name(record["commodity"]) in normalized_search_crops
+            
+        state_match = True
+        if state_filter:
+            state_match = record["state"].lower() == state_filter.lower()
+            
+        if crop_match and state_match:
+            matched_records.append(record)
+            
+    # If no records match state filter but crops were requested, return matching crops from other states
+    if not matched_records and normalized_search_crops:
+        for record in fallback_records:
+            if normalize_crop_name(record["commodity"]) in normalized_search_crops:
+                matched_records.append(record)
+                
+    # If still empty, return all fallback records
+    if not matched_records:
+        matched_records = fallback_records
+        
+    return {
+        "isFallback": True,
+        "lastUpdated": datetime.now().isoformat(),
+        "records": matched_records
+    }
+
+
+@app.get("/api/v1/optimization/stats")
+def get_optimization_stats():
+    return get_opt_stats()
+

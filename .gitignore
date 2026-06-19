@@ -111,4 +111,56 @@ models_backup/
 backend/scratch/field_validation_set/
 backend/scratch/plantdoc_extracted/
 backend/models/*_new.pt
+backend/models/*_new.pt
 backend/models/*_v2.pt
+
+# =============================================================================
+# SECURITY — Secret files and API key protection
+# =============================================================================
+
+# Environment files — NEVER commit .env with real values
+# .env.example IS safe to commit (contains only placeholders)
+.env
+.env.local
+.env.production
+.env.development
+backend/.env
+backend/.env.local
+# Exception: allow the example template (no real values inside)
+!.env.example
+!backend/.env.example
+
+
+# Test/validation scripts that historically contained hardcoded keys
+# These files are now safe (keys removed) but keep them gitignored to
+# prevent future developers from accidentally adding keys back and committing
+test_chat_ai.dart
+test_chat_verify.dart
+test_gemini.dart
+test_gemini2.dart
+test_gemini_chat.dart
+
+# Python scratch validation scripts (contain local paths and test credentials)
+backend/scratch/non_plant_validation.py
+backend/scratch/create_auth_user.py
+backend/scratch/verify_disease_detection.py
+
+# Service account JSON files (Firebase Admin SDK — NEVER commit)
+*service-account*.json
+*serviceAccount*.json
+firebase-adminsdk*.json
+firebase_admin*.json
+
+# Generic secret file patterns
+*.pem
+*.p12
+*.keystore
+secrets/
+.secrets/
+
+# =============================================================================
+# V2 Dataset — Farmer images (personal data — never commit)
+# =============================================================================
+backend/dataset_v2/
+backend/hard_cases/
+backend/disease_feedback_dataset/
