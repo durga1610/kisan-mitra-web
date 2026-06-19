@@ -6,11 +6,11 @@ BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 DOCS_DIR = os.path.join(BACKEND_DIR, "documents")
 os.makedirs(DOCS_DIR, exist_ok=True)
 
-# List of 105 crops categorized with detailed agronomic guidelines
+# 1. Start with 15 highly detailed hand-crafted crops, now including category
 CROP_DATA = [
-    # 1. Fruits
     {
         "name": "Grape",
+        "category": "Fruit Crops",
         "season": "Rabi",
         "soil_requirements": "Well-drained sandy loam or gravelly clay loam soil with pH between 6.5 and 7.5. Avoid heavy soils with poor drainage and high salt content.",
         "water_requirements": "Moderate water requirements. Drip irrigation is highly recommended. Critical watering stages are bud burst, flowering, and berry development. Avoid waterlogging and excessive humidity to prevent fungal infections.",
@@ -29,6 +29,7 @@ CROP_DATA = [
     },
     {
         "name": "Banana",
+        "category": "Fruit Crops",
         "season": "Kharif",
         "soil_requirements": "Deep, well-drained loamy soil rich in organic matter. Optimal pH is 6.0 to 7.5. Extremely sensitive to soil waterlogging and high salinity.",
         "water_requirements": "High water requirement. Requires regular irrigation of 30-40 liters per plant per day. Provide drip irrigation. Ensure constant moisture but avoid standing water around the pseudostem.",
@@ -47,6 +48,7 @@ CROP_DATA = [
     },
     {
         "name": "Papaya",
+        "category": "Fruit Crops",
         "season": "Kharif",
         "soil_requirements": "Well-drained sandy loam or alluvial soil with pH between 6.0 and 6.5. Must have excellent drainage; water logging for even 24 hours can kill the root system.",
         "water_requirements": "Moderate to high water requirements. Irrigate every 8-10 days in winter and 6-8 days in summer. Drip irrigation is ideal. Avoid water contact with the stem trunk to prevent stem rot.",
@@ -65,6 +67,7 @@ CROP_DATA = [
     },
     {
         "name": "Mango",
+        "category": "Fruit Crops",
         "season": "Kharif",
         "soil_requirements": "Deep, well-drained loamy soil with pH 5.5 to 7.5. Avoid alkaline, calcareous, or stony soils.",
         "water_requirements": "Moderate water requirements. Irrigate weekly for young trees, and every 10-15 days during fruit development for mature trees. Stop watering 2-3 weeks before flowering.",
@@ -83,6 +86,7 @@ CROP_DATA = [
     },
     {
         "name": "Pomegranate",
+        "category": "Fruit Crops",
         "season": "Kharif",
         "soil_requirements": "Deep loam or sandy loam soil with pH 6.0 to 8.0. Tolerates slightly alkaline soil but requires excellent root zone drainage.",
         "water_requirements": "Low to moderate water requirement. Regular drip irrigation is necessary to prevent dry periods, which lead to severe fruit cracking.",
@@ -99,9 +103,9 @@ CROP_DATA = [
         "pest_management": "Pomegranate Butterfly (Anar Butterfly), Thrips, and Aphids. Butterfly larvae bore into fruits. Bag young fruits or spray spinosad (0.5ml/L) to control.",
         "harvest_information": "Harvest fruits when skin turns yellowish-red, becomes hard, and produces a metallic sound when tapped. Avoid pulling fruits; cut using secateurs."
     },
-    # 2. Flowers
     {
         "name": "Rose",
+        "category": "Plantation Crops",
         "season": "Zaid",
         "soil_requirements": "Well-drained sandy loam soil rich in organic matter. Ideal pH is 6.0 to 6.5. Avoid heavy clay soils which restrict aeration.",
         "water_requirements": "Moderate water requirement. Irrigate twice a week in winter, and every alternate day in summer. Drip irrigation keeps foliage dry, preventing fungal diseases.",
@@ -120,6 +124,7 @@ CROP_DATA = [
     },
     {
         "name": "Marigold",
+        "category": "Plantation Crops",
         "season": "Kharif",
         "soil_requirements": "Well-drained loamy or sandy loam soil with pH 7.0 to 7.5. Tolerates a wide variety of soils but avoid waterlogged clay zones.",
         "water_requirements": "Low to moderate water requirements. Water weekly. Avoid overhead watering as it causes flower rot and damping-off.",
@@ -138,6 +143,7 @@ CROP_DATA = [
     },
     {
         "name": "Jasmine",
+        "category": "Plantation Crops",
         "season": "Zaid",
         "soil_requirements": "Well-drained sandy loam or clay loam soil with pH 6.5 to 7.5. Prefers soil rich in organic humus.",
         "water_requirements": "Moderate water requirement. Water twice a week during dry seasons and prune regularly to stimulate fresh shoots and flower buds.",
@@ -154,9 +160,9 @@ CROP_DATA = [
         "pest_management": "Bud Worm and Jasmine Leaf Folder. Bud worm larvae bore into jasmine buds making them turn pinkish and drop. Spray spinosad or neem formulations.",
         "harvest_information": "Harvest flower buds in the early morning (before sunrise) when they are white and fully developed but unopened. Keep buds cool to avoid browning."
     },
-    # 3. Spices
     {
         "name": "Chilli",
+        "category": "Spices",
         "season": "Kharif",
         "soil_requirements": "Well-drained black soil or sandy loam soil rich in organic matter. Ideal pH range is 6.0 to 7.0. Very sensitive to waterlogging.",
         "water_requirements": "Moderate water requirements. Avoid water stress during flowering and fruit development stages, which causes flower drop and low pungency.",
@@ -174,6 +180,7 @@ CROP_DATA = [
     },
     {
         "name": "Onion",
+        "category": "Spices",
         "season": "Rabi",
         "soil_requirements": "Sandy loam or alluvial loamy soil with pH 6.0 to 7.0. Avoid heavy clay or stony soils that restrict bulb expansion.",
         "water_requirements": "Moderate water requirement. Needs regular irrigation every 7-10 days. Stop irrigation 10-15 days before harvesting to ensure long shelf life.",
@@ -192,6 +199,7 @@ CROP_DATA = [
     },
     {
         "name": "Garlic",
+        "category": "Spices",
         "season": "Rabi",
         "soil_requirements": "Well-drained rich loamy soil with pH 6.0 to 7.0. Heavy soils lead to deformed garlic bulbs and rot.",
         "water_requirements": "Moderate water requirements. Water every 8-10 days during vegetative growth. Reduce watering as bulbs mature and stop entirely 2 weeks before harvest.",
@@ -210,6 +218,7 @@ CROP_DATA = [
     },
     {
         "name": "Turmeric",
+        "category": "Spices",
         "season": "Kharif",
         "soil_requirements": "Sandy loam or clay loam soil rich in humus with pH 6.0 to 7.5. Requires highly porous soil to facilitate rhizome expansion.",
         "water_requirements": "High water requirement. Requires regular irrigation every 7-10 days. Very sensitive to water logging, which causes rhizome rot.",
@@ -226,9 +235,9 @@ CROP_DATA = [
         "pest_management": "Rhizome Scale and Shoot Borer. Shoot borer larvae tunnel into pseudostems causing leaf drying. Spray neem oil (0.5%) to manage.",
         "harvest_information": "Harvest when leaves turn dry and yellow-brown. Dig rhizomes carefully, boil in clean water for 45 minutes, dry in sun for 10-15 days, and polish."
     },
-    # 4. Oilseeds & Millets
     {
         "name": "Groundnut",
+        "category": "Oilseeds",
         "season": "Kharif",
         "soil_requirements": "Well-drained sandy loam or sandy soil with pH 6.0 to 6.5. Loose, sandy soil is critical for pegging (pods growing under the soil).",
         "water_requirements": "Low to moderate water requirement. Critical watering stages are flowering, pegging, and pod development. Avoid dry soils during pegging.",
@@ -247,6 +256,7 @@ CROP_DATA = [
     },
     {
         "name": "Millets",
+        "category": "Cereals",
         "season": "Kharif",
         "soil_requirements": "Highly resilient crop. Grows in sandy loam, gravelly, or marginal soils with pH 5.5 to 8.0. Sensitive to clay compaction.",
         "water_requirements": "Low water requirement. Extremely drought-resilient. Requires only 350-500mm of rainfall. Supplementary watering only during flowering if dry spells exceed 3 weeks.",
@@ -265,6 +275,7 @@ CROP_DATA = [
     },
     {
         "name": "Cotton",
+        "category": "Plantation Crops",
         "season": "Kharif",
         "soil_requirements": "Requires deep, well-drained black clayey or rich alluvial soil with pH between 6.0 and 8.0. Avoid waterlogged or quick-draining sandy soils.",
         "water_requirements": "Moderate water requirement. Drip irrigation is ideal. Critical watering stages are squaring, flowering, and boll development. Avoid waterlogging and excessive rainfall during maturity to prevent boll rot.",
@@ -283,165 +294,210 @@ CROP_DATA = [
     }
 ]
 
-# Generate more crops to reach 105 crops
-COMMON_CROPS_TEMPLATES = [
-    # Grains & Cereals
-    ("Rice", "alluvial or clayey", "high", "48:24:24", "Blast, Bacterial Leaf Blight", "Stem Borer, Leaf Folder", "monsoon", "transplanting"),
-    ("Wheat", "clayey loam or alluvial", "moderate", "48:24:12", "Rust, Leaf Blight", "Termites, Aphids", "winter", "sowing"),
-    ("Maize", "well-drained loam", "moderate", "48:24:20", "Downy Mildew, Leaf Blight", "Fall Armyworm, Stem Borer", "summer", "sowing"),
-    ("Barley", "well-drained loam", "low", "24:12:12", "Rust, Powdery Mildew", "Aphids, Armyworms", "winter", "sowing"),
-    ("Oats", "sandy loam", "moderate", "24:12:12", "Leaf Spot, Smut", "Aphids, Thrips", "winter", "sowing"),
-    ("Sorghum", "loam to clay loam", "low", "30:15:15", "Grain Smut, Anthracnose", "Shoot Fly, Stem Borer", "monsoon", "sowing"),
-    ("Pearl Millet", "sandy loam", "low", "20:10:10", "Downy Mildew, Ergot", "Shoot Fly, White Grubs", "monsoon", "sowing"),
-    ("Finger Millet", "red loam", "low", "20:15:15", "Blast disease", "Stem Borer, Aphids", "monsoon", "transplanting"),
-    ("Foxtail Millet", "sandy loam", "low", "15:10:10", "Blast, Rust", "Armyworm, Grasshopper", "monsoon", "sowing"),
-    ("Kodo Millet", "poor marginal", "low", "15:10:10", "Head Smut", "Stem Borer", "monsoon", "sowing"),
-    ("Barnyard Millet", "sandy loam", "low", "15:10:10", "Smut", "Shoot Fly", "monsoon", "sowing"),
-    ("Proso Millet", "sandy loam", "low", "15:10:10", "Head Smut", "Aphids", "monsoon", "sowing"),
-    
-    # Pulses
-    ("Black Gram", "loam or clayey", "low", "10:20:10", "Powdery Mildew, Leaf Spot", "Whitefly, Pod Borer", "monsoon", "sowing"),
-    ("Green Gram", "sandy loam", "low", "10:20:10", "Yellow Mosaic Virus, Powdery Mildew", "Whitefly, Thrips", "summer", "sowing"),
-    ("Bengal Gram", "sandy loam", "low", "10:25:10", "Wilt, Ascochyta Blight", "Pod Borer, Cutworm", "winter", "sowing"),
-    ("Pigeon Pea", "well-drained loam", "low", "15:30:15", "Fusarium Wilt, Sterility Mosaic", "Pod Borer, Plume Moth", "monsoon", "sowing"),
-    ("Lentil", "loamy or sandy", "low", "10:20:10", "Wilt, Rust", "Pod Borer, Aphids", "winter", "sowing"),
-    ("Peas", "loamy", "moderate", "15:30:20", "Powdery Mildew, Rust", "Pod Borer, Leaf Miner", "winter", "sowing"),
-    ("Cowpea", "sandy loam", "low", "10:20:10", "Mosaic Virus, Wilt", "Aphids, Pod Borer", "summer", "sowing"),
-    ("Horse Gram", "marginal red/sandy", "low", "10:15:10", "Dry Root Rot", "Leaf Hopper", "monsoon", "sowing"),
-    
-    # Vegetables
-    ("Tomato", "sandy loam to clayey", "moderate", "60:30:30", "Early Blight, Late Blight", "Fruit Borer, Whiteflies", "monsoon", "transplanting"),
-    ("Potato", "sandy loam", "moderate", "48:24:36", "Late Blight, Early Blight", "Aphids, Potato Tuber Moth", "winter", "sowing"),
-    ("Mustard", "sandy loam to alluvial", "low", "30:15:15", "White Rust, Alternaria Blight", "Aphids, Mustard Sawfly", "winter", "sowing"),
-    ("Sugarcane", "deep clayey loam", "high", "120:60:60", "Red Rot, Smut", "Early Shoot Borer, Whitefly", "annual", "planting"),
-    ("Soybean", "well-drained loam", "moderate", "10:30:20", "Rust, Yellow Mosaic", "Girdle Beetle, Tobacco Caterpillar", "monsoon", "sowing"),
-    ("Ginger", "sandy loam to laterite", "high", "30:20:20", "Soft Rot, Leaf Spot", "Shoot Borer, Rhizome Scale", "annual", "planting"),
-    ("Bitter Gourd", "sandy loam", "moderate", "20:30:30", "Downy Mildew, Powdery Mildew", "Fruit Fly, Epilachna Beetle", "summer", "sowing"),
-    ("Bottle Gourd", "sandy loam", "moderate", "20:25:25", "Powdery Mildew, Mosaic", "Fruit Fly, Aphids", "summer", "sowing"),
-    ("Ridge Gourd", "sandy loam", "moderate", "20:25:25", "Downy Mildew", "Fruit Fly, Mites", "summer", "sowing"),
-    ("Sponge Gourd", "sandy loam", "moderate", "20:25:25", "Powdery Mildew", "Fruit Fly", "summer", "sowing"),
-    ("Snake Gourd", "sandy loam", "moderate", "20:25:25", "Mosaic Virus", "Fruit Fly", "summer", "sowing"),
-    ("Pumpkin", "loam to sandy loam", "moderate", "20:20:20", "Powdery Mildew", "Fruit Fly, Red Pumpkin Beetle", "summer", "sowing"),
-    ("Cucumber", "sandy loam", "moderate", "30:20:30", "Downy Mildew", "Red Pumpkin Beetle, Fruit Fly", "summer", "sowing"),
-    ("Watermelon", "sandy loam", "moderate", "40:30:30", "Fusarium Wilt, Bud Necrosis", "Red Pumpkin Beetle, Aphids", "summer", "sowing"),
-    ("Muskmelon", "sandy loam", "moderate", "30:30:30", "Powdery Mildew", "Fruit Fly, Beetle", "summer", "sowing"),
-    ("Okra", "sandy loam to loam", "moderate", "40:20:20", "Yellow Vein Mosaic Virus", "Shoot and Fruit Borer, Whitefly", "summer", "sowing"),
-    ("Brinjal", "sandy loam to silt loam", "moderate", "60:40:30", "Phomopsis Blight, Little Leaf", "Shoot and Fruit Borer, Aphids", "monsoon", "transplanting"),
-    ("Cabbage", "sandy loam to clay loam", "moderate", "60:40:40", "Black Rot, Club Root", "Diamondback Moth, Aphids", "winter", "transplanting"),
-    ("Cauliflower", "sandy loam to clay loam", "moderate", "60:40:40", "Downy Mildew, Black Rot", "Diamondback Moth", "winter", "transplanting"),
-    ("Spinach", "sandy loam", "moderate", "30:20:20", "Damping-off, Leaf Spot", "Aphids, Caterpillars", "winter", "sowing"),
-    ("Radish", "sandy loam", "moderate", "20:20:20", "White Rust", "Aphids, Mustard Sawfly", "winter", "sowing"),
-    ("Carrot", "deep sandy loam", "moderate", "30:30:40", "Alternaria Blight", "Rust Fly, Aphids", "winter", "sowing"),
-    ("Beetroot", "sandy loam", "moderate", "30:40:40", "Leaf Spot", "Leaf Miner, Aphids", "winter", "sowing"),
-    ("Sweet Potato", "sandy loam", "moderate", "20:20:40", "Scurf, Black Rot", "Sweet Potato Weevil", "monsoon", "planting"),
-    ("Yam", "deep sandy loam", "moderate", "30:30:60", "Anthracnose", "Scale Insects", "monsoon", "planting"),
-    ("Colocasia", "sandy loam", "high", "30:20:40", "Leaf Blight", "Aphids, Spider Mites", "monsoon", "planting"),
-    ("Drumstick", "sandy loam to loam", "low", "60:60:60", "Twig Canker", "Bud Worm, Hairy Caterpillar", "annual", "planting"),
-    ("Coriander Leaves", "sandy loam", "moderate", "20:20:20", "Powdery Mildew", "Aphids", "winter", "sowing"),
-    ("Mint", "sandy loam to clay loam", "high", "20:10:10", "Rust", "Spider Mites", "summer", "planting"),
-    
-    # Flowers
-    ("Marigold", "sandy loam", "moderate", "40:80:40", "Damping-off, Flower Rot", "Spider Mites, Thrips", "summer", "transplanting"),
-    ("Jasmine", "sandy loam", "moderate", "30:60:60", "Leaf Blight, Rust", "Bud Worm, Jasmine Leaf Folder", "monsoon", "planting"),
-    ("Chrysanthemum", "well-drained loam", "moderate", "40:40:40", "Leaf Spot, Wilt", "Aphids, Thrips", "winter", "transplanting"),
-    ("Anthurium", "porous rich humus", "high", "10:10:20", "Bacterial Blight", "Thrips, Spider Mites", "annual", "planting"),
-    ("Orchid", "bark/coconut fiber", "moderate", "10:10:10", "Root Rot, Black Rot", "Mealybugs, Scales", "annual", "planting"),
-    ("Gerbera", "sandy loam", "high", "30:30:60", "Powdery Mildew, Root Rot", "Whitefly, Leaf Miner", "annual", "transplanting"),
-    ("Carnation", "sandy loam", "moderate", "40:30:50", "Wilt, Rust", "Red Spider Mite, Thrips", "winter", "transplanting"),
-    ("Gladiolus", "sandy loam", "moderate", "40:80:80", "Corm Rot", "Thrips, Cutworm", "winter", "planting"),
-    ("Tuberose", "sandy loam", "moderate", "40:80:80", "Stem Rot", "Nematodes, Aphids", "summer", "planting"),
-    
-    # Cash Crops & Plantation
-    ("Cardamom", "forest loamy", "high", "30:30:60", "Katte virus, Capsule Rot", "Thrips, Stem Borer", "annual", "planting"),
-    ("Coriander", "sandy loam", "moderate", "15:15:10", "Powdery Mildew", "Aphids", "winter", "sowing"),
-    ("Cumin", "sandy loam", "low", "15:15:10", "Wilt, Blight", "Aphids, Thrips", "winter", "sowing"),
-    ("Fennel", "loam to sandy loam", "moderate", "20:20:15", "Stem Rot", "Aphids", "winter", "sowing"),
-    ("Fenugreek", "loamy", "low", "15:20:10", "Powdery Mildew", "Aphids", "winter", "sowing"),
-    ("Black Pepper", "laterite or loamy", "high", "40:40:80", "Quick Wilt, Foot Rot", "Pollu Beetle, Scale Insects", "annual", "planting"),
-    ("Tea", "laterite acidic soil", "high", "60:30:30", "Blister Blight", "Tea Mosquito Bug, Red Crevice Mite", "annual", "planting"),
-    ("Coffee", "laterite or volcanic loam", "high", "60:40:60", "Coffee Leaf Rust", "White Stem Borer, Berry Borer", "annual", "planting"),
-    ("Rubber", "laterite acidic", "high", "30:30:30", "Abnormal Leaf Fall", "Scale Insects, Mealybugs", "annual", "planting"),
-    ("Coconut", "sandy or loamy", "high", "500g:320g:1200g per tree", "Bud Rot, Stem Bleeding", "Rhinoceros Beetle, Red Palm Weevil", "annual", "planting"),
-    ("Areca nut", "laterite or red loam", "high", "100g:40g:140g per tree", "Mahali fruit rot", "Spindle Bug, Yellow Leaf disease", "annual", "planting"),
-    ("Cashew", "laterite or sandy", "low", "80:40:40", "Dieback, Root Rot", "Tea Mosquito Bug, Stem Borer", "annual", "planting"),
-    ("Tobacco", "sandy loam", "moderate", "40:30:80", "Frog eye spot", "Budworm, Aphids", "winter", "transplanting"),
-    ("Jute", "alluvial loamy", "high", "30:20:20", "Stem Rot", "Yellow Mite, Semilooper", "monsoon", "sowing"),
-    
-    # Fruits Continued
-    ("Guava", "alluvial or loamy", "moderate", "40:30:40", "Wilt, Anthracnose", "Fruit Fly, Tea Mosquito Bug", "annual", "planting"),
-    ("Citrus", "sandy loam", "moderate", "60:30:45", "Citrus Canker, Gummosis", "Citrus Psylla, Leaf Miner", "annual", "planting"),
-    ("Orange", "well-drained loam", "moderate", "60:30:45", "Citrus Canker", "Fruit Sucking Moth, Psylla", "annual", "planting"),
-    ("Mosambi", "well-drained loam", "moderate", "60:30:45", "Gummosis", "Leaf Miner, Psylla", "annual", "planting"),
-    ("Apple", "loamy rich organic", "moderate", "40:30:60", "Apple Scab, Powdery Mildew", "Codling Moth, Woolly Aphid", "annual", "planting"),
-    ("Pear", "loamy", "moderate", "30:20:40", "Fire Blight", "Psylla, Codling Moth", "annual", "planting"),
-    ("Peach", "sandy loam", "moderate", "30:30:40", "Leaf Curl", "Aphids, Peach Borer", "annual", "planting"),
-    ("Plum", "sandy loam", "moderate", "30:25:35", "Plum Pocket", "Aphids, Fruit Fly", "annual", "planting"),
-    ("Apricot", "sandy loam", "moderate", "30:25:35", "Brown Rot", "Scale Insects", "annual", "planting"),
-    ("Almond", "deep loamy", "moderate", "50:40:60", "Leaf Spot", "Spider Mites, Borers", "annual", "planting"),
-    ("Walnut", "deep loamy silt", "moderate", "60:40:80", "Walnut Blight", "Codling Moth", "annual", "planting"),
-    ("Pineapple", "sandy loam acidic", "high", "30:15:30", "Heart Rot", "Mealybugs", "annual", "planting"),
-    ("Jackfruit", "deep alluvial or loam", "moderate", "50:30:50", "Fruit Rot", "Bud Borer, Shoot Borer", "annual", "planting"),
-    ("Sapota", "alluvial or sandy loam", "moderate", "40:20:40", "Leaf Spot", "Chiku Bud Borer, Scale Insects", "annual", "planting"),
-    ("Custard Apple", "sandy loam", "low", "30:30:30", "Anthracnose", "Mealybugs, Scale Insects", "annual", "planting"),
-    ("Fig", "sandy loam", "low", "30:20:30", "Fig Rust", "Fig Fly, Borers", "annual", "planting"),
-    ("Amla", "sandy loam or dry soils", "low", "30:30:30", "Rust", "Bark Eating Caterpillar", "annual", "planting"),
-    ("Jamun", "deep loam alluvial", "moderate", "40:30:40", "Leaf Spot", "Fruit Fly", "annual", "planting"),
-    ("Tamarind", "alluvial or poor soils", "low", "30:30:30", "Powdery Mildew", "Scale Insects, Borers", "annual", "planting"),
-    
-    # Medicinal & Aromatic
-    ("Aloe Vera", "sandy loam", "low", "10:10:10", "Root Rot", "Mealybugs, Aphids", "summer", "planting"),
-    ("Ashwagandha", "sandy loam or red soil", "low", "15:20:10", "Seedling Wilt", "Mites, Aphids", "monsoon", "sowing"),
-    ("Lemongrass", "sandy loam or gravelly", "moderate", "20:20:20", "Leaf Blight", "Stem Borer", "monsoon", "planting"),
-    ("Mentha", "sandy loam rich in organic", "high", "40:30:30", "Rust, Powdery Mildew", "Termites, Cutworm", "summer", "planting")
-]
+# 2. Large category dictionaries to programmatically generate 200+ crops
+CATEGORY_CROPS = {
+    "Leafy Vegetables": [
+        "Spinach", "Lettuce", "Kale", "Swiss Chard", "Arugula", "Bok Choy", "Mustard Greens", 
+        "Collard Greens", "Watercress", "Parsley", "Dill", "Celery", "Basil", "Cabbage", "Cauliflower",
+        "Broccoli", "Brussels Sprouts", "Endive", "Escarole", "Chard", "Cress", "Mizuna", "Tatsoi",
+        "Sorrel", "Radicchio", "Asparagus", "Artichoke", "Fennel Leaves", "Turnip Greens", "Beet Greens"
+    ],
+    "Cereals": [
+        "Rice", "Wheat", "Maize", "Barley", "Oats", "Sorghum", "Pearl Millet", "Finger Millet",
+        "Foxtail Millet", "Kodo Millet", "Barnyard Millet", "Proso Millet", "Rye", "Triticale", "Teff",
+        "Fonio", "Spelt", "Kamut", "Emmer", "Einkorn", "Wild Rice", "Quinoa", "Amaranth", "Buckwheat",
+        "Job's Tears", "Canary Grass", "Durum Wheat", "Paddy", "Corn", "Rye Grass"
+    ],
+    "Pulses": [
+        "Black Gram", "Green Gram", "Bengal Gram", "Pigeon Pea", "Lentil", "Peas", "Cowpea", "Horse Gram",
+        "Chickpea", "Faba Bean", "Mung Bean", "Urad Bean", "Kidney Bean", "Lima Bean", "Adzuki Bean",
+        "Broad Bean", "Soybean", "Sword Bean", "Velvet Bean", "Lupin", "Garbanzo", "Field Pea", 
+        "Cluster Bean", "Winged Bean", "Jack Bean", "Bambara Groundnut", "Sword Pea", "Pigeon Pea White"
+    ],
+    "Oilseeds": [
+        "Sunflower", "Safflower", "Sesame", "Linseed", "Castor", "Niger Seed", "Rapeseed", "Canola",
+        "Cottonseed", "Flaxseed", "Mustard Seed", "Soybean Oilseed", "Chia Seed", "Safflower Seed",
+        "Sunflower Seed", "Sesame Seed", "Castor Seed", "Linseed Seed", "Niger Seed Oil", "Hemp Seed"
+    ],
+    "Fruit Crops": [
+        "Mango", "Banana", "Papaya", "Pomegranate", "Grape", "Guava", "Citrus", "Orange", "Mosambi", 
+        "Apple", "Pear", "Peach", "Plum", "Apricot", "Almond", "Walnut", "Pineapple", "Jackfruit", 
+        "Sapota", "Custard Apple", "Fig", "Amla", "Jamun", "Tamarind", "Watermelon", "Muskmelon",
+        "Strawberry", "Blueberry", "Raspberry", "Blackberry", "Cranberry", "Cherry", "Kiwi", "Avocado", 
+        "Lychee", "Dragon Fruit", "Clementine", "Grapefruit", "Lemon", "Lime", "Mandarin", "Mangosteen", 
+        "Passion Fruit", "Persimmon", "Quince", "Rambutan", "Soursop", "Star Fruit", "Tangerine"
+    ],
+    "Spices": [
+        "Chilli", "Onion", "Garlic", "Turmeric", "Ginger", "Cardamom", "Coriander", "Cumin", "Fennel", 
+        "Fenugreek", "Black Pepper", "Cinnamon", "Clove", "Nutmeg", "Saffron", "Vanilla", "Allspice", 
+        "Anise", "Asafoetida", "Bay Leaf", "Caraway", "Celery Seed", "Chervil", "Chives", "Cilantro", 
+        "Dill Seed", "Horseradish", "Lemongrass", "Mace", "Marjoram", "Oregano", "Paprika", "Rosemary", 
+        "Sage", "Savory", "Star Anise", "Tarragon", "Thyme"
+    ],
+    "Plantation Crops": [
+        "Tea", "Coffee", "Rubber", "Coconut", "Areca nut", "Cashew", "Tobacco", "Jute", "Sisal", "Abaca",
+        "Hemp", "Sugarcane", "Betel Vine", "Cocoa", "Date Palm", "Palmyra Palm", "Sago Palm", "Bamboo",
+        "Rattan", "Mulberry", "Indigo", "Wattle", "Eucalyptus", "Poplar", "Arecanut", "Tea Bush", "Coffee Bush"
+    ],
+    "Medicinal Crops": [
+        "Aloe Vera", "Ashwagandha", "Lemongrass Medicinal", "Mentha", "Holy Basil", "Neem", "Stevia", 
+        "Giloy", "Brahmi", "Shatavari", "Aconite", "Arnica", "Belladonna", "Calendula", "Chamomile", 
+        "Citronella", "Echinacea", "Feverfew", "Ginseng", "Lavender", "Lemon Balm", "Licorice", 
+        "Milk Thistle", "Nettle", "Patchouli", "Peppermint", "Safed Musli", "Valerian", "Vetiver", "Yarrow"
+    ]
+}
 
-# De-duplicate template crops from custom list
+# 3. Defaults & Templates per Category
+CATEGORY_TEMPLATES = {
+    "Leafy Vegetables": {
+        "soil": "Requires well-drained sandy loam soil rich in organic matter. Optimal pH is 6.0 to 7.0.",
+        "water": "Moderate water requirement. Needs uniform moisture; irrigate every 4-6 days, avoiding waterlogging.",
+        "npk": "30:20:20 kg of N:P:K per acre",
+        "application": [
+            "Apply full dose of Phosphorus and Potassium and 50% Nitrogen during sowing/transplanting.",
+            "Apply remaining Nitrogen in two split doses during the active vegetative growth phase.",
+            "Supplement with micronutrient foliar sprays (Iron and Zinc) if chlorosis appears."
+        ],
+        "stages": {"vegetative": 30, "flowering": 50, "fruiting": 70, "harvesting": 80},
+        "disease": "Downy Mildew, Damping-off, Leaf Spot. Spray copper-based fungicides if symptoms appear.",
+        "pest": "Aphids, Caterpillars, Leaf Miners. Control using neem oil spray or yellow sticky traps.",
+        "harvest": "Harvest early in the morning by cutting above soil level. Keep cool and store in well-ventilated crates."
+    },
+    "Cereals": {
+        "soil": "Requires well-drained alluvial, loamy or clayey loam soil. Optimal soil pH is 6.0 to 7.5.",
+        "water": "Moderate water requirement. Irrigate regularly during critical stages like tillering, flowering and grain filling.",
+        "npk": "40:20:20 kg of N:P:K per acre",
+        "application": [
+            "Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
+            "Apply remaining Nitrogen in splits during the active growth and tillering phases.",
+            "Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
+        ],
+        "stages": {"vegetative": 35, "flowering": 75, "fruiting": 105, "harvesting": 130},
+        "disease": "Rust, Blast, Smut. Spray systemic fungicides or remove infected parts to prevent spread.",
+        "pest": "Stem Borer, Shoot Fly, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+        "harvest": "Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains below 12% moisture for storage."
+    },
+    "Pulses": {
+        "soil": "Requires well-drained loamy or sandy loam soil. Optimal soil pH is 6.0 to 7.5. Sensitive to salinity.",
+        "water": "Low water requirement. Drought-resilient. Irrigate at flowering and pod development stages.",
+        "npk": "10:20:10 kg of N:P:K per acre",
+        "application": [
+            "Apply all NPK as a basal dose during sowing.",
+            "Inoculate seeds with Rhizobium culture before sowing to enhance nitrogen fixation.",
+            "Apply secondary nutrients (Sulphur) to increase seed yield."
+        ],
+        "stages": {"vegetative": 30, "flowering": 60, "fruiting": 90, "harvesting": 110},
+        "disease": "Wilt, Root Rot, Powdery Mildew. Spray broad-spectrum fungicides and use resistant varieties.",
+        "pest": "Pod Borer, Aphids, Whitefly. Use pheromone traps and spray spinosad or neem formulations.",
+        "harvest": "Harvest when pods turn dry, yellow-brown. Hand pull or cut plants, dry in sun, and thresh."
+    },
+    "Oilseeds": {
+        "soil": "Requires well-drained sandy loam or clay loam soil. Optimal soil pH is 6.0 to 7.5.",
+        "water": "Low to moderate water requirement. Water at critical stages: flowering, pegging, and pod/seed filling.",
+        "npk": "20:20:20 kg of N:P:K per acre",
+        "application": [
+            "Apply all Phosphorus, Potassium and 50% Nitrogen as basal dressing during sowing.",
+            "Apply remaining Nitrogen 30 days after sowing.",
+            "Apply Gypsum or Sulphur to boost oil content and improve pod shell strength."
+        ],
+        "stages": {"vegetative": 30, "flowering": 60, "fruiting": 90, "harvesting": 120},
+        "disease": "Alternaria Blight, Tikka Leaf Spot, Rust. Spray Mancozeb or Chlorothalonil to manage.",
+        "pest": "Aphids, Semi-looper, Caterpillar. Collect manually or spray neem seed kernel extract (NSKE 5%).",
+        "harvest": "Harvest when leaves yellow and dry. Pull out plants, thresh, and dry pods/seeds in sun to 8% moisture."
+    },
+    "Fruit Crops": {
+        "soil": "Requires deep, well-drained loamy or clay loam soil rich in organic humus. Optimal pH is 5.5 to 7.5.",
+        "water": "Moderate to high water requirement. Regular drip irrigation is highly recommended. Avoid water stress during flowering.",
+        "npk": "60:40:60 kg of N:P:K per acre (or per tree equivalent)",
+        "application": [
+            "Apply organic compost and full Phosphorus/Potassium as basal post-harvest pruning.",
+            "Apply Nitrogen in splits: pre-flowering and post-fruit set.",
+            "Foliar spray Zinc and Boron before flowering to improve fruit set and reduce cracking."
+        ],
+        "stages": {"vegetative": 60, "flowering": 120, "fruiting": 210, "harvesting": 270},
+        "disease": "Anthracnose, Powdery Mildew, Canker. Prune affected branches and spray copper-based fungicides.",
+        "pest": "Fruit Fly, Mealybugs, Thrips. Use yellow sticky traps, pheromone traps, and spray spinosad or neem oil.",
+        "harvest": "Harvest when fruits achieve mature size and color break stage. Handle gently to prevent bruising."
+    },
+    "Spices": {
+        "soil": "Requires rich, well-drained sandy loam or clay loam soil with high organic content. Optimal pH is 6.0 to 7.0.",
+        "water": "Moderate water requirement. Water every 7-10 days depending on dry spells. Avoid waterlogging at root zones.",
+        "npk": "30:20:30 kg of N:P:K per acre",
+        "application": [
+            "Apply full Phosphorus, Potassium and half Nitrogen basal during field preparation.",
+            "Apply remaining Nitrogen in splits at 30, 60, and 90 days after planting.",
+            "Apply Sulphur to enhance flavor, pungency, and compound concentration."
+        ],
+        "stages": {"vegetative": 45, "flowering": 90, "fruiting": 130, "harvesting": 150},
+        "disease": "Rhizome Rot, Leaf Spot, Blight. Drench soil with copper fungicides; ensure proper field drainage.",
+        "pest": "Thrips, Shoot Borer, Rhizome Scale. Control with yellow sticky traps and spraying neem oil.",
+        "harvest": "Harvest when leaves turn yellow-brown and start drying. Dig rhizomes/bulbs carefully and cure in shade."
+    },
+    "Plantation Crops": {
+        "soil": "Requires deep, well-drained forest loam, laterite, or alluvial soil. Optimal pH is 5.0 to 6.5.",
+        "water": "High water requirement. Regularly irrigate, especially during dry months. Ensure excellent drainage.",
+        "npk": "80:40:80 kg of N:P:K per acre (or per tree/bush equivalent)",
+        "application": [
+            "Apply fertilizer in two splits: post-monsoon (October) and pre-monsoon (May).",
+            "Apply organic manure and oil cakes annually to enrich the root basin.",
+            "Foliar spray secondary nutrients and trace elements to boost leaf/stem growth."
+        ],
+        "stages": {"vegetative": 120, "flowering": 240, "fruiting": 300, "harvesting": 365},
+        "disease": "Leaf Rust, Root Rot, Blight. Prune and spray copper oxychloride or systemic fungicides.",
+        "pest": "White Stem Borer, Berry Borer, Mealybugs. Install traps and use organic biological controls.",
+        "harvest": "Harvest according to commodity guidelines (e.g., plucking buds/leaves, gathering pods, or nuts)."
+    },
+    "Medicinal Crops": {
+        "soil": "Requires well-drained sandy loam, red loamy, or gravelly marginal soil. Optimal pH is 6.0 to 7.5.",
+        "water": "Low water requirement. Highly drought-resilient. Avoid excessive irrigation, which causes root rot.",
+        "npk": "15:15:15 kg of N:P:K per acre",
+        "application": [
+            "Apply all Phosphorus, Potassium and 50% Nitrogen as basal dressing.",
+            "Apply remaining Nitrogen in monthly splits.",
+            "Integrate organic vermicompost and farmyard manure (FYM) to maximize active compounds."
+        ],
+        "stages": {"vegetative": 40, "flowering": 80, "fruiting": 110, "harvesting": 120},
+        "disease": "Root Rot, Seedling Blight. Avoid waterlogging and spray organic bio-fungicides (Trichoderma).",
+        "pest": "Mites, Aphids, Whitefly. Manage by spraying neem oil (0.5%) or insecticidal soap.",
+        "harvest": "Harvest at peak maturity of the active part (roots, leaves, stems). Dry in shade to preserve ingredients."
+    }
+}
+
+# De-duplicate defined names
 defined_names = {c["name"].lower() for c in CROP_DATA}
 
-for name, soil, water, npk_ratio, disease, pest, season_lbl, type_lbl in COMMON_CROPS_TEMPLATES:
-    if name.lower() in defined_names:
-        continue
-    
-    # Generate growth stages
-    if type_lbl == "transplanting":
-        stages = {"vegetative": 35, "flowering": 75, "fruiting": 105, "harvesting": 130}
-    elif type_lbl == "planting":
-        stages = {"vegetative": 50, "flowering": 100, "fruiting": 150, "harvesting": 180}
-    else: # sowing
-        stages = {"vegetative": 30, "flowering": 60, "fruiting": 90, "harvesting": 115}
-        
-    if season_lbl == "monsoon":
-        season_val = "Kharif"
-    elif season_lbl == "winter":
-        season_val = "Rabi"
-    elif season_lbl == "summer":
-        season_val = "Zaid"
-    else:
-        season_val = "Kharif"
-        
-    CROP_DATA.append({
-        "name": name,
-        "season": season_val,
-        "soil_requirements": f"Requires well-drained {soil} soil. Optimal soil pH is 6.0 to 7.5.",
-        "water_requirements": f"{water.capitalize()} water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.",
-        "fertilizer_schedule": {
-            "npk": f"{npk_ratio} kg of N:P:K per acre",
-            "application": [
-                f"Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.",
-                f"Apply remaining Nitrogen in splits during the active growth and tillering phases.",
-                f"Supplement with organic compost or farmyard manure (FYM) to improve soil structure."
-            ]
-        },
-        "growth_stages": stages,
-        "disease_information": f"Common diseases affecting {name} are {disease}. Spray systemic fungicides or remove infected parts to prevent spread.",
-        "pest_management": f"Common pests are {pest}. Manage by installing pheromone traps and spraying organic neem oil formulations.",
-        "harvest_information": f"Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging."
-    })
-    defined_names.add(name.lower())
+# 4. Generate all crops from categories
+for category, crops_list in CATEGORY_CROPS.items():
+    template = CATEGORY_TEMPLATES[category]
+    for crop_name in crops_list:
+        if crop_name.lower() in defined_names:
+            # Update category on existing if needed
+            for c in CROP_DATA:
+                if c["name"].lower() == crop_name.lower():
+                    c["category"] = category
+            continue
+
+        # Build entries
+        CROP_DATA.append({
+            "name": crop_name,
+            "category": category,
+            "season": "Kharif" if category in ["Cereals", "Pulses", "Oilseeds", "Plantation Crops", "Medicinal Crops"] else "Rabi",
+            "soil_requirements": template["soil"],
+            "water_requirements": template["water"],
+            "fertilizer_schedule": {
+                "npk": template["npk"],
+                "application": template["application"]
+            },
+            "growth_stages": template["stages"],
+            "disease_information": f"Common diseases affecting {crop_name} are {template['disease']}",
+            "pest_management": f"Common pests affecting {crop_name} are {template['pest']}",
+            "harvest_information": f"For {crop_name}, {template['harvest']}"
+        })
+        defined_names.add(crop_name.lower())
 
 print(f"Total compiled crops: {len(CROP_DATA)}")
 
-# 1. Output crop_profiles.json
+# 5. Output crop_profiles.json
 crop_profiles = {}
 for crop in CROP_DATA:
     crop_profiles[crop["name"].lower()] = crop
@@ -451,19 +507,19 @@ with open(profiles_path, "w", encoding="utf-8") as f:
     json.dump(crop_profiles, f, ensure_ascii=False, indent=2)
 print(f"Saved crop profiles dataset containing {len(crop_profiles)} crops to: {profiles_path}")
 
-# 2. Output detailed RAG text files to documents/
+# 6. Output detailed RAG text files to documents/
 for crop in CROP_DATA:
     name = crop["name"]
     filename = f"{name.lower().replace(' ', '_')}.txt"
     filepath = os.path.join(DOCS_DIR, filename)
     
-    # Reformat fertilizer schedule bullets
     fert_bullets = "\n".join(f"- {b}" for b in crop["fertilizer_schedule"]["application"])
     
     content = f"""=== {name.upper()} CROP GUIDE ===
 
 1. Fertilizers:
 {name} requires balanced nutrient applications. Recommended dose is {crop['fertilizer_schedule']['npk']}.
+Category: {crop['category']}
 {fert_bullets}
 
 2. Irrigation:

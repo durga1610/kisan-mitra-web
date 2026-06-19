@@ -1,29 +1,30 @@
 === TEA CROP GUIDE ===
 
 1. Fertilizers:
-Tea requires balanced nutrient applications. Recommended dose is 60:30:30 kg of N:P:K per acre.
-- Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.
-- Apply remaining Nitrogen in splits during the active growth and tillering phases.
-- Supplement with organic compost or farmyard manure (FYM) to improve soil structure.
+Tea requires balanced nutrient applications. Recommended dose is 80:40:80 kg of N:P:K per acre (or per tree/bush equivalent).
+Category: Plantation Crops
+- Apply fertilizer in two splits: post-monsoon (October) and pre-monsoon (May).
+- Apply organic manure and oil cakes annually to enrich the root basin.
+- Foliar spray secondary nutrients and trace elements to boost leaf/stem growth.
 
 2. Irrigation:
-Tea irrigation and water requirements: High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.
+Tea irrigation and water requirements: High water requirement. Regularly irrigate, especially during dry months. Ensure excellent drainage.
 
 3. Pest Management:
-Tea pest management: Common pests are Tea Mosquito Bug, Red Crevice Mite. Manage by installing pheromone traps and spraying organic neem oil formulations.
+Tea pest management: Common pests affecting Tea are White Stem Borer, Berry Borer, Mealybugs. Install traps and use organic biological controls.
 
 4. Growth Stages:
 Tea has the following stage cycle durations:
-- Vegetative Stage: Sowing up to 50 days.
-- Flowering Stage: From 50 days to 100 days.
-- Fruiting Stage: From 100 days to 150 days.
-- Harvesting Stage: From 150 days onwards.
+- Vegetative Stage: Sowing up to 120 days.
+- Flowering Stage: From 120 days to 240 days.
+- Fruiting Stage: From 240 days to 300 days.
+- Harvesting Stage: From 300 days onwards.
 
 5. Harvesting:
-Tea harvesting and post-harvest practices: Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging.
+Tea harvesting and post-harvest practices: For Tea, Harvest according to commodity guidelines (e.g., plucking buds/leaves, gathering pods, or nuts).
 
 6. Diseases:
-Tea diseases: Common diseases affecting Tea are Blister Blight. Spray systemic fungicides or remove infected parts to prevent spread.
+Tea diseases: Common diseases affecting Tea are Leaf Rust, Root Rot, Blight. Prune and spray copper oxychloride or systemic fungicides.
 
 7. Soil Requirements:
-Tea soil requirements: Requires well-drained laterite acidic soil soil. Optimal soil pH is 6.0 to 7.5.
+Tea soil requirements: Requires deep, well-drained forest loam, laterite, or alluvial soil. Optimal pH is 5.0 to 6.5.

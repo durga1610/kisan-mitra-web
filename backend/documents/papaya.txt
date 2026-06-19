@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Papaya requires balanced nutrient applications. Recommended dose is 100:100:200 kg of N:P:K per acre.
+Category: Fruit Crops
 - Apply NPK in monthly splits starting from the second month after transplanting.
 - Incorporate well-rotted farmyard manure (FYM) and vermicompost at planting.
 - Spray Borax (0.1%) during flowering to prevent fruit cracking.

@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Mango requires balanced nutrient applications. Recommended dose is 80:40:80 kg of N:P:K per acre (for mature trees).
+Category: Fruit Crops
 - Apply full dose of fertilizer in two splits: post-harvest pruning (June/July) and pre-monsoon (October).
 - Apply organic manure (50kg per tree) annually.
 - Foliar spray Zinc and Boron before flower bud initiation.

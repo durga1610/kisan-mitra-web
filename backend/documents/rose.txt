@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Rose requires balanced nutrient applications. Recommended dose is 40:40:40 kg of N:P:K per acre.
+Category: Plantation Crops
 - Apply well-rotted cow manure (FYM) post-pruning.
 - Apply NPK split doses during vegetative and bud initiation stages.
 - Apply magnesium sulphate and micronutrients to improve flower size and color.

@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Cotton requires balanced nutrient applications. Recommended dose is 40:20:20 kg of N:P:K per acre.
+Category: Plantation Crops
 - Apply full dose of Phosphorus and Potassium during sowing as basal.
 - Apply Nitrogen in split doses: 1/3rd at sowing, 1/3rd at squaring (40-45 days), and 1/3rd at peak flowering (70-75 days).
 - Spray Magnesium Sulphate (1%) and Potassium Nitrate (1-2%) during boll development to prevent leaf reddening.

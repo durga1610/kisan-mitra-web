@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DiseaseReport {
@@ -20,6 +21,9 @@ class DiseaseReport {
   final DateTime timestamp;
   final String? warning;
   final String confidenceBand;
+  final String? source;
+  // V2: carry image bytes for dataset collection via feedback
+  final Uint8List? imageBytes;
 
   DiseaseReport({
     this.id,
@@ -41,7 +45,10 @@ class DiseaseReport {
     required this.timestamp,
     this.warning,
     this.confidenceBand = 'high',
+    this.source,
+    this.imageBytes,
   });
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -63,6 +70,7 @@ class DiseaseReport {
       'timestamp': Timestamp.fromDate(timestamp),
       'warning': warning,
       'confidenceBand': confidenceBand,
+      'source': source,
     };
   }
 
@@ -90,6 +98,7 @@ class DiseaseReport {
       timestamp: (map['timestamp'] as Timestamp).toDate(),
       warning: map['warning'],
       confidenceBand: map['confidenceBand'] ?? 'high',
+      source: map['source'],
     );
   }
 }

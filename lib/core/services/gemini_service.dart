@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import '../config/api_config.dart';
@@ -9,8 +10,9 @@ import '../../features/weather/data/models/weather_model.dart';
 class GeminiService {
   final FarmModel? selectedFarm;
   final String languageCode;
+  final WeatherModel? weather;
 
-  GeminiService({this.selectedFarm, this.languageCode = 'en'});
+  GeminiService({this.selectedFarm, this.languageCode = 'en', this.weather});
 
   static Future<Map<String, String>> _getHeaders() async {
     final token = await FirebaseAuth.instance.currentUser?.getIdToken();
@@ -24,7 +26,7 @@ class GeminiService {
     // Dummy initialization method for compatibility
   }
 
-  Future<String> getResponse(String message) async {
+  Future<Map<String, String>> getResponse(String message) async {
     try {
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/advisory/chat'),
@@ -42,18 +44,32 @@ class GeminiService {
             'landArea': selectedFarm!.landArea,
             'plantedCrops': selectedFarm!.plantedCrops.map((c) => c.cropName).toList(),
           } : null,
+          'weather': weather != null ? {
+            'condition': weather!.condition,
+            'temperature': weather!.temperature,
+            'season': weather!.season,
+            'humidity': weather!.humidity,
+            'windSpeed': weather!.windSpeed,
+            'rainChance': weather!.rainChance,
+          } : null,
         }),
       ).timeout(const Duration(seconds: 15));
 
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return data['text'] ?? _getOfflineResponse(message);
+        return {
+          'text': data['text'] ?? _getOfflineResponse(message),
+          'source': data['source'] ?? 'LOCAL_ENGINE',
+        };
       }
     } catch (e) {
       if (kDebugMode) print('Error in custom API getResponse: $e');
     }
-    return _getOfflineResponse(message);
+    return {
+      'text': _getOfflineResponse(message),
+      'source': 'LOCAL_ENGINE',
+    };
   }
 
   String _getOfflineResponse(String message) {
@@ -72,7 +88,12 @@ class GeminiService {
     
     // Weather & Temperature
     if (lower.contains('temperature') || lower.contains('weather') || lower.contains('rain') || lower.contains('forecast') || lower.contains('monsoon')) {
-      String weatherInfo = "Currently, the weather is warm (around **32°C**). ";
+      String weatherInfo;
+      if (weather != null) {
+        weatherInfo = "Currently, the weather is ${weather!.condition.toLowerCase()} (around **${weather!.temperature.toStringAsFixed(1)}°C**) with **${weather!.humidity.toStringAsFixed(0)}%** humidity, **${weather!.windSpeed.toStringAsFixed(1)} km/h** wind speed, and **${weather!.rainChance.toStringAsFixed(0)}%** rain probability. ";
+      } else {
+        weatherInfo = "Currently, the weather is warm (around **32°C**). ";
+      }
       if (selectedFarm != null) {
         weatherInfo += "In ${selectedFarm!.district}, ${selectedFarm!.state}, keeping track of soil moisture is key. ";
       }
@@ -177,20 +198,76 @@ class GeminiService {
 
   Future<Map<String, dynamic>> detectDisease(List<int> imageBytes, {String? filename, String? crop}) async {
     try {
+      final user = FirebaseAuth.instance.currentUser;
+      final isAuthenticated = user != null;
+      
+      if (kDebugMode) {
+        print('[Disease Trace] --- START AUTHENTICATION TRACE ---');
+        print('[Disease Trace] Current Firebase user ID: ${user?.uid ?? "null"}');
+        print('[Disease Trace] Is user authenticated: $isAuthenticated');
+      }
+
+      if (user == null) {
+        throw Exception('FirebaseAuth.instance.currentUser is null. User must be authenticated to run disease analysis.');
+      }
+
+      final token = await user.getIdToken(true); // Force token refresh before upload
+      final tokenSucceeds = token != null && token.isNotEmpty;
+
+      if (kDebugMode) {
+        print('[Disease Trace] getIdToken() succeeded: $tokenSucceeds');
+        print('[Disease Trace] Retrieved Firebase ID token (masked): ${token != null && token.length > 20 ? "${token.substring(0, 10)}...${token.substring(token.length - 10)}" : "null or invalid"}');
+      }
+
+      if (!tokenSucceeds) {
+        throw Exception('Failed to retrieve a valid Firebase ID token.');
+      }
+
       final request = http.MultipartRequest(
         'POST',
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/disease/detect'),
       );
-      final token = await FirebaseAuth.instance.currentUser?.getIdToken();
-      if (token != null) {
-        request.headers['Authorization'] = 'Bearer $token';
+      
+      request.headers['Authorization'] = 'Bearer $token';
+      request.headers['Accept'] = 'application/json';
+      
+      if (kDebugMode) {
+        print('[Disease Trace] Request URL: ${request.url}');
+        // Mask the Authorization header value in logs
+        final maskedHeaders = Map<String, String>.from(request.headers);
+        if (maskedHeaders.containsKey('Authorization')) {
+          final val = maskedHeaders['Authorization']!;
+          maskedHeaders['Authorization'] = val.length > 27 
+              ? '${val.substring(0, 17)}...${val.substring(val.length - 10)}' 
+              : 'Bearer ...';
+        }
+        print('[Disease Trace] Request headers: $maskedHeaders');
+        print('[Disease Trace] Authorization header presence: ${request.headers.containsKey('Authorization')}');
+      }
+
+      // Determine MIME type based on filename extension
+      String mimeType = 'image/jpeg';
+      final actualFilename = filename ?? 'image.jpg';
+      final lowerFilename = actualFilename.toLowerCase();
+      if (lowerFilename.endsWith('.png')) {
+        mimeType = 'image/png';
+      } else if (lowerFilename.endsWith('.webp')) {
+        mimeType = 'image/webp';
+      }
+      
+      if (kDebugMode) {
+        print('[Disease Trace] Attached image filename: $actualFilename');
+        print('[Disease Trace] Resolved Content-Type: $mimeType');
+        print('[Disease Trace] Image size: ${imageBytes.length} bytes');
+        print('[Disease Trace] Crop parameter: $crop');
       }
       
       request.files.add(
         http.MultipartFile.fromBytes(
           'file',
           imageBytes,
-          filename: filename ?? 'image.jpg',
+          filename: actualFilename,
+          contentType: MediaType.parse(mimeType),
         ),
       );
       
@@ -202,11 +279,19 @@ class GeminiService {
       final streamedResponse = await request.send().timeout(const Duration(seconds: 20));
       final response = await http.Response.fromStream(streamedResponse);
       
+      if (kDebugMode) {
+        print('[Disease Trace] Backend response status code: ${response.statusCode}');
+        print('[Disease Trace] Backend response headers: ${response.headers}');
+        if (response.statusCode != 200) {
+          print('[Disease Trace] Backend response body: ${response.body}');
+        }
+      }
+      
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(response.body);
         return data;
       } else {
-        throw Exception('Server returned status code ${response.statusCode}');
+        throw Exception('Server returned status code ${response.statusCode}. Body: ${response.body}');
       }
     } catch (e) {
       if (kDebugMode) print('Error in custom API detectDisease: $e');

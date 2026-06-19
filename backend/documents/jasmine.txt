@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Jasmine requires balanced nutrient applications. Recommended dose is 30:60:60 kg of N:P:K per acre.
+Category: Plantation Crops
 - Apply fertilizer in two equal splits: immediately after annual pruning (December/January) and during the peak monsoon.
 - Apply compost and vermicompost around root basins.
 - Use foliar iron sprays if leaves show chlorosis (yellowing).

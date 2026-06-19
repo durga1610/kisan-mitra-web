@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Marigold requires balanced nutrient applications. Recommended dose is 40:80:40 kg of N:P:K per acre.
+Category: Plantation Crops
 - Apply full Phosphorus dose and half of Nitrogen and Potassium as basal.
 - Apply the remaining Nitrogen and Potassium 30 days after transplanting.
 - Perform pinch-off (removing apical buds) to promote branching and flowering.

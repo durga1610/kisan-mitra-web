@@ -4,11 +4,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/config/api_config.dart';
 import '../models/market_price.dart';
 
 class MarketService {
   final Random _random = Random();
+  bool isFallbackActive = false;
+  DateTime? lastUpdated;
 
   List<double> _generateHistoricalPrices(double basePrice, int days) {
     List<double> prices = [];
@@ -86,6 +89,13 @@ class MarketService {
             if (kDebugMode) {
               print('Loaded prices INSTANTLY from local SharedPreferences cache.');
             }
+            isFallbackActive = prefs.getString('market_prices_cache_is_fallback') == 'true';
+            final lastUpdatedStr = prefs.getString('market_prices_cache_last_updated');
+            if (lastUpdatedStr != null && lastUpdatedStr.isNotEmpty) {
+              lastUpdated = DateTime.tryParse(lastUpdatedStr);
+            } else {
+              lastUpdated = DateTime.now();
+            }
             final List<dynamic> decodedList = jsonDecode(cachedData);
             final List<MarketPrice> cachedPrices = decodedList.map((data) => MarketPrice.fromJson(data, data['id'] ?? UniqueKey().toString())).toList();
             
@@ -121,176 +131,107 @@ class MarketService {
 
   // Live API Fetching Logic
   Future<List<MarketPrice>?> _fetchLiveApiAndUpdateCache(List<String>? preferredCrops, String? preferredState) async {
-    String apiKey = '';
-    
-    // Priority 1: Check build-time injected key from environment variables
-    if (ApiConfig.mandiApiKey.isNotEmpty && ApiConfig.mandiApiKey != 'YOUR_MANDI_API_KEY') {
-      apiKey = ApiConfig.mandiApiKey;
-    }
-    
-    // Priority 2: Check custom user settings key
-    if (apiKey.isEmpty) {
-      final prefs = await SharedPreferences.getInstance();
-      apiKey = prefs.getString('custom_mandi_api_key') ?? '';
-    }
-    
-    // Priority 3: Fallback check
-    if (apiKey.isEmpty || apiKey == 'YOUR_MANDI_API_KEY') {
-      apiKey = ApiConfig.mandiApiKey;
-    }
-
-    if (apiKey.isNotEmpty && apiKey != '' && apiKey != 'YOUR_MANDI_API_KEY') {
-      List<MarketPrice> stateFetchedPrices = [];
-      List<MarketPrice> allIndiaFetchedPrices = [];
-      
-      // Prepare API calls
-      List<Future<http.Response>> apiCalls = [];
-      
-      String stateFilter = '';
-      if (preferredState != null && preferredState.trim().isNotEmpty) {
-         final formattedState = _normalizeState(preferredState);
-         stateFilter = '&filters[state.keyword]=${Uri.encodeComponent(formattedState)}';
+    try {
+      // Force-refresh token to prevent stale-token 401s
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+      if (kDebugMode) {
+        print('[MarketService] Token retrieved: ${token != null ? "YES (${token.length} chars)" : "NULL — user not signed in"}');
       }
+      final headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      };
 
-      // Add specific crop calls FOR THE STATE
+      // Prepare query parameters
+      final Map<String, String> queryParams = {};
       if (preferredCrops != null && preferredCrops.isNotEmpty) {
-        for (var crop in preferredCrops) {
-           final formattedCrop = normalizeCrop(crop);
-           final u = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=$apiKey&format=json&limit=10&filters[commodity]=${Uri.encodeComponent(formattedCrop)}$stateFilter');
-           if (kDebugMode) print('API Call (Specific Crop): $u');
-           apiCalls.add(http.get(u).timeout(const Duration(seconds: 5)));
-        }
+        queryParams['crops'] = preferredCrops.map((c) => normalizeCrop(c)).join(',');
       }
-      
-      // Always explicitly fetch some general crops from their state to populate "Other Markets"
-      if (stateFilter.isNotEmpty) {
-        final stateUrl = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=$apiKey&format=json&limit=20$stateFilter');
-        if (kDebugMode) print('API Call (State General): $stateUrl');
-        apiCalls.add(http.get(stateUrl).timeout(const Duration(seconds: 5)));
+      if (preferredState != null && preferredState.trim().isNotEmpty) {
+        queryParams['state'] = preferredState.trim();
       }
-      
-      // Always fetch the general latest 50 across ALL OF INDIA (No state filter!)
-      final genUrl = Uri.parse('${ApiConfig.mandiApiBaseUrl}?api-key=$apiKey&format=json&limit=50');
-      if (kDebugMode) print('API Call (General All-India): $genUrl');
-      apiCalls.add(http.get(genUrl).timeout(const Duration(seconds: 5)));
 
-      try {
-        // Execute all API calls concurrently
-        final responses = await Future.wait(apiCalls);
+      final uri = Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/market/prices').replace(queryParameters: queryParams);
+      if (kDebugMode) {
+        print('[MarketService] Request URL: $uri');
+      }
+
+      final response = await http.get(uri, headers: headers).timeout(const Duration(seconds: 10));
+
+      if (kDebugMode) {
+        print('[MarketService] Response status: ${response.statusCode}');
+      }
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        isFallbackActive = data['isFallback'] ?? false;
         
-        bool anySuccess = false;
-        
-        for (var response in responses) {
-          if (response.statusCode == 200) {
-            anySuccess = true;
-            final data = jsonDecode(response.body);
-            final List<dynamic> records = data['records'] ?? [];
-            
-            if (records.isNotEmpty) {
-              final newPrices = records.map<MarketPrice>((record) {
-                double modalPrice = double.tryParse(record['modal_price'].toString()) ?? 0.0;
-                double minPrice = double.tryParse(record['min_price'].toString()) ?? 0.0;
-                double maxPrice = double.tryParse(record['max_price'].toString()) ?? 0.0;
-                
-                return MarketPrice(
-                  id: record['id']?.toString() ?? UniqueKey().toString(),
-                  marketName: record['market']?.toString() ?? 'Unknown Market',
-                  location: "${record['district']}, ${record['state']}",
-                  cropName: record['commodity']?.toString() ?? 'Unknown',
-                  modalPrice: modalPrice,
-                  minPrice: minPrice,
-                  maxPrice: maxPrice,
-                  trendPercentage: (modalPrice - minPrice) / (minPrice == 0 ? 1 : minPrice) * 10,
-                  distance: _random.nextDouble() * 300,
-                  updatedTime: DateTime.tryParse(record['arrival_date']?.toString() ?? '') ?? DateTime.now(),
-                  category: _inferCategory(record['commodity']?.toString() ?? ''),
-                  cropIcon: _inferIcon(record['commodity']?.toString() ?? ''),
-                  aiAdvice: 'Market trends are currently stable based on API data.',
-                  bestTimeToSell: 'Consult Local APMC',
-                  weatherImpact: 'Neutral',
-                  historicalPrices: _generateHistoricalPrices(modalPrice, 7),
-                );
-              }).toList();
-              
-              // Sort into state-specific and all-india
-              for (var price in newPrices) {
-                allIndiaFetchedPrices.add(price);
-                if (preferredState != null && preferredState.trim().isNotEmpty) {
-                  final targetState = _normalizeState(preferredState).toLowerCase();
-                  final recState = price.location.toLowerCase();
-                  if (recState.contains(targetState)) {
-                    stateFetchedPrices.add(price);
-                  }
-                } else {
-                  stateFetchedPrices.add(price);
-                }
-              }
-            }
-          } else {
-             if (kDebugMode) {
-                print('A Live API request failed with status ${response.statusCode}.');
-             }
-          }
+        final lastUpdatedStr = data['lastUpdated'];
+        if (lastUpdatedStr != null) {
+          lastUpdated = DateTime.tryParse(lastUpdatedStr);
+        } else {
+          lastUpdated = DateTime.now();
         }
 
-        // If no single request succeeded, we treat the API server as down/unreachable
-        if (!anySuccess) {
-          return null;
+        final List<dynamic> records = data['records'] ?? [];
+        if (kDebugMode) {
+          print('[MarketService] Successfully retrieved ${records.length} records. isFallback: $isFallbackActive');
         }
 
-        // Deduplicate
-        final Map<String, MarketPrice> uniqueStatePrices = {};
-        for (var p in stateFetchedPrices) uniqueStatePrices[p.id] = p;
-        stateFetchedPrices = uniqueStatePrices.values.toList();
+        final List<MarketPrice> fetchedPrices = records.map<MarketPrice>((record) {
+          double modalPrice = double.tryParse(record['modal_price'].toString()) ?? 0.0;
+          double minPrice = double.tryParse(record['min_price'].toString()) ?? 0.0;
+          double maxPrice = double.tryParse(record['max_price'].toString()) ?? 0.0;
+          
+          return MarketPrice(
+            id: record['id']?.toString() ?? UniqueKey().toString(),
+            marketName: record['market']?.toString() ?? 'Unknown Market',
+            location: "${record['district'] ?? ''}, ${record['state'] ?? ''}",
+            cropName: record['commodity']?.toString() ?? 'Unknown',
+            modalPrice: modalPrice,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+            trendPercentage: (modalPrice - minPrice) / (minPrice == 0 ? 1 : minPrice) * 10,
+            distance: _random.nextDouble() * 300,
+            updatedTime: DateTime.tryParse(record['arrival_date']?.toString() ?? '') ?? DateTime.now(),
+            category: _inferCategory(record['commodity']?.toString() ?? ''),
+            cropIcon: _inferIcon(record['commodity']?.toString() ?? ''),
+            aiAdvice: 'Market trends are currently stable based on API data.',
+            bestTimeToSell: 'Consult Local APMC',
+            weatherImpact: 'Neutral',
+            historicalPrices: _generateHistoricalPrices(modalPrice, 7),
+          );
+        }).toList();
 
-        final Map<String, MarketPrice> uniqueAllIndiaPrices = {};
-        for (var p in allIndiaFetchedPrices) uniqueAllIndiaPrices[p.id] = p;
-        allIndiaFetchedPrices = uniqueAllIndiaPrices.values.toList();
-
-        List<MarketPrice> finalPricesToReturn = [];
-
-        final Map<String, MarketPrice> combinedPrices = {};
-        
-        // Base Fallback: All India Prices
-        for (var p in allIndiaFetchedPrices) {
-          combinedPrices[p.id] = p;
-        }
-        
-        // Higher Priority: Overwrite/Add state-specific prices
-        for (var p in stateFetchedPrices) {
-          combinedPrices[p.id] = p;
-        }
-
-        finalPricesToReturn = combinedPrices.values.toList();
-
-        if (finalPricesToReturn.isNotEmpty) {
-          // Limit to 50 items to prevent OutOfMemory (OOM) errors and UI lag
-          if (finalPricesToReturn.length > 50) {
-            finalPricesToReturn = finalPricesToReturn.sublist(0, 50);
-          }
-
-          // Update Local Cache with fresh data sequentially to prevent OOM
+        if (fetchedPrices.isNotEmpty) {
           try {
             final prefs = await SharedPreferences.getInstance();
-            final itemsToCache = finalPricesToReturn.take(50).toList();
+            final itemsToCache = fetchedPrices.take(50).toList();
             final List<Map<String, dynamic>> serializedList = itemsToCache.map((p) => p.toJson()).toList();
             await prefs.setString('market_prices_cache', jsonEncode(serializedList));
+            await prefs.setString('market_prices_cache_is_fallback', isFallbackActive.toString());
+            await prefs.setString('market_prices_cache_last_updated', lastUpdated?.toIso8601String() ?? '');
             if (kDebugMode) print('Successfully cached ${itemsToCache.length} records locally.');
           } catch(e) {
             if (kDebugMode) print('Error saving to local cache: $e');
           }
+        }
 
-          return _processBestPrices(finalPricesToReturn);
-        }
-      } catch (e) {
+        return _processBestPrices(fetchedPrices);
+      } else {
         if (kDebugMode) {
-          print('Exception executing concurrent Mandi API calls: $e');
+          print('[MarketService] Backend proxy returned error status: ${response.statusCode}. Body: ${response.body.substring(0, response.body.length.clamp(0, 300))}');
         }
+        // 401 = not authenticated, 403 = forbidden, 404 = route missing, 5xx = server error
         return null;
       }
+    } catch (e) {
+      if (kDebugMode) {
+        print('[MarketService] Exception during live fetch from proxy: $e');
+      }
+      return null;
     }
-    
-    return null;
   }
 
   String _inferCategory(String cropName) {

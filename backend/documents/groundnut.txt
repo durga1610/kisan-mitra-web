@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Groundnut requires balanced nutrient applications. Recommended dose is 10:20:30 kg of N:P:K per acre.
+Category: Oilseeds
 - Apply all NPK as basal dose during sowing.
 - Apply Gypsum (200kg/acre) at 40-45 days (pegging stage) to supply Calcium for pod shell formation.
 - Apply Boron to prevent 'hollow-heart' disease in seeds.

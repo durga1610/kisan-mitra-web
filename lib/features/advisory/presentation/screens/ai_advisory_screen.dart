@@ -11,6 +11,9 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/services/gemini_service.dart';
 import '../../../../core/providers/farm_provider.dart';
 import '../../../../core/providers/language_provider.dart';
+import '../../../../core/models/farm_model.dart';
+import '../../../../core/services/weather_service.dart';
+import '../../../weather/data/models/weather_model.dart';
 import '../../data/models/chat_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -29,6 +32,7 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
   bool _isTyping = false;
   bool _isInitialized = false;
   String? _lastFarmId;
+  WeatherModel? _currentWeather;
   
   List<Map<String, dynamic>> _sessions = [];
   String? _currentSessionId;
@@ -36,6 +40,43 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> _loadWeatherAndInitialize(FarmModel? farm, String lang) async {
+    if (farm == null) {
+      if (mounted) {
+        setState(() {
+          _currentWeather = null;
+          _geminiService = GeminiService(selectedFarm: null, languageCode: lang, weather: null);
+        });
+      }
+      return;
+    }
+    
+    try {
+      final weatherService = WeatherService();
+      WeatherModel weather;
+      if (farm.latitude != null && farm.longitude != null) {
+        weather = await weatherService.getWeather(farm.latitude!, farm.longitude!, lang: lang, farmName: farm.name);
+      } else {
+        weather = await weatherService.getWeatherForLocation(farm.village, farm.district, farm.state, lang: lang, farmName: farm.name);
+      }
+      
+      if (mounted) {
+        setState(() {
+          _currentWeather = weather;
+          _geminiService = GeminiService(selectedFarm: farm, languageCode: lang, weather: weather);
+        });
+      }
+    } catch (e) {
+      debugPrint('[Advisory] Failed to load weather for advisory: $e');
+      if (mounted) {
+        setState(() {
+          _currentWeather = null;
+          _geminiService = GeminiService(selectedFarm: farm, languageCode: lang, weather: null);
+        });
+      }
+    }
   }
 
   @override
@@ -47,7 +88,8 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
       _isInitialized = true;
       _lastFarmId = farmId;
       final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-      _geminiService = GeminiService(selectedFarm: farmProvider.selectedFarm, languageCode: lang);
+      _geminiService = GeminiService(selectedFarm: farmProvider.selectedFarm, languageCode: lang, weather: _currentWeather);
+      _loadWeatherAndInitialize(farmProvider.selectedFarm, lang);
       _loadChatHistory();
     }
   }
@@ -264,13 +306,14 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
     }
 
     try {
-      final response = await _geminiService.getResponse(text);
+      final responseMap = await _geminiService.getResponse(text);
       if (mounted) {
         setState(() {
           _messages.add(ChatMessage(
-            text: response,
+            text: responseMap['text'] ?? '',
             isUser: false,
             timestamp: DateTime.now(),
+            source: responseMap['source'],
           ));
           _isTyping = false;
         });
@@ -534,16 +577,66 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
                         fontWeight: FontWeight.w500,
                       ),
                     )
-                  : MarkdownBody(
-                      data: message.text,
-                      styleSheet: MarkdownStyleSheet(
-                        p: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontSize: 14, height: 1.5),
-                        h1: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontSize: 18, fontWeight: FontWeight.bold),
-                        h2: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontSize: 16, fontWeight: FontWeight.bold),
-                        h3: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
-                        listBullet: GoogleFonts.poppins(color: Theme.of(context).colorScheme.primary, fontSize: 16),
-                        strong: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
-                      ),
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MarkdownBody(
+                          data: message.text,
+                          styleSheet: MarkdownStyleSheet(
+                            p: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontSize: 14, height: 1.5),
+                            h1: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontSize: 18, fontWeight: FontWeight.bold),
+                            h2: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontSize: 16, fontWeight: FontWeight.bold),
+                            h3: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontSize: 15, fontWeight: FontWeight.bold),
+                            listBullet: GoogleFonts.poppins(color: Theme.of(context).colorScheme.primary, fontSize: 16),
+                            strong: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        if (message.source != null && message.source != 'LOCAL_ENGINE') ...[
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                decoration: BoxDecoration(
+                                  color: message.source == 'GEMINI_FALLBACK'
+                                      ? Colors.blue.withValues(alpha: 0.15)
+                                      : Colors.orange.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      message.source == 'GEMINI_FALLBACK'
+                                          ? Icons.auto_awesome_rounded
+                                          : Icons.alt_route_rounded,
+                                      size: 11,
+                                      color: message.source == 'GEMINI_FALLBACK'
+                                          ? Colors.blue[700]
+                                          : Colors.orange[700],
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      message.source == 'GEMINI_FALLBACK'
+                                          ? 'Gemini'
+                                          : 'Enhanced',
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        color: message.source == 'GEMINI_FALLBACK'
+                                            ? Colors.blue[700]
+                                            : Colors.orange[700],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ],
                     ),
               ),
             ),

@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Grape requires balanced nutrient applications. Recommended dose is 50:50:100 kg of N:P:K per acre.
+Category: Fruit Crops
 - Apply full dose of Phosphorus and Potassium during pruning.
 - Apply Nitrogen in split doses: 50% post-pruning and 50% during berry growth.
 - Apply Boron and Zinc foliar sprays before flowering to improve fruit set.

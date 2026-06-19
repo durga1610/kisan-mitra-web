@@ -8,10 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../data/models/disease_report.dart';
 import '../../../../config/routes/app_router.dart';
+import '../../../../core/config/api_config.dart';
 
 class DiseaseResultScreen extends StatefulWidget {
   final DiseaseReport report;
@@ -25,6 +28,11 @@ class DiseaseResultScreen extends StatefulWidget {
 class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
   bool _showGradCam = false;
   bool _isSpeaking = false;
+
+  // ── Feedback State ────────────────────────────────────────────────────────
+  bool? _feedbackGiven;       // null = not yet submitted; true = correct; false = incorrect
+  bool _feedbackSubmitting = false;
+  bool _feedbackDone = false;
 
   bool get isHealthy => widget.report.diseaseName.toLowerCase().contains('healthy') || widget.report.diseaseName.toLowerCase() == 'none';
 
@@ -205,7 +213,9 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
                   ] else ...[
                     _buildHealthyMessage(),
                   ],
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
+                  _buildFeedbackCard(context),
+                  const SizedBox(height: 24),
                   _buildActionButtons(context),
                   const SizedBox(height: 40),
                 ],
@@ -290,6 +300,7 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
   }
 
   Widget _buildHeaderCard(BuildContext context) {
+    final source = widget.report.source;
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -306,14 +317,59 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'CROP TYPE: ${widget.report.plantName.toUpperCase()}',
-            style: GoogleFonts.poppins(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-              color: AppColors.primary,
-              letterSpacing: 1.1,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'CROP TYPE: ${widget.report.plantName.toUpperCase()}',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primary,
+                  letterSpacing: 1.1,
+                ),
+              ),
+              if (source != null && source != 'LOCAL_ENGINE')
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: source == 'GEMINI_FALLBACK'
+                        ? Colors.blue.withValues(alpha: 0.15)
+                        : Colors.orange.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: source == 'GEMINI_FALLBACK'
+                          ? Colors.blue.withValues(alpha: 0.3)
+                          : Colors.orange.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        source == 'GEMINI_FALLBACK'
+                            ? Icons.auto_awesome_rounded
+                            : Icons.alt_route_rounded,
+                        size: 12,
+                        color: source == 'GEMINI_FALLBACK'
+                            ? Colors.blue[700]
+                            : Colors.orange[700],
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        source == 'GEMINI_FALLBACK' ? 'Gemini' : 'Enhanced',
+                        style: GoogleFonts.poppins(
+                          fontSize: 10.5,
+                          fontWeight: FontWeight.bold,
+                          color: source == 'GEMINI_FALLBACK'
+                              ? Colors.blue[700]
+                              : Colors.orange[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
           ),
           const SizedBox(height: 6),
           Text(
@@ -641,6 +697,191 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
     ).animate().scale(duration: 500.ms, curve: Curves.elasticOut);
   }
 
+  // ─────────────────────────────────────────────────────────────────────────
+  // Feedback Widget — Phase 2: Farmer Feedback Collection
+  // ─────────────────────────────────────────────────────────────────────────
+
+  Future<void> _submitFeedback(bool isCorrect) async {
+    if (_feedbackSubmitting || _feedbackDone) return;
+    setState(() {
+      _feedbackSubmitting = true;
+      _feedbackGiven = isCorrect;
+    });
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      final token = await user?.getIdToken() ?? '';
+      final baseUrl = ApiConfig.customAiBackendUrl;
+
+      final diagnosisId = widget.report.id ?? DateTime.now().millisecondsSinceEpoch.toString();
+
+      // V2: include image bytes for dataset collection
+      String? imageBase64;
+      if (widget.report.imageBytes != null) {
+        imageBase64 = base64Encode(widget.report.imageBytes!);
+      }
+
+      final body = jsonEncode({
+        'diagnosis_id': diagnosisId,
+        'crop': widget.report.plantName,
+        'predicted_disease': widget.report.diseaseName,
+        'confidence': widget.report.confidence,
+        'is_correct': isCorrect,
+        'language': 'en',
+        // V2 extended fields
+        'confidence_band': widget.report.confidenceBand,
+        'source': widget.report.source ?? 'LOCAL_ENGINE',
+        if (imageBase64 != null) 'image_base64': imageBase64!,
+      });
+
+      await http.post(
+        Uri.parse('$baseUrl/api/v1/disease/feedback'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: body,
+      );
+
+      if (mounted) {
+        setState(() {
+          _feedbackDone = true;
+          _feedbackSubmitting = false;
+        });
+      }
+    } catch (e) {
+      debugPrint('[Feedback] Submission failed: $e');
+      if (mounted) {
+        setState(() {
+          _feedbackSubmitting = false;
+          _feedbackGiven = null; // allow retry
+        });
+      }
+    }
+
+  }
+
+  Widget _buildFeedbackCard(BuildContext context) {
+    if (_feedbackDone) {
+      // Thank-you state
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        decoration: BoxDecoration(
+          color: AppColors.success.withOpacity(0.08),
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: AppColors.success.withOpacity(0.25)),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.favorite_rounded, color: AppColors.success, size: 28),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Thank you for your feedback!',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.success,
+                    ),
+                  ),
+                  Text(
+                    'Your input helps us improve disease detection accuracy for every farmer.',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.success.withOpacity(0.8),
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ).animate().fadeIn(duration: 400.ms).scale(begin: const Offset(0.95, 0.95), end: const Offset(1, 1));
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withOpacity(0.15),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.rate_review_rounded, color: AppColors.primary, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                'Was this diagnosis correct?',
+                style: GoogleFonts.poppins(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Your feedback helps train and improve the AI model.',
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.55),
+            ),
+          ),
+          const SizedBox(height: 18),
+          Row(
+            children: [
+              Expanded(
+                child: _FeedbackButton(
+                  label: 'Yes, Correct',
+                  icon: Icons.thumb_up_rounded,
+                  color: AppColors.success,
+                  isLoading: _feedbackSubmitting && _feedbackGiven == true,
+                  isSelected: _feedbackGiven == true,
+                  onTap: () => _submitFeedback(true),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: _FeedbackButton(
+                  label: 'No, Wrong',
+                  icon: Icons.thumb_down_rounded,
+                  color: AppColors.error,
+                  isLoading: _feedbackSubmitting && _feedbackGiven == false,
+                  isSelected: _feedbackGiven == false,
+                  onTap: () => _submitFeedback(false),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ).animate().fadeIn(delay: 350.ms);
+  }
+
   Widget _buildActionButtons(BuildContext context) {
     return Column(
       children: [
@@ -754,5 +995,69 @@ class _DiseaseResultScreenState extends State<DiseaseResultScreen> {
       case 'low': return AppColors.success;
       default: return AppColors.primary;
     }
+  }
+}
+
+// ─── Reusable Feedback Button ───────────────────────────────────────────────
+class _FeedbackButton extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final Color color;
+  final bool isLoading;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _FeedbackButton({
+    required this.label,
+    required this.icon,
+    required this.color,
+    required this.isLoading,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      decoration: BoxDecoration(
+        color: isSelected ? color.withOpacity(0.12) : Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isSelected ? color : color.withOpacity(0.35),
+          width: isSelected ? 2 : 1.5,
+        ),
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: isLoading ? null : onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+          child: isLoading
+              ? Center(
+                  child: SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(strokeWidth: 2, color: color),
+                  ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(icon, color: color, size: 18),
+                    const SizedBox(width: 8),
+                    Text(
+                      label,
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: color,
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+      ),
+    );
   }
 }

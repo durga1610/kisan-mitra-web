@@ -178,6 +178,59 @@ def init_db() -> None:
     )
     """)
 
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS gemini_fallback_log (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        timestamp TEXT NOT NULL,
+        module TEXT NOT NULL,
+        user_uid TEXT,
+        crop TEXT,
+        trigger_reason TEXT,
+        prompt_hash TEXT,
+        response_source TEXT,
+        latency_ms INTEGER,
+        success INTEGER
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS gemini_daily_usage (
+        user_uid TEXT,
+        date TEXT,
+        call_count INTEGER,
+        PRIMARY KEY (user_uid, date)
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS gemini_response_cache (
+        cache_key TEXT PRIMARY KEY,
+        response_json TEXT,
+        cached_at TEXT
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS dataset_v2_entries (
+        id               INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_uid         TEXT    NOT NULL,
+        diagnosis_id     TEXT,
+        crop             TEXT    NOT NULL,
+        predicted_disease TEXT   NOT NULL,
+        confidence       REAL    NOT NULL,
+        confidence_band  TEXT    NOT NULL DEFAULT 'unknown',
+        is_correct       INTEGER,
+        collection_type  TEXT    NOT NULL,
+        image_path       TEXT,
+        state            TEXT,
+        district         TEXT,
+        weather_snapshot TEXT,
+        source           TEXT,
+        timestamp        TEXT    NOT NULL
+    )
+    """)
+
+
     # ── Seed  ─────────────────────────────────────────────────────────────
     # Only seed when the database is freshly empty (F-15 fix).
     # This prevents data loss on restart while still bootstrapping new installs.

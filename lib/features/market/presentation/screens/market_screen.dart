@@ -96,6 +96,7 @@ class _MarketScreenContentState extends State<_MarketScreenContent> with SingleT
       body: Column(
         children: [
           _buildSearchAndFilter(context, provider),
+          if (provider.isFallbackActive) _buildFallbackBanner(context, provider),
           Expanded(
             child: RefreshIndicator(
               onRefresh: () => provider.fetchPrices(forceRefresh: true),
@@ -300,7 +301,7 @@ class _MarketScreenContentState extends State<_MarketScreenContent> with SingleT
             ),
             const SizedBox(height: 8),
             Text(
-              'The government Mandi API server is currently unreachable. Please try again later.',
+              'Market data could not be loaded. This may be a temporary connectivity issue. Please tap Retry.',
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                 fontSize: 14,
@@ -323,6 +324,34 @@ class _MarketScreenContentState extends State<_MarketScreenContent> with SingleT
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildFallbackBanner(BuildContext context, MarketProvider provider) {
+    final formattedTime = provider.lastUpdated != null
+        ? "${provider.lastUpdated!.day}/${provider.lastUpdated!.month}/${provider.lastUpdated!.year} ${provider.lastUpdated!.hour.toString().padLeft(2, '0')}:${provider.lastUpdated!.minute.toString().padLeft(2, '0')}"
+        : "N/A";
+
+    return Container(
+      width: double.infinity,
+      color: Colors.amber.shade50,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      child: Row(
+        children: [
+          Icon(Icons.warning_amber_rounded, color: Colors.amber.shade800, size: 20),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              'Showing cached market prices. Last updated: $formattedTime. Government Mandi API is unreachable.',
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Colors.amber.shade900,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

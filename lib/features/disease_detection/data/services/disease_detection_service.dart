@@ -74,6 +74,8 @@ class DiseaseDetectionService {
             timestamp: DateTime.now(),
             warning: aiResponse['warning']?.toString(),
             confidenceBand: aiResponse['confidenceBand']?.toString() ?? 'high',
+            source: aiResponse['source'],
+            imageBytes: imageBytes,
           );
           
           await docRef.set(report.toMap());
@@ -101,7 +103,7 @@ class DiseaseDetectionService {
       return DiseaseReport(
         id: savedDocId,
         userId: userId,
-        imageUrl: imageFile.path, // Use local file path to render instantly
+        imageUrl: imageFile.path,
         plantName: plantName,
         diseaseName: diseaseName,
         confidence: (aiResponse['confidence'] ?? 0.0).toDouble(),
@@ -118,6 +120,8 @@ class DiseaseDetectionService {
         timestamp: DateTime.now(),
         warning: aiResponse['warning']?.toString(),
         confidenceBand: aiResponse['confidenceBand']?.toString() ?? 'high',
+        source: aiResponse['source'],
+        imageBytes: imageBytes,  // V2: carry bytes for feedback dataset collection
       );
 
     } catch (e) {

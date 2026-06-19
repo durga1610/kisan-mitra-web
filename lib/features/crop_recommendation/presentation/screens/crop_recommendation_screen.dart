@@ -439,13 +439,58 @@ class _CropRecommendationCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            recommendation.cropName,
-                            style: GoogleFonts.poppins(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  recommendation.cropName,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Theme.of(context).colorScheme.onSurface,
+                                  ),
+                                ),
+                              ),
+                              if (recommendation.source != null && recommendation.source != 'LOCAL_ENGINE') ...[
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                  decoration: BoxDecoration(
+                                    color: recommendation.source == 'GEMINI_FALLBACK'
+                                        ? Colors.blue.withValues(alpha: 0.15)
+                                        : Colors.orange.withValues(alpha: 0.15),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        recommendation.source == 'GEMINI_FALLBACK'
+                                            ? Icons.auto_awesome_rounded
+                                            : Icons.alt_route_rounded,
+                                        size: 10,
+                                        color: recommendation.source == 'GEMINI_FALLBACK'
+                                            ? Colors.blue[700]
+                                            : Colors.orange[700],
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        recommendation.source == 'GEMINI_FALLBACK'
+                                            ? 'Gemini'
+                                            : 'Enhanced',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 9,
+                                          fontWeight: FontWeight.bold,
+                                          color: recommendation.source == 'GEMINI_FALLBACK'
+                                              ? Colors.blue[700]
+                                              : Colors.orange[700],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ],
                           ),
                           if (recommendation.isLocallyCultivated) ...[
                             const SizedBox(height: 4),
@@ -621,12 +666,12 @@ class _CustomCropAnalyzerSheetState extends State<_CustomCropAnalyzerSheet> {
   final TextEditingController _controller = TextEditingController();
   CustomCropAnalysisModel? _analysis;
 
-  void _analyze() {
+  Future<void> _analyze() async {
     if (_controller.text.trim().isEmpty) return;
     FocusScope.of(context).unfocus();
     
     final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-    final result = RecommendationService.analyzeCustomCrop(
+    final result = await RecommendationService.analyzeCustomCrop(
       cropName: _controller.text.trim(),
       farm: widget.farm,
       weather: widget.weather,

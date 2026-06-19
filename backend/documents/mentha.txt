@@ -1,29 +1,30 @@
 === MENTHA CROP GUIDE ===
 
 1. Fertilizers:
-Mentha requires balanced nutrient applications. Recommended dose is 40:30:30 kg of N:P:K per acre.
-- Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.
-- Apply remaining Nitrogen in splits during the active growth and tillering phases.
-- Supplement with organic compost or farmyard manure (FYM) to improve soil structure.
+Mentha requires balanced nutrient applications. Recommended dose is 15:15:15 kg of N:P:K per acre.
+Category: Medicinal Crops
+- Apply all Phosphorus, Potassium and 50% Nitrogen as basal dressing.
+- Apply remaining Nitrogen in monthly splits.
+- Integrate organic vermicompost and farmyard manure (FYM) to maximize active compounds.
 
 2. Irrigation:
-Mentha irrigation and water requirements: High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.
+Mentha irrigation and water requirements: Low water requirement. Highly drought-resilient. Avoid excessive irrigation, which causes root rot.
 
 3. Pest Management:
-Mentha pest management: Common pests are Termites, Cutworm. Manage by installing pheromone traps and spraying organic neem oil formulations.
+Mentha pest management: Common pests affecting Mentha are Mites, Aphids, Whitefly. Manage by spraying neem oil (0.5%) or insecticidal soap.
 
 4. Growth Stages:
 Mentha has the following stage cycle durations:
-- Vegetative Stage: Sowing up to 50 days.
-- Flowering Stage: From 50 days to 100 days.
-- Fruiting Stage: From 100 days to 150 days.
-- Harvesting Stage: From 150 days onwards.
+- Vegetative Stage: Sowing up to 40 days.
+- Flowering Stage: From 40 days to 80 days.
+- Fruiting Stage: From 80 days to 110 days.
+- Harvesting Stage: From 110 days onwards.
 
 5. Harvesting:
-Mentha harvesting and post-harvest practices: Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging.
+Mentha harvesting and post-harvest practices: For Mentha, Harvest at peak maturity of the active part (roots, leaves, stems). Dry in shade to preserve ingredients.
 
 6. Diseases:
-Mentha diseases: Common diseases affecting Mentha are Rust, Powdery Mildew. Spray systemic fungicides or remove infected parts to prevent spread.
+Mentha diseases: Common diseases affecting Mentha are Root Rot, Seedling Blight. Avoid waterlogging and spray organic bio-fungicides (Trichoderma).
 
 7. Soil Requirements:
-Mentha soil requirements: Requires well-drained sandy loam rich in organic soil. Optimal soil pH is 6.0 to 7.5.
+Mentha soil requirements: Requires well-drained sandy loam, red loamy, or gravelly marginal soil. Optimal pH is 6.0 to 7.5.

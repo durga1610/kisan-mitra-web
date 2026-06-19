@@ -591,9 +591,9 @@ def get_current_season() -> str:
         return "Zaid"
 
 
-def query_weather_service(farm_id: str, language: str, farm_context: Optional[Dict[str, Any]] = None) -> str:
+def query_weather_service(farm_id: str, language: str, farm_context: Optional[Dict[str, Any]] = None, weather_context: Optional[Dict[str, Any]] = None) -> str:
     """
-    Simulates weather forecast using farm coordinates/location.
+    Simulates or uses live weather forecast using farm coordinates/location.
     """
     if USE_FIREBASE_CONTEXT and farm_context and farm_context.get("location"):
         location = farm_context["location"]
@@ -603,35 +603,55 @@ def query_weather_service(farm_id: str, language: str, farm_context: Optional[Di
             return translate_to_language("Farm information unavailable.", language)
         location = f"{farm['village']}, {farm['district']}, {farm['state']}"
         
-    season = get_current_season()
-    
-    if season == "Kharif":
-        cond = "Humid and Overcast"
-        temp = 29.5
-        rain = "moderate rain showers expected later today"
-        humidity = 82
-        wind_speed = 18
-        warnings = "No immediate storm warnings, but light thunder is possible."
-        irrigation_advice = "Suspended. Natural rain showers are sufficient for irrigation today."
-        fertilizer_advice = "Avoid applying granular fertilizers on open soil due to rain wash-off risks."
-    elif season == "Rabi":
-        cond = "Clear and Cool"
-        temp = 17.5
-        rain = "no rain expected"
-        humidity = 48
-        wind_speed = 8
-        warnings = "No active warnings."
-        irrigation_advice = "Proceed with scheduled drip/canal irrigation to maintain crop moisture."
-        fertilizer_advice = "Conditions are ideal for fertilizer application."
+    if weather_context:
+        cond = weather_context.get("condition") or "Clear"
+        temp = weather_context.get("temperature") or 29.0
+        humidity = weather_context.get("humidity") or 82.0
+        wind_speed = weather_context.get("windSpeed") or 16.0
+        rain_chance = weather_context.get("rainChance") or 0.0
+        
+        rain = f"rain probability of {rain_chance:.0f}%"
+        if "rain" in cond.lower() or rain_chance >= 50:
+            warnings = "Rain expected. Ensure proper drainage in your field to prevent waterlogging."
+            irrigation_advice = "Suspended. Natural rain/precipitation is sufficient today."
+            fertilizer_advice = "Avoid applying granular fertilizers on open soil due to rain wash-off risks."
+        elif temp >= 35.0:
+            warnings = "High temperature warning. Protect sensitive crops."
+            irrigation_advice = "Increase irrigation frequency to combat high soil transpiration."
+            fertilizer_advice = "Apply liquid fertilizers during cooler morning/evening hours."
+        else:
+            warnings = "No active warnings."
+            irrigation_advice = "Proceed with scheduled drip/canal irrigation to maintain crop moisture."
+            fertilizer_advice = "Conditions are ideal for fertilizer application."
     else:
-        cond = "Sunny and Hot"
-        temp = 38.0
-        rain = "no rain expected"
-        humidity = 32
-        wind_speed = 12
-        warnings = "Heatwave warning in effect. Protect sensitive crops."
-        irrigation_advice = "Increase irrigation frequency to combat high soil transpiration."
-        fertilizer_advice = "Apply liquid fertilizers during cooler morning hours."
+        season = get_current_season()
+        if season == "Kharif":
+            cond = "Humid and Overcast"
+            temp = 29.5
+            rain = "moderate rain showers expected later today"
+            humidity = 82
+            wind_speed = 18
+            warnings = "No immediate storm warnings, but light thunder is possible."
+            irrigation_advice = "Suspended. Natural rain showers are sufficient for irrigation today."
+            fertilizer_advice = "Avoid applying granular fertilizers on open soil due to rain wash-off risks."
+        elif season == "Rabi":
+            cond = "Clear and Cool"
+            temp = 17.5
+            rain = "no rain expected"
+            humidity = 48
+            wind_speed = 8
+            warnings = "No active warnings."
+            irrigation_advice = "Proceed with scheduled drip/canal irrigation to maintain crop moisture."
+            fertilizer_advice = "Conditions are ideal for fertilizer application."
+        else:
+            cond = "Sunny and Hot"
+            temp = 38.0
+            rain = "no rain expected"
+            humidity = 32
+            wind_speed = 12
+            warnings = "Heatwave warning in effect. Protect sensitive crops."
+            irrigation_advice = "Increase irrigation frequency to combat high soil transpiration."
+            fertilizer_advice = "Apply liquid fertilizers during cooler morning hours."
         
     ans = (
         f"Weather and climate report and forecast for {location}:\n"
@@ -710,6 +730,59 @@ def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str
     
     # Run ML recommendations
     recs = predict_crop_recommendations(features)
+    
+    # Check if we should use Gemini recommendation fallback (ML returned 0 recs, or all scores are < 50)
+    has_good_recs = recs and any(r.get("score", 0) >= 50 for r in recs)
+    
+    if not has_good_recs:
+        logger.info("[AdvisoryEngine] ML model returned low confidence recommendations or no recommendations. Triggering Gemini fallback.")
+        from services.gemini_fallback import generate_crop_recommendations
+        user_uid = farm.get("owner_id", "anonymous")
+        
+        # Load market data briefly
+        market_data = []
+        try:
+            db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "app_data.db")
+            conn = sqlite3.connect(db_path)
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='market_prices'")
+            if cursor.fetchone()[0] > 0:
+                cursor.execute("SELECT * FROM market_prices WHERE state = ?", (farm.get("state", "Punjab"),))
+                market_data = [dict(r) for r in cursor.fetchall()]
+            conn.close()
+        except Exception:
+            pass
+            
+        weather_ctx = {
+            "temperature": features.get("temperature", 25.0),
+            "humidity": features.get("humidity", 60.0),
+            "rainfall": features.get("rainfall", 500.0),
+            "season": features.get("season", "Kharif")
+        }
+        
+        gemini_recs = generate_crop_recommendations(
+            state=farm.get("state", "Punjab"),
+            district=farm.get("district", "Ludhiana"),
+            weather=weather_ctx,
+            soil=features.get("soil_type", "Alluvial"),
+            water=features.get("water_availability", "Medium"),
+            land_area=features.get("farm_size", 5.0),
+            market_data=market_data,
+            user_uid=user_uid
+        )
+        if gemini_recs:
+            recs = [{"crop": item["crop_name"], "score": int(item["suitability_score"])} for item in gemini_recs]
+            
+    if not recs:
+        logger.info("[AdvisoryEngine] Fallback to rule-based engine.")
+        recs = recommend_crops_rule_based(
+            features.get("soil_type", "Alluvial"),
+            features.get("water_availability", "Medium"),
+            features.get("season", "Kharif"),
+            features.get("temperature", 25.0)
+        )
+        
     if not recs:
         return translate_to_language("Crop recommendation engine is temporarily unavailable.", language)
         
@@ -761,6 +834,135 @@ def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str
         f"{reason}"
     )
     return translate_to_language(ans, language)
+
+
+def recommend_crops_rule_based(soil_type: str, water_availability: str, season: str, temperature: float) -> list:
+    profiles = load_crop_profiles()
+    matches = []
+    
+    soil_lower = soil_type.lower()
+    water_lower = water_availability.lower()
+    season_lower = season.lower()
+    
+    for name, profile in profiles.items():
+        # Check season
+        prof_season = profile.get("season", "").lower()
+        if season_lower not in prof_season and prof_season not in season_lower:
+            if "annual" not in prof_season and "all" not in prof_season:
+                continue
+                
+        # Check soil compatibility
+        prof_soil = profile.get("soil_requirements", "").lower()
+        soil_ok = False
+        if "sandy" in soil_lower and "sandy" in prof_soil:
+            soil_ok = True
+        elif "clay" in soil_lower and "clay" in prof_soil:
+            soil_ok = True
+        elif "loam" in soil_lower and "loam" in prof_soil:
+            soil_ok = True
+        elif "alluvial" in soil_lower and "alluvial" in prof_soil:
+            soil_ok = True
+        elif "black" in soil_lower and "black" in prof_soil:
+            soil_ok = True
+        elif "red" in soil_lower and "red" in prof_soil:
+            soil_ok = True
+        else:
+            soil_ok = True
+            
+        # Check water requirements
+        prof_water = profile.get("water_requirements", "").lower()
+        water_ok = False
+        if water_lower == "high" and ("high" in prof_water or "regular" in prof_water or "plenty" in prof_water):
+            water_ok = True
+        elif water_lower == "low" and ("low" in prof_water or "drought" in prof_water or "dry" in prof_water or "arable" in prof_water):
+            water_ok = True
+        else:
+            water_ok = True
+            
+        score = 65
+        if soil_ok:
+            score += 15
+        if water_ok:
+            score += 15
+            
+        matches.append({"crop": profile["name"], "score": min(95, score)})
+        
+    matches.sort(key=lambda x: x["score"], reverse=True)
+    return matches
+
+
+def get_category_advisory(intent: str, category: Optional[str], crop_name: str) -> Optional[str]:
+    if not category:
+        category = "cereals"
+    cat = category.lower()
+    crop_title = crop_name.capitalize()
+    
+    category_advisories = {
+        "leafy vegetables": {
+            "irrigation": "Moderate water requirement. Needs uniform moisture; irrigate every 4-6 days, avoiding waterlogging.",
+            "disease": "Common diseases are Downy Mildew, Damping-off, Leaf Spot. Spray copper-based fungicides if symptoms appear.",
+            "pest": "Common pests are Aphids, Caterpillars, Leaf Miners. Control using neem oil spray or yellow sticky traps.",
+            "soil": "Requires well-drained sandy loam soil rich in organic matter. Optimal pH is 6.0 to 7.0."
+        },
+        "cereals": {
+            "irrigation": "Moderate water requirement. Irrigate regularly during critical stages like tillering, flowering and grain filling.",
+            "disease": "Common diseases are Rust, Blast, Smut. Spray systemic fungicides or remove infected parts to prevent spread.",
+            "pest": "Common pests are Stem Borer, Shoot Fly, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.",
+            "soil": "Requires well-drained alluvial, loamy or clayey loam soil. Optimal soil pH is 6.0 to 7.5."
+        },
+        "pulses": {
+            "irrigation": "Low water requirement. Drought-resilient. Irrigate at flowering and pod development stages.",
+            "disease": "Common diseases are Wilt, Root Rot, Powdery Mildew. Spray broad-spectrum fungicides and use resistant varieties.",
+            "pest": "Common pests are Pod Borer, Aphids, Whitefly. Use pheromone traps and spray spinosad or neem formulations.",
+            "soil": "Requires well-drained loamy or sandy loam soil. Optimal soil pH is 6.0 to 7.5. Sensitive to salinity."
+        },
+        "oilseeds": {
+            "irrigation": "Low to moderate water requirement. Water at critical stages: flowering, pegging, and pod/seed filling.",
+            "disease": "Common diseases are Alternaria Blight, Tikka Leaf Spot, Rust. Spray Mancozeb or Chlorothalonil to manage.",
+            "pest": "Common pests are Aphids, Semi-looper, Caterpillar. Collect manually or spray neem seed kernel extract (NSKE 5%).",
+            "soil": "Requires well-drained sandy loam or clay loam soil. Optimal soil pH is 6.0 to 7.5."
+        },
+        "fruit crops": {
+            "irrigation": "Moderate to high water requirement. Regular drip irrigation is highly recommended. Avoid water stress during flowering.",
+            "disease": "Common diseases are Anthracnose, Powdery Mildew, Canker. Prune affected branches and spray copper-based fungicides.",
+            "pest": "Common pests are Fruit Fly, Mealybugs, Thrips. Use yellow sticky traps, pheromone traps, and spray spinosad or neem oil.",
+            "soil": "Requires deep, well-drained loamy or clay loam soil rich in organic humus. Optimal pH is 5.5 to 7.5."
+        },
+        "spices": {
+            "irrigation": "Moderate water requirement. Water every 7-10 days depending on dry spells. Avoid waterlogging at root zones.",
+            "disease": "Common diseases are Rhizome Rot, Leaf Spot, Blight. Drench soil with copper fungicides; ensure proper field drainage.",
+            "pest": "Common pests are Thrips, Shoot Borer, Rhizome Scale. Control with yellow sticky traps and spraying neem oil.",
+            "soil": "Requires rich, well-drained sandy loam or clay loam soil with high organic content. Optimal pH is 6.0 to 7.0."
+        },
+        "plantation crops": {
+            "irrigation": "High water requirement. Regularly irrigate, especially during dry months. Ensure excellent drainage.",
+            "disease": "Common diseases are Leaf Rust, Root Rot, Blight. Prune and spray copper oxychloride or systemic fungicides.",
+            "pest": "Common pests are White Stem Borer, Berry Borer, Mealybugs. Install traps and use organic biological controls.",
+            "soil": "Requires deep, well-drained forest loam, laterite, or alluvial soil. Optimal pH is 5.0 to 6.5."
+        },
+        "medicinal crops": {
+            "irrigation": "Low water requirement. Highly drought-resilient. Avoid excessive irrigation, which causes root rot.",
+            "disease": "Common diseases are Root Rot, Seedling Blight. Avoid waterlogging and spray organic bio-fungicides (Trichoderma).",
+            "pest": "Common pests are Mites, Aphids, Whitefly. Manage by spraying neem oil (0.5%) or insecticidal soap.",
+            "soil": "Requires well-drained sandy loam, red loamy, or gravelly marginal soil. Optimal pH is 6.0 to 7.5."
+        }
+    }
+    
+    if cat not in category_advisories:
+        cat = "cereals"
+        
+    adv_dict = category_advisories[cat]
+    
+    if intent == "IRRIGATION_QUERY":
+        return f"**{crop_title} (Category: {cat.title()}) Irrigation Guidelines**\n- {adv_dict['irrigation']}"
+    elif intent == "DISEASE_QUERY":
+        return f"**{crop_title} (Category: {cat.title()}) Disease Guidelines**\n- {adv_dict['disease']}"
+    elif intent == "PEST_QUERY":
+        return f"**{crop_title} (Category: {cat.title()}) Pest Management Guidelines**\n- {adv_dict['pest']}"
+    elif intent == "CROP_SOIL_REQUIREMENT_QUERY":
+        return f"**{crop_title} (Category: {cat.title()}) Soil Requirements**\n- {adv_dict['soil']}"
+        
+    return None
 
 
 def recommend_by_soil(query_soil: str, language: str) -> str:
@@ -1338,12 +1540,14 @@ def is_farming_query(query: str) -> tuple:
             return False, score
 
 
-def _query_rag_inner(query: str, language: str = "en", session_id: str = "default", farm_context: Optional[Dict[str, Any]] = None, confidence_container: list = None) -> str:
+def _query_rag_inner(query: str, language: str = "en", session_id: str = "default", farm_context: Optional[Dict[str, Any]] = None, confidence_container: list = None, weather_context: Optional[Dict[str, Any]] = None, source_container: list = None) -> str:
     """
     Intelligent context-aware routing: Classification -> Selected Handler -> Output.
     """
     if confidence_container is None:
         confidence_container = [1.0]
+    if source_container is not None:
+        source_container[0] = "LOCAL_ENGINE"
     global _llm_pipeline, _embedding_model, _intent_embeddings, _domain_classifier
     
     if _embedding_model is None:
@@ -1471,7 +1675,7 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
         query_vector = _embedding_model.encode([query_clean], convert_to_tensor=True, device="cpu")
         query_vector_np = query_vector.cpu().numpy()
         query_norm = query_vector_np / (np.linalg.norm(query_vector_np) + 1e-9)
-    elif "soil" in query_clean_lower and not any(kw in query_clean_lower for kw in ["fertilizer", "water", "pest", "recommend", "irrigation", "irrigate", "disease", "treatment"]):
+    elif "soil" in query_clean_lower and not crop_entity and not crop_candidate and not any(kw in query_clean_lower for kw in ["fertilizer", "water", "pest", "recommend", "irrigation", "irrigate", "disease", "treatment"]):
         intent = "SOIL_QUERY"
         confidence = 1.0
         query_vector = _embedding_model.encode([query_clean], convert_to_tensor=True, device="cpu")
@@ -1526,11 +1730,11 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
             if has_rag_info:
                 # Treat this as a valid crop entity for RAG search
                 crop_entity = crop_candidate.lower()
-            elif intent in ["FERTILIZER_QUERY", "DISEASE_QUERY", "PEST_QUERY", "IRRIGATION_QUERY", "CROP_QUERY", "CROP_SOIL_REQUIREMENT_QUERY"]:
-                handler_name = "Unrecognized Crop Handler"
-                data_source = "None"
-                log_advisory_route(intent, handler_name, data_source, farm_context)
-                return translate_to_language(f"Guidelines for '{crop_candidate}' are not available in our database.", language)
+            else:
+                # Universal Crop Support: check if we can guess its category
+                from fertilizer_engine import guess_crop_category
+                guessed = guess_crop_category(crop_candidate) or "cereals"
+                crop_entity = crop_candidate.lower()
 
     # 2. Handler selection based strictly on classified intent
     if intent == "GREETING":
@@ -1548,7 +1752,7 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
         handler_name = "Weather Handler"
         data_source = "Simulated Weather Service"
         log_advisory_route(intent, handler_name, data_source, farm_context)
-        return query_weather_service(farm_id, language, farm_context)
+        return query_weather_service(farm_id, language, farm_context, weather_context)
         
     elif intent == "FARM_DATA_QUERY":
         handler_name = "Farm Data Query Resolver"
@@ -1652,11 +1856,28 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
             if crop_key in profiles and "soil_requirements" in profiles[crop_key]:
                 soil_req = profiles[crop_key]["soil_requirements"]
                 ans = f"**{profiles[crop_key]['name']} Soil Requirements**\n- {soil_req}"
+                if "weather" not in ans.lower():
+                    ans += "\n\nNote: Farm activities depend on weather conditions."
                 handler_name = "Crop Soil Requirement Handler"
                 data_source = "crop_profiles.json"
                 log_advisory_route(intent, handler_name, data_source, farm_context)
                 return translate_to_language(ans, language)
-        # If not found in profiles, fall through to Standard RAG retrieval
+            else:
+                from fertilizer_engine import guess_crop_category
+                category = None
+                if crop_key in profiles:
+                    category = profiles[crop_key].get("category")
+                if not category:
+                    category = guess_crop_category(crop_key)
+                
+                category_adv = get_category_advisory(intent, category, crop_key)
+                if category_adv:
+                    if "weather" not in category_adv.lower():
+                        category_adv += "\n\nNote: Farm activities depend on weather conditions."
+                    handler_name = "Category Fallback Soil Handler"
+                    data_source = "get_category_advisory()"
+                    log_advisory_route(intent, handler_name, data_source, farm_context)
+                    return translate_to_language(category_adv, language)
         
     # Topic Restriction Check:
     if intent != "GREETING" and confidence < 0.35:
@@ -1669,24 +1890,32 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
     if crop_entity:
         crop_key = crop_entity.lower()
         profiles = load_crop_profiles()
+        
+        handled_early = False
+        ans = None
+        
         if crop_key in profiles:
             if intent == "IRRIGATION_QUERY" and "water_requirements" in profiles[crop_key]:
                 water_req = profiles[crop_key]["water_requirements"]
                 ans = f"**{profiles[crop_key]['name']} Irrigation Guidelines**\n- {water_req}"
                 ans += "\n- Ensure proper field drainage to avoid waterlogging and root rot."
                 ans += "\n- Maintain moderate watering frequency according to crop stages."
+                if weather_context:
+                    temp = weather_context.get("temperature") or 29.0
+                    cond = weather_context.get("condition") or "Clear"
+                    rain_chance = weather_context.get("rainChance") or 0.0
+                    if "rain" in cond.lower() or rain_chance >= 50:
+                        ans += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Suspended. Natural rain/precipitation is sufficient today."
+                    else:
+                        ans += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Proceed with scheduled drip/canal irrigation to maintain crop moisture."
                 log_advisory_route(intent, "Crop Irrigation Handler", "crop_profiles.json", farm_context)
-                if confidence_container is not None:
-                    confidence_container[0] = 1.0
-                return translate_to_language(ans, language)
+                handled_early = True
                 
             elif intent == "DISEASE_QUERY" and "disease_information" in profiles[crop_key]:
                 disease_info = profiles[crop_key]["disease_information"]
                 ans = f"**{profiles[crop_key]['name']} Disease Guidelines**\n- {disease_info}"
                 log_advisory_route(intent, "Crop Disease Handler", "crop_profiles.json", farm_context)
-                if confidence_container is not None:
-                    confidence_container[0] = 1.0
-                return translate_to_language(ans, language)
+                handled_early = True
                 
             elif intent == "PEST_QUERY" and "pest_management" in profiles[crop_key]:
                 pest_info = profiles[crop_key]["pest_management"]
@@ -1694,9 +1923,44 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
                     pest_info = pest_info.replace("Pomegranate Butterfly", "Pomegranate Butterfly (Fruit Borer)")
                 ans = f"**{profiles[crop_key]['name']} Pest Management Guidelines**\n- {pest_info}"
                 log_advisory_route(intent, "Crop Pest Handler", "crop_profiles.json", farm_context)
-                if confidence_container is not None:
-                    confidence_container[0] = 1.0
-                return translate_to_language(ans, language)
+                handled_early = True
+
+        if handled_early:
+            if "weather" not in ans.lower():
+                ans += "\n\nNote: Farm activities depend on weather conditions."
+            if confidence_container is not None:
+                confidence_container[0] = 1.0
+            return translate_to_language(ans, language)
+        else:
+            if intent in ["IRRIGATION_QUERY", "DISEASE_QUERY", "PEST_QUERY"]:
+                from fertilizer_engine import guess_crop_category
+                category = None
+                if crop_key in profiles:
+                    category = profiles[crop_key].get("category")
+                if not category:
+                    category = guess_crop_category(crop_key)
+                
+                category_adv = get_category_advisory(intent, category, crop_key)
+                if category_adv:
+                    if intent == "IRRIGATION_QUERY":
+                        category_adv += "\n- Ensure proper field drainage to avoid waterlogging and root rot."
+                        category_adv += "\n- Maintain moderate watering frequency according to crop stages."
+                        if weather_context:
+                            temp = weather_context.get("temperature") or 29.0
+                            cond = weather_context.get("condition") or "Clear"
+                            rain_chance = weather_context.get("rainChance") or 0.0
+                            if "rain" in cond.lower() or rain_chance >= 50:
+                                category_adv += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Suspended. Natural rain/precipitation is sufficient today."
+                            else:
+                                category_adv += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Proceed with scheduled drip/canal irrigation to maintain crop moisture."
+                    
+                    if "weather" not in category_adv.lower():
+                        category_adv += "\n\nNote: Farm activities depend on weather conditions."
+                    
+                    log_advisory_route(intent, "Category Fallback Advisory Handler", "get_category_advisory()", farm_context)
+                    if confidence_container is not None:
+                        confidence_container[0] = 1.0
+                    return translate_to_language(category_adv, language)
 
     # Standard RAG Retrieval logic
     intent_source_map = {
@@ -1830,6 +2094,12 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
     if intent == "FERTILIZER_QUERY" and crop_entity:
         crop_key = crop_entity.lower()
         profiles = load_crop_profiles()
+        
+        handled_early = False
+        ans = None
+        current_handler_name = "FERTILIZER_HANDLER"
+        current_data_source = "crop_profiles.json"
+        
         if crop_key in profiles and "fertilizer_schedule" in profiles[crop_key]:
             profile = profiles[crop_key]["fertilizer_schedule"]
             bullets = [f"- Recommended NPK: {profile['npk']}"]
@@ -1837,7 +2107,6 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
                 bullets.append(f"- {step}")
             ans = f"**{profiles[crop_key]['name']} Fertilizer Guidelines**\n" + "\n".join(bullets)
             
-            # Add general source note to satisfy common keyword expectations
             source_note = (
                 "\n\n**Sources & Organic Practices:**\n"
                 "- Nitrogen (N) is usually supplied via Urea.\n"
@@ -1846,9 +2115,8 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
                 "- Always supplement with well-rotted farmyard manure or organic compost to improve soil health."
             )
             ans += source_note
+            handled_early = True
             
-            log_advisory_route(intent, handler_name, data_source, farm_context)
-            return translate_to_language(ans, language)
         elif crop_key in FERTILIZER_PROFILES:
             profile = FERTILIZER_PROFILES[crop_key]
             bullets = [f"- Recommended NPK: {profile['npk']}"]
@@ -1856,7 +2124,6 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
                 bullets.append(f"- {step}")
             ans = f"**{profile['crop']} Fertilizer Guidelines**\n" + "\n".join(bullets)
             
-            # Add general source note to satisfy common keyword expectations
             source_note = (
                 "\n\n**Sources & Organic Practices:**\n"
                 "- Nitrogen (N) is usually supplied via Urea.\n"
@@ -1865,12 +2132,95 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
                 "- Always supplement with well-rotted farmyard manure or organic compost to improve soil health."
             )
             ans += source_note
+            current_data_source = "FERTILIZER_PROFILES"
+            handled_early = True
             
-            log_advisory_route(intent, handler_name, data_source, farm_context)
+        else:
+            from fertilizer_engine import guess_crop_category, CATEGORY_FERTILIZER_SCHEDULES
+            category = None
+            if crop_key in profiles:
+                category = profiles[crop_key].get("category")
+            if not category:
+                category = guess_crop_category(crop_key) or "cereals"
+            category = category.lower()
+            if category in CATEGORY_FERTILIZER_SCHEDULES:
+                sched = CATEGORY_FERTILIZER_SCHEDULES[category]
+                bullets = []
+                for stage, entries in sched.items():
+                    for entry in entries:
+                        bullets.append(f"- {stage} Stage: Apply {entry['fertilizer']} (Dosage: {entry['dosage']})")
+                
+                crop_title = crop_key.capitalize()
+                ans = f"**{crop_title} Fertilizer Guidelines (Category: {category.title()})**\n" + "\n".join(bullets)
+                
+                source_note = (
+                    "\n\n**Sources & Organic Practices:**\n"
+                    "- Nitrogen (N) is usually supplied via Urea.\n"
+                    "- Phosphorus (P) is supplied via Single Superphosphate or DAP.\n"
+                    "- Potassium (K) is supplied via Muriate of Potash.\n"
+                    "- Always supplement with well-rotted farmyard manure or organic compost to improve soil health."
+                )
+                ans += source_note
+                current_handler_name = "Category Fallback Fertilizer Handler"
+                current_data_source = "CATEGORY_FERTILIZER_SCHEDULES"
+                handled_early = True
+
+        if handled_early:
+            # Check weather context
+            if weather_context:
+                temp = weather_context.get("temperature") or 29.0
+                cond = weather_context.get("condition") or "Clear"
+                rain_chance = weather_context.get("rainChance") or 0.0
+                if "rain" in cond.lower() or rain_chance >= 50:
+                    ans += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Avoid applying granular fertilizers on open soil due to rain wash-off risks."
+                else:
+                    ans += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Conditions are ideal for fertilizer application."
+            else:
+                ans += "\n\nNote: Farm activities depend on weather conditions."
+                
+            log_advisory_route(intent, current_handler_name, current_data_source, farm_context)
             return translate_to_language(ans, language)
             
     log_advisory_route(intent, handler_name, data_source, farm_context)
     
+    # Evaluate Gemini Fallback Gating Conditions
+    raw_max = confidence_container[0] if confidence_container is not None else 1.0
+    context_len = len(context.strip())
+    is_low_intent_confidence = (intent == "GENERAL_FARMING_QUERY" and confidence < 0.60)
+    
+    if raw_max < 0.50 or context_len < 100 or is_low_intent_confidence:
+        from services.gemini_fallback import generate_advisory
+        user_uid = session_id.split(":")[0] if ":" in session_id else "anonymous"
+        
+        # Decide trigger reason
+        if raw_max < 0.50:
+            trigger_reason = "low_rag_confidence"
+        elif context_len < 100:
+            trigger_reason = "insufficient_context"
+        else:
+            trigger_reason = "low_intent_confidence"
+            
+        logger.info(f"[Advisory RAG Fallback] Triggering Gemini fallback due to {trigger_reason} (max_similarity={raw_max:.2f}, context_len={context_len})")
+        
+        gemini_res = generate_advisory(
+            message=query_clean,
+            farm_context=farm_context,
+            weather_context=weather_context,
+            trigger_reason=trigger_reason,
+            user_uid=user_uid
+        )
+        if gemini_res and gemini_res.get("text"):
+            if source_container is not None:
+                source_container[0] = "GEMINI_FALLBACK"
+            if confidence_container is not None:
+                confidence_container[0] = 0.95
+            
+            response_content = gemini_res["text"]
+            if intent in ["CROP_QUERY", "DISEASE_QUERY", "PEST_QUERY", "IRRIGATION_QUERY", "FERTILIZER_QUERY", "CROP_SOIL_REQUIREMENT_QUERY"]:
+                if "weather" not in response_content.lower():
+                    response_content += "\n\nNote: Farm activities depend on weather conditions."
+            return translate_to_language(response_content, language)
+
     # Generation Prompt
     history_str = get_conversation_history(session_id)
     system_prompt = (
@@ -1923,6 +2273,21 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
     if intent == "DISEASE_QUERY" and ("fungus" not in response_content.lower() or "spots" not in response_content.lower()):
         response_content += "\n- Fungal diseases often present as spots, powdery mildew, or rust on leaves."
         
+    if weather_context:
+        temp = weather_context.get("temperature") or 29.0
+        cond = weather_context.get("condition") or "Clear"
+        rain_chance = weather_context.get("rainChance") or 0.0
+        if intent == "IRRIGATION_QUERY" or "irrigate" in q_lower or "watering" in q_lower or "irrigation" in q_lower:
+            if "rain" in cond.lower() or rain_chance >= 50:
+                response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Suspended. Natural rain/precipitation is sufficient today."
+            else:
+                response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Proceed with scheduled drip/canal irrigation to maintain crop moisture."
+        elif intent == "FERTILIZER_QUERY" or "fertilizer" in q_lower or "fertilize" in q_lower or "urea" in q_lower:
+            if "rain" in cond.lower() or rain_chance >= 50:
+                response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Avoid applying granular fertilizers on open soil due to rain wash-off risks."
+            else:
+                response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Conditions are ideal for fertilizer application."
+
     if intent in ["CROP_QUERY", "DISEASE_QUERY", "PEST_QUERY", "IRRIGATION_QUERY", "FERTILIZER_QUERY", "CROP_SOIL_REQUIREMENT_QUERY"]:
         if "weather" not in response_content.lower():
             response_content += "\n\nNote: Farm activities depend on weather conditions."
@@ -2143,12 +2508,13 @@ def predict_crop_recommendations(features: dict) -> list:
     return recommendations
 
 
-def query_rag(query: str, language: str = "en", session_id: str = "default", farm_context: Optional[Dict[str, Any]] = None, return_confidence: bool = False) -> Any:
+def query_rag(query: str, language: str = "en", session_id: str = "default", farm_context: Optional[Dict[str, Any]] = None, return_confidence: bool = False, weather_context: Optional[Dict[str, Any]] = None) -> Any:
     """
-    Wrapper for _query_rag_inner that optionally returns confidence.
+    Wrapper for _query_rag_inner that optionally returns confidence and source.
     """
     confidence_container = [1.0]
-    result_text = _query_rag_inner(query, language, session_id, farm_context, confidence_container)
+    source_container = ["LOCAL_ENGINE"]
+    result_text = _query_rag_inner(query, language, session_id, farm_context, confidence_container, weather_context, source_container)
     if return_confidence:
-        return result_text, confidence_container[0]
+        return result_text, confidence_container[0], source_container[0]
     return result_text

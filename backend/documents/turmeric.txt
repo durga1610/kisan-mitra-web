@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Turmeric requires balanced nutrient applications. Recommended dose is 50:25:50 kg of N:P:K per acre.
+Category: Spices
 - Apply full Phosphorus and half Potassium as basal dose.
 - Apply Nitrogen and remaining Potassium in splits at 30, 60, and 90 days.
 - Apply organic mulch to retain soil moisture and reduce weeds.

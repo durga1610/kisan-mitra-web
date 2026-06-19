@@ -229,6 +229,120 @@ FERTILIZER_SCHEDULES = {
     }
 }
 
+CATEGORY_FERTILIZER_SCHEDULES = {
+    "leafy vegetables": {
+        "Vegetative": [
+            {"day": "Day 0", "fertilizer": "Compost / Organic Manure", "dosage": "2 tonnes/acre"},
+            {"day": "Day 10", "fertilizer": "Urea / Nitrogen-rich Fertilizer", "dosage": "20 kg/acre"}
+        ],
+        "Flowering": [
+            {"day": "Day 30", "fertilizer": "NPK 19:19:19", "dosage": "15 kg/acre"}
+        ],
+        "Fruiting": [
+            {"day": "Day 45", "fertilizer": "Compost / Organic Manure", "dosage": "2 tonnes/acre"}
+        ]
+    },
+    "cereals": {
+        "Vegetative": [
+            {"day": "Day 15", "fertilizer": "Urea", "dosage": "40 kg/acre"},
+            {"day": "Day 35", "fertilizer": "NPK 12:32:16", "dosage": "50 kg/acre"}
+        ],
+        "Flowering": [
+            {"day": "Day 60", "fertilizer": "Urea Top Dressing", "dosage": "30 kg/acre"}
+        ],
+        "Fruiting": [
+            {"day": "Day 85", "fertilizer": "MOP (Muriate of Potash)", "dosage": "15 kg/acre"}
+        ]
+    },
+    "pulses": {
+        "Vegetative": [
+            {"day": "Day 15", "fertilizer": "DAP", "dosage": "20 kg/acre"}
+        ],
+        "Flowering": [
+            {"day": "Day 40", "fertilizer": "Boron foliar spray", "dosage": "1 kg/acre"}
+        ],
+        "Fruiting": [
+            {"day": "Day 70", "fertilizer": "MOP", "dosage": "10 kg/acre"}
+        ]
+    },
+    "oilseeds": {
+        "Vegetative": [
+            {"day": "Day 15", "fertilizer": "Single Super Phosphate (SSP)", "dosage": "50 kg/acre"}
+        ],
+        "Flowering": [
+            {"day": "Day 45", "fertilizer": "Gypsum (for Sulphur/Calcium)", "dosage": "100 kg/acre"}
+        ],
+        "Fruiting": [
+            {"day": "Day 75", "fertilizer": "MOP", "dosage": "15 kg/acre"}
+        ]
+    },
+    "fruit crops": {
+        "Vegetative": [
+            {"day": "Day 20", "fertilizer": "Compost & NPK 15:15:15", "dosage": "1 kg/tree"}
+        ],
+        "Flowering": [
+            {"day": "Day 60", "fertilizer": "Micronutrient Spray", "dosage": "2 ml/litre"}
+        ],
+        "Fruiting": [
+            {"day": "Day 120", "fertilizer": "Sulphate of Potash (SOP)", "dosage": "500g/tree"}
+        ]
+    },
+    "spices": {
+        "Vegetative": [
+            {"day": "Day 30", "fertilizer": "NPK 19:19:19", "dosage": "25 kg/acre"}
+        ],
+        "Flowering": [
+            {"day": "Day 75", "fertilizer": "Organic Compost & Neem Cake", "dosage": "1 tonne/acre"}
+        ],
+        "Fruiting": [
+            {"day": "Day 120", "fertilizer": "MOP (Potash)", "dosage": "20 kg/acre"}
+        ]
+    },
+    "plantation crops": {
+        "Vegetative": [
+            {"day": "Day 30", "fertilizer": "NPK 15:15:15", "dosage": "500g/plant"}
+        ],
+        "Flowering": [
+            {"day": "Day 120", "fertilizer": "Organic manure & Magnesium Sulphate", "dosage": "2 kg/plant"}
+        ],
+        "Fruiting": [
+            {"day": "Day 200", "fertilizer": "Muriate of Potash", "dosage": "1 kg/plant"}
+        ]
+    },
+    "medicinal crops": {
+        "Vegetative": [
+            {"day": "Day 20", "fertilizer": "FYM / Vermicompost", "dosage": "3 tonnes/acre"}
+        ],
+        "Flowering": [
+            {"day": "Day 50", "fertilizer": "Organic growth promoters", "dosage": "500 ml/acre"}
+        ],
+        "Fruiting": [
+            {"day": "Day 90", "fertilizer": "Neem cake and light Potash", "dosage": "100 kg/acre"}
+        ]
+    }
+}
+
+def guess_crop_category(crop_name: str) -> str:
+    c = crop_name.lower().strip()
+    if any(k in c for k in ["leaf", "spinach", "lettuce", "cabbage", "kale", "chard", "greens", "bok choy", "parsley", "celery", "basil", "mint", "coriander", "cilantro", "cauliflower", "broccoli", "sprouts"]):
+        return "leafy vegetables"
+    if any(k in c for k in ["rice", "wheat", "maize", "corn", "barley", "oats", "sorghum", "millet", "paddy", "rye", "teff", "grain"]):
+        return "cereals"
+    if any(k in c for k in ["pea", "bean", "gram", "lentil", "pulse", "chickpea", "cowpea", "mung", "urad", "clover", "alfalfa"]):
+        return "pulses"
+    if any(k in c for k in ["seed", "sunflower", "safflower", "sesame", "linseed", "castor", "niger", "rapeseed", "canola", "mustard", "peanut"]):
+        return "oilseeds"
+    if any(k in c for k in ["apple", "banana", "grape", "mango", "orange", "pear", "peach", "plum", "apricot", "cherry", "kiwi", "avocado", "lemon", "lime", "berry", "melon", "papaya", "pomegranate", "guava", "citrus", "pineapple", "fig", "amla", "fruit"]):
+        return "fruit crops"
+    if any(k in c for k in ["pepper", "chilli", "onion", "garlic", "turmeric", "ginger", "cardamom", "cumin", "fennel", "fenugreek", "clove", "cinnamon", "nutmeg", "saffron", "vanilla", "spice"]):
+        return "spices"
+    if any(k in c for k in ["tea", "coffee", "rubber", "coconut", "areca", "cashew", "tobacco", "jute", "sugarcane", "palm", "bamboo"]):
+        return "plantation crops"
+    if any(k in c for k in ["aloe", "ashwagandha", "neem", "stevia", "giloy", "brahmi", "shatavari", "basil", "herbal", "medicinal", "aromatic"]):
+        return "medicinal crops"
+    return None
+
+
 
 _crop_profiles = {}
 def load_crop_profiles():
@@ -551,29 +665,73 @@ def get_fertilizer_recommendation(
     elif "corn" in crop_key or "maize" in crop_key:
         crop_key = "maize"
 
+    use_category_fallback = False
+    category_resolved = None
+    
     if crop_key not in FERTILIZER_SCHEDULES:
-        # Stop generic fallback completely
-        print("[DEBUG]")
-        print(f"Crop={crop_name}")
-        print(f"Age={age_days}")
-        print(f"Stage={stage}")
-        print(f"Schedule Source=None")
-        print(f"Entries=0")
-        return {
-            "crop": crop_name,
-            "stage": stage,
-            "age": age_days,
-            "recommendation": "Crop-specific fertilizer schedule not available.",
-            "dosage": "N/A",
-            "reason": f"No fertilizer schedule is configured for {crop_name}.",
-            "warnings": ["Generic fallback disabled"],
-            "schedule": []
-        }
+        profiles = load_crop_profiles()
+        if crop_key in profiles:
+            category_resolved = profiles[crop_key].get("category", "").lower()
+        if not category_resolved:
+            category_resolved = guess_crop_category(crop_name)
+        
+        if category_resolved in CATEGORY_FERTILIZER_SCHEDULES:
+            use_category_fallback = True
+        else:
+            category_resolved = "cereals"
+            use_category_fallback = True
+
+    if use_category_fallback:
+        schedule_source = CATEGORY_FERTILIZER_SCHEDULES[category_resolved]
+        source_label = f"CATEGORY_FERTILIZER_SCHEDULES ({category_resolved.title()})"
+    else:
+        schedule_source = FERTILIZER_SCHEDULES[crop_key]
+        source_label = "FERTILIZER_SCHEDULES"
 
     # Retrieve stage entries
     stage_cap = stage.capitalize()
-    stage_entries = FERTILIZER_SCHEDULES[crop_key].get(stage_cap, [])
+    stage_entries = schedule_source.get(stage_cap, [])
     
+    # Check if we should fallback to Gemini
+    if not stage_entries and crop_key not in FERTILIZER_SCHEDULES:
+        from services.gemini_fallback import generate_fertilizer_advice
+        user_uid = "anonymous"
+        if farm_context and farm_context.get("ownerId"):
+            user_uid = farm_context["ownerId"]
+            
+        print(f"[Fertilizer Fallback] Crop '{crop_name}' not in schedules, stage '{stage}' is empty. Triggering Gemini fallback.")
+        gemini_res = generate_fertilizer_advice(
+            crop=crop_name,
+            age=age_days,
+            stage=stage,
+            soil=soil_ctx.get("soil_type", "Alluvial"),
+            weather=weather_ctx.get("weather_condition", "Clear"),
+            trigger_reason="no_schedule_found",
+            user_uid=user_uid
+        )
+        if gemini_res:
+            schedule_item = {
+                "fertilizer": gemini_res.get("recommendation", "NPK"),
+                "dosage": gemini_res.get("dosage", "N/A"),
+                "stage": stage
+            }
+            warnings = []
+            rain_fc = weather_ctx.get("rainfall_forecast", "").lower()
+            if "heavy" in rain_fc or "rain" in rain_fc:
+                warnings.append("Heavy rainfall expected within 24 hours. Delay fertilizer application to avoid nutrient loss.")
+                
+            return {
+                "crop": crop_name,
+                "stage": stage,
+                "age": age_days,
+                "recommendation": gemini_res.get("recommendation", "N/A"),
+                "dosage": gemini_res.get("dosage", "N/A"),
+                "reason": f"{gemini_res.get('recommendation')} is recommended. Timing: {gemini_res.get('timing')}. Organic Alternative: {gemini_res.get('organicAlternative')}. Precautions: {gemini_res.get('precautions')}",
+                "warnings": warnings,
+                "schedule": [schedule_item],
+                "source": "GEMINI_FALLBACK"
+            }
+
     if stage_entries:
         base_recommendation = " | ".join(f"Apply {e['fertilizer']}" for e in stage_entries)
         dosage = " | ".join(e['dosage'] for e in stage_entries)
@@ -625,7 +783,7 @@ def get_fertilizer_recommendation(
                 
     # Flatten the complete fertilizer schedule across all stages
     schedule = []
-    for stg, entries in FERTILIZER_SCHEDULES[crop_key].items():
+    for stg, entries in schedule_source.items():
         for entry in entries:
             entry_copy = entry.copy()
             entry_copy["stage"] = stg
@@ -636,7 +794,7 @@ def get_fertilizer_recommendation(
     print(f"Crop={crop_name}")
     print(f"Age={age_days}")
     print(f"Stage={stage}")
-    print(f"Schedule Source=FERTILIZER_SCHEDULES")
+    print(f"Schedule Source={source_label}")
     print(f"Entries={len(schedule)}")
 
     # 6. Format final payload
@@ -648,5 +806,6 @@ def get_fertilizer_recommendation(
         "dosage": dosage,
         "reason": reason,
         "warnings": warnings,
-        "schedule": schedule
+        "schedule": schedule,
+        "source": "LOCAL_ENGINE"
     }

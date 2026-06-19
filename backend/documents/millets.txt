@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Millets requires balanced nutrient applications. Recommended dose is 20:10:10 kg of N:P:K per acre.
+Category: Cereals
 - Apply half Nitrogen and full Phosphorus and Potassium as basal.
 - Apply remaining Nitrogen at active tillering (30 days after sowing).
 - Apply organic compost or vermicompost to enrich marginal soils.

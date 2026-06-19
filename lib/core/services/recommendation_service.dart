@@ -4,6 +4,9 @@ import '../../features/crop_recommendation/data/recommendation_data.dart';
 import '../../features/weather/data/models/weather_model.dart';
 import '../models/farm_model.dart';
 import 'gemini_service.dart';
+import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
+import '../config/api_config.dart';
 import '../../features/market/data/services/market_service.dart';
 import '../../features/market/data/models/market_price.dart';
 
@@ -116,6 +119,7 @@ class RecommendationService {
             matchReason: '🤖 AI: ${item['matchReason']?.toString() ?? 'Highly suitable based on live data.'}',
             suitabilityScore: (item['suitabilityScore'] is num) ? (item['suitabilityScore'] as num).toDouble() : 0.8,
             isLocallyCultivated: uniqueMarketCrops.any((c) => c.toLowerCase().contains(cropName.toLowerCase())),
+            source: item['source'],
           )
         );
       }
@@ -134,12 +138,59 @@ class RecommendationService {
     return recommendations;
   }
 
-  static CustomCropAnalysisModel analyzeCustomCrop({
+  static Future<CustomCropAnalysisModel> analyzeCustomCrop({
     required String cropName,
     required FarmModel farm,
     required WeatherModel weather,
     String languageCode = 'en',
-  }) {
+  }) async {
+    try {
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      final headers = {
+        'Content-Type': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      };
+      
+      final response = await http.post(
+        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/crops/regional-suitability'),
+        headers: headers,
+        body: jsonEncode({
+          'farmId': farm.id,
+          'cropName': cropName,
+        }),
+      ).timeout(const Duration(seconds: 15));
+      
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        
+        final List<String> warnings = List<String>.from(data['reasons'] ?? [])
+            .where((r) => r.contains('Warning') || r.contains('Block') || r.contains('Suboptimal') || r.contains('Hard Block'))
+            .toList();
+            
+        final List<String> positives = List<String>.from(data['reasons'] ?? [])
+            .where((r) => r.contains('Match'))
+            .toList();
+            
+        if (warnings.isEmpty && positives.isEmpty) {
+          positives.add('✅ Crop evaluated successfully.');
+        }
+        
+        final double score = (data['score'] is num) ? (data['score'] as num).toDouble() : 75.0;
+        final bool suitable = data['suitable'] ?? true;
+        final String verdict = suitable ? (score >= 70 ? 'Highly Recommended' : 'Feasible with Extra Care') : 'Not Recommended (High Risk)';
+        
+        return CustomCropAnalysisModel(
+          cropName: cropName,
+          score: score,
+          warnings: warnings,
+          positives: positives,
+          verdict: verdict,
+        );
+      }
+    } catch (e) {
+      if (kDebugMode) print('Regional suitability request failed: $e. Falling back to local scoring.');
+    }
+
     final List<RecommendationModel> allCrops = _getExtendedCropList();
     final String season = weather.season;
     final double temp = weather.temperature;

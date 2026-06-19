@@ -56,6 +56,34 @@ class WeatherService {
     try {
       debugPrint('[Weather] API request started');
       final apiKey = await _getApiKey();
+      if (apiKey == 'YOUR_OPENWEATHER_API_KEY' || apiKey.trim().isEmpty) {
+        debugPrint('[Weather] Placeholder API Key detected. Returning mock weather data.');
+        String cityName = farmName ?? 'Chembarambakam, Tiruvallur';
+        if (farmName == null || farmName.isEmpty) {
+          try {
+            final url = Uri.parse('https://nominatim.openstreetmap.org/reverse?format=json&lat=$lat&lon=$lon&zoom=18&addressdetails=1');
+            final response = await http.get(url, headers: {
+              'User-Agent': 'KisanMitraApp/1.0',
+            }).timeout(const Duration(seconds: 3));
+            if (response.statusCode == 200) {
+              final data = json.decode(response.body);
+              final address = data['address'] as Map<String, dynamic>?;
+              if (address != null) {
+                final village = address['village'] ?? address['suburb'] ?? address['town'] ?? address['city'] ?? '';
+                final district = address['state_district'] ?? address['county'] ?? address['city_district'] ?? '';
+                if (village.isNotEmpty && district.isNotEmpty) {
+                  cityName = '$village, $district';
+                } else if (district.isNotEmpty) {
+                  cityName = district;
+                }
+              }
+            }
+          } catch (e) {
+            debugPrint('[Weather] Reverse geocoding failed: $e');
+          }
+        }
+        return WeatherModel.mock(cityName: cityName);
+      }
       final urlWeather = '$baseUrl/weather?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=$lang';
       final urlForecast = '$baseUrl/forecast?lat=$lat&lon=$lon&appid=$apiKey&units=metric&lang=$lang';
       

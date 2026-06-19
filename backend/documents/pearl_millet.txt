@@ -1,29 +1,30 @@
 === PEARL MILLET CROP GUIDE ===
 
 1. Fertilizers:
-Pearl Millet requires balanced nutrient applications. Recommended dose is 20:10:10 kg of N:P:K per acre.
+Pearl Millet requires balanced nutrient applications. Recommended dose is 40:20:20 kg of N:P:K per acre.
+Category: Cereals
 - Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.
 - Apply remaining Nitrogen in splits during the active growth and tillering phases.
 - Supplement with organic compost or farmyard manure (FYM) to improve soil structure.
 
 2. Irrigation:
-Pearl Millet irrigation and water requirements: Low water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.
+Pearl Millet irrigation and water requirements: Moderate water requirement. Irrigate regularly during critical stages like tillering, flowering and grain filling.
 
 3. Pest Management:
-Pearl Millet pest management: Common pests are Shoot Fly, White Grubs. Manage by installing pheromone traps and spraying organic neem oil formulations.
+Pearl Millet pest management: Common pests affecting Pearl Millet are Stem Borer, Shoot Fly, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.
 
 4. Growth Stages:
 Pearl Millet has the following stage cycle durations:
-- Vegetative Stage: Sowing up to 30 days.
-- Flowering Stage: From 30 days to 60 days.
-- Fruiting Stage: From 60 days to 90 days.
-- Harvesting Stage: From 90 days onwards.
+- Vegetative Stage: Sowing up to 35 days.
+- Flowering Stage: From 35 days to 75 days.
+- Fruiting Stage: From 75 days to 105 days.
+- Harvesting Stage: From 105 days onwards.
 
 5. Harvesting:
-Pearl Millet harvesting and post-harvest practices: Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging.
+Pearl Millet harvesting and post-harvest practices: For Pearl Millet, Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains below 12% moisture for storage.
 
 6. Diseases:
-Pearl Millet diseases: Common diseases affecting Pearl Millet are Downy Mildew, Ergot. Spray systemic fungicides or remove infected parts to prevent spread.
+Pearl Millet diseases: Common diseases affecting Pearl Millet are Rust, Blast, Smut. Spray systemic fungicides or remove infected parts to prevent spread.
 
 7. Soil Requirements:
-Pearl Millet soil requirements: Requires well-drained sandy loam soil. Optimal soil pH is 6.0 to 7.5.
+Pearl Millet soil requirements: Requires well-drained alluvial, loamy or clayey loam soil. Optimal soil pH is 6.0 to 7.5.

@@ -1,29 +1,30 @@
 === ALMOND CROP GUIDE ===
 
 1. Fertilizers:
-Almond requires balanced nutrient applications. Recommended dose is 50:40:60 kg of N:P:K per acre.
-- Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.
-- Apply remaining Nitrogen in splits during the active growth and tillering phases.
-- Supplement with organic compost or farmyard manure (FYM) to improve soil structure.
+Almond requires balanced nutrient applications. Recommended dose is 60:40:60 kg of N:P:K per acre (or per tree equivalent).
+Category: Fruit Crops
+- Apply organic compost and full Phosphorus/Potassium as basal post-harvest pruning.
+- Apply Nitrogen in splits: pre-flowering and post-fruit set.
+- Foliar spray Zinc and Boron before flowering to improve fruit set and reduce cracking.
 
 2. Irrigation:
-Almond irrigation and water requirements: Moderate water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.
+Almond irrigation and water requirements: Moderate to high water requirement. Regular drip irrigation is highly recommended. Avoid water stress during flowering.
 
 3. Pest Management:
-Almond pest management: Common pests are Spider Mites, Borers. Manage by installing pheromone traps and spraying organic neem oil formulations.
+Almond pest management: Common pests affecting Almond are Fruit Fly, Mealybugs, Thrips. Use yellow sticky traps, pheromone traps, and spray spinosad or neem oil.
 
 4. Growth Stages:
 Almond has the following stage cycle durations:
-- Vegetative Stage: Sowing up to 50 days.
-- Flowering Stage: From 50 days to 100 days.
-- Fruiting Stage: From 100 days to 150 days.
-- Harvesting Stage: From 150 days onwards.
+- Vegetative Stage: Sowing up to 60 days.
+- Flowering Stage: From 60 days to 120 days.
+- Fruiting Stage: From 120 days to 210 days.
+- Harvesting Stage: From 210 days onwards.
 
 5. Harvesting:
-Almond harvesting and post-harvest practices: Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging.
+Almond harvesting and post-harvest practices: For Almond, Harvest when fruits achieve mature size and color break stage. Handle gently to prevent bruising.
 
 6. Diseases:
-Almond diseases: Common diseases affecting Almond are Leaf Spot. Spray systemic fungicides or remove infected parts to prevent spread.
+Almond diseases: Common diseases affecting Almond are Anthracnose, Powdery Mildew, Canker. Prune affected branches and spray copper-based fungicides.
 
 7. Soil Requirements:
-Almond soil requirements: Requires well-drained deep loamy soil. Optimal soil pH is 6.0 to 7.5.
+Almond soil requirements: Requires deep, well-drained loamy or clay loam soil rich in organic humus. Optimal pH is 5.5 to 7.5.

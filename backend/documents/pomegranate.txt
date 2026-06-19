@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Pomegranate requires balanced nutrient applications. Recommended dose is 50:25:25 kg of N:P:K per acre.
+Category: Fruit Crops
 - Apply Nitrogen and Potassium in split doses during bahar treatment (flowering induction).
 - Apply full Phosphorus dose basal during pruning.
 - Apply micronutrients (Zinc and Boron) to reduce fruit splitting.

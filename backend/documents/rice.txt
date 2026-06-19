@@ -1,16 +1,17 @@
 === RICE CROP GUIDE ===
 
 1. Fertilizers:
-Rice requires balanced nutrient applications. Recommended dose is 48:24:24 kg of N:P:K per acre.
+Rice requires balanced nutrient applications. Recommended dose is 40:20:20 kg of N:P:K per acre.
+Category: Cereals
 - Apply all Phosphorus and Potassium and half Nitrogen as basal dose during field preparation.
 - Apply remaining Nitrogen in splits during the active growth and tillering phases.
 - Supplement with organic compost or farmyard manure (FYM) to improve soil structure.
 
 2. Irrigation:
-Rice irrigation and water requirements: High water requirement. Irrigate regularly during critical stages like flowering and pod development, avoiding waterlogging.
+Rice irrigation and water requirements: Moderate water requirement. Irrigate regularly during critical stages like tillering, flowering and grain filling.
 
 3. Pest Management:
-Rice pest management: Common pests are Stem Borer, Leaf Folder. Manage by installing pheromone traps and spraying organic neem oil formulations.
+Rice pest management: Common pests affecting Rice are Stem Borer, Shoot Fly, Aphids. Manage by installing pheromone traps and spraying organic neem oil formulations.
 
 4. Growth Stages:
 Rice has the following stage cycle durations:
@@ -20,10 +21,10 @@ Rice has the following stage cycle durations:
 - Harvesting Stage: From 105 days onwards.
 
 5. Harvesting:
-Rice harvesting and post-harvest practices: Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains or fruits to safe moisture levels (below 12%) before packaging.
+Rice harvesting and post-harvest practices: For Rice, Harvest when leaves dry and stalks turn brown. Thresh, clean, and dry grains below 12% moisture for storage.
 
 6. Diseases:
-Rice diseases: Common diseases affecting Rice are Blast, Bacterial Leaf Blight. Spray systemic fungicides or remove infected parts to prevent spread.
+Rice diseases: Common diseases affecting Rice are Rust, Blast, Smut. Spray systemic fungicides or remove infected parts to prevent spread.
 
 7. Soil Requirements:
-Rice soil requirements: Requires well-drained alluvial or clayey soil. Optimal soil pH is 6.0 to 7.5.
+Rice soil requirements: Requires well-drained alluvial, loamy or clayey loam soil. Optimal soil pH is 6.0 to 7.5.

@@ -10,6 +10,7 @@ class RecommendationModel {
   final String matchReason;
   final double suitabilityScore; // 0.0 to 1.0
   final bool isLocallyCultivated;
+  final String? source;
 
   RecommendationModel({
     required this.cropName,
@@ -23,6 +24,7 @@ class RecommendationModel {
     required this.matchReason,
     this.suitabilityScore = 0.0,
     this.isLocallyCultivated = false,
+    this.source,
   });
 }
 

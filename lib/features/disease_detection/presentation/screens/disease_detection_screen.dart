@@ -120,6 +120,69 @@ class _DiseaseDetectionScreenState extends State<DiseaseDetectionScreen> {
     );
   }
 
+  void _showInvalidImageDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: Row(
+          children: [
+            const Icon(Icons.cancel_outlined, color: AppColors.error, size: 28),
+            const SizedBox(width: 12),
+            Text(
+              'Invalid Image',
+              style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'No crop leaf detected in the uploaded image.',
+              style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Please upload:\n• A close-up leaf photo\n• Good lighting\n• Single crop focus',
+              style: GoogleFonts.poppins(fontSize: 14, height: 1.5),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _pickImage(ImageSource.gallery);
+            },
+            child: Text(
+              'Choose Another Image',
+              style: GoogleFonts.poppins(color: Colors.grey[700], fontWeight: FontWeight.w600),
+            ),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.pop(context);
+              _pickImage(ImageSource.camera);
+            },
+            icon: const Icon(Icons.camera_alt_rounded, size: 18),
+            label: Text(
+              'Retake Photo',
+              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _processImage() async {
     if (_selectedImage == null || _isProcessing) return;
 
@@ -145,7 +208,9 @@ class _DiseaseDetectionScreenState extends State<DiseaseDetectionScreen> {
           _isProcessing = false;
         });
         final errStr = e.toString();
-        if (errStr.contains('Blurry') || errStr.contains('Low-light') || errStr.contains('Unable to identify')) {
+        if (errStr.contains('IMAGE_NOT_A_PLANT')) {
+          _showInvalidImageDialog();
+        } else if (errStr.contains('Blurry') || errStr.contains('Low-light') || errStr.contains('Unable to identify')) {
           final cleanMsg = errStr.replaceFirst('Exception: ', '');
           _showRetakeDialog(cleanMsg);
         } else {

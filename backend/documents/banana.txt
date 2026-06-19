@@ -2,6 +2,7 @@
 
 1. Fertilizers:
 Banana requires balanced nutrient applications. Recommended dose is 110:35:140 kg of N:P:K per acre.
+Category: Fruit Crops
 - Apply full Phosphorus dose as basal fertilizer during planting.
 - Apply Nitrogen and Potassium in 4 equal splits at 2, 4, 6, and 8 months after planting.
 - Apply Zinc Sulphate (0.5%) and Ferrous Sulphate (0.2%) as foliar sprays to boost plant vigour.

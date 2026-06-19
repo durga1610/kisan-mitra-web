@@ -15,6 +15,8 @@ class MarketProvider extends ChangeNotifier {
   
   bool _isLoading = false;
   bool _isServerDown = false;
+  bool _isFallbackActive = false;
+  DateTime? _lastUpdated;
   String _searchQuery = '';
   String _selectedCategory = 'All';
   MarketSortBy _sortBy = MarketSortBy.priceHigh;
@@ -28,6 +30,8 @@ class MarketProvider extends ChangeNotifier {
   List<MarketPrice> get otherPrices => _otherPrices;
   bool get isLoading => _isLoading;
   bool get isServerDown => _isServerDown;
+  bool get isFallbackActive => _isFallbackActive;
+  DateTime? get lastUpdated => _lastUpdated;
   String get searchQuery => _searchQuery;
   String get selectedCategory => _selectedCategory;
   MarketSortBy get sortBy => _sortBy;
@@ -117,12 +121,37 @@ class MarketProvider extends ChangeNotifier {
       // Prevent race condition: only apply if this is the most recent fetch
       if (currentFetchId == _activeFetchId) {
         if (newPrices == null) {
-          _isServerDown = true;
-          _allPrices = [];
-          _myCropPrices = [];
-          _otherPrices = [];
+          // Attempt to load from cache
+          if (_allPrices.isEmpty) {
+            try {
+              final cached = await _service.getMarketPrices(preferredCrops: _plantedCrops, preferredState: _farmState, forceRefresh: false);
+              if (cached != null && cached.isNotEmpty) {
+                _isServerDown = false;
+                _isFallbackActive = true;
+                _lastUpdated = _service.lastUpdated ?? DateTime.now();
+                _allPrices = cached;
+                _applyFilters();
+                return;
+              }
+            } catch (e) {
+              debugPrint('Error loading cached prices on API failure: $e');
+            }
+            _isServerDown = true;
+            _isFallbackActive = false;
+            _allPrices = [];
+            _myCropPrices = [];
+            _otherPrices = [];
+          } else {
+            // Keep existing prices but mark fallback/offline banner active
+            _isServerDown = false;
+            _isFallbackActive = true;
+            _lastUpdated = _service.lastUpdated ?? DateTime.now();
+            _applyFilters();
+          }
         } else {
           _isServerDown = false;
+          _isFallbackActive = _service.isFallbackActive;
+          _lastUpdated = _service.lastUpdated;
           _allPrices = newPrices;
           _applyFilters();
         }
@@ -130,10 +159,18 @@ class MarketProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Error fetching market prices: $e');
       if (currentFetchId == _activeFetchId) {
-        _isServerDown = true;
-        _allPrices = [];
-        _myCropPrices = [];
-        _otherPrices = [];
+        if (_allPrices.isEmpty) {
+          _isServerDown = true;
+          _isFallbackActive = false;
+          _allPrices = [];
+          _myCropPrices = [];
+          _otherPrices = [];
+        } else {
+          _isServerDown = false;
+          _isFallbackActive = true;
+          _lastUpdated = _service.lastUpdated ?? DateTime.now();
+          _applyFilters();
+        }
       }
     } finally {
       if (currentFetchId == _activeFetchId) {
