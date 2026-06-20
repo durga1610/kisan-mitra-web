@@ -76,56 +76,73 @@ class MarketService {
 
   bool _isFetchingBackground = false;
 
+  Future<List<MarketPrice>?> _getLocalCache() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final cachedData = prefs.getString('market_prices_cache');
+    
+      if (cachedData != null && cachedData.isNotEmpty) {
+        if (kDebugMode) {
+          print('Loaded prices INSTANTLY from local SharedPreferences cache.');
+        }
+        isFallbackActive = prefs.getString('market_prices_cache_is_fallback') == 'true';
+        final lastUpdatedStr = prefs.getString('market_prices_cache_last_updated');
+        if (lastUpdatedStr != null && lastUpdatedStr.isNotEmpty) {
+          lastUpdated = DateTime.tryParse(lastUpdatedStr);
+        } else {
+          lastUpdated = DateTime.now();
+        }
+        final List<dynamic> decodedList = jsonDecode(cachedData);
+        final List<MarketPrice> cachedPrices = decodedList.map((data) => MarketPrice.fromJson(data, data['id'] ?? UniqueKey().toString())).toList();
+        return _processBestPrices(cachedPrices);
+      }
+    } catch (e) {
+      if (kDebugMode) print('Local cache read error: $e');
+    }
+    return null;
+  }
+
   // Fetch from Live API or Local Cache using CACHE-FIRST strategy
   Future<List<MarketPrice>?> getMarketPrices({List<String>? preferredCrops, String? preferredState, bool forceRefresh = false}) async {
     try {
       // 1. FAST PATH: Attempt to load from local SharedPreferences cache FIRST for instant response
       if (!forceRefresh) {
-        try {
-          final prefs = await SharedPreferences.getInstance();
-          final cachedData = prefs.getString('market_prices_cache');
-        
-          if (cachedData != null && cachedData.isNotEmpty) {
-            if (kDebugMode) {
-              print('Loaded prices INSTANTLY from local SharedPreferences cache.');
-            }
-            isFallbackActive = prefs.getString('market_prices_cache_is_fallback') == 'true';
-            final lastUpdatedStr = prefs.getString('market_prices_cache_last_updated');
-            if (lastUpdatedStr != null && lastUpdatedStr.isNotEmpty) {
-              lastUpdated = DateTime.tryParse(lastUpdatedStr);
-            } else {
-              lastUpdated = DateTime.now();
-            }
-            final List<dynamic> decodedList = jsonDecode(cachedData);
-            final List<MarketPrice> cachedPrices = decodedList.map((data) => MarketPrice.fromJson(data, data['id'] ?? UniqueKey().toString())).toList();
-            
-            // Trigger a background refresh so data stays fresh for the next load
-            if (!_isFetchingBackground) {
-              _isFetchingBackground = true;
-              _fetchLiveApiAndUpdateCache(preferredCrops, preferredState).then((_) {
-                 _isFetchingBackground = false;
-              }).catchError((e) {
-                 _isFetchingBackground = false;
-                 if (kDebugMode) print('Background API fetch failed: $e');
-              });
-            }
-            
-            return _processBestPrices(cachedPrices);
+        final cached = await _getLocalCache();
+        if (cached != null) {
+          // Trigger a background refresh so data stays fresh for the next load
+          if (!_isFetchingBackground) {
+            _isFetchingBackground = true;
+            _fetchLiveApiAndUpdateCache(preferredCrops, preferredState).then((_) {
+               _isFetchingBackground = false;
+            }).catchError((e) {
+               _isFetchingBackground = false;
+               if (kDebugMode) print('Background API fetch failed: $e');
+            });
           }
-        } catch (cacheError) {
-          if (kDebugMode) print('Local cache fetch failed: $cacheError. Falling back to Live API.');
+          return cached;
         }
       }
 
       // 2. SLOW PATH: Cache is empty or failed, we must block and wait for the Live API
       if (kDebugMode) print('Cache empty or failed, performing blocking Live API fetch...');
-      return await _fetchLiveApiAndUpdateCache(preferredCrops, preferredState);
-
+      final livePrices = await _fetchLiveApiAndUpdateCache(preferredCrops, preferredState);
+      if (livePrices != null) {
+        return livePrices;
+      }
+      
+      // If live API failed, fall back to cached data immediately
+      final cached = await _getLocalCache();
+      if (cached != null) {
+        debugPrint('[MarketService] Live fetch failed, fell back to local cache immediately.');
+        return cached;
+      }
+      return null;
     } catch (e) {
       if (kDebugMode) {
         print('Error fetching market prices: $e');
       }
-      return null;
+      final cached = await _getLocalCache();
+      return cached;
     }
   }
 
@@ -157,7 +174,7 @@ class MarketService {
         print('[MarketService] Request URL: $uri');
       }
 
-      final response = await http.get(uri, headers: headers).timeout(const Duration(seconds: 10));
+      final response = await http.get(uri, headers: headers).timeout(const Duration(seconds: 45));
 
       if (kDebugMode) {
         print('[MarketService] Response status: ${response.statusCode}');
@@ -197,10 +214,11 @@ class MarketService {
             updatedTime: DateTime.tryParse(record['arrival_date']?.toString() ?? '') ?? DateTime.now(),
             category: _inferCategory(record['commodity']?.toString() ?? ''),
             cropIcon: _inferIcon(record['commodity']?.toString() ?? ''),
-            aiAdvice: 'Market trends are currently stable based on API data.',
+            aiAdvice: record['ai_advice']?.toString() ?? 'Market trends are currently stable based on API data.',
             bestTimeToSell: 'Consult Local APMC',
             weatherImpact: 'Neutral',
             historicalPrices: _generateHistoricalPrices(modalPrice, 7),
+            isAiEstimate: record['is_ai_estimate'] ?? false,
           );
         }).toList();
 
@@ -221,9 +239,8 @@ class MarketService {
         return _processBestPrices(fetchedPrices);
       } else {
         if (kDebugMode) {
-          print('[MarketService] Backend proxy returned error status: ${response.statusCode}. Body: ${response.body.substring(0, response.body.length.clamp(0, 300))}');
+          print('[MarketService] Backend proxy returned error status: ${response.statusCode}.');
         }
-        // 401 = not authenticated, 403 = forbidden, 404 = route missing, 5xx = server error
         return null;
       }
     } catch (e) {

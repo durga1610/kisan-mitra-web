@@ -158,7 +158,7 @@ class RecommendationService {
           'farmId': farm.id,
           'cropName': cropName,
         }),
-      ).timeout(const Duration(seconds: 15));
+      ).timeout(const Duration(seconds: 45));
       
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(response.body);

@@ -35,6 +35,12 @@ _intent_classes = []
 _crop_recommendation_model = None
 _crop_preprocessors = None
 
+# Query Caching and Thread Safety (response caching for repeated questions)
+import threading
+CHAT_RESPONSE_CACHE = {}
+CHAT_CACHE_LOCK = threading.Lock()
+WEATHER_CACHE = {}
+
 class IntentClassifier(nn.Module):
     def __init__(self, input_dim=384, num_classes=7):
         super().__init__()
@@ -215,12 +221,13 @@ for label, sentences in INTENT_EXAMPLES.items():
         _intent_labels.append(label)
 
 
-def init_resources(model_name: str = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"):
+def init_resources(model_name: str = "TinyLlama/TinyLlama-1.1B-Chat-v1.0", timing: Optional[dict] = None):
     """
     Initializes sentence-transformers, FAISS/NumPy index, and the generator LLM.
     """
     global _embedding_model, _chunks, _embeddings, _faiss_index, _llm_pipeline, _intent_embeddings, _intent_classifier, _intent_classes, _domain_classifier
     
+    load_start = time.perf_counter()
     # 1. Load Sentence-Transformer for embedding
     if _embedding_model is None:
         from sentence_transformers import SentenceTransformer
@@ -346,6 +353,9 @@ def init_resources(model_name: str = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"):
             logger.info("[AdvisoryEngine] Loaded Crop Recommendation ML model and preprocessors successfully.")
         except Exception as e:
             logger.warning("[AdvisoryEngine] Failed to load Crop Recommendation ML model: %s", e)
+            
+    if timing is not None:
+        timing["model_loading_time"] += time.perf_counter() - load_start
 
 
 
@@ -724,7 +734,7 @@ FERTILIZER_PROFILES = {
     }
 }
 
-def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str, Any]] = None) -> str:
+def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str, Any]] = None, timing: Optional[dict] = None) -> str:
     """
     Personalized Crop Recommendation engine querying current farm settings and automatic season rules.
     Refactored to use the RandomForest ML model.
@@ -737,7 +747,7 @@ def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str
     features = extract_prediction_features(farm_context, None)
     
     # Run ML recommendations
-    recs = predict_crop_recommendations(features)
+    recs = predict_crop_recommendations(features, timing)
     
     # Check if we should use Gemini recommendation fallback (ML returned 0 recs, or all scores are < 50)
     has_good_recs = recs and any(r.get("score", 0) >= 50 for r in recs)
@@ -769,6 +779,7 @@ def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str
             "season": features.get("season", "Kharif")
         }
         
+        gemini_start = time.perf_counter()
         gemini_recs = generate_crop_recommendations(
             state=farm.get("state", "Punjab"),
             district=farm.get("district", "Ludhiana"),
@@ -779,6 +790,8 @@ def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str
             market_data=market_data,
             user_uid=user_uid
         )
+        if timing is not None:
+            timing["gemini_time"] += time.perf_counter() - gemini_start
         if gemini_recs:
             recs = [{"crop": item["crop_name"], "score": int(item["suitability_score"])} for item in gemini_recs]
             
@@ -969,6 +982,14 @@ def get_category_advisory(intent: str, category: Optional[str], crop_name: str) 
         return f"**{crop_title} (Category: {cat.title()}) Pest Management Guidelines**\n- {adv_dict['pest']}"
     elif intent == "CROP_SOIL_REQUIREMENT_QUERY":
         return f"**{crop_title} (Category: {cat.title()}) Soil Requirements**\n- {adv_dict['soil']}"
+    elif intent == "GENERAL_FARMING_QUERY":
+        return (
+            f"**{crop_title} Cultivation & Care (Category: {cat.title()})**\n"
+            f"- **Soil:** {adv_dict['soil']}\n"
+            f"- **Irrigation:** {adv_dict['irrigation']}\n"
+            f"- **Pest Control:** {adv_dict['pest']}\n"
+            f"- **Disease Control:** {adv_dict['disease']}"
+        )
         
     return None
 
@@ -1437,7 +1458,7 @@ def parse_fallback_response(context: str, query: str) -> str:
     """
     paragraphs = [p.strip() for p in context.split("\n\n") if p.strip()]
     if not paragraphs:
-        return "No matching agricultural guidelines found in knowledge base."
+        return "Ensure balanced crop management by checking weather and soil conditions daily. Avoid overwatering and ensure proper drainage."
     
     return paragraphs[0]
 
@@ -1513,10 +1534,10 @@ def check_farm_data_query(q_lower: str) -> bool:
         
     return False
 
-def is_farming_query(query: str) -> tuple:
+def is_farming_query(query: str, timing: Optional[dict] = None) -> tuple:
     global _embedding_model, _intent_embeddings, _intent_labels
     if _embedding_model is None:
-        init_resources()
+        init_resources(timing=timing)
         
     query_clean = query.strip()
     if not query_clean:
@@ -1548,7 +1569,7 @@ def is_farming_query(query: str) -> tuple:
             return False, score
 
 
-def _query_rag_inner(query: str, language: str = "en", session_id: str = "default", farm_context: Optional[Dict[str, Any]] = None, confidence_container: list = None, weather_context: Optional[Dict[str, Any]] = None, source_container: list = None) -> str:
+def _query_rag_inner(query: str, language: str = "en", session_id: str = "default", farm_context: Optional[Dict[str, Any]] = None, confidence_container: list = None, weather_context: Optional[Dict[str, Any]] = None, source_container: list = None, timing: Optional[dict] = None) -> str:
     """
     Intelligent context-aware routing: Classification -> Selected Handler -> Output.
     """
@@ -1559,7 +1580,7 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
     global _llm_pipeline, _embedding_model, _intent_embeddings, _domain_classifier
     
     if _embedding_model is None:
-        init_resources()
+        init_resources(timing=timing)
         
     query_clean = query.strip()
     q_lower = query_clean.lower()
@@ -1623,7 +1644,7 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
                 logger.debug(f"[DOMAIN CHECK] Query: '{query_clean}' | Farming Prob: {prob_farming:.4f} | Status: Accepted")
         else:
             # Fallback to vector similarity domain check
-            is_allowed, score = is_farming_query(query_clean)
+            is_allowed, score = is_farming_query(query_clean, timing=timing)
             if not is_allowed:
                 logger.debug(f"[DOMAIN CHECK] Query: '{query_clean}' | Score: {score:.4f} | Status: Rejected (Fallback)")
                 rejection_msg = (
@@ -1760,7 +1781,11 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
         handler_name = "Weather Handler"
         data_source = "Simulated Weather Service"
         log_advisory_route(intent, handler_name, data_source, farm_context)
-        return query_weather_service(farm_id, language, farm_context, weather_context)
+        weather_start = time.perf_counter()
+        res = query_weather_service(farm_id, language, farm_context, weather_context)
+        if timing is not None:
+            timing["weather_lookup_time"] += time.perf_counter() - weather_start
+        return res
         
     elif intent == "FARM_DATA_QUERY":
         handler_name = "Farm Data Query Resolver"
@@ -2210,6 +2235,7 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
             
         logger.info(f"[Advisory RAG Fallback] Triggering Gemini fallback due to {trigger_reason} (max_similarity={raw_max:.2f}, context_len={context_len})")
         
+        gemini_start = time.perf_counter()
         gemini_res = generate_advisory(
             message=query_clean,
             farm_context=farm_context,
@@ -2217,6 +2243,8 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
             trigger_reason=trigger_reason,
             user_uid=user_uid
         )
+        if timing is not None:
+            timing["gemini_time"] += time.perf_counter() - gemini_start
         if gemini_res and gemini_res.get("text"):
             if source_container is not None:
                 source_container[0] = "GEMINI_FALLBACK"
@@ -2468,7 +2496,7 @@ def extract_prediction_features(farm_ctx: Optional[Any], weather_ctx: Optional[A
         "previous_crop": previous_crop
     }
 
-def predict_crop_recommendations(features: dict) -> list:
+def predict_crop_recommendations(features: dict, timing: Optional[dict] = None) -> list:
     global _crop_recommendation_model, _crop_preprocessors
     
     if _crop_recommendation_model is None or _crop_preprocessors is None:
@@ -2476,8 +2504,11 @@ def predict_crop_recommendations(features: dict) -> list:
         preprocessors_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "crop_recommendation_preprocessors.pkl")
         if os.path.exists(model_path) and os.path.exists(preprocessors_path):
             try:
+                load_start = time.perf_counter()
                 _crop_recommendation_model = safe_pickle_load(model_path)  # F-05
                 _crop_preprocessors = safe_pickle_load(preprocessors_path)  # F-05
+                if timing is not None:
+                    timing["model_loading_time"] += time.perf_counter() - load_start
             except Exception as e:
                 logger.warning(f"[Prediction] Error loading model dynamically: {e}")
                 
@@ -2516,13 +2547,490 @@ def predict_crop_recommendations(features: dict) -> list:
     return recommendations
 
 
-def query_rag(query: str, language: str = "en", session_id: str = "default", farm_context: Optional[Dict[str, Any]] = None, return_confidence: bool = False, weather_context: Optional[Dict[str, Any]] = None) -> Any:
+def parse_sections_fast(file_path: str) -> Dict[str, str]:
+    sections = {}
+    current_section = None
+    section_lines = []
+    
+    with open(file_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line_str = line.strip()
+            import re
+            m = re.match(r"^(\d+)\.\s+([^:]+):", line_str)
+            if m:
+                if current_section and section_lines:
+                    sections[current_section] = "\n".join(section_lines).strip()
+                current_section = m.group(2).strip().lower()
+                section_lines = []
+            else:
+                if current_section is not None:
+                    section_lines.append(line.rstrip())
+                    
+        if current_section and section_lines:
+            sections[current_section] = "\n".join(section_lines).strip()
+            
+    return sections
+
+
+def resolve_query_fast(
+    query_clean: str,
+    language: str,
+    session_id: str,
+    farm_context: Optional[Dict[str, Any]],
+    weather_context: Optional[Dict[str, Any]],
+    timing: Dict[str, float]
+) -> Optional[tuple]:
+    """
+    Attempts to resolve the query without loading heavy machine learning models
+    (SentenceTransformer, LLM, etc.). Returns (text, confidence, source) on success,
+    or None on failure (indicating we must fall back to the heavy RAG pipeline).
+    """
+    q_lower = query_clean.lower()
+    
+    # Check if greeting
+    GREETING_TOKENS = {"hello", "hi", "hey", "namaste", "namasthe", "naste", "good morning", "good evening", "good afternoon"}
+    is_greeting = q_lower in GREETING_TOKENS or any(q_lower.startswith(g) for g in GREETING_TOKENS)
+
+    # Check if farm data query
+    is_farm_data_query = check_farm_data_query(q_lower)
+
+    # Check if agriculture query
+    AGRICULTURE_KEYWORDS = [
+        "crop", "crops", "farm", "farms", "farming", "soil", "soils", "fertilizer", "fertilizers",
+        "irrigation", "water", "watering", "pest", "pests", "disease", "diseases", "harvest", "harvesting",
+        "sowing", "sow", "planted", "planting", "cultivation", "cultivate", "yield", "npk", "urea", "potash",
+        "insecticide", "fungicide", "canker", "blight", "rot", "mildew", "wilt", "blast", "scab", "rust",
+        "borer", "weevil", "caterpillar", "aphid", "whitefly", "bollworm", "thrips", "drip irrigation"
+    ]
+    is_agriculture_query = any(kw in q_lower for kw in AGRICULTURE_KEYWORDS)
+
+    # 1a. Blocked check
+    if not is_greeting and not is_farm_data_query and not is_agriculture_query and check_keyword_block(query_clean):
+        rejection_msg = (
+            "I am Kisan Mitra AI Advisor and can only assist with agriculture and farming-related topics.\n\n"
+            "Supported topics:\n"
+            "• Crops\n"
+            "• Fertilizers\n"
+            "• Diseases\n"
+            "• Irrigation\n"
+            "• Weather\n"
+            "• Market Prices\n"
+            "• Soil Management\n\n"
+            "Please ask a farming-related question."
+        )
+        return translate_to_language(rejection_msg, language), 1.0, "LOCAL_ENGINE"
+
+    # 1b. Greeting resolution
+    if is_greeting:
+        return translate_to_language("Hello! How can I help you with your farm today?", language), 1.0, "LOCAL_ENGINE"
+
+    # Extract entities early to get farm_id
+    entities = extract_entities(query_clean, farm_context)
+    farm_id = entities.get("farm_id")
+
+    # 1c. Weather query resolution
+    is_weather = "weather" in q_lower or "forecast" in q_lower
+    if not is_weather:
+        weather_terms = ["temperature", "rain", "rainy", "climate", "degree", "degrees"]
+        if any(w in q_lower for w in weather_terms) and not any(kw in q_lower for kw in ["fertilizer", "pest", "disease", "recommend", "irrigation", "crop", "grow", "plant", "suitability", "suited"]):
+            is_weather = True
+            
+    if is_weather:
+        cache_weather_key = (farm_id or "default", language)
+        
+        if weather_context:
+            db_start = time.perf_counter()
+            ans = query_weather_service(farm_id, language, farm_context, weather_context)
+            timing["weather_lookup_time"] += time.perf_counter() - db_start
+            WEATHER_CACHE[cache_weather_key] = ans
+            return ans, 1.0, "LOCAL_ENGINE"
+        else:
+            if cache_weather_key in WEATHER_CACHE:
+                return WEATHER_CACHE[cache_weather_key], 1.0, "LOCAL_ENGINE"
+            else:
+                db_start = time.perf_counter()
+                ans = query_weather_service(farm_id, language, farm_context, weather_context)
+                timing["weather_lookup_time"] += time.perf_counter() - db_start
+                WEATHER_CACHE[cache_weather_key] = ans
+                return ans, 1.0, "LOCAL_ENGINE"
+
+    # 1d. Farm Data Query Resolution
+    if is_farm_data_query:
+        db_start = time.perf_counter()
+        ans = resolve_farm_data_query_direct(query_clean, farm_id, language, farm_context)
+        timing["database_lookup_time"] += time.perf_counter() - db_start
+        return ans, 1.0, "LOCAL_ENGINE"
+
+    # 1e. Crop Recommendation Query
+    is_recommendation = any(w in q_lower for w in ["recommend", "suggest", "what crop", "suitable crop", "what to plant", "crops to plant"])
+    if is_recommendation:
+        db_start = time.perf_counter()
+        ans = recommend_crops(farm_id, language, farm_context, timing)
+        timing["database_lookup_time"] += time.perf_counter() - db_start
+        return ans, 1.0, "LOCAL_ENGINE"
+
+    crop_entity = entities["crop"]
+    crop_candidate = entities["crop_candidate"]
+    
+    # 2. Determine target crop and if it's recognized
+    crop_key = None
+    if crop_entity:
+        crop_key = crop_entity.lower()
+    elif crop_candidate:
+        profiles = load_crop_profiles()
+        if crop_candidate.lower() in profiles:
+            crop_key = crop_candidate.lower()
+        else:
+            from fertilizer_engine import guess_crop_category
+            guessed = guess_crop_category(crop_candidate)
+            if guessed is not None:
+                crop_key = crop_candidate.lower()
+
+    # 1f. General soil query check
+    is_soil_general = "soil" in q_lower and crop_key is None
+    if is_soil_general:
+        db_start = time.perf_counter()
+        
+        # Check if the query is actually asking for the farm's soil type
+        if "what is" in q_lower or "what soil" in q_lower or "soil type of" in q_lower or "soil type of my" in q_lower or "soil type of the" in q_lower:
+            soil_type = farm_context.get("soilType") if farm_context else None
+            if not soil_type:
+                farm = get_farm_details(farm_id, farm_context)
+                soil_type = farm.get("soil_type") if farm else None
+            if soil_type:
+                timing["database_lookup_time"] += time.perf_counter() - db_start
+                return translate_to_language(f"Farm Soil Type: {soil_type}", language), 1.0, "LOCAL_ENGINE"
+                
+        soil_type = entities.get("soil")
+        if not soil_type and farm_context:
+            farm_id = farm_context.get("id") or "default"
+            farm = get_farm_details(farm_id, farm_context)
+            if farm and farm.get("soil_type"):
+                soil_type = farm["soil_type"]
+        if soil_type:
+            ans = recommend_by_soil(soil_type, language)
+            timing["database_lookup_time"] += time.perf_counter() - db_start
+            return ans, 1.0, "LOCAL_ENGINE"
+        else:
+            ans = translate_to_language("Please specify a soil type to get recommendations.", language)
+            timing["database_lookup_time"] += time.perf_counter() - db_start
+            return ans, 1.0, "LOCAL_ENGINE"
+
+    # Handle completely unrecognized crops
+    if crop_candidate and crop_key is None:
+        ans = f"The crop '{crop_candidate}' is not available in our database. We only support standard agricultural crops."
+        return translate_to_language(ans, language), 1.0, "LOCAL_ENGINE"
+
+    # 3. Crop topic lookup
+    if crop_key:
+        topic = None
+        if any(w in q_lower for w in ["fertilizer", "fertilizers", "npk", "urea", "potash", "dap", "mop", "manure", "compost"]):
+            topic = "fertilizers"
+        elif any(w in q_lower for w in ["water", "irrigation", "irrigate", "watering", "drip", "moisture", "drainage", "waterlogging"]):
+            topic = "irrigation"
+        elif any(w in q_lower for w in ["pest", "pests", "insect", "insects", "bug", "bugs", "worm", "caterpillar", "whitefly", "aphid", "thrips", "borer"]):
+            topic = "pest"
+        elif any(w in q_lower for w in ["disease", "diseases", "blight", "wilt", "rot", "mold", "mildew", "blast", "spots", "leaf curl", "canker"]):
+            topic = "disease"
+        elif "soil" in q_lower:
+            topic = "soil"
+        elif any(w in q_lower for w in ["harvest", "harvesting", "store", "storage", "maturity"]):
+            topic = "harvest"
+        elif any(w in q_lower for w in ["cultivate", "cultivation", "grow", "sow", "sowing", "spacing", "depth", "rate"]):
+            topic = "stages"
+        else:
+            topic = "general"
+
+        if topic:
+            db_start = time.perf_counter()
+            doc_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "documents", f"{crop_key}.txt")
+            if not os.path.exists(doc_path):
+                doc_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "documents", f"{crop_key.replace(' ', '_')}.txt")
+                
+            section_text = None
+            
+            # Step A: Check local document files
+            if os.path.exists(doc_path):
+                sections = parse_sections_fast(doc_path)
+                if topic == "fertilizers" and "fertilizers" in sections:
+                    section_text = sections["fertilizers"]
+                elif topic == "irrigation" and "irrigation" in sections:
+                    section_text = sections["irrigation"]
+                elif topic == "pest" and "pest management" in sections:
+                    section_text = sections["pest management"]
+                elif topic == "disease" and "diseases" in sections:
+                    section_text = sections["diseases"]
+                elif topic == "soil" and "soil requirements" in sections:
+                    section_text = sections["soil requirements"]
+                elif topic == "harvest" and "harvesting" in sections:
+                    section_text = sections["harvesting"]
+                elif topic == "stages" and "growth stages" in sections:
+                    section_text = sections["growth stages"]
+                elif topic == "general":
+                    with open(doc_path, "r", encoding="utf-8") as doc_f:
+                        section_text = doc_f.read().strip()
+                    
+            # Step B: Check local crop_profiles.json
+            if section_text is None:
+                profiles = load_crop_profiles()
+                if crop_key in profiles:
+                    profile = profiles[crop_key]
+                    if topic == "fertilizers" and "fertilizer_schedule" in profile:
+                        prof_sched = profile["fertilizer_schedule"]
+                        bullets = [f"- Recommended NPK: {prof_sched.get('npk', 'N/A')}"]
+                        for step in prof_sched.get("application", []):
+                            bullets.append(f"- {step}")
+                        section_text = f"**{profile['name']} Fertilizer Guidelines**\n" + "\n".join(bullets)
+                    elif topic == "irrigation" and "water_requirements" in profile:
+                        section_text = f"**{profile['name']} Irrigation Guidelines**\n- {profile['water_requirements']}"
+                    elif topic == "disease" and "disease_information" in profile:
+                        section_text = f"**{profile['name']} Disease Guidelines**\n- {profile['disease_information']}"
+                    elif topic == "pest" and "pest_management" in profile:
+                        pest_info = profile['pest_management']
+                        if crop_key == "pomegranate" and "borer" not in pest_info.lower():
+                            pest_info = pest_info.replace("Pomegranate Butterfly", "Pomegranate Butterfly (Fruit Borer)")
+                        section_text = f"**{profile['name']} Pest Management Guidelines**\n- {pest_info}"
+                    elif topic == "soil" and "soil_requirements" in profile:
+                        section_text = f"**{profile['name']} Soil Requirements**\n- {profile['soil_requirements']}"
+                    elif topic == "harvest" and "harvest_information" in profile:
+                        section_text = f"**{profile['name']} Harvesting Guidelines**\n- {profile['harvest_information']}"
+                    elif topic == "stages" and "growth_stages" in profile:
+                        stages_info = profile["growth_stages"]
+                        bullets = [f"- {stage.capitalize()} Stage: {days} days" for stage, days in stages_info.items()]
+                        section_text = f"**{profile['name']} Growth Stages**\n" + "\n".join(bullets)
+                    elif topic == "general":
+                        bullets = [
+                            f"### **{profile['name']} Cultivation & Care Guide**",
+                            f"**Soil Requirements:** {profile.get('soil_requirements', 'N/A')}",
+                            f"**Water & Irrigation:** {profile.get('water_requirements', 'N/A')}",
+                            f"**Sowing Season:** {profile.get('season', 'N/A')}"
+                        ]
+                        stages_info = profile.get("growth_stages", {})
+                        if stages_info:
+                            stage_bullets = [f"- {s.capitalize()}: {d} days" for s, d in stages_info.items()]
+                            bullets.append(f"**Growth Cycle Stages:**\n" + "\n".join(stage_bullets))
+                        bullets.append(f"**Harvest & Post-Harvest:** {profile.get('harvest_information', 'N/A')}")
+                        section_text = "\n\n".join(bullets)
+
+            # Step C: Check FERTILIZER_PROFILES for fertilizers
+            if section_text is None and topic == "fertilizers":
+                if crop_key in FERTILIZER_PROFILES:
+                    profile = FERTILIZER_PROFILES[crop_key]
+                    bullets = [f"- Recommended NPK: {profile['npk']}"]
+                    for step in profile["application"]:
+                        bullets.append(f"- {step}")
+                    section_text = f"**{profile['crop']} Fertilizer Guidelines**\n" + "\n".join(bullets)
+
+            # If crop-specific structured advice was found (in A, B, or C), return it as LOCAL_ENGINE
+            if section_text is not None:
+                timing["database_lookup_time"] += time.perf_counter() - db_start
+                response_content = section_text
+                
+                if topic == "fertilizers":
+                    source_note = (
+                        "\n\n**Sources & Organic Practices:**\n"
+                        "- Nitrogen (N) is usually supplied via Urea.\n"
+                        "- Phosphorus (P) is supplied via Single Superphosphate or DAP.\n"
+                        "- Potassium (K) is supplied via Muriate of Potash.\n"
+                        "- Always supplement with well-rotted farmyard manure or organic compost to improve soil health."
+                    )
+                    if source_note not in response_content:
+                        response_content += source_note
+                        
+                if weather_context:
+                    temp = weather_context.get("temperature") or 29.0
+                    cond = weather_context.get("condition") or "Clear"
+                    rain_chance = weather_context.get("rainChance") or 0.0
+                    if topic == "irrigation":
+                        if "rain" in cond.lower() or rain_chance >= 50:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Suspended. Natural rain/precipitation is sufficient today."
+                        else:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Proceed with scheduled drip/canal irrigation to maintain crop moisture."
+                    elif topic == "fertilizers":
+                        if "rain" in cond.lower() or rain_chance >= 50:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Avoid applying granular fertilizers on open soil due to rain wash-off risks."
+                        else:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Conditions are ideal for fertilizer application."
+                            
+                # Check for weather note
+                if "weather" not in response_content.lower() and topic in ["fertilizers", "irrigation", "pest", "disease", "stages", "soil"]:
+                    response_content += "\n\nNote: Farm activities depend on weather conditions."
+                    
+                return translate_to_language(response_content, language), 1.0, "LOCAL_ENGINE"
+
+            # If NO crop-specific structured advice was found: call Gemini Fallback first
+            from services.gemini_fallback import generate_advisory
+            user_uid = session_id.split(":")[0] if ":" in session_id else "anonymous"
+            
+            farm_ctx = farm_context or {}
+            if "crop" not in farm_ctx:
+                farm_ctx["crop"] = crop_key
+            
+            print(f"[Advisory Fallback] Crop '{crop_key}' has no specific guide or section for topic '{topic}'. Triggering Gemini fallback.")
+            
+            gemini_start = time.perf_counter()
+            gemini_res = None
+            try:
+                gemini_res = generate_advisory(
+                    message=query_clean,
+                    farm_context=farm_ctx,
+                    weather_context=weather_context,
+                    trigger_reason=f"no_{topic}_guide_found",
+                    user_uid=user_uid
+                )
+            except Exception as e_gemini:
+                print(f"[Advisory Fallback] Gemini call failed: {e_gemini}")
+            timing["gemini_time"] += time.perf_counter() - gemini_start
+            
+            if gemini_res and gemini_res.get("text"):
+                response_content = gemini_res["text"]
+                if topic in ["fertilizers", "irrigation", "pest", "disease", "stages", "soil"]:
+                    if "weather" not in response_content.lower():
+                        response_content += "\n\nNote: Farm activities depend on weather conditions."
+                        
+                return translate_to_language(response_content, language), 0.95, "GEMINI_FALLBACK"
+
+            # Step D: Gemini failed or is unavailable: use category fallback as ultimate fail-soft
+            profiles = load_crop_profiles()
+            from fertilizer_engine import guess_crop_category
+            category = None
+            if crop_key in profiles:
+                category = profiles[crop_key].get("category")
+            if not category:
+                category = guess_crop_category(crop_key) or "cereals"
+            category = category.lower()
+            
+            category_section_text = None
+            if topic == "fertilizers":
+                from fertilizer_engine import CATEGORY_FERTILIZER_SCHEDULES
+                if category in CATEGORY_FERTILIZER_SCHEDULES:
+                    sched = CATEGORY_FERTILIZER_SCHEDULES[category]
+                    bullets = []
+                    for stage, entries in sched.items():
+                        for entry in entries:
+                            bullets.append(f"- {stage} Stage: Apply {entry['fertilizer']} (Dosage: {entry['dosage']})")
+                    crop_title = crop_key.capitalize()
+                    category_section_text = f"**{crop_title} Fertilizer Guidelines (Category: {category.title()})**\n" + "\n".join(bullets)
+            elif topic in ["irrigation", "disease", "pest", "soil", "general"]:
+                intent_map = {
+                    "irrigation": "IRRIGATION_QUERY",
+                    "disease": "DISEASE_QUERY",
+                    "pest": "PEST_QUERY",
+                    "soil": "CROP_SOIL_REQUIREMENT_QUERY",
+                    "general": "GENERAL_FARMING_QUERY"
+                }
+                category_adv = get_category_advisory(intent_map[topic], category, crop_key)
+                if category_adv:
+                    category_section_text = category_adv
+
+            if category_section_text is not None:
+                timing["database_lookup_time"] += time.perf_counter() - db_start
+                response_content = category_section_text
+                
+                if topic == "fertilizers":
+                    source_note = (
+                        "\n\n**Sources & Organic Practices:**\n"
+                        "- Nitrogen (N) is usually supplied via Urea.\n"
+                        "- Phosphorus (P) is supplied via Single Superphosphate or DAP.\n"
+                        "- Potassium (K) is supplied via Muriate of Potash.\n"
+                        "- Always supplement with well-rotted farmyard manure or organic compost to improve soil health."
+                    )
+                    if source_note not in response_content:
+                        response_content += source_note
+                        
+                if weather_context:
+                    temp = weather_context.get("temperature") or 29.0
+                    cond = weather_context.get("condition") or "Clear"
+                    rain_chance = weather_context.get("rainChance") or 0.0
+                    if topic == "irrigation":
+                        if "rain" in cond.lower() or rain_chance >= 50:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Suspended. Natural rain/precipitation is sufficient today."
+                        else:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Proceed with scheduled drip/canal irrigation to maintain crop moisture."
+                    elif topic == "fertilizers":
+                        if "rain" in cond.lower() or rain_chance >= 50:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Avoid applying granular fertilizers on open soil due to rain wash-off risks."
+                        else:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Conditions are ideal for fertilizer application."
+                            
+                if "weather" not in response_content.lower() and topic in ["fertilizers", "irrigation", "pest", "disease", "stages", "soil"]:
+                    response_content += "\n\nNote: Farm activities depend on weather conditions."
+                    
+                return translate_to_language(response_content, language), 1.0, "LOCAL_ENGINE"
+
+    return None
+
+
+def query_rag(
+    query: str,
+    language: str = "en",
+    session_id: str = "default",
+    farm_context: Optional[Dict[str, Any]] = None,
+    return_confidence: bool = False,
+    weather_context: Optional[Dict[str, Any]] = None,
+    timing: Optional[dict] = None
+) -> Any:
     """
     Wrapper for _query_rag_inner that optionally returns confidence and source.
+    Optimized with a fast decision tree and response caching for repeated queries.
     """
+    start_total = time.perf_counter()
+    
+    if timing is None:
+        timing = {
+            "auth_time": 0.0,
+            "weather_lookup_time": 0.0,
+            "database_lookup_time": 0.0,
+            "gemini_time": 0.0,
+            "model_loading_time": 0.0,
+            "total_response_time": 0.0
+        }
+
+    query_clean = query.strip()
+    
+    # 1. Response Caching
+    cache_key = (query_clean, language, session_id)
+    with CHAT_CACHE_LOCK:
+        if cache_key in CHAT_RESPONSE_CACHE:
+            result_text, confidence, source = CHAT_RESPONSE_CACHE[cache_key]
+            timing["total_response_time"] = time.perf_counter() - start_total
+            if return_confidence:
+                return result_text, confidence, source
+            return result_text
+
+    # 2. Fast Decision Tree Routing
+    fast_res = resolve_query_fast(query_clean, language, session_id, farm_context, weather_context, timing)
+    if fast_res is not None:
+        result_text, confidence, source = fast_res
+        with CHAT_CACHE_LOCK:
+            CHAT_RESPONSE_CACHE[cache_key] = (result_text, confidence, source)
+        timing["total_response_time"] = time.perf_counter() - start_total
+        if return_confidence:
+            return result_text, confidence, source
+        return result_text
+
+    # 3. Heavy RAG Pipeline Fallback
     confidence_container = [1.0]
     source_container = ["LOCAL_ENGINE"]
-    result_text = _query_rag_inner(query, language, session_id, farm_context, confidence_container, weather_context, source_container)
+    
+    result_text = _query_rag_inner(
+        query,
+        language,
+        session_id,
+        farm_context,
+        confidence_container,
+        weather_context,
+        source_container,
+        timing
+    )
+    
+    confidence = confidence_container[0]
+    source = source_container[0]
+    
+    with CHAT_CACHE_LOCK:
+        CHAT_RESPONSE_CACHE[cache_key] = (result_text, confidence, source)
+        
+    timing["total_response_time"] = time.perf_counter() - start_total
     if return_confidence:
-        return result_text, confidence_container[0], source_container[0]
+        return result_text, confidence, source
     return result_text

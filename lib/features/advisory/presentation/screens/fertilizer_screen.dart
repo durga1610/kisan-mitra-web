@@ -70,7 +70,7 @@ class _FertilizerScreenState extends State<FertilizerScreen> {
             'cropId': crop.cropName,
             'plantedDate': crop.plantedDate.toIso8601String(),
           }),
-        ).timeout(const Duration(seconds: 10));
+        ).timeout(const Duration(seconds: 45));
 
         if (response.statusCode == 200) {
           loadedRecs[crop.cropName] = jsonDecode(response.body) as Map<String, dynamic>;
@@ -149,9 +149,36 @@ class _FertilizerScreenState extends State<FertilizerScreen> {
             if (rec == null) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Text(
-                  'No advice found for ${crop.cropName}',
-                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.grey),
+                child: Card(
+                  elevation: 1,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          crop.cropName,
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 15),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Apply balanced NPK fertilizer (19:19:19) at 2.5 kg/acre. '
+                          'Supplement with organic farmyard manure for soil health.',
+                          style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey[700]),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          'Tap refresh to load personalized advice.',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: Theme.of(context).colorScheme.primary,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               );
             }

@@ -219,7 +219,7 @@ def execute_gemini_call(
     is_json_response: bool = False,
     max_tokens: int = 4096,
 ) -> str:
-    """Executes a call to Gemini 2.5 Flash with retries and timeout.
+    """Executes a call to Gemini 2.5 Flash with retries and a strict timeout.
 
     Args:
         prompt_text: The prompt to send.
@@ -236,13 +236,23 @@ def execute_gemini_call(
 
     model_name = "gemini-2.5-flash"
 
-    # 3 Retries with exponential backoff (2s, 4s, 8s)
+    # 3 Retries
     retries = 3
-    timeout = 30.0 if is_vision else 20.0
+    total_timeout = 30.0 if is_vision else 10.0
+    start_all = time.time()
+
+    import concurrent.futures
 
     for attempt in range(retries):
+        elapsed_so_far = time.time() - start_all
+        remaining_timeout = total_timeout - elapsed_so_far
+        if remaining_timeout <= 0.5:
+            raise TimeoutError(f"Gemini call timed out after {elapsed_so_far:.2f}s (no time left for retry).")
+
+        # Per-attempt timeout budget
+        attempt_timeout = min(remaining_timeout, 8.0 if not is_vision else 25.0)
+
         try:
-            start_time = time.time()
             model = genai.GenerativeModel(model_name)
 
             # Configure generation options — use higher token limit for JSON
@@ -258,26 +268,32 @@ def execute_gemini_call(
 
             generation_config = genai.types.GenerationConfig(**gen_config_args)
 
-            if is_vision:
-                if not image_bytes:
-                    raise ValueError("Image bytes required for Vision fallback call.")
-                content_part = {
-                    "mime_type": mime_type,
-                    "data": image_bytes
-                }
-                response = model.generate_content(
-                    [prompt_text, content_part],
-                    generation_config=generation_config
-                )
-            else:
-                response = model.generate_content(
-                    prompt_text,
-                    generation_config=generation_config
-                )
+            def run_api_call():
+                if is_vision:
+                    if not image_bytes:
+                        raise ValueError("Image bytes required for Vision fallback call.")
+                    content_part = {
+                        "mime_type": mime_type,
+                        "data": image_bytes
+                    }
+                    return model.generate_content(
+                        [prompt_text, content_part],
+                        generation_config=generation_config,
+                        request_options={"timeout": attempt_timeout}
+                    )
+                else:
+                    return model.generate_content(
+                        prompt_text,
+                        generation_config=generation_config,
+                        request_options={"timeout": attempt_timeout}
+                    )
 
-            elapsed = time.time() - start_time
-            if elapsed > timeout:
-                raise TimeoutError(f"Gemini call timed out after {elapsed:.2f}s.")
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(run_api_call)
+                try:
+                    response = future.result(timeout=attempt_timeout)
+                except concurrent.futures.TimeoutError:
+                    raise TimeoutError(f"Gemini call timed out after {attempt_timeout:.2f}s.")
 
             if not response.text:
                 raise ValueError("Empty response received from Gemini.")
@@ -287,7 +303,12 @@ def execute_gemini_call(
         except Exception as e:
             logger.warning("[Gemini Fallback] Attempt %d failed: %s", attempt + 1, e)
             if attempt < retries - 1:
-                time.sleep(2 ** (attempt + 1))
+                elapsed_so_far = time.time() - start_all
+                sleep_time = 1.0  # Reduce backoff to fit within 10s budget
+                if elapsed_so_far + sleep_time < total_timeout:
+                    time.sleep(sleep_time)
+                else:
+                    raise TimeoutError("Gemini call timed out (insufficient time to sleep for retry).")
             else:
                 raise e
 
@@ -626,4 +647,67 @@ JSON Schema:
             "suitable_for_diagnosis": False,
             "reason": f"Verification error: {str(e)}"
         }
+
+def analyze_market_prices(crop: str, state: str, recent_prices: list, user_uid: str = "anonymous") -> dict:
+    """Trigger Gemini to analyze crop prices and trends in a state given recent prices."""
+    cache_key = generate_cache_key("market_prices", crop, state, recent_prices)
+    cached = get_cached_response(cache_key)
+    if cached:
+        return cached
+
+    # Check limits
+    if not check_rate_limit() or not check_and_increment_daily_limit(user_uid):
+        log_fallback_call("market_analysis", user_uid, crop, "limit_exceeded", f"market-{crop}-{state}", "LOCAL_ENGINE", 0, False)
+        return None
+
+    recent_prices_str = json.dumps(recent_prices)
+    prompt = f"""You are an agricultural commodity market analyst for Indian APMC (Mandi) markets.
+Estimate the current prices and provide a market trend analysis for:
+- Crop: {crop}
+- State: {state}
+- Recent Prices Context: {recent_prices_str}
+
+Rules:
+1. Output your response in STRICT JSON format matching the schema below. Do not wrap in ```json or any other text.
+2. JSON Schema:
+{{
+    "min_price": "minimum price in INR per quintal (e.g. '1800')",
+    "max_price": "maximum price in INR per quintal (e.g. '2600')",
+    "modal_price": "modal/average price in INR per quintal (e.g. '2200')",
+    "market": "typical market name in this state (e.g. 'Koyambedu')",
+    "district": "district name in this state (e.g. 'Chennai')",
+    "ai_advice": "1-2 sentences explaining supply/demand dynamics and price trends."
+}}
+3. Ensure the estimated prices are realistic relative to the recent prices context if provided.
+"""
+
+    start_time = time.time()
+    try:
+        text = execute_gemini_call(prompt, is_vision=False, is_json_response=True)
+        parsed = json.loads(_clean_json_text(text))
+        
+        # Ensure it fits the Mandi record structure
+        result = {
+            "id": f"ai_{crop.lower()}_{state.lower().replace(' ', '_')}_{parsed.get('market', 'default').lower().replace(' ', '_')}",
+            "state": state,
+            "district": parsed.get("district", "Unknown"),
+            "market": parsed.get("market", "Unknown"),
+            "commodity": crop,
+            "min_price": parsed.get("min_price", "0"),
+            "max_price": parsed.get("max_price", "0"),
+            "modal_price": parsed.get("modal_price", "0"),
+            "arrival_date": datetime.now().strftime("%Y-%m-%d"),
+            "ai_advice": parsed.get("ai_advice", "Market trends are currently stable based on AI estimates."),
+            "is_ai_estimate": True
+        }
+
+        latency = int((time.time() - start_time) * 1000)
+        set_cached_response(cache_key, result)
+        log_fallback_call("market_analysis", user_uid, crop, "api_failure_fallback", prompt, "GEMINI_FALLBACK", latency, True)
+        return result
+    except Exception as e:
+        latency = int((time.time() - start_time) * 1000)
+        logger.error("[Market Analysis] Fallback failed: %s", e)
+        log_fallback_call("market_analysis", user_uid, crop, f"error: {str(e)}", prompt, "LOCAL_ENGINE", latency, False)
+        return None
 
