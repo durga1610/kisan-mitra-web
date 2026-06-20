@@ -95,13 +95,19 @@ ALLOWED_ORIGINS = os.getenv(
     "https://kisan-mitra.vercel.app,http://localhost:3000,http://localhost:8080",
 ).split(",")
 
+# Explicitly ensure required Vercel origins are allowed
+if "https://kisan-mitra-web-olive.vercel.app" not in ALLOWED_ORIGINS:
+    ALLOWED_ORIGINS.append("https://kisan-mitra-web-olive.vercel.app")
+if "https://*.vercel.app" not in ALLOWED_ORIGINS:
+    ALLOWED_ORIGINS.append("https://*.vercel.app")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
+    allow_origin_regex=r"https://.*\.vercel\.app|https?://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Authorization", "Content-Type"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ── Rate Limiting (F-06) ──────────────────────────────────────────────────
