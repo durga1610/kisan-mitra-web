@@ -13,7 +13,6 @@ import json
 import threading
 from disease_database import DISEASE_DB
 from config import DB_PATH
-from advisory_engine import query_rag, init_resources, extract_prediction_features, predict_crop_recommendations
 
 # ── Logging ───────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -72,8 +71,7 @@ def startup_event():
     except Exception as e:
         logger.warning("[Startup] Database setup failed: %s", e)
 
-    # Load embedding model in background thread to avoid blocking port bind
-    threading.Thread(target=init_resources, daemon=True).start()
+    pass
 
 
 
@@ -225,9 +223,6 @@ async def verify_token(
         )
 
 # --- MODEL INITIALIZATION ---
-import torch
-import torch.nn as nn
-from torchvision import models, transforms
 
 CROP_MODEL = None
 DISEASE_MODEL = None
@@ -237,11 +232,6 @@ CROP_TO_DISEASE_INDICES = {}
 
 LEGACY_DISEASE_MODEL = None
 LEGACY_CLASSES = []
-
-from disease_transforms import DISEASE_TRANSFORM
-
-# Transforms for evaluation (standardized 128x128 from shared transforms)
-inference_transforms = DISEASE_TRANSFORM
 
 def is_legacy_request(crop: Optional[str], filename: Optional[str]) -> bool:
     legacy_keywords = ["apple", "peach", "cherry", "orange", "corn", "maize", "pepper_bell", "pepper bell", "pepper"]
@@ -260,6 +250,14 @@ def init_legacy_model():
     legacy_classes_path = "models_backup/classes_backup.json"
     if os.path.exists(legacy_resnet_path) and os.path.exists(legacy_classes_path):
         try:
+            import torch
+            try:
+                torch.set_num_threads(1)
+                torch.set_num_interop_threads(1)
+            except RuntimeError:
+                pass
+            import torch.nn as nn
+            from torchvision import models
             with open(legacy_classes_path, "r") as f:
                 LEGACY_CLASSES = json.load(f)
             model = models.resnet18()
@@ -281,6 +279,14 @@ def init_disease_model():
     use_two_stage = os.getenv("USE_TWO_STAGE_MODEL", "0") == "1"
     if use_two_stage and os.path.exists(crop_model_path) and os.path.exists(disease_model_path) and os.path.exists(classes_path):
         try:
+            import torch
+            try:
+                torch.set_num_threads(1)
+                torch.set_num_interop_threads(1)
+            except RuntimeError:
+                pass
+            import torch.nn as nn
+            from torchvision import models
             with open(classes_path, "r") as f:
                 CLASSES = json.load(f)
             
@@ -335,6 +341,14 @@ def fallback_resnet():
     classes_path = "models/classes.json"
     if os.path.exists(resnet_path) and os.path.exists(classes_path):
         try:
+            import torch
+            try:
+                torch.set_num_threads(1)
+                torch.set_num_interop_threads(1)
+            except RuntimeError:
+                pass
+            import torch.nn as nn
+            from torchvision import models
             with open(classes_path, "r") as f:
                 CLASSES = json.load(f)
             
@@ -381,10 +395,7 @@ def fallback_resnet():
         except Exception as e:
             logger.warning("Failed to load fallback ResNet18 model: %s", e)
 
-try:
-    init_disease_model()
-except Exception as e:
-    logger.warning("Model initialization skipped or failed: %s", e)
+# Model will be lazy-loaded on the first request to detect_disease()
 
 # --- REQUEST AND RESPONSE SCHEMAS ---
 
@@ -1514,7 +1525,9 @@ async def detect_disease(
         ]
     elif active_model is not None:
         try:
-            tensor_img = inference_transforms(image).unsqueeze(0)
+            import torch
+            from disease_transforms import DISEASE_TRANSFORM
+            tensor_img = DISEASE_TRANSFORM(image).unsqueeze(0)
             with torch.no_grad():
                 if CROP_MODEL is not None and not use_legacy:
                     # Stage 1: Predict crop
@@ -2111,6 +2124,7 @@ def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(veri
         except AttributeError:
             weather_dict = body.weather.dict()
 
+    from advisory_engine import query_rag
     result, confidence, source = query_rag(
         body.message,
         language=body.language,
@@ -2232,6 +2246,7 @@ async def predict_crop_recommendation(request: Request, body: CropRecommendation
     Exposes the trained RandomForest model as an inference endpoint.
     Automatically retrieves farm and weather context where necessary.
     """
+    from advisory_engine import extract_prediction_features, predict_crop_recommendations
     # Extract prediction features from farm & weather contexts
     features = extract_prediction_features(body.farm, body.weather)
     
@@ -2253,6 +2268,7 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
     """
     lang = body.language.upper()
     
+    from advisory_engine import extract_prediction_features, predict_crop_recommendations
     # Extract prediction features from farm & weather contexts
     features = extract_prediction_features(body.farm, body.weather)
     

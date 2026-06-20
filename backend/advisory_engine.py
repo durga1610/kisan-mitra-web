@@ -225,6 +225,12 @@ def init_resources(model_name: str = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"):
     if _embedding_model is None:
         from sentence_transformers import SentenceTransformer
         logger.info("[AdvisoryEngine] Loading Sentence-Transformer model...")
+        import torch
+        try:
+            torch.set_num_threads(1)
+            torch.set_num_interop_threads(1)
+        except RuntimeError:
+            pass
         _embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
     
     # Cache intent reference embeddings
