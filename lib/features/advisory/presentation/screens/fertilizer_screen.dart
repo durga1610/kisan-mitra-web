@@ -398,7 +398,7 @@ class _FertilizerScreenState extends State<FertilizerScreen> {
                       ],
                     ),
                   );
-                }).toList(),
+                }),
                 const SizedBox(height: 16),
               ],
             );
