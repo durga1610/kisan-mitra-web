@@ -1,0 +1,1160 @@
+{
+  "per_split": {
+    "train": {
+      "Apple___Black_Rot": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Apple___Cedar_Apple_Rust": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Apple___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Apple___Scab": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Blueberry___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Cherry___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Cherry___Powdery_Mildew": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Corn___Common_Rust": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Corn___Gray_Leaf_Spot": {
+        "total": 15,
+        "real": 0,
+        "synthetic": 15,
+        "synth_pct": 100.0
+      },
+      "Corn___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Corn___Northern_Leaf_Blight": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Cotton___Bacterial_Blight": {
+        "total": 15,
+        "real": 0,
+        "synthetic": 15,
+        "synth_pct": 100.0
+      },
+      "Cotton___Healthy": {
+        "total": 15,
+        "real": 0,
+        "synthetic": 15,
+        "synth_pct": 100.0
+      },
+      "Cotton___Leaf_Curl": {
+        "total": 15,
+        "real": 0,
+        "synthetic": 15,
+        "synth_pct": 100.0
+      },
+      "Grape___Black_Rot": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Grape___Esca": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Grape___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Grape___Leaf_Blight": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Orange___Haunglongbing": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Peach___Bacterial_Spot": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Peach___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Pepper_Bell___Bacterial_Spot": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Pepper_Bell___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Potato___Early_Blight": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Potato___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Potato___Late_Blight": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Raspberry___Healthy": {
+        "total": 15,
+        "real": 0,
+        "synthetic": 15,
+        "synth_pct": 100.0
+      },
+      "Rice___Bacterial_Leaf_Blight": {
+        "total": 43,
+        "real": 28,
+        "synthetic": 15,
+        "synth_pct": 34.9
+      },
+      "Rice___Blast": {
+        "total": 34,
+        "real": 19,
+        "synthetic": 15,
+        "synth_pct": 44.1
+      },
+      "Rice___Brown_Spot": {
+        "total": 28,
+        "real": 13,
+        "synthetic": 15,
+        "synth_pct": 53.6
+      },
+      "Rice___Healthy": {
+        "total": 15,
+        "real": 0,
+        "synthetic": 15,
+        "synth_pct": 100.0
+      },
+      "Soybean___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Squash___Powdery_Mildew": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Strawberry___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Strawberry___Leaf_Scorch": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Bacterial_Spot": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Early_Blight": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Healthy": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Late_Blight": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Leaf_Mold": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Mosaic_Virus": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Septoria_Leaf_Spot": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Spider_Mites": {
+        "total": 15,
+        "real": 0,
+        "synthetic": 15,
+        "synth_pct": 100.0
+      },
+      "Tomato___Target_Spot": {
+        "total": 23,
+        "real": 8,
+        "synthetic": 15,
+        "synth_pct": 65.2
+      },
+      "Tomato___Yellow_Leaf_Curl_Virus": {
+        "total": 15,
+        "real": 0,
+        "synthetic": 15,
+        "synth_pct": 100.0
+      }
+    },
+    "val": {
+      "Apple___Black_Rot": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Apple___Cedar_Apple_Rust": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Apple___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Apple___Scab": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Blueberry___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Cherry___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Cherry___Powdery_Mildew": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Corn___Common_Rust": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Corn___Gray_Leaf_Spot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Corn___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Corn___Northern_Leaf_Blight": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Cotton___Bacterial_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Cotton___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Cotton___Leaf_Curl": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Grape___Black_Rot": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Grape___Esca": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Grape___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Grape___Leaf_Blight": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Orange___Haunglongbing": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Peach___Bacterial_Spot": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Peach___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Pepper_Bell___Bacterial_Spot": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Pepper_Bell___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Potato___Early_Blight": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Potato___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Potato___Late_Blight": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Raspberry___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Rice___Bacterial_Leaf_Blight": {
+        "total": 12,
+        "real": 7,
+        "synthetic": 5,
+        "synth_pct": 41.7
+      },
+      "Rice___Blast": {
+        "total": 10,
+        "real": 5,
+        "synthetic": 5,
+        "synth_pct": 50.0
+      },
+      "Rice___Brown_Spot": {
+        "total": 9,
+        "real": 4,
+        "synthetic": 5,
+        "synth_pct": 55.6
+      },
+      "Rice___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Soybean___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Squash___Powdery_Mildew": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Strawberry___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Strawberry___Leaf_Scorch": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Bacterial_Spot": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Early_Blight": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Healthy": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Late_Blight": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Leaf_Mold": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Mosaic_Virus": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Septoria_Leaf_Spot": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Spider_Mites": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Target_Spot": {
+        "total": 7,
+        "real": 2,
+        "synthetic": 5,
+        "synth_pct": 71.4
+      },
+      "Tomato___Yellow_Leaf_Curl_Virus": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      }
+    },
+    "test": {
+      "Apple___Black_Rot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Apple___Cedar_Apple_Rust": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Apple___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Apple___Scab": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Blueberry___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Cherry___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Cherry___Powdery_Mildew": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Corn___Common_Rust": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Corn___Gray_Leaf_Spot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Corn___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Corn___Northern_Leaf_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Cotton___Bacterial_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Cotton___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Cotton___Leaf_Curl": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Grape___Black_Rot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Grape___Esca": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Grape___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Grape___Leaf_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Orange___Haunglongbing": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Peach___Bacterial_Spot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Peach___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Pepper_Bell___Bacterial_Spot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Pepper_Bell___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Potato___Early_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Potato___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Potato___Late_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Raspberry___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Rice___Bacterial_Leaf_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Rice___Blast": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Rice___Brown_Spot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Rice___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Soybean___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Squash___Powdery_Mildew": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Strawberry___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Strawberry___Leaf_Scorch": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Bacterial_Spot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Early_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Healthy": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Late_Blight": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Leaf_Mold": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Mosaic_Virus": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Septoria_Leaf_Spot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Spider_Mites": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Target_Spot": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      },
+      "Tomato___Yellow_Leaf_Curl_Virus": {
+        "total": 5,
+        "real": 0,
+        "synthetic": 5,
+        "synth_pct": 100.0
+      }
+    }
+  },
+  "cross_split": {
+    "Apple___Black_Rot": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Apple___Cedar_Apple_Rust": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Apple___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Apple___Scab": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Blueberry___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Cherry___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Cherry___Powdery_Mildew": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Corn___Common_Rust": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Corn___Gray_Leaf_Spot": {
+      "total": 25,
+      "real": 0,
+      "synthetic": 25,
+      "synth_pct": 100.0
+    },
+    "Corn___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Corn___Northern_Leaf_Blight": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Cotton___Bacterial_Blight": {
+      "total": 25,
+      "real": 0,
+      "synthetic": 25,
+      "synth_pct": 100.0
+    },
+    "Cotton___Healthy": {
+      "total": 25,
+      "real": 0,
+      "synthetic": 25,
+      "synth_pct": 100.0
+    },
+    "Cotton___Leaf_Curl": {
+      "total": 25,
+      "real": 0,
+      "synthetic": 25,
+      "synth_pct": 100.0
+    },
+    "Grape___Black_Rot": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Grape___Esca": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Grape___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Grape___Leaf_Blight": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Orange___Haunglongbing": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Peach___Bacterial_Spot": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Peach___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Pepper_Bell___Bacterial_Spot": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Pepper_Bell___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Potato___Early_Blight": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Potato___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Potato___Late_Blight": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Raspberry___Healthy": {
+      "total": 25,
+      "real": 0,
+      "synthetic": 25,
+      "synth_pct": 100.0
+    },
+    "Rice___Bacterial_Leaf_Blight": {
+      "total": 60,
+      "real": 35,
+      "synthetic": 25,
+      "synth_pct": 41.7
+    },
+    "Rice___Blast": {
+      "total": 49,
+      "real": 24,
+      "synthetic": 25,
+      "synth_pct": 51.0
+    },
+    "Rice___Brown_Spot": {
+      "total": 42,
+      "real": 17,
+      "synthetic": 25,
+      "synth_pct": 59.5
+    },
+    "Rice___Healthy": {
+      "total": 25,
+      "real": 0,
+      "synthetic": 25,
+      "synth_pct": 100.0
+    },
+    "Soybean___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Squash___Powdery_Mildew": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Strawberry___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Strawberry___Leaf_Scorch": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Bacterial_Spot": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Early_Blight": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Healthy": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Late_Blight": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Leaf_Mold": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Mosaic_Virus": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Septoria_Leaf_Spot": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Spider_Mites": {
+      "total": 25,
+      "real": 0,
+      "synthetic": 25,
+      "synth_pct": 100.0
+    },
+    "Tomato___Target_Spot": {
+      "total": 35,
+      "real": 10,
+      "synthetic": 25,
+      "synth_pct": 71.4
+    },
+    "Tomato___Yellow_Leaf_Curl_Virus": {
+      "total": 25,
+      "real": 0,
+      "synthetic": 25,
+      "synth_pct": 100.0
+    }
+  },
+  "crop_totals": {
+    "Apple": 140,
+    "Blueberry": 35,
+    "Cherry": 70,
+    "Corn": 130,
+    "Cotton": 75,
+    "Grape": 140,
+    "Orange": 35,
+    "Peach": 70,
+    "Pepper_Bell": 70,
+    "Potato": 105,
+    "Raspberry": 25,
+    "Rice": 176,
+    "Soybean": 35,
+    "Squash": 35,
+    "Strawberry": 70,
+    "Tomato": 330
+  },
+  "crop_healthy": {
+    "Apple": 35,
+    "Blueberry": 35,
+    "Cherry": 35,
+    "Corn": 35,
+    "Cotton": 25,
+    "Grape": 35,
+    "Peach": 35,
+    "Pepper_Bell": 35,
+    "Potato": 35,
+    "Raspberry": 25,
+    "Rice": 25,
+    "Soybean": 35,
+    "Strawberry": 35,
+    "Tomato": 35,
+    "Orange": 0,
+    "Squash": 0
+  },
+  "crop_diseased": {
+    "Apple": 105,
+    "Cherry": 35,
+    "Corn": 95,
+    "Cotton": 50,
+    "Grape": 105,
+    "Orange": 35,
+    "Peach": 35,
+    "Pepper_Bell": 35,
+    "Potato": 70,
+    "Rice": 151,
+    "Squash": 35,
+    "Strawberry": 35,
+    "Tomato": 295,
+    "Blueberry": 0,
+    "Raspberry": 0,
+    "Soybean": 0
+  },
+  "summary": {
+    "total_classes": 45,
+    "grand_total": 1541,
+    "grand_real": 416,
+    "grand_synth": 1125,
+    "synth_pct": 73.0,
+    "healthy_total": 460,
+    "diseased_total": 1081,
+    "largest_class": "Rice___Bacterial_Leaf_Blight",
+    "largest_class_count": 60,
+    "smallest_class": "Tomato___Yellow_Leaf_Curl_Virus",
+    "smallest_class_count": 25,
+    "imbalance_ratio": 2.4
+  }
+}
