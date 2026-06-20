@@ -529,6 +529,10 @@ def get_localized_response(key: str, lang: str) -> str:
 def read_root():
     return {"status": "ok", "message": "Kisan Mitra Custom AI Server is running"}
 
+@app.get("/healthz")
+def healthz():
+    return {"status": "ok"}
+
 def match_filename_to_disease(filename: str) -> Optional[str]:
     if not filename:
         return None
