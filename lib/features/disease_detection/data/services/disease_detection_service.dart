@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/services/gemini_service.dart';
+import '../../../../core/config/api_config.dart';
 import '../models/disease_report.dart';
 
 class DiseaseDetectionService {
@@ -81,19 +82,23 @@ class DiseaseDetectionService {
           await docRef.set(report.toMap());
 
           // 5. Fire-and-forget Firebase Storage upload (background)
-          final fileName = 'disease_${DateTime.now().millisecondsSinceEpoch}.jpg';
-          final storageRef = _storage.ref().child('disease_scans/$userId/$fileName');
+          if (ApiConfig.enableFirebaseStorage) {
+            final fileName = 'disease_${DateTime.now().millisecondsSinceEpoch}.jpg';
+            final storageRef = _storage.ref().child('disease_scans/$userId/$fileName');
 
-          storageRef.putData(
-            imageBytes,
-            SettableMetadata(contentType: 'image/jpeg'),
-          ).then((uploadTask) async {
-            final imageUrl = await uploadTask.ref.getDownloadURL();
-            // Update the report in Firestore with the remote image URL
-            await docRef.update({'imageUrl': imageUrl});
-          }).catchError((e) {
-            debugPrint('Firebase Storage background upload failed: $e');
-          });
+            storageRef.putData(
+              imageBytes,
+              SettableMetadata(contentType: 'image/jpeg'),
+            ).then((uploadTask) async {
+              final imageUrl = await uploadTask.ref.getDownloadURL();
+              // Update the report in Firestore with the remote image URL
+              await docRef.update({'imageUrl': imageUrl});
+            }).catchError((e) {
+              debugPrint('Firebase Storage background upload failed: $e');
+            });
+          } else {
+            debugPrint('Firebase Storage background upload skipped (disabled in config).');
+          }
         } catch (e) {
           debugPrint('Firestore history saving failed: $e');
         }

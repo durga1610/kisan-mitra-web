@@ -27,6 +27,9 @@ class ApiConfig {
   static const String mandiApiKey = String.fromEnvironment('MANDI_API_KEY', defaultValue: 'YOUR_MANDI_API_KEY'); 
   static const String mandiApiBaseUrl = 'https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070';
 
+  // Toggle to completely disable Firebase Storage upload/download attempts
+  static const bool enableFirebaseStorage = bool.fromEnvironment('ENABLE_FIREBASE_STORAGE', defaultValue: false);
+
   // AI Assistant System Prompt
   static const String assistantSystemPrompt = '''
 You are "Kisan Mitra AI", a highly professional agricultural assistant for Indian farmers.

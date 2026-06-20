@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kisan_mitra/core/localization/app_translations.dart';
 
@@ -81,13 +82,7 @@ class DiseaseHistoryScreen extends StatelessWidget {
         contentPadding: const EdgeInsets.all(12),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            report.imageUrl,
-            width: 60,
-            height: 60,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => Container(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5), child: Icon(Icons.broken_image)),
-          ),
+          child: _buildReportImage(context, report),
         ),
         title: Text(
           report.diseaseName,
@@ -186,5 +181,46 @@ class DiseaseHistoryScreen extends StatelessWidget {
       case 'low': return AppColors.success;
       default: return Theme.of(context).colorScheme.onSurface;
     }
+  }
+
+  Widget _buildReportImage(BuildContext context, DiseaseReport report) {
+    final imageUrl = report.imageUrl;
+    final isNetwork = imageUrl.startsWith('http') || imageUrl.startsWith('https') || imageUrl.startsWith('blob:');
+    
+    if (imageUrl.isEmpty) {
+      return Container(
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+        width: 60,
+        height: 60,
+        child: const Icon(Icons.image_not_supported),
+      );
+    }
+    
+    if (isNetwork) {
+      return Image.network(
+        imageUrl,
+        width: 60,
+        height: 60,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => _buildFallbackIcon(context),
+      );
+    } else {
+      return Image.file(
+        File(imageUrl),
+        width: 60,
+        height: 60,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => _buildFallbackIcon(context),
+      );
+    }
+  }
+
+  Widget _buildFallbackIcon(BuildContext context) {
+    return Container(
+      color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+      width: 60,
+      height: 60,
+      child: const Icon(Icons.broken_image),
+    );
   }
 }

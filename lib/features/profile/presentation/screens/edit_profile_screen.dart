@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/config/api_config.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/providers/user_provider.dart';
@@ -70,17 +71,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     try {
       final uid = widget.user.uid;
       String? imageUrl = widget.user.profileImageUrl;
+      bool storageSkipped = false;
 
       // 1. Upload Image if changed
       if (_imageFile != null) {
-        final storageRef = FirebaseStorage.instance.ref().child('profile_images/$uid.jpg');
-        if (kIsWeb) {
-          final bytes = await _imageFile!.readAsBytes();
-          await storageRef.putData(bytes, SettableMetadata(contentType: 'image/jpeg'));
+        if (ApiConfig.enableFirebaseStorage) {
+          final storageRef = FirebaseStorage.instance.ref().child('profile_images/$uid.jpg');
+          if (kIsWeb) {
+            final bytes = await _imageFile!.readAsBytes();
+            await storageRef.putData(bytes, SettableMetadata(contentType: 'image/jpeg'));
+          } else {
+            await storageRef.putFile(File(_imageFile!.path));
+          }
+          imageUrl = await storageRef.getDownloadURL();
         } else {
-          await storageRef.putFile(File(_imageFile!.path));
+          storageSkipped = true;
+          debugPrint('Firebase Storage is disabled; profile picture upload skipped.');
         }
-        imageUrl = await storageRef.getDownloadURL();
       }
 
       await FirebaseFirestore.instance.collection('users').doc(uid).set({
@@ -106,7 +113,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         Provider.of<UserProvider>(context, listen: false).updateUserProfile(updatedUser);
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Profile updated successfully!'.tr(context)), backgroundColor: AppColors.success),
+          SnackBar(
+            content: Text(storageSkipped
+                ? 'Profile updated successfully! (Image upload skipped as Storage is unavailable)'.tr(context)
+                : 'Profile updated successfully!'.tr(context)),
+            backgroundColor: storageSkipped ? Colors.orange : AppColors.success,
+          ),
         );
         Navigator.pop(context, true);
       }
