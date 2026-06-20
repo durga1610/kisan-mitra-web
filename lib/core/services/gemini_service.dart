@@ -53,7 +53,7 @@ class GeminiService {
             'rainChance': weather!.rainChance,
           } : null,
         }),
-      ).timeout(const Duration(seconds: 15));
+      ).timeout(const Duration(seconds: 60));
 
 
       if (response.statusCode == 200) {
@@ -276,7 +276,7 @@ class GeminiService {
         request.fields['crop'] = crop.toLowerCase();
       }
       
-      final streamedResponse = await request.send().timeout(const Duration(seconds: 20));
+      final streamedResponse = await request.send().timeout(const Duration(seconds: 90));
       final response = await http.Response.fromStream(streamedResponse);
       
       if (kDebugMode) {
@@ -317,7 +317,7 @@ class GeminiService {
           'weather': weather,
           'language': languageCode,
         }),
-      ).timeout(const Duration(seconds: 15));
+      ).timeout(const Duration(seconds: 60));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -373,7 +373,7 @@ class GeminiService {
           'marketTrend': marketTrend,
           'language': languageCode,
         }),
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 60));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -414,7 +414,7 @@ class GeminiService {
           'availableMarketCrops': availableMarketCrops,
           'language': languageCode,
         }),
-      ).timeout(const Duration(seconds: 15));
+      ).timeout(const Duration(seconds: 60));
 
       if (response.statusCode == 200) {
         return response.body;
@@ -496,7 +496,7 @@ class GeminiService {
           'humidity': humidity,
           'rainfallForecast': rainfallForecast,
         }),
-      ).timeout(const Duration(seconds: 15));
+      ).timeout(const Duration(seconds: 60));
 
       if (response.statusCode == 200) {
         return response.body;
@@ -525,7 +525,7 @@ class GeminiService {
             'plantedCrops': farm.plantedCrops.map((c) => c.cropName).toList(),
           },
         }),
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 60));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -549,7 +549,7 @@ class GeminiService {
           'farmId': farmId,
           'cropName': cropName,
         }),
-      ).timeout(const Duration(seconds: 10));
+      ).timeout(const Duration(seconds: 60));
 
       if (response.statusCode == 200) {
         return jsonDecode(response.body) as Map<String, dynamic>;
@@ -578,7 +578,7 @@ class GeminiService {
           'reasons': reasons,
           'ignoredWarning': ignoredWarning,
         }),
-      ).timeout(const Duration(seconds: 5));
+      ).timeout(const Duration(seconds: 30));
     } catch (e) {
       if (kDebugMode) print('Error in logSuitabilityAudit: $e');
     }
