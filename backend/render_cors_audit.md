@@ -67,9 +67,9 @@ OK
 
 ---
 
-## 4. Final Verification Instructions (From Vercel / Live Deployment)
+## 4. Live Deployment Verification Result
 
-Once the changes are pushed and auto-deployed on Render, verify the configuration by executing the following curl command:
+The CORS configuration was verified directly on the live Render URL after deployment:
 
 ```bash
 curl -i -X OPTIONS https://kisan-mitra-backend-p21a.onrender.com/api/v1/advisory/chat \
@@ -78,8 +78,29 @@ curl -i -X OPTIONS https://kisan-mitra-backend-p21a.onrender.com/api/v1/advisory
   -H "Access-Control-Request-Headers: authorization,content-type"
 ```
 
-### Expected Response:
-1. Status code must be `HTTP/1.1 200 OK` or `HTTP/2 200`.
-2. Header `access-control-allow-origin` must match `https://kisan-mitra-web-olive.vercel.app`.
-3. Header `access-control-allow-credentials` must be `true`.
-4. Header `access-control-allow-headers` must echo back or allow `authorization,content-type` (or `*`).
+### Resulting Output Headers from Live Server:
+```http
+HTTP/1.1 200 OK
+Date: Sat, 20 Jun 2026 06:45:21 GMT
+Content-Type: text/plain; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+access-control-allow-credentials: true
+access-control-allow-headers: authorization,content-type
+access-control-allow-methods: DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT
+access-control-allow-origin: https://kisan-mitra-web-olive.vercel.app
+access-control-max-age: 600
+cf-cache-status: DYNAMIC
+rndr-id: f35aef9b-0d35-4f0b
+Server: cloudflare
+vary: Origin
+vary: Accept-Encoding
+x-render-origin-server: uvicorn
+CF-RAY: a0e8cf697a5a7ea6-MAA
+alt-svc: h3=":443"; ma=86400
+
+OK
+```
+
+**Verification Status**: **SUCCESS** (The live Render server returned `HTTP 200 OK` and correctly configured the requested headers and credentials for the Vercel frontend).
+
