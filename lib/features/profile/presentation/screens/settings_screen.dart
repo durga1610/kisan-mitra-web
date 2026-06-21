@@ -160,19 +160,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
                 _buildSettingsSection(title: "App Preferences", children: [
                   _getSettingItem("Dark Mode", settingsList)?.widget ?? const SizedBox(),
                 ]),
-                _buildSettingsSection(title: "Data & Sync", children: [
-                  _getSettingItem("Auto Backup Data", settingsList)?.widget ?? const SizedBox(),
-                ]),
-                _buildSettingsSection(title: "Security", children: [
-                  _getSettingItem("App Permissions", settingsList)?.widget ?? const SizedBox(),
-                ]),
-                _buildSettingsSection(title: "Support & Legal", children: [
-                  _getSettingItem("FAQ", settingsList)?.widget ?? const SizedBox(),
-                  _getSettingItem("Report a Problem", settingsList)?.widget ?? const SizedBox(),
-                  _getSettingItem("Feedback", settingsList)?.widget ?? const SizedBox(),
-                  _getSettingItem("Rate App", settingsList)?.widget ?? const SizedBox(),
-                  _getSettingItem("Terms & Conditions", settingsList)?.widget ?? const SizedBox(),
-                ]),
               ],
               
               const SizedBox(height: 16),
@@ -272,72 +259,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
           value: isDarkMode,
           isDarkMode: isDarkMode,
           onChanged: (val) => themeProvider.toggleTheme(val),
-        ),
-      ),
-
-      _SettingItem(
-        title: "Auto Backup Data",
-        widget: _buildSettingsTile(
-          icon: Icons.backup_outlined,
-          title: "Auto Backup Data",
-          subtitle: "Last backup: $lastBackupTime",
-          isDarkMode: isDarkMode,
-          trailing: isSyncing ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)) : null,
-          onTap: () => _showBackupSettings(isDarkMode),
-        ),
-      ),
-      _SettingItem(
-        title: "App Permissions",
-        widget: _buildSettingsTile(
-          icon: Icons.rule_rounded,
-          title: "App Permissions",
-          isDarkMode: isDarkMode,
-          onTap: () => _showPermissionsDialog(isDarkMode),
-        ),
-      ),
-      _SettingItem(
-        title: "FAQ",
-        widget: _buildSettingsTile(
-          icon: Icons.question_answer_outlined,
-          title: "FAQ",
-          isDarkMode: isDarkMode,
-          onTap: () => _showFAQScreen(isDarkMode),
-        ),
-      ),
-      _SettingItem(
-        title: "Report a Problem",
-        widget: _buildSettingsTile(
-          icon: Icons.report_problem_outlined,
-          title: "Report a Problem",
-          isDarkMode: isDarkMode,
-          onTap: () => _showReportProblemDialog(isDarkMode),
-        ),
-      ),
-      _SettingItem(
-        title: "Feedback",
-        widget: _buildSettingsTile(
-          icon: Icons.feedback_outlined,
-          title: "Feedback",
-          isDarkMode: isDarkMode,
-          onTap: () => _showFeedbackDialog(isDarkMode),
-        ),
-      ),
-      _SettingItem(
-        title: "Rate App",
-        widget: _buildSettingsTile(
-          icon: Icons.star_outline_rounded,
-          title: "Rate App",
-          isDarkMode: isDarkMode,
-          onTap: () => _launchURL("market://details?id=com.example.kisan_mitra"),
-        ),
-      ),
-      _SettingItem(
-        title: "Terms & Conditions",
-        widget: _buildSettingsTile(
-          icon: Icons.description_outlined,
-          title: "Terms & Conditions",
-          isDarkMode: isDarkMode,
-          onTap: () => _showTextScreen("Terms & Conditions", "By using Kisan Mitra, you agree to the following terms...\n\n1. Use responsibly...\n2. No illegal activities.", isDarkMode),
         ),
       ),
     ];
