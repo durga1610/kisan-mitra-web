@@ -1,5 +1,20 @@
-import logging
 import os
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
+os.environ["NUMEXPR_NUM_THREADS"] = "1"
+
+import torch
+try:
+    torch.set_num_threads(1)
+    torch.set_num_interop_threads(1)
+except RuntimeError:
+    pass
+torch.set_grad_enabled(False)
+
+
+import logging
 from typing import List, Optional, Dict, Any
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends, Request, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -71,31 +86,35 @@ def startup_event():
     except Exception as e:
         logger.warning("[Startup] Database setup failed: %s", e)
 
-    # ── Pre-warm disease detection model in background ────────────────────
-    # Avoids first-request cold-load latency (was causing 502 timeouts on
-    # Render free tier when model load + inference + Gemini exceeded 30s).
-    def _preload_models():
+    # ── Pre-warm models sequentially in background ────────────────────
+    # Serializes model pre-warm and runs garbage collection after each to
+    # keep peak memory under Render's 512MB threshold.
+    def _preload_sequentially():
         import time as _t
-        _t0 = _t.perf_counter()
-        try:
-            init_disease_model()
-            logger.info("[Startup] Disease model pre-warmed in %.2fs", _t.perf_counter() - _t0)
-        except Exception as _e:
-            logger.warning("[Startup] Disease model pre-warm failed (will lazy-load on first request): %s", _e)
-    threading.Thread(target=_preload_models, daemon=True).start()
-
-    # ── Pre-warm advisory engine (FAISS + SentenceTransformer) in background ────
-    # Avoids 45-90s first advisory request latency caused by lazy model loading.
-    def _preload_advisory():
-        import time as _t
+        import gc
+        
+        # 1. Pre-warm advisory engine
         _t0 = _t.perf_counter()
         try:
             from advisory_engine import init_resources
             init_resources()
             logger.info("[Startup] Advisory engine (FAISS + SentenceTransformer) pre-warmed in %.2fs", _t.perf_counter() - _t0)
         except Exception as _e:
-            logger.warning("[Startup] Advisory engine pre-warm failed (will lazy-load on first request): %s", _e)
-    threading.Thread(target=_preload_advisory, daemon=True).start()
+            logger.warning("[Startup] Advisory engine pre-warm failed: %s", _e)
+        
+        gc.collect()
+        
+        # 2. Pre-warm disease detection model
+        _t0 = _t.perf_counter()
+        try:
+            init_disease_model()
+            logger.info("[Startup] Disease model pre-warmed in %.2fs", _t.perf_counter() - _t0)
+        except Exception as _e:
+            logger.warning("[Startup] Disease model pre-warm failed: %s", _e)
+            
+        gc.collect()
+        
+    threading.Thread(target=_preload_sequentially, daemon=True).start()
 
     # ── Start async SQLite write worker ──────────────────────────────────
     from db_utils import _ensure_worker
