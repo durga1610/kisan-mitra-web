@@ -568,28 +568,20 @@ def execute_gemini_call(
                 generation_config = genai.types.GenerationConfig(**gen_config_args)
                 model = genai.GenerativeModel(model_name, transport="rest")
 
-                def _run():
-                    if is_vision:
-                        if not image_bytes:
-                            raise ValueError("image_bytes required for vision call.")
-                        return model.generate_content(
-                            [prompt_text, {"mime_type": mime_type, "data": image_bytes}],
-                            generation_config=generation_config,
-                            request_options={"timeout": attempt_timeout},
-                        )
-                    else:
-                        return model.generate_content(
-                            prompt_text,
-                            generation_config=generation_config,
-                            request_options={"timeout": attempt_timeout},
-                        )
-
-                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-                    future = executor.submit(_run)
-                    try:
-                        response = future.result(timeout=attempt_timeout)
-                    except concurrent.futures.TimeoutError:
-                        raise TimeoutError(f"Gemini timed out after {attempt_timeout:.1f}s")
+                if is_vision:
+                    if not image_bytes:
+                        raise ValueError("image_bytes required for vision call.")
+                    response = model.generate_content(
+                        [prompt_text, {"mime_type": mime_type, "data": image_bytes}],
+                        generation_config=generation_config,
+                        request_options={"timeout": attempt_timeout},
+                    )
+                else:
+                    response = model.generate_content(
+                        prompt_text,
+                        generation_config=generation_config,
+                        request_options={"timeout": attempt_timeout},
+                    )
 
                 if not response.text:
                     raise ValueError("Empty response from Gemini.")
