@@ -324,7 +324,7 @@ CATEGORY_FERTILIZER_SCHEDULES = {
 
 def guess_crop_category(crop_name: str) -> str:
     c = crop_name.lower().strip()
-    if any(k in c for k in ["leaf", "spinach", "lettuce", "cabbage", "kale", "chard", "greens", "bok choy", "parsley", "celery", "basil", "mint", "coriander", "cilantro", "cauliflower", "broccoli", "sprouts"]):
+    if any(k in c for k in ["leaf", "spinach", "lettuce", "cabbage", "kale", "chard", "greens", "bok choy", "parsley", "celery", "basil", "mint", "cauliflower", "broccoli", "sprouts"]):
         return "leafy vegetables"
     if any(k in c for k in ["rice", "wheat", "maize", "corn", "barley", "oats", "sorghum", "millet", "paddy", "rye", "teff", "grain"]):
         return "cereals"
@@ -667,46 +667,86 @@ def get_fertilizer_recommendation(
 
     use_category_fallback = False
     category_resolved = None
-    
-    if crop_key not in FERTILIZER_SCHEDULES:
+    source_label = "FERTILIZER_SCHEDULES"
+    schedule_source = None
+
+    if crop_key in FERTILIZER_SCHEDULES:
+        schedule_source = FERTILIZER_SCHEDULES[crop_key]
+        source_label = "FERTILIZER_SCHEDULES"
+    else:
         profiles = load_crop_profiles()
         if crop_key in profiles:
             category_resolved = profiles[crop_key].get("category", "").lower()
         if not category_resolved:
             category_resolved = guess_crop_category(crop_name)
-        
-        if category_resolved in CATEGORY_FERTILIZER_SCHEDULES:
-            use_category_fallback = True
-        else:
-            category_resolved = "cereals"
-            use_category_fallback = True
 
-    if use_category_fallback:
-        schedule_source = CATEGORY_FERTILIZER_SCHEDULES[category_resolved]
-        source_label = f"CATEGORY_FERTILIZER_SCHEDULES ({category_resolved.title()})"
-    else:
-        schedule_source = FERTILIZER_SCHEDULES[crop_key]
-        source_label = "FERTILIZER_SCHEDULES"
+        if category_resolved and category_resolved in CATEGORY_FERTILIZER_SCHEDULES:
+            use_category_fallback = True
+            schedule_source = CATEGORY_FERTILIZER_SCHEDULES[category_resolved]
+            source_label = f"CATEGORY_FERTILIZER_SCHEDULES ({category_resolved.title()})"
+        else:
+            from services.gemini_fallback import generate_fertilizer_advice
+            user_uid = "anonymous"
+            if farm_context and farm_context.get("ownerId"):
+                user_uid = farm_context["ownerId"]
+                
+            print(f"[Fertilizer Fallback] Crop '{crop_name}' not in FERTILIZER_SCHEDULES and no category resolved. Triggering Gemini fallback.")
+            gemini_res = generate_fertilizer_advice(
+                crop=crop_name,
+                age=age_days,
+                stage=stage,
+                soil=soil_ctx.get("soil_type", "Alluvial"),
+                weather=weather_ctx.get("weather_condition", "Clear"),
+                trigger_reason="no_crop_schedule_or_category_found",
+                user_uid=user_uid
+            )
+            if gemini_res:
+                schedule_item = {
+                    "fertilizer": gemini_res.get("recommendation", "NPK"),
+                    "dosage": gemini_res.get("dosage", "N/A"),
+                    "stage": stage
+                }
+                warnings = []
+                rain_fc = weather_ctx.get("rainfall_forecast", "").lower()
+                if "heavy" in rain_fc or "rain" in rain_fc:
+                    warnings.append("Heavy rainfall expected within 24 hours. Delay fertilizer application to avoid nutrient loss.")
+                    
+                return {
+                    "crop": crop_name,
+                    "stage": stage,
+                    "age": age_days,
+                    "recommendation": gemini_res.get("recommendation", "N/A"),
+                    "dosage": gemini_res.get("dosage", "N/A"),
+                    "reason": f"{gemini_res.get('recommendation')} is recommended. Timing: {gemini_res.get('timing')}. Organic Alternative: {gemini_res.get('organicAlternative')}. Precautions: {gemini_res.get('precautions')}",
+                    "warnings": warnings,
+                    "schedule": [schedule_item],
+                    "source": "GEMINI_FALLBACK"
+                }
+            else:
+                use_category_fallback = True
+                category_resolved = "cereals"
+                schedule_source = CATEGORY_FERTILIZER_SCHEDULES[category_resolved]
+                source_label = "INTELLIGENT_DEFAULT (Cereals Category)"
 
     # Retrieve stage entries
     stage_cap = stage.capitalize()
     stage_entries = schedule_source.get(stage_cap, [])
     
-    # Check if we should fallback to Gemini
-    if not stage_entries and crop_key not in FERTILIZER_SCHEDULES:
+    # Check if we should fallback to Gemini because stage_entries is empty
+    if not stage_entries:
         from services.gemini_fallback import generate_fertilizer_advice
         user_uid = "anonymous"
         if farm_context and farm_context.get("ownerId"):
             user_uid = farm_context["ownerId"]
             
-        print(f"[Fertilizer Fallback] Crop '{crop_name}' not in schedules, stage '{stage}' is empty. Triggering Gemini fallback.")
+        print(f"[Fertilizer Fallback] Stage '{stage}' has no entries for '{crop_name}'. Triggering Gemini fallback.")
         gemini_res = generate_fertilizer_advice(
             crop=crop_name,
             age=age_days,
             stage=stage,
             soil=soil_ctx.get("soil_type", "Alluvial"),
             weather=weather_ctx.get("weather_condition", "Clear"),
-            trigger_reason="no_schedule_found",
+            trigger_reason="no_stage_entries_found",
             user_uid=user_uid
         )
         if gemini_res:
@@ -736,8 +776,9 @@ def get_fertilizer_recommendation(
         base_recommendation = " | ".join(f"Apply {e['fertilizer']}" for e in stage_entries)
         dosage = " | ".join(e['dosage'] for e in stage_entries)
     else:
-        base_recommendation = f"No specific recommendations for {stage} stage."
-        dosage = "N/A"
+        # Safe default recommendation if both local schedules and Gemini failed/are offline
+        base_recommendation = f"Apply balanced NPK fertilizer (19:19:19) at 2.5 kg/acre. Supplement with organic compost or farmyard manure to enhance soil structure and support growth during the {stage} stage."
+        dosage = "2.5 kg/acre"
 
     # Parse fertilizer name from recommendation
     fertilizer_name = "Urea"

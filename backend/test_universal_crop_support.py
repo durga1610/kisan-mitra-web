@@ -100,3 +100,44 @@ def test_disease_detection_unsupported_crop_routing():
     assert "prevention" in res_json
     assert "explanation" in res_json
     assert "gradcamBase64" in res_json
+
+def test_coriander_leaves_gemini_fallback():
+    # Mock services.gemini_fallback.generate_fertilizer_advice to return a specific recommendation
+    from unittest.mock import patch
+    mock_response = {
+        "crop": "Coriander(leaves)",
+        "stage": "Vegetative",
+        "age": 15,
+        "recommendation": "Apply nitrogen-rich liquid fertilizer",
+        "dosage": "1.5 litres/acre",
+        "organicAlternative": "Neem cake",
+        "timing": "Morning hours",
+        "precautions": "Avoid leaf contact"
+    }
+    with patch("services.gemini_fallback.generate_fertilizer_advice", return_value=mock_response) as mock_func:
+        rec = get_fertilizer_recommendation(
+            farm_id="farm_1",
+            crop_name_or_id="Coriander(leaves)",
+            farm_context={"plantedCrops": [{"cropName": "Coriander(leaves)", "plantedDate": "2026-06-05"}]}
+        )
+        mock_func.assert_called_once()
+        assert rec["crop"] == "Coriander(leaves)"
+        assert rec["recommendation"] == "Apply nitrogen-rich liquid fertilizer"
+        assert rec["source"] == "GEMINI_FALLBACK"
+
+def test_durian_advisory_gemini_fallback():
+    # Mock services.gemini_fallback.generate_advisory to return a specific recommendation
+    from unittest.mock import patch
+    mock_response = {
+        "text": "Keep soil moist and inspect weekly for pests.",
+        "source": "GEMINI_FALLBACK"
+    }
+    with patch("advisory_engine.get_crop_catalog", return_value=["durian"]), \
+         patch("advisory_engine.load_crop_profiles", return_value={"durian": {"name": "Durian", "category": "exotic crops"}}), \
+         patch("advisory_engine.get_category_advisory", return_value=None), \
+         patch("services.gemini_fallback.generate_advisory", return_value=mock_response) as mock_func:
+         
+         # Query for irrigation advice
+         res = query_rag("how to water durian", session_id="test_sess")
+         mock_func.assert_called_once()
+         assert "Keep soil moist" in res

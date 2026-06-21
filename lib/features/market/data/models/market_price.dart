@@ -21,6 +21,7 @@ class MarketPrice {
   final String bestTimeToSell;
   final String weatherImpact; // 'Positive', 'Negative', 'Neutral'
   final List<double> historicalPrices; // 7-day trend
+  final bool isAiEstimate; // Mark AI estimate separately
 
   MarketPrice({
     required this.id,
@@ -40,6 +41,7 @@ class MarketPrice {
     this.bestTimeToSell = 'Now',
     this.weatherImpact = 'Neutral',
     this.historicalPrices = const [],
+    this.isAiEstimate = false,
   });
 
   MarketPrice copyWith({
@@ -60,6 +62,7 @@ class MarketPrice {
     String? bestTimeToSell,
     String? weatherImpact,
     List<double>? historicalPrices,
+    bool? isAiEstimate,
   }) {
     return MarketPrice(
       id: id ?? this.id,
@@ -79,6 +82,7 @@ class MarketPrice {
       bestTimeToSell: bestTimeToSell ?? this.bestTimeToSell,
       weatherImpact: weatherImpact ?? this.weatherImpact,
       historicalPrices: historicalPrices ?? this.historicalPrices,
+      isAiEstimate: isAiEstimate ?? this.isAiEstimate,
     );
   }
 
@@ -101,6 +105,7 @@ class MarketPrice {
       bestTimeToSell: json['bestTimeToSell'] ?? '',
       weatherImpact: json['weatherImpact'] ?? '',
       historicalPrices: (json['historicalPrices'] as List<dynamic>?)?.map((e) => (e as num).toDouble()).toList() ?? [],
+      isAiEstimate: json['isAiEstimate'] ?? false,
     );
   }
 
@@ -123,6 +128,7 @@ class MarketPrice {
       'bestTimeToSell': bestTimeToSell,
       'weatherImpact': weatherImpact,
       'historicalPrices': historicalPrices,
+      'isAiEstimate': isAiEstimate,
     };
   }
 }

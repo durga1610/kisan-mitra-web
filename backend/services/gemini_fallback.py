@@ -218,19 +218,9 @@ def execute_gemini_call(
     mime_type: str = "image/jpeg",
     is_json_response: bool = False,
     max_tokens: int = 4096,
+    timeout: float = None,
 ) -> str:
-    """Executes a call to Gemini 2.5 Flash with retries and a strict timeout.
-
-    Args:
-        prompt_text: The prompt to send.
-        is_vision: Whether this is a vision (image) call.
-        image_bytes: Image bytes for vision calls.
-        mime_type: MIME type of the image.
-        is_json_response: If True, requests JSON-formatted output and uses
-                          higher token limit to prevent truncation.
-        max_tokens: Maximum output tokens. Default 4096 prevents truncation
-                    of long JSON responses. Use lower value for short text.
-    """
+    """Executes a call to Gemini 2.5 Flash with retries and a strict timeout."""
     if not api_key:
         raise ValueError("GEMINI_API_KEY environment variable is not configured.")
 
@@ -238,7 +228,7 @@ def execute_gemini_call(
 
     # 3 Retries
     retries = 3
-    total_timeout = 30.0 if is_vision else 10.0
+    total_timeout = timeout if timeout is not None else (30.0 if is_vision else 10.0)
     start_all = time.time()
 
     import concurrent.futures
@@ -683,7 +673,7 @@ Rules:
 
     start_time = time.time()
     try:
-        text = execute_gemini_call(prompt, is_vision=False, is_json_response=True)
+        text = execute_gemini_call(prompt, is_vision=False, is_json_response=True, timeout=4.0)
         parsed = json.loads(_clean_json_text(text))
         
         # Ensure it fits the Mandi record structure

@@ -90,13 +90,26 @@ class _AIAssistantScreenState extends State<AIAssistantScreen>
     WeatherModel? weather;
     try {
       final weatherService = WeatherService();
-      weather = await weatherService.getWeatherForLocation(
-          farm.village, farm.district, farm.state,
-          farmName: farm.name);
+      final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
+      if (farm.latitude != null && farm.longitude != null) {
+        weather = await weatherService.getWeather(
+            farm.latitude!, farm.longitude!,
+            lang: lang, farmName: farm.name);
+      } else {
+        weather = await weatherService.getWeatherForLocation(
+            farm.village, farm.district, farm.state,
+            lang: lang, farmName: farm.name);
+      }
     } catch (e) {
       debugPrint('[AIAssistant] Weather fetch failed: $e');
     }
 
+    if (weather == null) {
+      weather = WeatherService.getLatestCachedWeather();
+      if (weather != null) {
+        debugPrint('[AIAssistant] Using latest cached weather as fallback: ${weather.cityName}');
+      }
+    }
 
     if (mounted) setState(() => _weather = weather);
 
@@ -113,6 +126,7 @@ class _AIAssistantScreenState extends State<AIAssistantScreen>
       temperature: weather?.temperature,
       humidity: weather?.humidity,
       rainfallForecast: weather?.rainChance,
+      windSpeed: weather?.windSpeed,
     );
 
     if (mounted) {
@@ -127,7 +141,7 @@ class _AIAssistantScreenState extends State<AIAssistantScreen>
           }
         } catch (_) {}
         _assistant ??= DailyAssistant.fallback(
-            cropName: crop.cropName, ageDays: ageDays);
+            cropName: crop.cropName, ageDays: ageDays, weather: weather);
         _isLoading = false;
       });
     }

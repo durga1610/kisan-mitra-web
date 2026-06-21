@@ -24,6 +24,7 @@ class MarketProvider extends ChangeNotifier {
   List<String> _plantedCrops = [];
   String _farmState = '';
   Timer? _livePriceTimer;
+  Timer? _refreshTimer;
   final Random _random = Random();
 
   List<MarketPrice> get myCropPrices => _myCropPrices;
@@ -42,11 +43,13 @@ class MarketProvider extends ChangeNotifier {
   MarketProvider() {
     fetchPrices();
     _startLivePriceSimulation();
+    _startPeriodicRefresh();
   }
 
   @override
   void dispose() {
     _livePriceTimer?.cancel();
+    _refreshTimer?.cancel();
     super.dispose();
   }
 
@@ -105,6 +108,12 @@ class MarketProvider extends ChangeNotifier {
         
 
       }
+    });
+  }
+
+  void _startPeriodicRefresh() {
+    _refreshTimer = Timer.periodic(const Duration(minutes: 30), (timer) {
+      fetchPrices(forceRefresh: true);
     });
   }
 

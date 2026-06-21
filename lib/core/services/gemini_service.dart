@@ -414,7 +414,7 @@ class GeminiService {
           'availableMarketCrops': availableMarketCrops,
           'language': languageCode,
         }),
-      ).timeout(const Duration(seconds: 60));
+      ).timeout(const Duration(seconds: 45));
 
       if (response.statusCode == 200) {
         return response.body;
@@ -477,6 +477,7 @@ class GeminiService {
     double? temperature,
     double? humidity,
     double? rainfallForecast,
+    double? windSpeed,
   }) async {
     try {
       final response = await http.post(
@@ -495,8 +496,9 @@ class GeminiService {
           'temperature': temperature,
           'humidity': humidity,
           'rainfallForecast': rainfallForecast,
+          'windSpeed': windSpeed,
         }),
-      ).timeout(const Duration(seconds: 60));
+      ).timeout(const Duration(seconds: 45));
 
       if (response.statusCode == 200) {
         return response.body;

@@ -211,6 +211,21 @@ def init_db() -> None:
     """)
 
     cursor.execute("""
+    CREATE TABLE IF NOT EXISTS mandi_prices_cache (
+        id TEXT PRIMARY KEY,
+        state TEXT,
+        district TEXT,
+        market TEXT,
+        commodity TEXT,
+        min_price TEXT,
+        max_price TEXT,
+        modal_price TEXT,
+        arrival_date TEXT,
+        cached_at TEXT
+    )
+    """)
+
+    cursor.execute("""
     CREATE TABLE IF NOT EXISTS dataset_v2_entries (
         id               INTEGER PRIMARY KEY AUTOINCREMENT,
         user_uid         TEXT    NOT NULL,

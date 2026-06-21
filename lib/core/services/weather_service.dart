@@ -20,6 +20,17 @@ class WeatherService {
 
   static final Map<String, _CachedWeatherEntry> _inMemoryCache = {};
 
+  static WeatherModel? getLatestCachedWeather() {
+    if (_inMemoryCache.isEmpty) return null;
+    _CachedWeatherEntry? freshest;
+    for (final entry in _inMemoryCache.values) {
+      if (freshest == null || entry.timestamp.isAfter(freshest.timestamp)) {
+        freshest = entry;
+      }
+    }
+    return freshest?.weather;
+  }
+
   Future<String> _getApiKey() async {
     try {
       // Alignment 1: Check build-time injected key from environment variables
@@ -197,6 +208,11 @@ class WeatherService {
       if (_inMemoryCache.containsKey(memKey)) {
         debugPrint('[Weather] Failed, falling back to expired in-memory cache.');
         return _inMemoryCache[memKey]!.weather;
+      }
+      final latest = getLatestCachedWeather();
+      if (latest != null) {
+        debugPrint('[Weather] Failed completely, falling back to latest cached weather.');
+        return latest;
       }
       if (e is! Exception || !e.toString().contains('weather_unavailable')) {
         throw Exception(jsonEncode({

@@ -2858,7 +2858,77 @@ def resolve_query_fast(
                     
                 return translate_to_language(response_content, language), 1.0, "LOCAL_ENGINE"
 
-            # If NO crop-specific structured advice was found: call Gemini Fallback first
+            # Swapped: Category fallback first, then Gemini fallback, then intelligent default.
+            profiles = load_crop_profiles()
+            from fertilizer_engine import guess_crop_category
+            category = None
+            if crop_key in profiles:
+                category = profiles[crop_key].get("category")
+            if not category:
+                category = guess_crop_category(crop_key)
+            
+            category_section_text = None
+            if category:
+                category = category.lower()
+                if topic == "fertilizers":
+                    from fertilizer_engine import CATEGORY_FERTILIZER_SCHEDULES
+                    if category in CATEGORY_FERTILIZER_SCHEDULES:
+                        sched = CATEGORY_FERTILIZER_SCHEDULES[category]
+                        bullets = []
+                        for stage, entries in sched.items():
+                            for entry in entries:
+                                bullets.append(f"- {stage} Stage: Apply {entry['fertilizer']} (Dosage: {entry['dosage']})")
+                        crop_title = crop_key.capitalize()
+                        category_section_text = f"**{crop_title} Fertilizer Guidelines (Category: {category.title()})**\n" + "\n".join(bullets)
+                elif topic in ["irrigation", "disease", "pest", "soil", "general"]:
+                    intent_map = {
+                        "irrigation": "IRRIGATION_QUERY",
+                        "disease": "DISEASE_QUERY",
+                        "pest": "PEST_QUERY",
+                        "soil": "CROP_SOIL_REQUIREMENT_QUERY",
+                        "general": "GENERAL_FARMING_QUERY"
+                    }
+                    category_adv = get_category_advisory(intent_map[topic], category, crop_key)
+                    if category_adv:
+                        category_section_text = category_adv
+
+            # If category guidance was found, return it immediately as LOCAL_ENGINE
+            if category_section_text is not None:
+                timing["database_lookup_time"] += time.perf_counter() - db_start
+                response_content = category_section_text
+                
+                if topic == "fertilizers":
+                    source_note = (
+                        "\n\n**Sources & Organic Practices:**\n"
+                        "- Nitrogen (N) is usually supplied via Urea.\n"
+                        "- Phosphorus (P) is supplied via Single Superphosphate or DAP.\n"
+                        "- Potassium (K) is supplied via Muriate of Potash.\n"
+                        "- Always supplement with well-rotted farmyard manure or organic compost to improve soil health."
+                    )
+                    if source_note not in response_content:
+                        response_content += source_note
+                        
+                if weather_context:
+                    temp = weather_context.get("temperature") or 29.0
+                    cond = weather_context.get("condition") or "Clear"
+                    rain_chance = weather_context.get("rainChance") or 0.0
+                    if topic == "irrigation":
+                        if "rain" in cond.lower() or rain_chance >= 50:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Suspended. Natural rain/precipitation is sufficient today."
+                        else:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Proceed with scheduled drip/canal irrigation to maintain crop moisture."
+                    elif topic == "fertilizers":
+                        if "rain" in cond.lower() or rain_chance >= 50:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Avoid applying granular fertilizers on open soil due to rain wash-off risks."
+                        else:
+                            response_content += f"\n\n**Today's Weather Advisory ({temp}°C, {cond}):** Conditions are ideal for fertilizer application."
+                            
+                if "weather" not in response_content.lower() and topic in ["fertilizers", "irrigation", "pest", "disease", "stages", "soil"]:
+                    response_content += "\n\nNote: Farm activities depend on weather conditions."
+                    
+                return translate_to_language(response_content, language), 1.0, "LOCAL_ENGINE"
+
+            # Otherwise, call Gemini Fallback
             from services.gemini_fallback import generate_advisory
             user_uid = session_id.split(":")[0] if ":" in session_id else "anonymous"
             
@@ -2866,7 +2936,7 @@ def resolve_query_fast(
             if "crop" not in farm_ctx:
                 farm_ctx["crop"] = crop_key
             
-            print(f"[Advisory Fallback] Crop '{crop_key}' has no specific guide or section for topic '{topic}'. Triggering Gemini fallback.")
+            print(f"[Advisory Fallback] Crop '{crop_key}' has no specific guide or category. Triggering Gemini fallback.")
             
             gemini_start = time.perf_counter()
             gemini_res = None
@@ -2890,27 +2960,18 @@ def resolve_query_fast(
                         
                 return translate_to_language(response_content, language), 0.95, "GEMINI_FALLBACK"
 
-            # Step D: Gemini failed or is unavailable: use category fallback as ultimate fail-soft
-            profiles = load_crop_profiles()
-            from fertilizer_engine import guess_crop_category
-            category = None
-            if crop_key in profiles:
-                category = profiles[crop_key].get("category")
-            if not category:
-                category = guess_crop_category(crop_key) or "cereals"
-            category = category.lower()
-            
+            # Otherwise, use intelligent default (cereals category) as ultimate fail-soft
+            category = "cereals"
             category_section_text = None
             if topic == "fertilizers":
                 from fertilizer_engine import CATEGORY_FERTILIZER_SCHEDULES
-                if category in CATEGORY_FERTILIZER_SCHEDULES:
-                    sched = CATEGORY_FERTILIZER_SCHEDULES[category]
-                    bullets = []
-                    for stage, entries in sched.items():
-                        for entry in entries:
-                            bullets.append(f"- {stage} Stage: Apply {entry['fertilizer']} (Dosage: {entry['dosage']})")
-                    crop_title = crop_key.capitalize()
-                    category_section_text = f"**{crop_title} Fertilizer Guidelines (Category: {category.title()})**\n" + "\n".join(bullets)
+                sched = CATEGORY_FERTILIZER_SCHEDULES[category]
+                bullets = []
+                for stage, entries in sched.items():
+                    for entry in entries:
+                        bullets.append(f"- {stage} Stage: Apply {entry['fertilizer']} (Dosage: {entry['dosage']})")
+                crop_title = crop_key.capitalize()
+                category_section_text = f"**{crop_title} Fertilizer Guidelines (Category: Cereals Default)**\n" + "\n".join(bullets)
             elif topic in ["irrigation", "disease", "pest", "soil", "general"]:
                 intent_map = {
                     "irrigation": "IRRIGATION_QUERY",

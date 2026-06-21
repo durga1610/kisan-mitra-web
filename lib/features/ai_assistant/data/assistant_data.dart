@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../../weather/data/models/weather_model.dart';
 
 // ── Schedule ──────────────────────────────────────────────────────────────────
 
@@ -170,7 +171,11 @@ class DailyAssistant {
   }
 
   /// Fallback for when backend is unavailable
-  static DailyAssistant fallback({required String cropName, required int ageDays}) {
+  static DailyAssistant fallback({
+    required String cropName,
+    required int ageDays,
+    WeatherModel? weather,
+  }) {
     String stage = 'Early Growth';
     if (ageDays <= 7)        stage = 'Land Preparation';
     else if (ageDays <= 30)  stage = 'Early Growth';
@@ -179,12 +184,84 @@ class DailyAssistant {
     else if (ageDays <= 120) stage = 'Fruit Development';
     else                     stage = 'Harvest Stage';
 
+    // Build dynamic weather summary if available
+    String weatherSummary = 'Weather data unavailable';
+    List<DailyAlert> weatherAlerts = [];
+
+    if (weather != null) {
+      final List<String> parts = [weather.condition];
+      parts.add('${weather.temperature.toStringAsFixed(0)}°C');
+      parts.add('Humidity ${weather.humidity.toStringAsFixed(0)}%');
+      if (weather.rainChance > 0) {
+        parts.add('Rainfall ${weather.rainChance.toStringAsFixed(0)}%');
+      }
+      weatherSummary = parts.join(', ');
+
+      // Build weather-driven alerts dynamically
+      if (weather.rainChance >= 50) {
+        weatherAlerts.add(DailyAlert(
+          level: 'info',
+          icon: 'cloud_outlined',
+          message: 'Rain expected today (${weather.rainChance.toStringAsFixed(0)}% forecast). Waterlogging risk in low-lying areas.',
+        ));
+      }
+      if (weather.temperature >= 36) {
+        weatherAlerts.add(DailyAlert(
+          level: 'warning',
+          icon: 'thermostat',
+          message: 'Heat stress risk — ${weather.temperature.toStringAsFixed(0)}°C today. Irrigate in evening. Watch for wilting symptoms.',
+        ));
+      }
+      if (weather.temperature <= 12) {
+        weatherAlerts.add(DailyAlert(
+          level: 'warning',
+          icon: 'ac_unit',
+          message: 'Cold stress risk — ${weather.temperature.toStringAsFixed(0)}°C today. Young $cropName plants may be affected. Apply protective mulching.',
+        ));
+      }
+      if (weather.humidity >= 75) {
+        weatherAlerts.add(DailyAlert(
+          level: 'danger',
+          icon: 'coronavirus_outlined',
+          message: 'High humidity (${weather.humidity.toStringAsFixed(0)}%) — Disease risk HIGH. Fungal infections like blight and mildew can spread rapidly.',
+        ));
+      }
+      if (weather.windSpeed >= 25.0) {
+        if (stage == 'Flowering Stage' || stage == 'Fruit Development') {
+          weatherAlerts.add(DailyAlert(
+            level: 'warning',
+            icon: 'cloud_outlined',
+            message: 'High wind speeds (${weather.windSpeed.toStringAsFixed(0)} km/h) during $stage. High risk of flower or fruit drop. Consider crop staking.',
+          ));
+        } else {
+          weatherAlerts.add(DailyAlert(
+            level: 'warning',
+            icon: 'cloud_outlined',
+            message: 'High wind speeds (${weather.windSpeed.toStringAsFixed(0)} km/h) forecasted. Secure tall plants to prevent lodging.',
+          ));
+        }
+      }
+      if (weatherAlerts.isEmpty) {
+        weatherAlerts.add(DailyAlert(
+          level: 'info',
+          icon: 'check_circle_outlined',
+          message: 'No critical alerts today. Good conditions for $cropName at Day $ageDays.',
+        ));
+      }
+    } else {
+      weatherAlerts.add(const DailyAlert(
+        level: 'info',
+        icon: 'info',
+        message: 'Weather data unavailable. Proceed based on direct field observation.',
+      ));
+    }
+
     return DailyAssistant(
       cropName:            cropName,
       cropAgeDays:         ageDays,
       currentStageName:    stage,
       expectedHarvestDate: '',
-      weatherSummary:      'Weather data unavailable',
+      weatherSummary:      weatherSummary,
       schedule: const DailySchedule(
         morning:   ['Check soil moisture and irrigate if needed.', 'Inspect crop canopy for disease or pest signs.'],
         afternoon: ['Perform weeding and field maintenance.', 'Monitor for pest activity.'],
@@ -197,12 +274,7 @@ class DailyAssistant {
           detail: 'Walk through the field and check crop health, soil moisture, and any pest or disease signs.',
         ),
       ],
-      alerts: [
-        const DailyAlert(
-          level: 'info', icon: 'info',
-          message: 'Weather data unavailable. Proceed based on direct field observation.',
-        ),
-      ],
+      alerts: weatherAlerts,
     );
   }
 }
@@ -252,8 +324,17 @@ class AssistantData {
   /// Parse a DailyAssistant from the backend JSON response
   static DailyAssistant? parseDailyAssistant(String jsonStr) {
     try {
-      final Map<String, dynamic> data = json.decode(jsonStr);
-      return DailyAssistant.fromMap(data);
+      final decoded = json.decode(jsonStr);
+      if (decoded is List) {
+        final todayEntry = decoded.firstWhere(
+          (element) => element['dayOffset'] == 0,
+          orElse: () => decoded.first,
+        );
+        return DailyAssistant.fromMap(Map<String, dynamic>.from(todayEntry));
+      } else if (decoded is Map) {
+        return DailyAssistant.fromMap(Map<String, dynamic>.from(decoded));
+      }
+      return null;
     } catch (e) {
       if (kDebugMode) print('[AssistantData] Failed to parse daily assistant: $e');
       return null;

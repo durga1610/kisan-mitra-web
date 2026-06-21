@@ -299,9 +299,9 @@ class _MarketCardState extends State<MarketCard> with SingleTickerProviderStateM
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _liveTag(),
+                        widget.price.isAiEstimate ? _aiEstimateTag() : _liveTag(),
                         Text(
-                          'Updated just now',
+                          widget.price.isAiEstimate ? 'AI-generated estimate' : 'Updated just now',
                           style: GoogleFonts.poppins(fontSize: 10, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
                         ),
                       ],
@@ -394,6 +394,36 @@ class _MarketCardState extends State<MarketCard> with SingleTickerProviderStateM
           Text(
             'LIVE',
             style: GoogleFonts.poppins(fontSize: 9, fontWeight: FontWeight.w800, color: Colors.red),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _aiEstimateTag() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: Colors.deepPurple.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.auto_awesome,
+            size: 10,
+            color: Colors.deepPurple,
+          ),
+          const SizedBox(width: 4),
+          Text(
+            'AI ESTIMATE',
+            style: GoogleFonts.poppins(
+              fontSize: 9,
+              fontWeight: FontWeight.w800,
+              color: Colors.deepPurple,
+            ),
           ),
         ],
       ),
