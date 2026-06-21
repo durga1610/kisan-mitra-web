@@ -5,6 +5,9 @@ os.environ["OPENBLAS_NUM_THREADS"] = "1"
 os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
 os.environ["NUMEXPR_NUM_THREADS"] = "1"
 os.environ["MALLOC_TRIM_THRESHOLD_"] = "65536"
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
+os.environ["HF_HUB_OFFLINE"] = "1"
+os.environ["PYTORCH_NO_CUDA_MEMORY_CACHING"] = "1"
 
 import torch
 try:
