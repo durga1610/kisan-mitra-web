@@ -3941,6 +3941,50 @@ async def recommend_pest_control(request: Request, body: PestRequest, user: Dict
         }
 
 
+@app.get("/api/v1/system/test-gemini")
+def test_gemini_connection():
+    """
+    Test direct REST connection to Gemini API using the active key in the pool.
+    """
+    import time
+    import requests
+    from services.gemini_fallback import _KEY_MANAGER
+    
+    current_key = _KEY_MANAGER.current_key
+    if not current_key:
+        return {"status": "error", "message": "No active key loaded in key manager."}
+        
+    masked_key = f"KEY_{_KEY_MANAGER._active_index + 1}"
+    model_name = "gemini-2.5-flash"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={current_key}"
+    headers = {"Content-Type": "application/json"}
+    payload = {
+        "contents": [{"parts": [{"text": "Hello in 3 words"}]}],
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 10}
+    }
+    
+    t0 = time.time()
+    try:
+        resp = requests.post(url, headers=headers, json=payload, timeout=8.0)
+        latency = time.time() - t0
+        return {
+            "status": "success",
+            "active_key": masked_key,
+            "status_code": resp.status_code,
+            "latency_seconds": round(latency, 3),
+            "response_text": resp.text[:400]
+        }
+    except Exception as exc:
+        latency = time.time() - t0
+        return {
+            "status": "exception",
+            "active_key": masked_key,
+            "latency_seconds": round(latency, 3),
+            "error_type": type(exc).__name__,
+            "error_message": str(exc)
+        }
+
+
 @app.get("/api/v1/system/debug-logs")
 def get_debug_logs():
     """
