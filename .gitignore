@@ -164,3 +164,10 @@ secrets/
 backend/dataset_v2/
 backend/hard_cases/
 backend/disease_feedback_dataset/
+
+# SQLite runtime database — auto-created by setup_database.py; never commit
+backend/*.db
+backend/app_data.db
+
+# Scratch / debug scripts — not part of the production application
+backend/scratch/
