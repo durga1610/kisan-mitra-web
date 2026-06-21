@@ -16,6 +16,7 @@ from security_utils import safe_pickle_load, KNOWN_MODEL_HASHES
 logger = logging.getLogger(__name__)
 
 from config import DB_PATH
+from db_utils import get_db_connection
 
 # Set cache directories inside workspace to avoid writing to system paths
 os.environ["HF_HOME"] = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "huggingface")
@@ -373,28 +374,34 @@ def load_crop_profiles():
     return _crop_profiles
 
 
+_crop_catalog_cache: List[str] = []
+
 def get_crop_catalog() -> List[str]:
     """
-    Retrieves the list of crops dynamically from the crop_catalog database table.
+    Retrieves the list of crops from SQLite, cached in memory after first call
+    to avoid per-request DB connections (was causing contention on advisory requests).
     """
+    global _crop_catalog_cache
+    if _crop_catalog_cache:
+        return _crop_catalog_cache
+
     crops_list = []
-    db_path = DB_PATH
-    if os.path.exists(db_path):
+    if os.path.exists(DB_PATH):
         try:
-            conn = sqlite3.connect(db_path)
+            conn = get_db_connection(DB_PATH)
             cursor = conn.cursor()
             cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='crop_catalog'")
             if cursor.fetchone():
                 cursor.execute("SELECT name FROM crop_catalog")
                 rows = cursor.fetchall()
-                crops_list = [row[0] for row in rows]
+                crops_list = [row[0] if isinstance(row, tuple) else row["name"] for row in rows]
             conn.close()
         except Exception as e:
-            logger.warning(f"[AdvisoryEngine] Error reading crop catalog: {e}")
-            
+            logger.warning("[AdvisoryEngine] Error reading crop catalog: %s", e)
+
     if not crops_list:
         crops_list = ["tomato", "rice", "paddy", "cotton", "wheat", "maize", "corn", "potato", "mustard", "sugarcane", "banana", "rose"]
-        
+
     # Merge with crop_profiles.json keys
     profiles = load_crop_profiles()
     if profiles:
@@ -403,7 +410,8 @@ def get_crop_catalog() -> List[str]:
             if key not in crops_set:
                 crops_list.append(key)
                 crops_set.add(key)
-                
+
+    _crop_catalog_cache = crops_list
     return crops_list
 
 

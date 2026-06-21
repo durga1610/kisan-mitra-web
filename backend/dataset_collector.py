@@ -26,6 +26,7 @@ from datetime import datetime, date, timedelta
 from typing import Optional, Dict, Any, List
 
 from PIL import Image
+from db_utils import get_db_connection, fire_and_forget_callable
 
 logger = logging.getLogger(__name__)
 
@@ -111,39 +112,43 @@ def _save_image_and_sidecar(
 
 
 def _db_insert(row: dict) -> Optional[int]:
-    """Insert a dataset_v2_entries row. Returns inserted id or None."""
-    try:
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO dataset_v2_entries
-            (user_uid, diagnosis_id, crop, predicted_disease, confidence,
-             confidence_band, is_correct, collection_type, image_path,
-             state, district, weather_snapshot, source, timestamp)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            row.get("user_uid", "anonymous"),
-            row.get("diagnosis_id"),
-            row.get("crop", "unknown"),
-            row.get("predicted_disease", "Unknown"),
-            float(row.get("confidence", 0.0)),
-            row.get("confidence_band", "unknown"),
-            row.get("is_correct"),          # None until feedback given
-            row.get("collection_type", "unknown"),
-            row.get("image_path"),
-            row.get("state"),
-            row.get("district"),
-            json.dumps(row.get("weather_snapshot")) if row.get("weather_snapshot") else None,
-            row.get("source"),
-            row.get("timestamp", datetime.utcnow().isoformat()),
-        ))
-        inserted_id = cursor.lastrowid
-        conn.commit()
-        conn.close()
-        return inserted_id
-    except Exception as e:
-        logger.error("[DatasetCollector] DB insert failed: %s", e)
-        return None
+    """
+    Queue an async insert into dataset_v2_entries.
+    Returns None (non-blocking) — the actual insert happens in the bg worker.
+    Call _db_insert_sync for tests that need synchronous confirmation.
+    """
+    def _do_insert():
+        try:
+            conn = get_db_connection(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO dataset_v2_entries
+                (user_uid, diagnosis_id, crop, predicted_disease, confidence,
+                 confidence_band, is_correct, collection_type, image_path,
+                 state, district, weather_snapshot, source, timestamp)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                row.get("user_uid", "anonymous"),
+                row.get("diagnosis_id"),
+                row.get("crop", "unknown"),
+                row.get("predicted_disease", "Unknown"),
+                float(row.get("confidence", 0.0)),
+                row.get("confidence_band", "unknown"),
+                row.get("is_correct"),
+                row.get("collection_type", "unknown"),
+                row.get("image_path"),
+                row.get("state"),
+                row.get("district"),
+                json.dumps(row.get("weather_snapshot")) if row.get("weather_snapshot") else None,
+                row.get("source"),
+                row.get("timestamp", datetime.utcnow().isoformat()),
+            ))
+            conn.commit()
+            conn.close()
+        except Exception as e:
+            logger.error("[DatasetCollector] Async DB insert failed: %s", e)
+    fire_and_forget_callable(_do_insert)
+    return None
 
 
 # ──────────────────────────────────────────────────────────────────────────────

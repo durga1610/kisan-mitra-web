@@ -84,6 +84,24 @@ def startup_event():
             logger.warning("[Startup] Disease model pre-warm failed (will lazy-load on first request): %s", _e)
     threading.Thread(target=_preload_models, daemon=True).start()
 
+    # ── Pre-warm advisory engine (FAISS + SentenceTransformer) in background ────
+    # Avoids 45-90s first advisory request latency caused by lazy model loading.
+    def _preload_advisory():
+        import time as _t
+        _t0 = _t.perf_counter()
+        try:
+            from advisory_engine import init_resources
+            init_resources()
+            logger.info("[Startup] Advisory engine (FAISS + SentenceTransformer) pre-warmed in %.2fs", _t.perf_counter() - _t0)
+        except Exception as _e:
+            logger.warning("[Startup] Advisory engine pre-warm failed (will lazy-load on first request): %s", _e)
+    threading.Thread(target=_preload_advisory, daemon=True).start()
+
+    # ── Start async SQLite write worker ──────────────────────────────────
+    from db_utils import _ensure_worker
+    _ensure_worker()
+    logger.info("[Startup] Async SQLite write worker started.")
+
 
 
 # ── Security Headers Middleware (F-11) ────────────────────────────────────
@@ -1191,17 +1209,13 @@ def generate_plausible_disease_report(crop_name: str, disease_keyword: Optional[
         "hi": hi_entry
     }
 def increment_opt_stat(metric_name: str):
-    try:
-        import sqlite3
-        db_path = DB_PATH
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS gemini_optimization_stats (metric_name TEXT PRIMARY KEY, metric_value INTEGER DEFAULT 0)")
-        cursor.execute("INSERT INTO gemini_optimization_stats (metric_name, metric_value) VALUES (?, 1) ON CONFLICT(metric_name) DO UPDATE SET metric_value = metric_value + 1", (metric_name,))
-        conn.commit()
-        conn.close()
-    except Exception as e:
-        logger.error(f"Error incrementing optimization stat: {e}")
+    """Async counter increment — never blocks request thread."""
+    from db_utils import fire_and_forget_write
+    fire_and_forget_write(
+        "INSERT INTO gemini_optimization_stats (metric_name, metric_value) VALUES (?, 1) "
+        "ON CONFLICT(metric_name) DO UPDATE SET metric_value = metric_value + 1",
+        (metric_name,)
+    )
 
 def get_opt_stats() -> dict:
     stats = {"local_verification_count": 0, "gemini_verification_count": 0}

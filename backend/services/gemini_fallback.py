@@ -7,6 +7,7 @@ import sqlite3
 from datetime import datetime
 import google.generativeai as genai
 from google.api_core.exceptions import GoogleAPIError
+from db_utils import get_db_connection, fire_and_forget_write, fire_and_forget_callable
 
 logger = logging.getLogger(__name__)
 
@@ -108,7 +109,7 @@ def generate_cache_key(*args, **kwargs) -> str:
 def get_cached_response(cache_key: str) -> dict:
     """Retrieves response from SQLite if cached within last 24 hours."""
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = get_db_connection(DB_PATH)
         cursor = conn.cursor()
         cursor.execute(
             "SELECT response_json, cached_at FROM gemini_response_cache WHERE cache_key = ?",
@@ -116,40 +117,33 @@ def get_cached_response(cache_key: str) -> dict:
         )
         row = cursor.fetchone()
         conn.close()
-        
+
         if row:
-            response_json, cached_at_str = row
+            response_json = row["response_json"] if hasattr(row, "keys") else row[0]
+            cached_at_str = row["cached_at"] if hasattr(row, "keys") else row[1]
             cached_at = datetime.fromisoformat(cached_at_str)
             # Check TTL of 24 hours
             if (datetime.now() - cached_at).total_seconds() < 86400:
-                logger.info(f"[Gemini Fallback] Persistent cache hit for key: {cache_key}")
+                logger.info("[Gemini Fallback] Persistent cache hit for key: %s", cache_key)
                 return json.loads(response_json)
             else:
-                # Cache expired, delete it
-                logger.info(f"[Gemini Fallback] Persistent cache expired for key: {cache_key}")
-                conn = sqlite3.connect(DB_PATH)
-                cursor = conn.cursor()
-                cursor.execute("DELETE FROM gemini_response_cache WHERE cache_key = ?", (cache_key,))
-                conn.commit()
-                conn.close()
+                # Cache expired — delete asynchronously
+                logger.info("[Gemini Fallback] Persistent cache expired for key: %s", cache_key)
+                fire_and_forget_write(
+                    "DELETE FROM gemini_response_cache WHERE cache_key = ?",
+                    (cache_key,)
+                )
     except Exception as e:
-        logger.error(f"[Gemini Fallback] Cache read error: {e}")
+        logger.error("[Gemini Fallback] Cache read error: %s", e)
     return None
 
-# Helper: Set persistent cache response
+# Helper: Set persistent cache response (async — never blocks request thread)
 def set_cached_response(cache_key: str, response: dict):
-    try:
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        cursor.execute(
-            "INSERT OR REPLACE INTO gemini_response_cache (cache_key, response_json, cached_at) VALUES (?, ?, ?)",
-            (cache_key, json.dumps(response), datetime.now().isoformat())
-        )
-        conn.commit()
-        conn.close()
-        logger.info(f"[Gemini Fallback] Response cached persistently for key: {cache_key}")
-    except Exception as e:
-        logger.error(f"[Gemini Fallback] Cache write error: {e}")
+    fire_and_forget_write(
+        "INSERT OR REPLACE INTO gemini_response_cache (cache_key, response_json, cached_at) VALUES (?, ?, ?)",
+        (cache_key, json.dumps(response), datetime.now().isoformat())
+    )
+    logger.debug("[Gemini Fallback] Cache write queued for key: %s", cache_key)
 
 # Helper: Check and increment daily limit (max 5 calls per user per day)
 def check_and_increment_daily_limit(user_uid: str) -> bool:
@@ -157,58 +151,52 @@ def check_and_increment_daily_limit(user_uid: str) -> bool:
     if os.getenv("TESTING") == "1":
         return True
     if not user_uid:
-        # If no user_uid is provided, allow the call but warn
         logger.warning("[Gemini Fallback] No user_uid provided. Daily limit check bypassed.")
         return True
-    
+
     current_date = datetime.now().strftime("%Y-%m-%d")
     try:
-        conn = sqlite3.connect(DB_PATH)
+        # Read with WAL connection (non-blocking for readers)
+        conn = get_db_connection(DB_PATH)
         cursor = conn.cursor()
         cursor.execute(
             "SELECT call_count FROM gemini_daily_usage WHERE user_uid = ? AND date = ?",
             (user_uid, current_date)
         )
         row = cursor.fetchone()
-        
+        conn.close()
+
         if row:
-            call_count = row[0]
+            call_count = row["call_count"] if hasattr(row, "keys") else row[0]
             if call_count >= 5:
-                logger.warning(f"[Gemini Fallback] User {user_uid} has exceeded daily fallback limit of 5 calls.")
-                conn.close()
+                logger.warning("[Gemini Fallback] User %s has exceeded daily fallback limit.", user_uid)
                 return False
-            cursor.execute(
+            # Increment asynchronously
+            fire_and_forget_write(
                 "UPDATE gemini_daily_usage SET call_count = call_count + 1 WHERE user_uid = ? AND date = ?",
                 (user_uid, current_date)
             )
         else:
-            cursor.execute(
+            fire_and_forget_write(
                 "INSERT INTO gemini_daily_usage (user_uid, date, call_count) VALUES (?, ?, 1)",
                 (user_uid, current_date)
             )
-        conn.commit()
-        conn.close()
         return True
     except Exception as e:
-        logger.error(f"[Gemini Fallback] Error updating daily usage count: {e}")
-        return True # fail-open for DB errors
+        logger.error("[Gemini Fallback] Error checking daily usage: %s", e)
+        return True  # fail-open for DB errors
 
-# Helper: Log fallback usage
+# Helper: Log fallback usage (fully async — never blocks request thread)
 def log_fallback_call(module: str, user_uid: str, crop: str, trigger_reason: str, prompt_text: str, source: str, latency_ms: int, success: bool):
-    try:
-        prompt_hash = hashlib.sha256(prompt_text.encode("utf-8")).hexdigest()
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO gemini_fallback_log (timestamp, module, user_uid, crop, trigger_reason, prompt_hash, response_source, latency_ms, success) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (datetime.now().isoformat(), module, user_uid, crop, trigger_reason, prompt_hash, source, latency_ms, 1 if success else 0)
-        )
-        conn.commit()
-        conn.close()
-        logger.info(f"[Gemini Fallback] Logged {module} fallback call. Source={source}, Success={success}, Latency={latency_ms}ms")
-    except Exception as e:
-        logger.error(f"[Gemini Fallback] Error logging fallback call: {e}")
+    prompt_hash = hashlib.sha256(prompt_text.encode("utf-8")).hexdigest()
+    fire_and_forget_write(
+        "INSERT INTO gemini_fallback_log "
+        "(timestamp, module, user_uid, crop, trigger_reason, prompt_hash, response_source, latency_ms, success) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (datetime.now().isoformat(), module, user_uid, crop, trigger_reason,
+         prompt_hash, source, latency_ms, 1 if success else 0)
+    )
+    logger.debug("[Gemini Fallback] Log queued: module=%s source=%s latency=%dms", module, source, latency_ms)
 
 # Core LLM Call with Retry and Timeout
 def execute_gemini_call(

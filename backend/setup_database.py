@@ -114,8 +114,13 @@ def init_db() -> None:
     - Seed data is inserted ONLY if the farms table is empty (F-15 fix).
     """
     logger.info("[Database] Initialising SQLite database at: %s", DB_PATH)
-    conn = sqlite3.connect(DB_PATH)
+    # Use WAL mode + busy_timeout from the first connection so all subsequent
+    # connections (from all threads) inherit WAL mode on this database file.
+    from db_utils import get_db_connection
+    conn = get_db_connection(DB_PATH)
+    conn.row_factory = None   # cursor.execute returns plain tuples here
     cursor = conn.cursor()
+
 
     # ── Schema ────────────────────────────────────────────────────────────
     cursor.execute("""
