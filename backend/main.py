@@ -15,14 +15,9 @@ except RuntimeError:
 torch.set_grad_enabled(False)
 
 def trim_memory():
-    """Force Python garbage collection and release freeable heap memory to OS (Linux glibc)."""
+    """Force Python garbage collection to release unused memory."""
     import gc
     gc.collect()
-    try:
-        import ctypes
-        ctypes.CDLL('libc.so.6').malloc_trim(0)
-    except Exception:
-        pass
 
 
 import logging
