@@ -96,23 +96,13 @@ def startup_event():
         logger.warning("[Startup] Database setup failed: %s", e)
 
     # ── Pre-warm models sequentially in background ────────────────────
-    # Serializes model pre-warm and trims heap memory aggressively after each
-    # step to keep baseline memory safely under Render's 512MB threshold.
+    # Pre-warms the disease model at startup to avoid response timeouts.
+    # The heavy SentenceTransformer is skipped at startup to preserve memory
+    # on Render Free Tier and will lazy-load on-demand if a RAG query is hit.
     def _preload_sequentially():
         import time as _t
         
-        # 1. Pre-warm advisory engine (FAISS + SentenceTransformer)
-        _t0 = _t.perf_counter()
-        try:
-            from advisory_engine import init_resources
-            init_resources()
-            logger.info("[Startup] Advisory engine (FAISS + SentenceTransformer) pre-warmed in %.2fs", _t.perf_counter() - _t0)
-        except Exception as _e:
-            logger.warning("[Startup] Advisory engine pre-warm failed: %s", _e)
-        
-        trim_memory()
-        
-        # 2. Pre-warm disease detection model (ResNet18)
+        # 1. Pre-warm disease detection model (ResNet18)
         _t0 = _t.perf_counter()
         try:
             init_disease_model()
@@ -121,6 +111,7 @@ def startup_event():
             logger.warning("[Startup] Disease model pre-warm failed: %s", _e)
             
         trim_memory()
+        logger.info("[Startup] Advisory engine pre-warm deferred to lazy-load on-demand.")
         
     threading.Thread(target=_preload_sequentially, daemon=True).start()
 
