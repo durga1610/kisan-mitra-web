@@ -167,12 +167,10 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
                   _getSettingItem("App Permissions", settingsList)?.widget ?? const SizedBox(),
                 ]),
                 _buildSettingsSection(title: "Support & Legal", children: [
-                  _getSettingItem("Help & Support", settingsList)?.widget ?? const SizedBox(),
                   _getSettingItem("FAQ", settingsList)?.widget ?? const SizedBox(),
                   _getSettingItem("Report a Problem", settingsList)?.widget ?? const SizedBox(),
                   _getSettingItem("Feedback", settingsList)?.widget ?? const SizedBox(),
                   _getSettingItem("Rate App", settingsList)?.widget ?? const SizedBox(),
-                  _getSettingItem("Privacy Policy", settingsList)?.widget ?? const SizedBox(),
                   _getSettingItem("Terms & Conditions", settingsList)?.widget ?? const SizedBox(),
                 ]),
               ],
@@ -298,15 +296,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
         ),
       ),
       _SettingItem(
-        title: "Help & Support",
-        widget: _buildSettingsTile(
-          icon: Icons.help_outline_rounded,
-          title: "Help & Support",
-          isDarkMode: isDarkMode,
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpSupportScreen())),
-        ),
-      ),
-      _SettingItem(
         title: "FAQ",
         widget: _buildSettingsTile(
           icon: Icons.question_answer_outlined,
@@ -340,15 +329,6 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
           title: "Rate App",
           isDarkMode: isDarkMode,
           onTap: () => _launchURL("market://details?id=com.example.kisan_mitra"),
-        ),
-      ),
-      _SettingItem(
-        title: "Privacy Policy",
-        widget: _buildSettingsTile(
-          icon: Icons.policy_outlined,
-          title: "Privacy Policy",
-          isDarkMode: isDarkMode,
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen())),
         ),
       ),
       _SettingItem(

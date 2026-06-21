@@ -209,12 +209,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _menuItem(Icons.language_outlined, 'Language'.tr(context), () {
               showLanguageSelectorSheet(context);
             }),
-            _menuItem(Icons.help_outline_rounded, 'Help & Support'.tr(context), () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpSupportScreen()));
-            }),
-            _menuItem(Icons.policy_outlined, 'Privacy Policy'.tr(context), () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()));
-            }),
             const SizedBox(height: 8),
 
             // Logout
