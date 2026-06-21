@@ -431,13 +431,14 @@ def extract_entities(query: str, farm_context: Optional[Dict[str, Any]] = None) 
         "farm_id": None
     }
     
-    # 1. Crop mapping
+    # 1. Crop mapping (using word boundaries to prevent substring matches like rice in price)
+    import re
     crops = get_crop_catalog()
-    if "millet" in q_lower:
+    if re.search(r"\bmillet\b", q_lower) or re.search(r"\bmillets\b", q_lower):
         entities["crop"] = "millets"
     else:
         for c in crops:
-            if c in q_lower:
+            if re.search(r"\b" + re.escape(c) + r"\b", q_lower):
                 entities["crop"] = c
                 break
     if entities["crop"] == "paddy":
@@ -2057,7 +2058,20 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
         filtered_indices.append(i)
         
     if not filtered_indices:
-        filtered_indices = [i for i, chunk in enumerate(_chunks) if not target_source or chunk["source"] == target_source]
+        if crop_entity:
+            # Fall back to only generic (non-crop-specific) chunks for this target_source to prevent crop substitution
+            catalog = get_crop_catalog()
+            for i, chunk in enumerate(_chunks):
+                chunk_source = chunk["source"]
+                if target_source and chunk_source != target_source:
+                    continue
+                chunk_text_lower = chunk["text"].lower()
+                # Exclude if it mentions any other crop in our catalog
+                if any(c in chunk_text_lower for c in catalog):
+                    continue
+                filtered_indices.append(i)
+        else:
+            filtered_indices = [i for i, chunk in enumerate(_chunks) if not target_source or chunk["source"] == target_source]
         
     if not filtered_indices:
         filtered_indices = list(range(len(_chunks)))
@@ -2336,6 +2350,31 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
         if "weather" not in response_content.lower():
             response_content += "\n\nNote: Farm activities depend on weather conditions."
             
+    # Verify no crop substitution in the final response
+    if crop_entity:
+        resp_lower = response_content.lower()
+        catalog = get_crop_catalog()
+        other_crops_mentioned = [c for c in catalog if c != crop_entity and re.search(r"\b" + re.escape(c) + r"\b", resp_lower)]
+        if other_crops_mentioned:
+            logger.warning(
+                "[Advisory Engine] Crop substitution mismatch detected! Query for '%s' but response contains '%s'. "
+                "Triggering Gemini fallback.",
+                crop_entity, other_crops_mentioned
+            )
+            from services.gemini_fallback import generate_advisory
+            user_uid = session_id.split(":")[0] if ":" in session_id else "anonymous"
+            gemini_res = generate_advisory(
+                message=query_clean,
+                farm_context=farm_context,
+                weather_context=weather_context,
+                trigger_reason="crop_substitution_mismatch",
+                user_uid=user_uid
+            )
+            if gemini_res and gemini_res.get("text"):
+                response_content = gemini_res["text"]
+                if "weather" not in response_content.lower():
+                    response_content += "\n\nNote: Farm activities depend on weather conditions."
+
     final_response = translate_to_language(response_content, language)
     
     # Update memory
