@@ -228,7 +228,9 @@ def execute_gemini_call(
 
     # 3 Retries
     retries = 3
-    total_timeout = timeout if timeout is not None else (30.0 if is_vision else 10.0)
+    # Vision timeout: 20s (down from 30s) so it fits inside Render's 30s HTTP hard limit
+    # when combined with model inference (~3-5s) and GradCAM (~0.5s).
+    total_timeout = timeout if timeout is not None else (20.0 if is_vision else 10.0)
     start_all = time.time()
 
     import concurrent.futures
@@ -239,8 +241,8 @@ def execute_gemini_call(
         if remaining_timeout <= 0.5:
             raise TimeoutError(f"Gemini call timed out after {elapsed_so_far:.2f}s (no time left for retry).")
 
-        # Per-attempt timeout budget
-        attempt_timeout = min(remaining_timeout, 8.0 if not is_vision else 25.0)
+        # Per-attempt timeout budget: cap vision at 18s so total budget is not exhausted on one attempt
+        attempt_timeout = min(remaining_timeout, 8.0 if not is_vision else 18.0)
 
         try:
             model = genai.GenerativeModel(model_name)

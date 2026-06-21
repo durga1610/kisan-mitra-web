@@ -71,7 +71,18 @@ def startup_event():
     except Exception as e:
         logger.warning("[Startup] Database setup failed: %s", e)
 
-    pass
+    # ── Pre-warm disease detection model in background ────────────────────
+    # Avoids first-request cold-load latency (was causing 502 timeouts on
+    # Render free tier when model load + inference + Gemini exceeded 30s).
+    def _preload_models():
+        import time as _t
+        _t0 = _t.perf_counter()
+        try:
+            init_disease_model()
+            logger.info("[Startup] Disease model pre-warmed in %.2fs", _t.perf_counter() - _t0)
+        except Exception as _e:
+            logger.warning("[Startup] Disease model pre-warm failed (will lazy-load on first request): %s", _e)
+    threading.Thread(target=_preload_models, daemon=True).start()
 
 
 
@@ -1006,54 +1017,60 @@ def generate_gradcam_overlay(image: Image.Image) -> str:
     """
     Generates a blurred visual heatmap overlay (Grad-CAM)
     highlighting the spot areas, returned as a Base64 string.
+    Always returns a non-empty string; returns empty string on any failure
+    so the caller never receives a 500/502 from this function.
     """
-    if image.width <= 10 or image.height <= 10:
-        # For 1x1 unit test images, return a dummy transparent overlay
-        buffered = io.BytesIO()
-        image.convert("RGB").save(buffered, format="JPEG")
-        return base64.b64encode(buffered.getvalue()).decode("utf-8")
-        
-    # Resize image to max dimension of 512 before overlay calculations to save resources/bandwidth
-    max_dim = 512
-    if image.width > max_dim or image.height > max_dim:
-        ratio = max_dim / max(image.width, image.height)
-        new_size = (int(image.width * ratio), int(image.height * ratio))
-        image = image.resize(new_size, Image.Resampling.LANCZOS)
+    try:
+        if image.width <= 10 or image.height <= 10:
+            # For 1x1 unit test images, return a dummy transparent overlay
+            buffered = io.BytesIO()
+            image.convert("RGB").save(buffered, format="JPEG")
+            return base64.b64encode(buffered.getvalue()).decode("utf-8")
 
-    width, height = image.size
-    img_np = np.array(image.convert("RGB"))
-    R = img_np[:, :, 0].astype(float)
-    G = img_np[:, :, 1].astype(float)
-    B = img_np[:, :, 2].astype(float)
-    
-    green_mask = (G > R * 1.02) & (G > B * 1.02) & (G > 35)
-    brown_mask = (R > G * 1.05) & (G > B * 1.05) & (R > 40)
-    yellow_mask = (R > 90) & (G > 90) & (B < R * 0.75)
-    
-    # Heatmap RGBA canvas
-    heatmap_np = np.zeros((height, width, 4), dtype=np.uint8)
-    
-    # Healthy leaf areas are colored green/blue with low alpha
-    heatmap_np[green_mask] = [0, 150, 255, 40]
-    
-    # Diseased spots colored red (high activation)
-    spot_mask = brown_mask | yellow_mask
-    heatmap_np[spot_mask] = [255, 0, 0, 180]
-    
-    # Transition yellow areas
-    transition_mask = yellow_mask & (~brown_mask)
-    heatmap_np[transition_mask] = [255, 165, 0, 130]
-    
-    heatmap_img = Image.fromarray(heatmap_np, "RGBA")
-    # Apply Gaussian blur to represent smooth Grad-CAM hot zones
-    heatmap_img = heatmap_img.filter(ImageFilter.GaussianBlur(radius=8))
-    
-    # Overlay onto the original image
-    blended = Image.alpha_composite(image.convert("RGBA"), heatmap_img)
-    
-    buffered = io.BytesIO()
-    blended.convert("RGB").save(buffered, format="JPEG", quality=85)
-    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+        # Resize image to max dimension of 512 before overlay calculations to save resources/bandwidth
+        max_dim = 512
+        if image.width > max_dim or image.height > max_dim:
+            ratio = max_dim / max(image.width, image.height)
+            new_size = (int(image.width * ratio), int(image.height * ratio))
+            image = image.resize(new_size, Image.Resampling.LANCZOS)
+
+        width, height = image.size
+        img_np = np.array(image.convert("RGB"))
+        R = img_np[:, :, 0].astype(float)
+        G = img_np[:, :, 1].astype(float)
+        B = img_np[:, :, 2].astype(float)
+
+        green_mask = (G > R * 1.02) & (G > B * 1.02) & (G > 35)
+        brown_mask = (R > G * 1.05) & (G > B * 1.05) & (R > 40)
+        yellow_mask = (R > 90) & (G > 90) & (B < R * 0.75)
+
+        # Heatmap RGBA canvas
+        heatmap_np = np.zeros((height, width, 4), dtype=np.uint8)
+
+        # Healthy leaf areas are colored green/blue with low alpha
+        heatmap_np[green_mask] = [0, 150, 255, 40]
+
+        # Diseased spots colored red (high activation)
+        spot_mask = brown_mask | yellow_mask
+        heatmap_np[spot_mask] = [255, 0, 0, 180]
+
+        # Transition yellow areas
+        transition_mask = yellow_mask & (~brown_mask)
+        heatmap_np[transition_mask] = [255, 165, 0, 130]
+
+        heatmap_img = Image.fromarray(heatmap_np, "RGBA")
+        # Apply Gaussian blur to represent smooth Grad-CAM hot zones
+        heatmap_img = heatmap_img.filter(ImageFilter.GaussianBlur(radius=8))
+
+        # Overlay onto the original image
+        blended = Image.alpha_composite(image.convert("RGBA"), heatmap_img)
+
+        buffered = io.BytesIO()
+        blended.convert("RGB").save(buffered, format="JPEG", quality=85)
+        return base64.b64encode(buffered.getvalue()).decode("utf-8")
+    except Exception as _gradcam_err:
+        logger.warning("[GradCAM] Overlay generation failed (non-critical, returning empty): %s", _gradcam_err)
+        return ""
 
 
 def generate_plausible_disease_report(crop_name: str, disease_keyword: Optional[str], language: str) -> dict:
@@ -1216,8 +1233,57 @@ async def detect_disease(
     """
     Accepts a leaf image file, runs pure PyTorch model inference,
     checks image quality/confidence thresholds, and returns structured JSON details.
+    Never returns HTTP 502: all uncaught exceptions produce a structured 500 JSON.
+    """
+    import time as _reqtime
+    _req_start = _reqtime.perf_counter()
+    _stage_times: dict = {}
+
+    def _stamp(stage: str):
+        _stage_times[stage] = round((_reqtime.perf_counter() - _req_start) * 1000)
+
+    try:
+        return await _detect_disease_inner(
+            request, file, language, crop, user,
+            _req_start, _stage_times, _stamp
+        )
+    except HTTPException:
+        raise  # propagate 4xx as-is
+    except Exception as _top_err:
+        total_ms = round((_reqtime.perf_counter() - _req_start) * 1000)
+        logger.exception(
+            "[DiseaseDetect] UNHANDLED EXCEPTION after %dms. Stage times: %s. Error: %s",
+            total_ms, _stage_times, _top_err
+        )
+        return JSONResponse(
+            status_code=500,
+            content={
+                "status": "error",
+                "reason": "Internal server error during disease detection. Please retry.",
+                "stage_times_ms": _stage_times,
+                "total_ms": total_ms,
+            }
+        )
+
+
+async def _detect_disease_inner(
+    request: Request,
+    file: UploadFile,
+    language: str,
+    crop: Optional[str],
+    user: Dict,
+    _req_start: float,
+    _stage_times: dict,
+    _stamp,
+):
+    """
+    Inner implementation of disease detection. Separated so the outer wrapper
+    can catch any unhandled exception without duplicating logic.
+    Accepts a leaf image file, runs pure PyTorch model inference,
+    checks image quality/confidence thresholds, and returns structured JSON details.
     """
     # F-04: File upload validation — MIME type, extension, and size (must happen before full read)
+    _stamp("validation_start")
     if file.content_type not in ALLOWED_MIME_TYPES:
         raise HTTPException(
             status_code=400,
@@ -1234,7 +1300,9 @@ async def detect_disease(
         raise HTTPException(status_code=413, detail="Image exceeds the 10 MB size limit.")
     # Sanitise filename for any downstream use
     safe_filename = os.path.basename(file.filename or "upload")
+    _stamp("validation_done")
 
+    _stamp("image_decode_start")
     try:
         image = Image.open(io.BytesIO(contents))
         image.verify()
@@ -1244,9 +1312,12 @@ async def detect_disease(
             "status": "quality_failed",
             "reason": "Invalid or corrupted image format. Please capture a new photo."
         }
+    _stamp("image_decode_done")
 
     # 1. Image Quality Validation (resolution, blur, low light, leaf presence)
+    _stamp("quality_check_start")
     quality_ok, quality_message, quality_score = check_image_quality(image)
+    _stamp("quality_check_done")
     if not quality_ok:
         return {
             "status": "quality_failed",
@@ -1329,8 +1400,11 @@ async def detect_disease(
                 }
 
     # 2. Pure PyTorch model inference
+    _stamp("model_load_start")
     if DISEASE_MODEL is None:
+        logger.warning("[DiseaseDetect] Model not pre-warmed; lazy-loading now (may be slow on first request).")
         init_disease_model()
+    _stamp("model_load_done")
 
     # Determine routing
     use_legacy = False
@@ -1551,6 +1625,7 @@ async def detect_disease(
             {"class": "Potato___Healthy", "confidence": 0.8}
         ]
     elif active_model is not None:
+        _stamp("inference_start")
         try:
             import torch
             from disease_transforms import DISEASE_TRANSFORM
@@ -1561,45 +1636,46 @@ async def detect_disease(
                     crop_outputs = CROP_MODEL(tensor_img)
                     crop_probs = torch.softmax(crop_outputs, dim=1)[0]
                     pred_c_idx = torch.argmax(crop_probs).item()
-                    
+
                     # Stage 2: Predict disease
                     disease_outputs = active_model(tensor_img)
                     disease_probs = torch.softmax(disease_outputs, dim=1)[0]
-                    
+
                     # Apply crop-specific masking
                     valid_indices = CROP_TO_DISEASE_INDICES.get(pred_c_idx, [])
                     mask = torch.zeros_like(disease_probs, dtype=torch.bool)
                     mask[valid_indices] = True
-                    
+
                     # Apply mask (set invalid classes to 0)
                     masked_probs = disease_probs.clone()
                     masked_probs[~mask] = 0.0
-                    
+
                     # Re-normalize if sum > 0
                     probs_sum = masked_probs.sum()
                     if probs_sum > 0:
                         masked_probs = masked_probs / probs_sum
-                    
+
                     top_probs, top_indices = torch.topk(masked_probs, k=min(3, len(active_classes)))
                 else:
                     # Single-stage prediction (fallback or legacy)
                     outputs = active_model(tensor_img)
                     probabilities = torch.softmax(outputs, dim=1)[0]
                     top_probs, top_indices = torch.topk(probabilities, k=min(3, len(active_classes)))
-                
+
             for prob, idx in zip(top_probs, top_indices):
                 predictions_list.append({
                     "class": active_classes[idx.item()],
                     "confidence": float(prob.item() * 100.0)
                 })
-            print(f"[DEBUG INFERENCE] predictions: {predictions_list}")
+            logger.info("[DiseaseDetect] Inference predictions: %s", predictions_list)
         except Exception as e:
-            print(f"Inference execution failed: {e}")
+            logger.error("[DiseaseDetect] Inference execution failed: %s", e)
             predictions_list = [
                 {"class": "Tomato___Early_Blight", "confidence": 85.0},
                 {"class": "Tomato___Healthy", "confidence": 10.0},
                 {"class": "Potato___Healthy", "confidence": 5.0}
             ]
+        _stamp("inference_done")
     else:
         # Fallback model predictions
         predictions_list = [
@@ -1876,7 +1952,9 @@ async def detect_disease(
     prevention_list = splay(report.get("Prevention", ""))
 
     # 4. Grad-CAM Activation Heatmap Overlay
+    _stamp("gradcam_start")
     gradcam_base64 = generate_gradcam_overlay(image)
+    _stamp("gradcam_done")
 
     # Text for backward compatibility
     response_text = (
@@ -1914,7 +1992,8 @@ async def detect_disease(
         "explanation": report.get("Explanation", "Predicted based on deep learning CNN model visualization."),
         "gradcamBase64": gradcam_base64,
         "predictions": predictions_list,
-        "source": "LOCAL_ENGINE"
+        "source": "LOCAL_ENGINE",
+        "_timing_ms": {**_stage_times, "total": round((__import__("time").perf_counter() - _req_start) * 1000)},
     }
 
 
