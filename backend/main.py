@@ -4,6 +4,7 @@ os.environ["MKL_NUM_THREADS"] = "1"
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
 os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
 os.environ["NUMEXPR_NUM_THREADS"] = "1"
+os.environ["MALLOC_TRIM_THRESHOLD_"] = "65536"
 
 import torch
 try:
@@ -12,6 +13,16 @@ try:
 except RuntimeError:
     pass
 torch.set_grad_enabled(False)
+
+def trim_memory():
+    """Force Python garbage collection and release freeable heap memory to OS (Linux glibc)."""
+    import gc
+    gc.collect()
+    try:
+        import ctypes
+        ctypes.CDLL('libc.so.6').malloc_trim(0)
+    except Exception:
+        pass
 
 
 import logging
@@ -87,13 +98,12 @@ def startup_event():
         logger.warning("[Startup] Database setup failed: %s", e)
 
     # ── Pre-warm models sequentially in background ────────────────────
-    # Serializes model pre-warm and runs garbage collection after each to
-    # keep peak memory under Render's 512MB threshold.
+    # Serializes model pre-warm and trims heap memory aggressively after each
+    # step to keep baseline memory safely under Render's 512MB threshold.
     def _preload_sequentially():
         import time as _t
-        import gc
         
-        # 1. Pre-warm advisory engine
+        # 1. Pre-warm advisory engine (FAISS + SentenceTransformer)
         _t0 = _t.perf_counter()
         try:
             from advisory_engine import init_resources
@@ -102,9 +112,9 @@ def startup_event():
         except Exception as _e:
             logger.warning("[Startup] Advisory engine pre-warm failed: %s", _e)
         
-        gc.collect()
+        trim_memory()
         
-        # 2. Pre-warm disease detection model
+        # 2. Pre-warm disease detection model (ResNet18)
         _t0 = _t.perf_counter()
         try:
             init_disease_model()
@@ -112,7 +122,7 @@ def startup_event():
         except Exception as _e:
             logger.warning("[Startup] Disease model pre-warm failed: %s", _e)
             
-        gc.collect()
+        trim_memory()
         
     threading.Thread(target=_preload_sequentially, daemon=True).start()
 
@@ -2310,12 +2320,14 @@ def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(veri
         f"Total Request Duration: {timing['total_response_time']:.4f}s"
     )
 
-    return {
+    res = {
         "text": result,
         "confidence": confidence,
         "source": source,
         "timing": timing
     }
+    trim_memory()
+    return res
 
 
 
@@ -2463,7 +2475,8 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
     Uses the trained RandomForest model.
     """
     try:
-        return await _generate_recommendations_inner(request, body, user)
+        res = await _generate_recommendations_inner(request, body, user)
+        return res
     except Exception as e:
         logger.error(f"[generate_recommendations] Error generating recommendations: {e}. Returning safe defaults.")
         return [
@@ -2486,6 +2499,8 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
                 "source": "DEFAULT_FALLBACK"
             }
         ]
+    finally:
+        trim_memory()
 
 async def _generate_recommendations_inner(request: Request, body: RecommendationRequest, user: Dict):
     lang = body.language.upper()
