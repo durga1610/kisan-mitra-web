@@ -61,8 +61,8 @@ def load_models(device):
         log("Error: Model weights not found. Train first.")
         sys.exit(1)
 
-    crop_model.load_state_dict(torch.load(CROP_MODEL_PATH, map_location=device))
-    disease_model.load_state_dict(torch.load(DISEASE_MODEL_PATH, map_location=device))
+    crop_model.load_state_dict(torch.load(CROP_MODEL_PATH, map_location=device, weights_only=True))
+    disease_model.load_state_dict(torch.load(DISEASE_MODEL_PATH, map_location=device, weights_only=True))
     
     crop_model = crop_model.to(device)
     disease_model = disease_model.to(device)

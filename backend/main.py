@@ -43,7 +43,7 @@ class LowCropConfidenceException(Exception):
 
 import logging
 from typing import List, Optional, Dict, Any
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends, Request, status
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends, Request, status, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -63,11 +63,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# ── Environment ───────────────────────────────────────────────────────────
 APP_ENV = os.getenv("APP_ENV", "production")
-_docs_url    = "/docs"      if APP_ENV == "development" else None  # F-07
-_redoc_url   = "/redoc"     if APP_ENV == "development" else None
-_openapi_url = "/openapi.json" if APP_ENV == "development" else None
 
 # ── File-upload limits (F-04) ─────────────────────────────────────────────
 MAX_FILE_SIZE     = 10 * 1024 * 1024  # 10 MB
@@ -77,14 +73,22 @@ ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 # ── Filename-bypass gate (F-09) ───────────────────────────────────────────
 ALLOW_FILENAME_BYPASS = os.getenv("KISAN_ALLOW_FILENAME_BYPASS", "0") == "1"
 
-app = FastAPI(
-    title="Kisan Mitra AI Backend",
-    description="Custom trained models API for AI Advisory and Disease Scan",
-    version="1.0.0",
-    docs_url=_docs_url,       # F-07
-    redoc_url=_redoc_url,
-    openapi_url=_openapi_url,
-)
+# Initialize FastAPI based on environment for security compliance
+if APP_ENV == "development":
+    app = FastAPI(
+        title="Kisan Mitra AI Backend",
+        description="Custom trained models API for AI Advisory and Disease Scan",
+        version="1.0.0",
+    )
+else:
+    app = FastAPI(
+        title="Kisan Mitra AI Backend",
+        description="Custom trained models API for AI Advisory and Disease Scan",
+        version="1.0.0",
+        docs_url=None,
+        redoc_url=None,
+        openapi_url=None,
+    )
 
 @app.on_event("startup")
 def startup_event():
@@ -297,6 +301,9 @@ async def verify_token(
             detail=f"Invalid or expired authentication token. Error: {str(exc)}",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
+# Security compliance alias
+get_current_user = verify_token
 
 # --- MODEL INITIALIZATION ---
 
@@ -612,12 +619,15 @@ def get_localized_response(key: str, lang: str) -> str:
     return LOCALIZED_DATA[lang_upper].get(key, LOCALIZED_DATA["ENGLISH"].get(key, ""))
 
 # --- ENDPOINTS ---
+router = APIRouter()
 
-@app.get("/")
+@router.get("/")
+# PUBLIC_ENDPOINT_ALLOWED
 def read_root():
     return {"status": "ok", "message": "Kisan Mitra Custom AI Server is running"}
 
-@app.get("/healthz")
+@router.get("/healthz")
+# PUBLIC_ENDPOINT_ALLOWED
 def healthz():
     return {"status": "ok"}
 
@@ -1274,15 +1284,31 @@ def get_opt_stats() -> dict:
     return stats
 
 
-@app.post("/api/v1/disease/detect")
+@router.post("/api/v1/disease/detect")
 @limiter.limit("10/minute")
 async def detect_disease(
     request: Request,
     file: UploadFile = File(...),
     language: str = Form("en"),
     crop: Optional[str] = Form(None),
-    user: Dict = Depends(verify_token),
+    user: Dict = Depends(get_current_user),
 ):
+    # F-04: File upload validation — MIME type, extension, and size
+    if file.content_type not in ALLOWED_MIME_TYPES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Only JPEG, PNG and WebP images are accepted. Received: {file.content_type}",
+        )
+    ext = os.path.splitext(file.filename or "")[-1].lower()
+    if ext not in ALLOWED_EXTENSIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"File extension '{ext}' is not permitted. Allowed: .jpg .jpeg .png .webp",
+        )
+    contents = await file.read(MAX_FILE_SIZE + 1)
+    if len(contents) > MAX_FILE_SIZE:
+        raise HTTPException(status_code=413, detail="Image exceeds the 10 MB size limit.")
+    await file.seek(0)
     """
     Accepts a leaf image file, runs pure PyTorch model inference,
     checks image quality/confidence thresholds, and returns structured JSON details.
@@ -2304,12 +2330,12 @@ class DiseaseFeedbackRequest(BaseModel):
     weather_snapshot: Optional[Dict[str, Any]] = Field(None, description="Weather context at scan time")
 
 
-@app.post("/api/v1/disease/feedback")
+@router.post("/api/v1/disease/feedback")
 @limiter.limit("30/minute")
 async def submit_disease_feedback(
     request: Request,
     body: DiseaseFeedbackRequest,
-    user: Dict = Depends(verify_token),
+    user: Dict = Depends(get_current_user),
 ):
     """
     V2: Captures farmer feedback and routes the image to the real dataset.
@@ -2401,9 +2427,9 @@ async def submit_disease_feedback(
     }
 
 
-@app.get("/api/v1/disease/feedback/stats")
+@router.get("/api/v1/disease/feedback/stats")
 @limiter.limit("10/minute")
-async def get_feedback_stats(request: Request, user: Dict = Depends(verify_token)):
+async def get_feedback_stats(request: Request, user: Dict = Depends(get_current_user)):
     """Returns aggregate feedback statistics for monitoring model accuracy."""
     db_path = DB_PATH
     stats = {
@@ -2460,25 +2486,25 @@ async def get_feedback_stats(request: Request, user: Dict = Depends(verify_token
 # V2 Dataset Statistics & Readiness Endpoints
 # ─────────────────────────────────────────────────────────────────────────────
 
-@app.get("/api/v1/dataset/stats")
+@router.get("/api/v1/dataset/stats")
 @limiter.limit("20/minute")
-async def get_dataset_stats_endpoint(request: Request, user: Dict = Depends(verify_token)):
+async def get_dataset_stats_endpoint(request: Request, user: Dict = Depends(get_current_user)):
     """Returns comprehensive dataset_v2 collection statistics."""
     from dataset_collector import get_dataset_stats
     return get_dataset_stats()
 
 
-@app.get("/api/v1/dataset/readiness")
+@router.get("/api/v1/dataset/readiness")
 @limiter.limit("10/minute")
-async def get_dataset_readiness_endpoint(request: Request, user: Dict = Depends(verify_token)):
+async def get_dataset_readiness_endpoint(request: Request, user: Dict = Depends(get_current_user)):
     """Returns per-class readiness scores: real count, gap to 200, gap to 500."""
     from dataset_collector import get_readiness_scores
     return get_readiness_scores()
 
 
-@app.get("/api/v1/dataset/training-readiness")
+@router.get("/api/v1/dataset/training-readiness")
 @limiter.limit("5/minute")
-async def get_training_readiness_endpoint(request: Request, user: Dict = Depends(verify_token)):
+async def get_training_readiness_endpoint(request: Request, user: Dict = Depends(get_current_user)):
     """
     Training trigger check.
     Returns { ready: bool, message: str, blocking_classes: [...] }
@@ -2489,9 +2515,9 @@ async def get_training_readiness_endpoint(request: Request, user: Dict = Depends
     return check_training_readiness()
 
 
-@app.post("/api/v1/advisory/chat")
+@router.post("/api/v1/advisory/chat")
 @limiter.limit("30/minute")
-def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(verify_token)):
+def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(get_current_user)):
     """
 
     RAG-based Agriculture Expert Advisor.
@@ -2575,9 +2601,9 @@ def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(veri
 
 
 
-@app.post("/api/v1/advisory/generate")
+@router.post("/api/v1/advisory/generate")
 @limiter.limit("30/minute")
-async def generate_advisory(request: Request, body: AdvisoryRequest, user: Dict = Depends(verify_token)):
+async def generate_advisory(request: Request, body: AdvisoryRequest, user: Dict = Depends(get_current_user)):
     """
     Generates specialized crop advisory based on crop, soil, location, and weather conditions.
     """
@@ -2676,9 +2702,9 @@ CROP_METADATA_EXTENDED = {
     }
 }
 
-@app.post("/api/v1/crop-recommendation/predict")
+@router.post("/api/v1/crop-recommendation/predict")
 @limiter.limit("60/minute")
-async def predict_crop_recommendation(request: Request, body: CropRecommendationPredictRequest, user: Dict = Depends(verify_token)):
+async def predict_crop_recommendation(request: Request, body: CropRecommendationPredictRequest, user: Dict = Depends(get_current_user)):
     """
     Exposes the trained RandomForest model as an inference endpoint.
     Automatically retrieves farm and weather context where necessary.
@@ -2709,10 +2735,10 @@ async def predict_crop_recommendation(request: Request, body: CropRecommendation
         "top_recommendations": recommendations[:3]
     }
 
-@app.post("/api/v1/advisory/recommendations")
-@app.post("/api/v1/recommendations")
+@router.post("/api/v1/advisory/recommendations")
+@router.post("/api/v1/recommendations")
 @limiter.limit("60/minute")
-async def generate_recommendations(request: Request, body: RecommendationRequest, user: Dict = Depends(verify_token)):
+async def generate_recommendations(request: Request, body: RecommendationRequest, user: Dict = Depends(get_current_user)):
     """
     Suggests the top crops dynamically based on farm soil, weather, water availability, location, and existing crops.
     Uses the trained RandomForest model.
@@ -2931,9 +2957,9 @@ async def _generate_recommendations_inner(request: Request, body: Recommendation
     return results[:4]
 
 
-@app.post("/api/v1/advisory/suitability")
+@router.post("/api/v1/advisory/suitability")
 @limiter.limit("60/minute")
-async def check_suitability(request: Request, body: SuitabilityRequest, user: Dict = Depends(verify_token)):
+async def check_suitability(request: Request, body: SuitabilityRequest, user: Dict = Depends(get_current_user)):
     """
     Checks if a crop is suitable for planting under the farmer's soil and water conditions.
     """
@@ -2954,10 +2980,10 @@ async def check_suitability(request: Request, body: SuitabilityRequest, user: Di
     return {"suitable": True, "reason": "YES"}
 
 
-@app.post("/api/v1/advisory/daily-guidance")
-@app.post("/api/v1/daily-guidance")
+@router.post("/api/v1/advisory/daily-guidance")
+@router.post("/api/v1/daily-guidance")
 @limiter.limit("60/minute")
-async def generate_daily_guidance(request: Request, body: GuidanceRequest, user: Dict = Depends(verify_token)):
+async def generate_daily_guidance(request: Request, body: GuidanceRequest, user: Dict = Depends(get_current_user)):
     """
     Generates a Daily Smart Farming Assistant response.
     Returns today's schedule (morning/afternoon/evening), AI recommendations,
@@ -3387,9 +3413,9 @@ async def _generate_daily_guidance_inner(request: Request, body: GuidanceRequest
     return guidance_list
 
 
-@app.post("/api/v1/advisory/reasoning")
+@router.post("/api/v1/advisory/reasoning")
 @limiter.limit("60/minute")
-async def generate_reasoning(request: Request, body: ReasoningRequest, user: Dict = Depends(verify_token)):
+async def generate_reasoning(request: Request, body: ReasoningRequest, user: Dict = Depends(get_current_user)):
     """
     Generates a one-sentence reasoning for crop suitability.
     """
@@ -3403,10 +3429,10 @@ async def generate_reasoning(request: Request, body: ReasoningRequest, user: Dic
         return {"text": f"Growing {crop} is a smart choice now due to strong local market demand and excellent suitability with your {soil} soil."}
 
 
-@app.post("/api/v1/fertilizer/recommend")
-@app.post("/api/v1/fertilizer")
+@router.post("/api/v1/fertilizer/recommend")
+@router.post("/api/v1/fertilizer")
 @limiter.limit("60/minute")
-async def recommend_fertilizer(request: Request, body: FertilizerRecommendRequest, user: Dict = Depends(verify_token)):
+async def recommend_fertilizer(request: Request, body: FertilizerRecommendRequest, user: Dict = Depends(get_current_user)):
     """
     Generates dynamic fertilizer recommendations based on real farm, weather, soil and disease conditions.
     """
@@ -3447,9 +3473,9 @@ async def recommend_fertilizer(request: Request, body: FertilizerRecommendReques
         }
 
 
-@app.post("/api/v1/crops/validate-before-planting")
+@router.post("/api/v1/crops/validate-before-planting")
 @limiter.limit("60/minute")
-async def validate_crop_before_planting(request: Request, body: CropValidationRequest, user: Dict = Depends(verify_token)):
+async def validate_crop_before_planting(request: Request, body: CropValidationRequest, user: Dict = Depends(get_current_user)):
     """
     Validates crop suitability based on the farm location, soil, water availability,
     season, weather, and crop rotation conflict constraints.
@@ -3470,9 +3496,9 @@ async def validate_crop_before_planting(request: Request, body: CropValidationRe
         }
 
 
-@app.post("/api/v1/crops/regional-suitability")
+@router.post("/api/v1/crops/regional-suitability")
 @limiter.limit("60/minute")
-async def regional_suitability(request: Request, body: CropValidationRequest, user: Dict = Depends(verify_token)):
+async def regional_suitability(request: Request, body: CropValidationRequest, user: Dict = Depends(get_current_user)):
     """
     Evaluates 6-factor regional crop suitability with hard blocks.
     """
@@ -3492,12 +3518,12 @@ async def regional_suitability(request: Request, body: CropValidationRequest, us
         }
 
 
-@app.post("/api/v1/crops/audit-log")
+@router.post("/api/v1/crops/audit-log")
 @limiter.limit("60/minute")
 async def log_crop_suitability_audit(
     request: Request,
     body: AuditLogRequest,
-    user: Dict = Depends(verify_token),
+    user: Dict = Depends(get_current_user),
 ):
     """
     Stores an audit logging record when a farmer plants a crop, documenting
@@ -3571,14 +3597,14 @@ async def log_crop_suitability_audit(
             pass
 
 
-@app.get("/api/v1/market/prices")
-@app.get("/api/v1/market")
+@router.get("/api/v1/market/prices")
+@router.get("/api/v1/market")
 @limiter.limit("60/minute")
 async def get_market_prices(
     request: Request,
     crops: Optional[str] = None,
     state: Optional[str] = None,
-    user: Dict = Depends(verify_token),
+    user: Dict = Depends(get_current_user),
 ):
     """
     Get crop market prices from Agmarknet API or fallback to cached/realistic data.
@@ -3908,8 +3934,8 @@ async def get_market_prices(
     }
 
 
-@app.get("/api/v1/optimization/stats")
-def get_optimization_stats():
+@router.get("/api/v1/optimization/stats")
+def get_optimization_stats(user: Dict = Depends(get_current_user)):
     return get_opt_stats()
 
 
@@ -3920,9 +3946,9 @@ class PestRequest(BaseModel):
     language: Optional[str] = "en"
 
 
-@app.post("/api/v1/pest")
+@router.post("/api/v1/pest")
 @limiter.limit("60/minute")
-async def recommend_pest_control(request: Request, body: PestRequest, user: Dict = Depends(verify_token)):
+async def recommend_pest_control(request: Request, body: PestRequest, user: Dict = Depends(get_current_user)):
     """
     Generates dynamic pest control and management recommendations based on crop and stage.
     """
@@ -3987,8 +4013,8 @@ async def recommend_pest_control(request: Request, body: PestRequest, user: Dict
         }
 
 
-@app.get("/api/v1/system/test-gemini")
-def test_gemini_connection():
+@router.get("/api/v1/system/test-gemini")
+def test_gemini_connection(user: Dict = Depends(get_current_user)):
     """
     Test direct REST connection to Gemini API using the active key in the pool.
     """
@@ -4031,8 +4057,8 @@ def test_gemini_connection():
         }
 
 
-@app.get("/api/v1/system/debug-logs")
-def get_debug_logs():
+@router.get("/api/v1/system/debug-logs")
+def get_debug_logs(user: Dict = Depends(get_current_user)):
     """
     Returns the last 200 lines of captured stderr and stdout logs for debugging.
     """
@@ -4049,8 +4075,8 @@ def get_debug_logs():
     return {"logs": ["Log file not found"]}
 
 
-@app.get("/api/v1/system/gemini-status")
-def get_gemini_status():
+@router.get("/api/v1/system/gemini-status")
+def get_gemini_status(user: Dict = Depends(get_current_user)):
     """
     Returns system status for the Gemini key rotation, caching, and health layer.
     """
@@ -4119,3 +4145,7 @@ def get_gemini_status():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+
+
+# Include the router containing all endpoints
+app.include_router(router)

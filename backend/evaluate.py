@@ -46,7 +46,7 @@ def main():
     # Initialize and load model
     model = build_model(len(class_names))
     try:
-        model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=device))
+        model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=device, weights_only=True))
     except Exception as e:
         print(f"Error loading state dict: {e}")
         sys.exit(1)

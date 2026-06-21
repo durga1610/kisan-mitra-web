@@ -264,7 +264,7 @@ jobs:
                "File upload endpoint detected — check MIME/size validation"),
               ("HIGH",     r"docs_url\s*=\s*(?!None)",
                "Swagger docs may be enabled in production"),
-              ("HIGH",     r"torch\.load\([^)]*\)(?!.*weights_only\s*=\s*True)",
+              ("HIGH",     r"torch\.load\((?![^)]*weights_only\s*=\s*True)[^)]*\)",
                "torch.load() called without weights_only=True"),
           ])
           check_file("advisory_engine.py", [

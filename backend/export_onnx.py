@@ -36,14 +36,14 @@ def main():
     
     device = torch.device("cpu")
     try:
-        model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=device))
+        model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=device, weights_only=True))
     except Exception as e:
         print(f"Error loading state dict, trying alternative ResNet loader: {e}")
         # Try ResNet fallback
         model = models.resnet50()
         in_features = model.fc.in_features
         model.fc = nn.Linear(in_features, num_classes)
-        model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=device))
+        model.load_state_dict(torch.load(MODEL_SAVE_PATH, map_location=device, weights_only=True))
 
     model.eval()
 
