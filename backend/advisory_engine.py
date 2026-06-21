@@ -1608,6 +1608,46 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
     if source_container is not None:
         source_container[0] = "LOCAL_ENGINE"
     global _llm_pipeline, _embedding_model, _intent_embeddings, _domain_classifier
+
+    # Production optimization: bypass heavy RAG pipeline to prevent memory OOM on Render Free Tier
+    import os
+    if os.getenv("APP_ENV", "production") == "production" and os.getenv("TESTING") != "1":
+        import time
+        from services.gemini_fallback import generate_advisory
+        user_uid = session_id.split(":")[0] if ":" in session_id else "anonymous"
+        
+        farm_ctx = farm_context or {}
+        topic = "general"
+        if "fertilizer" in query.lower():
+            topic = "fertilizers"
+        elif "irrigation" in query.lower() or "water" in query.lower():
+            topic = "irrigation"
+        elif "pest" in query.lower():
+            topic = "pest"
+        elif "disease" in query.lower():
+            topic = "disease"
+        elif "soil" in query.lower():
+            topic = "soil"
+            
+        logger.info("[Advisory] Production early bypass to Gemini Fallback. Query: '%s'", query)
+        
+        gemini_start = time.perf_counter()
+        try:
+            gemini_res = generate_advisory(
+                message=query,
+                farm_context=farm_ctx,
+                weather_context=weather_context,
+                trigger_reason=f"production_direct_{topic}",
+                user_uid=user_uid
+            )
+            if gemini_res and gemini_res.get("text"):
+                if source_container is not None:
+                    source_container[0] = "GEMINI_FALLBACK"
+                if timing is not None:
+                    timing["gemini_time"] += time.perf_counter() - gemini_start
+                return gemini_res["text"]
+        except Exception as e_gemini:
+            logger.warning("[Advisory] Production direct Gemini failed: %s", e_gemini)
     
     if _embedding_model is None:
         init_resources(timing=timing)

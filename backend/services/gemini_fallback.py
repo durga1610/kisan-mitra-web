@@ -524,6 +524,10 @@ def execute_gemini_call(
     keys_tried = 0
     max_keys = len(_KEY_MANAGER._keys)
 
+    import requests
+    import base64
+    import json
+
     while keys_tried < max_keys:
         if _KEY_MANAGER.all_exhausted:
             raise AllKeysExhaustedException("All Gemini API keys are quota-exhausted.")
@@ -534,17 +538,6 @@ def execute_gemini_call(
 
         if not current_key:
             raise AllKeysExhaustedException("No active Gemini API key available.")
-
-        # Configure genai with current key (thread-safe: we re-configure per call)
-        try:
-            genai.configure(api_key=current_key)
-        except Exception as cfg_err:
-            logger.warning("[%s] genai.configure failed for %s: %s", key_label, key_label, cfg_err)
-            _KEY_MANAGER.mark_exhausted(current_idx, _module, _crop)
-            if not _KEY_MANAGER.rotate(_module):
-                raise AllKeysExhaustedException("All keys exhausted after configure failure.")
-            keys_tried += 1
-            continue
 
         logger.info("[ACTIVE_KEY_INDEX] %s | module=%s crop=%s", key_label, _module or "unknown", _crop or "unknown")
 
@@ -557,48 +550,79 @@ def execute_gemini_call(
 
             attempt_timeout = min(remaining, 8.0 if not is_vision else 18.0)
 
-            try:
-                gen_config_args = {
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={current_key}"
+            headers = {"Content-Type": "application/json"}
+
+            if is_vision:
+                if not image_bytes:
+                    raise ValueError("image_bytes required for vision call.")
+                img_b64 = base64.b64encode(image_bytes).decode("utf-8")
+                contents = [
+                    {
+                        "parts": [
+                            {"text": prompt_text},
+                            {
+                                "inlineData": {
+                                    "mimeType": mime_type,
+                                    "data": img_b64
+                                }
+                            }
+                        ]
+                    }
+                ]
+            else:
+                contents = [
+                    {
+                        "parts": [
+                            {"text": prompt_text}
+                        ]
+                    }
+                ]
+
+            payload = {
+                "contents": contents,
+                "generationConfig": {
                     "temperature": 0.2,
-                    "max_output_tokens": max_tokens,
+                    "maxOutputTokens": max_tokens
                 }
-                if is_json_response:
-                    gen_config_args["response_mime_type"] = "application/json"
+            }
+            if is_json_response:
+                payload["generationConfig"]["responseMimeType"] = "application/json"
 
-                generation_config = genai.types.GenerationConfig(**gen_config_args)
-                model = genai.GenerativeModel(model_name, transport="rest")
+            try:
+                resp = requests.post(url, headers=headers, json=payload, timeout=attempt_timeout)
+                
+                if resp.status_code == 200:
+                    resp_json = resp.json()
+                    try:
+                        text = resp_json["candidates"][0]["content"]["parts"][0]["text"]
+                    except (KeyError, IndexError, TypeError) as parse_err:
+                        raise ValueError(f"Failed to parse text from Gemini API response: {resp_json}") from parse_err
 
-                if is_vision:
-                    if not image_bytes:
-                        raise ValueError("image_bytes required for vision call.")
-                    response = model.generate_content(
-                        [prompt_text, {"mime_type": mime_type, "data": image_bytes}],
-                        generation_config=generation_config,
-                        request_options={"timeout": attempt_timeout},
-                    )
+                    if not text:
+                        raise ValueError("Empty response text from Gemini API.")
+
+                    # SUCCESS
+                    latency_ms = int((time.time() - start_all) * 1000)
+                    _KEY_MANAGER.increment_success()
+                    logger.info("[GEMINI_SUCCESS] %s | module=%s latency=%dms", key_label, _module or "unknown", latency_ms)
+                    _log_rotation_event("GEMINI_SUCCESS", current_idx + 1, _module, latency_ms, _crop)
+                    return text.strip()
                 else:
-                    response = model.generate_content(
-                        prompt_text,
-                        generation_config=generation_config,
-                        request_options={"timeout": attempt_timeout},
-                    )
-
-                if not response.text:
-                    raise ValueError("Empty response from Gemini.")
-
-                # SUCCESS
-                latency_ms = int((time.time() - start_all) * 1000)
-                _KEY_MANAGER.increment_success()
-                logger.info("[GEMINI_SUCCESS] %s | module=%s latency=%dms", key_label, _module or "unknown", latency_ms)
-                _log_rotation_event("GEMINI_SUCCESS", current_idx + 1, _module, latency_ms, _crop)
-                return response.text.strip()
+                    # Non-200 status code response
+                    raise ValueError(f"Gemini API returned status {resp.status_code}: {resp.text}")
 
             except Exception as exc:
-                if _is_quota_error(exc):
-                    # Quota/rate-limit error — rotate key immediately
+                exc_str = str(exc)
+                is_quota = _is_quota_error(exc) or "429" in exc_str or "quota" in exc_str.lower()
+                is_permission = "403" in exc_str or "permission" in exc_str.lower() or "api_key_invalid" in exc_str.lower() or "api key not valid" in exc_str.lower()
+
+                if is_quota or is_permission:
+                    # Quota error or Permission Denied -> rotate key immediately
+                    err_type = "QUOTA_EXCEEDED" if is_quota else "PERMISSION_DENIED"
                     logger.warning(
-                        "[QUOTA_EXCEEDED] %s | module=%s crop=%s | error=%s",
-                        key_label, _module or "unknown", _crop or "unknown", str(exc)[:120]
+                        "[%s] %s | module=%s crop=%s | error=%s",
+                        err_type, key_label, _module or "unknown", _crop or "unknown", exc_str[:120]
                     )
                     _KEY_MANAGER.mark_exhausted(current_idx, _module, _crop)
                     rotated = _KEY_MANAGER.rotate(_module)
@@ -607,11 +631,14 @@ def execute_gemini_call(
                     break  # Stop retrying this key; outer loop will try next key
 
                 # Transient error (network, timeout, etc.)
-                logger.warning("[%s] Attempt %d/%d transient error: %s", key_label, attempt + 1, 2, str(exc)[:100])
+                logger.warning("[%s] Attempt %d/%d transient error: %s", key_label, attempt + 1, 2, exc_str[:100])
                 if attempt < 1:
                     time.sleep(0.5)
                 else:
-                    raise  # Re-raise on last retry
+                    # Reraise/failover: instead of raising out, try next key
+                    logger.warning("[%s] Transient error persistent on key. Rotating key...", key_label)
+                    _KEY_MANAGER.rotate(_module)
+                    break
 
         keys_tried += 1
 
