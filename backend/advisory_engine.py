@@ -2508,10 +2508,9 @@ def predict_crop_recommendations(features: dict, timing: Optional[dict] = None) 
     global _crop_recommendation_model, _crop_preprocessors
     
     # Render Free Tier OOM Prevention: Bypass the heavy 13MB RandomForest model pickle load
-    # if running in production to stay under 512MB RAM, and use the rule-based recommender instead.
+    # unconditionally in all environment modes to stay under 512MB RAM, and use the rule-based recommender instead.
     # This keeps idle server memory stable at ~230MB.
-    is_prod = (os.getenv("APP_ENV", "production") == "production") and (os.getenv("TESTING") != "1") and ("pytest" not in sys.modules)
-    bypass_ml = os.getenv("KISAN_BYPASS_HEAVY_ML", "0") == "1" or is_prod
+    bypass_ml = True
     
     if bypass_ml:
         logger.info("[Prediction] Bypassing heavy crop recommendation ML model loading in production/low-mem mode. Running rule-based recommendations.")
