@@ -1,4 +1,12 @@
 import os
+import sys
+import faulthandler
+_log_dir = os.path.dirname(os.path.abspath(__file__))
+_err_file = open(os.path.join(_log_dir, "stderr.log"), "a", encoding="utf-8", buffering=1)
+sys.stderr = _err_file
+sys.stdout = _err_file
+faulthandler.enable(file=_err_file)
+
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -3926,6 +3934,23 @@ async def recommend_pest_control(request: Request, body: PestRequest, user: Dict
             "precautionary_measures": [],
             "status": "fallback"
         }
+
+
+@app.get("/api/v1/system/debug-logs")
+def get_debug_logs():
+    """
+    Returns the last 200 lines of captured stderr and stdout logs for debugging.
+    """
+    import os
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stderr.log")
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                lines = f.readlines()
+                return {"logs": [line.strip() for line in lines[-200:]]}
+        except Exception as err:
+            return {"logs": [f"Error reading file: {err}"]}
+    return {"logs": ["Log file not found"]}
 
 
 @app.get("/api/v1/system/gemini-status")
