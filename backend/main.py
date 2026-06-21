@@ -14,6 +14,8 @@ sys.stderr = _err_file
 sys.stdout = _err_file
 faulthandler.enable(file=_err_file)
 
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
@@ -329,8 +331,8 @@ def is_legacy_request(crop: Optional[str], filename: Optional[str]) -> bool:
 
 def init_legacy_model():
     global LEGACY_DISEASE_MODEL, LEGACY_CLASSES
-    legacy_resnet_path = "models_backup/plant_disease_resnet_rollback.pt"
-    legacy_classes_path = "models_backup/classes_backup.json"
+    legacy_resnet_path = os.path.join(_BASE_DIR, "models_backup", "plant_disease_resnet_rollback.pt")
+    legacy_classes_path = os.path.join(_BASE_DIR, "models_backup", "classes_backup.json")
     if os.path.exists(legacy_resnet_path) and os.path.exists(legacy_classes_path):
         try:
             import torch
@@ -355,9 +357,9 @@ def init_legacy_model():
 
 def init_disease_model():
     global CROP_MODEL, DISEASE_MODEL, CLASSES, CROPS, CROP_TO_DISEASE_INDICES
-    crop_model_path = "models/crop_model.pt"
-    disease_model_path = "models/disease_model.pt"
-    classes_path = "models/classes.json"
+    crop_model_path = os.path.join(_BASE_DIR, "models", "crop_model.pt")
+    disease_model_path = os.path.join(_BASE_DIR, "models", "disease_model.pt")
+    classes_path = os.path.join(_BASE_DIR, "models", "classes.json")
     
     use_two_stage = os.getenv("USE_TWO_STAGE_MODEL", "0") == "1"
     if use_two_stage and os.path.exists(crop_model_path) and os.path.exists(disease_model_path) and os.path.exists(classes_path):
@@ -420,8 +422,8 @@ def init_disease_model():
 def fallback_resnet():
     global CROP_MODEL, DISEASE_MODEL, CLASSES, CROPS, CROP_TO_DISEASE_INDICES
     CROP_MODEL = None
-    resnet_path = "models/plant_disease_resnet.pt"
-    classes_path = "models/classes.json"
+    resnet_path = os.path.join(_BASE_DIR, "models", "plant_disease_resnet.pt")
+    classes_path = os.path.join(_BASE_DIR, "models", "classes.json")
     if os.path.exists(resnet_path) and os.path.exists(classes_path):
         try:
             import torch
@@ -445,7 +447,7 @@ def fallback_resnet():
                     len(CLASSES), checkpoint_classes
                 )
                 if checkpoint_classes == 45:
-                    backup_classes_path = "models_backup/classes_backup.json"
+                    backup_classes_path = os.path.join(_BASE_DIR, "models_backup", "classes_backup.json")
                     if os.path.exists(backup_classes_path):
                         with open(backup_classes_path, "r") as f:
                             CLASSES = json.load(f)
@@ -1658,7 +1660,7 @@ async def _detect_disease_inner(
                 "explanation": "Predicted based on Gemini Vision fallback model.",
                 "gradcamBase64": generate_gradcam_overlay(image),
                 "predictions": [{"class": f"{crop_name}___{disease_name.replace(' ', '_')}", "confidence": final_confidence}],
-                "source": "GEMINI_FALLBACK"
+                "source": gemini_result.get("source", "GEMINI_FALLBACK")
             }
             
         # Fallback to local report if Gemini Vision fails
@@ -1933,7 +1935,7 @@ async def _detect_disease_inner(
                     "explanation": "Low crop confidence CNN prediction supplemented by Gemini Vision diagnostic assist.",
                     "gradcamBase64": gradcam_b64,
                     "predictions": [{"class": f"{fb_crop_name}___{fb_disease_name.replace(' ', '_')}", "confidence": crop_confidence * 100.0}],
-                    "source": "GEMINI_FALLBACK"
+                    "source": gemini_result.get("source", "GEMINI_FALLBACK")
                 }
             else:
                 # Fallback report
@@ -2178,7 +2180,7 @@ async def _detect_disease_inner(
                         "explanation": "Low confidence CNN prediction supplemented by Gemini Vision diagnostic assist.",
                         "gradcamBase64": gradcam_b64,
                         "predictions": predictions_list,
-                        "source": "GEMINI_FALLBACK"
+                        "source": gemini_result.get("source", "GEMINI_FALLBACK")
                     }
                 
                 # Fallback to local report generator if Gemini Vision fails

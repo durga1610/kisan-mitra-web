@@ -747,36 +747,15 @@ def _local_fertilizer_fallback(crop: str, stage: str) -> dict:
 
 def _local_disease_fallback(crop_hint: str) -> dict:
     """Return disease info from DISEASE_DB based on crop hint."""
-    from disease_database import DISEASE_DB
-
-    crop_lower = (crop_hint or "").lower().strip()
-    # Map crop to a healthy key first, then look for disease
-    crop_map = {
-        "tomato": "tomato_healthy", "potato": "potato_healthy",
-        "rice": "rice_healthy", "paddy": "rice_healthy",
-        "cotton": "cotton_healthy", "apple": "apple_healthy",
-        "grape": "grape_healthy", "corn": "corn_healthy", "maize": "corn_healthy",
-        "cherry": "cherry_healthy",
-    }
-    db_key = crop_map.get(crop_lower, "tomato_healthy")
-    # Try to find any entry for this crop
-    for k in DISEASE_DB:
-        if crop_lower in k:
-            db_key = k
-            break
-
-    entry = DISEASE_DB.get(db_key, DISEASE_DB.get("tomato_early_blight", {}))
-    report = entry.get("en", {})
-
     return {
-        "disease_name": report.get("Disease", "Unable to determine"),
-        "confidence": 65,
-        "severity": report.get("Severity", "Medium"),
-        "symptoms": report.get("Symptoms", "Inspect the leaf carefully for discolouration, spots, or wilting."),
-        "treatment": report.get("Treatment", "Apply Mancozeb or Copper Oxychloride fungicide. Remove infected plant material."),
-        "prevention": report.get("Prevention", "Maintain crop hygiene, proper spacing, and regular field scouting."),
-        "organic_solution": "Neem oil spray (3-5 ml/litre) every 10 days as preventive.",
-        "chemical_solution": report.get("Suggested Products", "Mancozeb 75% WP, Copper Oxychloride"),
+        "disease_name": "AI diagnosis unavailable",
+        "confidence": 30.0,
+        "severity": "Medium",
+        "symptoms": "AI diagnosis unavailable. Please ensure your internet connection is active and check API limits.",
+        "treatment": "N/A",
+        "prevention": "N/A",
+        "organic_solution": "N/A",
+        "chemical_solution": "N/A",
         "source": "LOCAL_FALLBACK",
         "warning": "Gemini Vision unavailable — local disease database used.",
     }
@@ -976,7 +955,9 @@ def analyze_disease_vision(image_bytes: bytes, crop_hint: str, weather_context: 
     # 2. Rate / daily limit
     if not check_rate_limit() or not check_and_increment_daily_limit(user_uid):
         log_fallback_call("disease", user_uid, crop_hint, "limit_exceeded", f"vision-{crop_hint}", "LOCAL_FALLBACK", 0, False)
-        return _local_disease_fallback(crop_hint)
+        res = _local_disease_fallback(crop_hint)
+        res["source"] = "LOCAL_FALLBACK"
+        return res
 
     # 3. Build prompt
     prompt = f"""Analyze this crop leaf image as an expert plant pathologist.
@@ -1001,23 +982,27 @@ Return STRICT JSON only (no markdown wrapper):
         text = execute_gemini_call(prompt, is_vision=True, image_bytes=image_bytes,
                                    _module="disease_vision", _crop=crop_hint)
         parsed = json.loads(_clean_json_text(text))
-        parsed["source"] = "GEMINI_FALLBACK"
+        parsed["source"] = "GEMINI_SUCCESS"
         latency = int((time.time() - start_time) * 1000)
-        set_cached_response(cache_key, parsed, query=f"disease vision {crop_hint}", source="GEMINI_FALLBACK")
-        log_fallback_call("disease", user_uid, crop_hint, "vision_fallback", prompt, "GEMINI_FALLBACK", latency, True)
+        set_cached_response(cache_key, parsed, query=f"disease vision {crop_hint}", source="GEMINI_SUCCESS")
+        log_fallback_call("disease", user_uid, crop_hint, "vision_fallback", prompt, "GEMINI_SUCCESS", latency, True)
         return parsed
 
     except AllKeysExhaustedException:
         latency = int((time.time() - start_time) * 1000)
         logger.warning("[disease_vision] All keys exhausted — local DISEASE_DB for crop=%s", crop_hint)
-        log_fallback_call("disease", user_uid, crop_hint, "all_keys_exhausted", f"vision-{crop_hint}", "LOCAL_FALLBACK", latency, False)
-        return _local_disease_fallback(crop_hint)
+        log_fallback_call("disease", user_uid, crop_hint, "all_keys_exhausted", f"vision-{crop_hint}", "GEMINI_QUOTA_EXCEEDED", latency, False)
+        res = _local_disease_fallback(crop_hint)
+        res["source"] = "GEMINI_QUOTA_EXCEEDED"
+        return res
 
     except Exception as exc:
         latency = int((time.time() - start_time) * 1000)
         logger.error("[disease_vision] Failed: %s", exc)
         log_fallback_call("disease", user_uid, crop_hint, f"error:{exc}", f"vision-{crop_hint}", "LOCAL_FALLBACK", latency, False)
-        return _local_disease_fallback(crop_hint)
+        res = _local_disease_fallback(crop_hint)
+        res["source"] = "LOCAL_FALLBACK"
+        return res
 
 
 def generate_crop_recommendations(state: str, district: str, weather: dict, soil: str,
