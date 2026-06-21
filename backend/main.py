@@ -902,7 +902,10 @@ class TFLiteTwoStageClassifier:
             w = x_indices.max() - x_indices.min() + 1
             aspect_ratio = max(h, w) / min(h, w)
             if aspect_ratio > 1.8:
-                return "rice", 0.91
+                if any(kw in filename_lower for kw in ["rice", "dhan", "blast", "blight", "spot", "brown"]):
+                    return "rice", 0.91
+                else:
+                    return "rice", 0.35
                 
         # Color hash fallback
         avg_r = np.mean(R)
@@ -1450,8 +1453,30 @@ async def _detect_disease_inner(
     active_model = LEGACY_DISEASE_MODEL if use_legacy else DISEASE_MODEL
     active_classes = LEGACY_CLASSES if use_legacy else CLASSES
 
+    user_uid = user.get("uid", "anonymous")
     # Check if the crop parameter is supported by the CNN model
     crop_param = crop.strip().lower() if crop else ""
+    if not crop_param:
+        try:
+            import sqlite3
+            conn = sqlite3.connect(DB_PATH)
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT pc.crop_name FROM planted_crops pc "
+                "JOIN farms f ON f.id = pc.farm_id "
+                "WHERE f.owner_id = ?",
+                (user_uid,)
+            )
+            active_crops = [row["crop_name"].lower().strip() for row in cursor.fetchall()]
+            conn.close()
+            if len(active_crops) == 1:
+                crop = active_crops[0]
+                crop_param = crop.strip().lower()
+                logger.info("[DiseaseDetect] Auto-filled crop hint '%s' from user's active farm crops.", crop)
+        except Exception as e:
+            logger.warning(f"Error fetching active crops for default hint: {e}")
+            
     if "paddy" in crop_param:
         crop_param = "rice"
     elif "corn" in crop_param:

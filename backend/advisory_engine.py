@@ -465,7 +465,7 @@ def extract_entities(query: str, farm_context: Optional[Dict[str, Any]] = None) 
                     if candidate in ["the", "my", "our", "a", "an"]:
                         if len(extracted_words) > 1:
                             candidate = extracted_words[1]
-                    if candidate not in ["soil", "fertilizer", "water", "pest", "disease", "farm", "field", "crop", "plant", "grow"]:
+                    if candidate not in ["soil", "fertilizer", "water", "pest", "disease", "farm", "field", "crop", "plant", "grow", "best", "suitable", "recommend", "suggest", "which", "what", "top", "good", "new", "next", "ideal", "perfect", "favored", "favorite", "some", "any", "every", "another", "other", "healthy", "profitable", "resilient", "potential"]:
                         entities["crop_candidate"] = candidate
                         break
             
@@ -542,13 +542,15 @@ def extract_entities(query: str, farm_context: Optional[Dict[str, Any]] = None) 
                     break
         # Backfill crop details if only one crop is active and query doesn't specify any crop
         if not entities["crop"] and farm_context.get("plantedCrops"):
-            crops_list = farm_context["plantedCrops"]
-            if len(crops_list) == 1:
-                c_name = crops_list[0].lower()
-                for c in crops:
-                    if c in c_name:
-                        entities["crop"] = c
-                        break
+            is_recs_query = any(w in q_lower for w in ["recommend", "suggest", "what crop", "suitable crop", "what to plant", "crops to plant", "best crop", "crop recommendation", "crops should i grow", "what should i grow", "grow next", "plant next", "what can i plan", "what to grow"])
+            if not is_recs_query:
+                crops_list = farm_context["plantedCrops"]
+                if len(crops_list) == 1:
+                    c_name = crops_list[0].lower()
+                    for c in crops:
+                        if c in c_name:
+                            entities["crop"] = c
+                            break
                         
     return entities
 
@@ -743,17 +745,36 @@ FERTILIZER_PROFILES = {
     }
 }
 
-def recommend_crops(farm_id: str, language: str, farm_context: Optional[Dict[str, Any]] = None, timing: Optional[dict] = None) -> str:
+def recommend_crops(
+    farm_id: str, 
+    language: str, 
+    farm_context: Optional[Dict[str, Any]] = None, 
+    timing: Optional[dict] = None,
+    weather_context: Optional[Dict[str, Any]] = None,
+    query: Optional[str] = None
+) -> str:
     """
     Personalized Crop Recommendation engine querying current farm settings and automatic season rules.
     Refactored to use the RandomForest ML model.
     """
     farm = get_farm_details(farm_id, farm_context)
     if not farm:
-        return translate_to_language("Farm information unavailable.", language)
+        if query and any(w in query.lower() for w in ["my farm", "my field", "my crop", "my land"]):
+            return translate_to_language("Farm information unavailable.", language)
+        farm = {
+            "id": "default",
+            "owner_id": "anonymous",
+            "name": "My Farm",
+            "state": "Punjab",
+            "district": "Ludhiana",
+            "village": "Rampur",
+            "soil_type": "Alluvial Soil",
+            "land_area": 5.0,
+            "water_availability": "Medium"
+        }
         
     # Extract prediction features
-    features = extract_prediction_features(farm_context, None)
+    features = extract_prediction_features(farm_context, weather_context)
     
     # Run ML recommendations
     recs = predict_crop_recommendations(features, timing)
@@ -1888,7 +1909,17 @@ def _query_rag_inner(query: str, language: str = "en", session_id: str = "defaul
         log_advisory_route(intent, handler_name, data_source, farm_context)
         if confidence_container is not None:
             confidence_container[0] = 1.0
-        return recommend_crops(farm_id, language, farm_context)
+            
+        recommend_weather_ctx = dict(weather_context) if weather_context else {}
+        recommend_farm_ctx = dict(farm_context) if farm_context else {}
+        if entities.get("season"):
+            recommend_weather_ctx["season"] = entities["season"]
+        if entities.get("soil"):
+            recommend_farm_ctx["soilType"] = entities["soil"]
+        if entities.get("location"):
+            recommend_farm_ctx["location"] = entities["location"]
+            
+        return recommend_crops(farm_id, language, recommend_farm_ctx, weather_context=recommend_weather_ctx, query=query_clean)
         
     elif intent == "CROP_SOIL_REQUIREMENT_QUERY":
         # First check crop profiles
@@ -2723,10 +2754,23 @@ def resolve_query_fast(
         return ans, 1.0, "LOCAL_ENGINE"
 
     # 1e. Crop Recommendation Query
-    is_recommendation = any(w in q_lower for w in ["recommend", "suggest", "what crop", "suitable crop", "what to plant", "crops to plant"])
+    is_recommendation = any(w in q_lower for w in [
+        "recommend", "suggest", "what crop", "suitable crop", "what to plant", 
+        "crops to plant", "best crop", "crop recommendation", "crops should i grow", 
+        "what should i grow", "grow next", "plant next", "what can i plan", "what to grow"
+    ]) and "soil" not in q_lower
     if is_recommendation:
         db_start = time.perf_counter()
-        ans = recommend_crops(farm_id, language, farm_context, timing)
+        recommend_weather_ctx = dict(weather_context) if weather_context else {}
+        recommend_farm_ctx = dict(farm_context) if farm_context else {}
+        if entities.get("season"):
+            recommend_weather_ctx["season"] = entities["season"]
+        if entities.get("soil"):
+            recommend_farm_ctx["soilType"] = entities["soil"]
+        if entities.get("location"):
+            recommend_farm_ctx["location"] = entities["location"]
+            
+        ans = recommend_crops(farm_id, language, recommend_farm_ctx, timing, recommend_weather_ctx, query=query_clean)
         timing["database_lookup_time"] += time.perf_counter() - db_start
         return ans, 1.0, "LOCAL_ENGINE"
 
@@ -3099,14 +3143,10 @@ def query_rag(
     start_total = time.perf_counter()
     
     if timing is None:
-        timing = {
-            "auth_time": 0.0,
-            "weather_lookup_time": 0.0,
-            "database_lookup_time": 0.0,
-            "gemini_time": 0.0,
-            "model_loading_time": 0.0,
-            "total_response_time": 0.0
-        }
+        timing = {}
+    for k in ["auth_time", "weather_lookup_time", "database_lookup_time", "gemini_time", "model_loading_time", "total_response_time"]:
+        if k not in timing:
+            timing[k] = 0.0
 
     query_clean = query.strip()
     
