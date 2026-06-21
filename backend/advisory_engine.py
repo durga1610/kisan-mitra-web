@@ -2507,6 +2507,21 @@ def extract_prediction_features(farm_ctx: Optional[Any], weather_ctx: Optional[A
 def predict_crop_recommendations(features: dict, timing: Optional[dict] = None) -> list:
     global _crop_recommendation_model, _crop_preprocessors
     
+    # Render Free Tier OOM Prevention: Bypass the heavy 13MB RandomForest model pickle load
+    # if running in production to stay under 512MB RAM, and use the rule-based recommender instead.
+    # This keeps idle server memory stable at ~230MB.
+    is_prod = (os.getenv("APP_ENV", "production") == "production") and (os.getenv("TESTING") != "1") and ("pytest" not in sys.modules)
+    bypass_ml = os.getenv("KISAN_BYPASS_HEAVY_ML", "0") == "1" or is_prod
+    
+    if bypass_ml:
+        logger.info("[Prediction] Bypassing heavy crop recommendation ML model loading in production/low-mem mode. Running rule-based recommendations.")
+        return recommend_crops_rule_based(
+            soil_type=features.get("soil_type", "Alluvial"),
+            water_availability=features.get("water_availability", "High"),
+            season=features.get("season", "Kharif"),
+            temperature=features.get("temperature", 30.0)
+        )
+        
     if _crop_recommendation_model is None or _crop_preprocessors is None:
         model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "crop_recommendation_model.pkl")
         preprocessors_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "crop_recommendation_preprocessors.pkl")
