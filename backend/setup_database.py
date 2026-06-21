@@ -211,9 +211,34 @@ def init_db() -> None:
     CREATE TABLE IF NOT EXISTS gemini_response_cache (
         cache_key TEXT PRIMARY KEY,
         response_json TEXT,
-        cached_at TEXT
+        cached_at TEXT,
+        query TEXT,
+        source TEXT
     )
     """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS gemini_key_rotation_log (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        timestamp TEXT NOT NULL,
+        event TEXT NOT NULL,
+        key_index INTEGER NOT NULL,
+        module TEXT,
+        latency_ms INTEGER,
+        crop TEXT
+    )
+    """)
+
+    # Safe migration: add columns that may not exist in older DBs
+    for col_def in [
+        ("gemini_response_cache", "query", "TEXT"),
+        ("gemini_response_cache", "source", "TEXT"),
+    ]:
+        table, col, coltype = col_def
+        try:
+            cursor.execute(f"ALTER TABLE {table} ADD COLUMN {col} {coltype}")
+        except Exception:
+            pass  # column already exists
 
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS mandi_prices_cache (
