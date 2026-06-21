@@ -2,20 +2,31 @@ import urllib.request
 import urllib.error
 import json
 import ssl
+import os
+from dotenv import load_dotenv
 
 def main():
+    # Load dotenv if present
+    load_dotenv()
+    
     # URL template
     base_url = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070"
     
-    # We will try a few requests to diagnose:
+    # We will try:
     # 1. No API key
     # 2. Dummy API key
-    # 3. Check if we can find any other endpoint ID
+    # 3. Environment API key
+    env_key = os.getenv("MANDI_API_KEY")
     
     urls = [
         ("No Key", f"{base_url}?format=json&limit=5"),
         ("Dummy Key", f"{base_url}?api-key=dummy_key&format=json&limit=5")
     ]
+    if env_key:
+        urls.append(("Env Key (Masked)", f"{base_url}?api-key={env_key}&format=json&limit=5"))
+    else:
+        print("MANDI_API_KEY is not defined in the environment or .env file.")
+
     
     # Bypass SSL verification if needed for government APIs
     ctx = ssl.create_default_context()

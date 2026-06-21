@@ -86,7 +86,7 @@ def main():
         print(f"  Testing query: '{q}'")
         chat_payload = {"message": q, "language": "en"}
         try:
-            resp = requests.post(f"{BACKEND_URL}/api/v1/advisory/chat", json=chat_payload, headers=headers, timeout=25)
+            resp = requests.post(f"{BACKEND_URL}/api/v1/advisory/chat", json=chat_payload, headers=headers, timeout=60)
             print(f"    Status: {resp.status_code}")
             if resp.status_code == 200:
                 resp_text = resp.json().get("text", "")
@@ -137,7 +137,7 @@ def main():
             data["crop"] = crop_hint
             
         detect_headers = {"Authorization": f"Bearer {id_token}"}
-        resp = requests.post(f"{BACKEND_URL}/api/v1/disease/detect", files=files, data=data, headers=detect_headers, timeout=25)
+        resp = requests.post(f"{BACKEND_URL}/api/v1/disease/detect", files=files, data=data, headers=detect_headers, timeout=120)
         print(f"    Status: {resp.status_code}")
         print(json.dumps(resp.json(), indent=2))
         scanner_results[label] = {

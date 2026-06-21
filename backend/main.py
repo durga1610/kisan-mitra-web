@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import sys
 import faulthandler
 _log_dir = "/var/data" if (os.name != 'nt' and os.path.exists("/var")) else os.path.dirname(os.path.abspath(__file__))
