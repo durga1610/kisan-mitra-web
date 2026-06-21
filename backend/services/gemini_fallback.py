@@ -1228,3 +1228,89 @@ def get_key_manager_stats() -> dict:
 def reset_exhausted_keys():
     """Force reset of exhausted key set (e.g., on daily cron or admin trigger)."""
     _KEY_MANAGER.reset_daily()
+
+
+def verify_disease_with_gemini(
+    image_bytes: bytes,
+    crop_cnn: str,
+    disease_cnn: str,
+    weather_context: dict,
+    farm_context: dict,
+    user_uid: str
+) -> dict:
+    """
+    Validates a CNN prediction using Gemini Vision.
+    Returns a dict with:
+      verified_crop: str
+      verified_disease: str
+      agree_with_cnn: bool
+      confidence: float
+      reason: str
+      severity: str
+      symptoms: str
+      treatment: str
+      prevention: str
+      organic_solution: str
+      chemical_solution: str
+      source: str
+    If Gemini is unavailable, returns a dict with {"source": "LOCAL_FALLBACK"} or {"source": "GEMINI_QUOTA_EXCEEDED"}.
+    """
+    import hashlib
+    import time
+
+    # 1. Cache
+    image_hash = hashlib.sha256(image_bytes).hexdigest()
+    cache_key = f"verify_disease:{image_hash}:{crop_cnn}:{disease_cnn}"
+    cached = get_cached_response(cache_key)
+    if cached:
+        return cached
+
+    # 2. Rate Limit & Daily Limit checks
+    if not check_rate_limit() or not check_and_increment_daily_limit(user_uid):
+        log_fallback_call("disease_verify", user_uid, crop_cnn, "limit_exceeded", f"verify-{crop_cnn}", "LOCAL_FALLBACK", 0, False)
+        return {"source": "LOCAL_FALLBACK"}
+
+    # 3. Prompt building
+    prompt = f"""Analyze this crop leaf image as an expert plant pathologist.
+The local CNN model predicted:
+Crop: {crop_cnn}
+Disease: {disease_cnn}
+
+Please independently identify the crop and disease, and evaluate the CNN prediction.
+Return STRICT JSON only (no markdown wrapper, no other text):
+{{
+    "verified_crop": "Name of the crop (e.g., Rice, Tomato, Cotton, Banana, Sugarcane, Maize, or other crop)",
+    "verified_disease": "Name of the disease (e.g., Blast, Early Blight, Late Blight, or 'Healthy' if no disease)",
+    "agree_with_cnn": true | false,
+    "confidence": 85.0,
+    "reason": "Brief explanation of your diagnosis",
+    "severity": "Low" | "Medium" | "High",
+    "symptoms": "Description of observed symptoms",
+    "treatment": "Generic treatment steps",
+    "prevention": "Prevention strategy",
+    "organic_solution": "Organic management solution",
+    "chemical_solution": "Generic chemical category solution"
+}}"""
+
+    start_time = time.time()
+    try:
+        text = execute_gemini_call(prompt, is_vision=True, image_bytes=image_bytes,
+                                   _module="disease_verify", _crop=crop_cnn)
+        parsed = json.loads(_clean_json_text(text))
+        parsed["source"] = "GEMINI_SUCCESS"
+        latency = int((time.time() - start_time) * 1000)
+        set_cached_response(cache_key, parsed, query=f"disease verify {crop_cnn} {disease_cnn}", source="GEMINI_SUCCESS")
+        log_fallback_call("disease_verify", user_uid, crop_cnn, "verify_success", prompt, "GEMINI_SUCCESS", latency, True)
+        return parsed
+
+    except AllKeysExhaustedException:
+        latency = int((time.time() - start_time) * 1000)
+        logger.warning("[disease_verify] All keys exhausted for verification of crop=%s", crop_cnn)
+        log_fallback_call("disease_verify", user_uid, crop_cnn, "all_keys_exhausted", f"verify-{crop_cnn}", "GEMINI_QUOTA_EXCEEDED", latency, False)
+        return {"source": "GEMINI_QUOTA_EXCEEDED"}
+
+    except Exception as exc:
+        latency = int((time.time() - start_time) * 1000)
+        logger.error("[disease_verify] Verification failed: %s", exc)
+        log_fallback_call("disease_verify", user_uid, crop_cnn, f"error:{exc}", f"verify-{crop_cnn}", "LOCAL_FALLBACK", latency, False)
+        return {"source": "LOCAL_FALLBACK"}

@@ -227,8 +227,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: AppColors.error)),
                 onTap: () async {
                   final prefs = await SharedPreferences.getInstance();
-                  await prefs.clear();
+                  await prefs.remove('last_activity_timestamp');
+                  await prefs.remove('last_route');
                   if (context.mounted) {
+                    Provider.of<UserProvider>(context, listen: false).clearUser();
                     await Provider.of<AuthProvider>(context, listen: false).signOut();
                   }
                   if (context.mounted) {

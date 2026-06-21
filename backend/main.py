@@ -2254,9 +2254,145 @@ async def _detect_disease_inner(
     db_entry = DISEASE_DB.get(db_key, DISEASE_DB["rice_blast" if is_rice else "tomato_early_blight"])
     report = db_entry.get(lang_key, db_entry["en"])
 
+    # ── Gemini Vision Verification (PHASE 3) ──────────────────────────────
+    result_source = "LOCAL_ENGINE"
+    
+    if (image.width > 10 and image.height > 10):
+        from services.gemini_fallback import verify_disease_with_gemini
+        
+        farm_ctx = None
+        db_path = DB_PATH
+        if os.path.exists(db_path):
+            try:
+                import sqlite3
+                conn = sqlite3.connect(db_path)
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM farms WHERE owner_id = ? LIMIT 1", (user_uid,))
+                row = cursor.fetchone()
+                if row:
+                    farm_ctx = dict(row)
+                conn.close()
+            except Exception as e:
+                logger.warning(f"Error fetching farm details for verification: {e}")
+                
+        weather_ctx = {
+            "condition": "Humid and Overcast" if farm_ctx else "Sunny and Hot",
+            "temperature": 29.5 if farm_ctx else 32.0,
+            "humidity": 82.0 if farm_ctx else 45.0,
+            "season": "Kharif"
+        }
+
+        verification_result = verify_disease_with_gemini(
+            image_bytes=contents,
+            crop_cnn=crop_name,
+            disease_cnn=disease_name,
+            weather_context=weather_ctx,
+            farm_context=farm_ctx,
+            user_uid=user_uid
+        )
+        
+        gemini_source = verification_result.get("source")
+        if gemini_source == "GEMINI_SUCCESS":
+            verified_crop = verification_result.get("verified_crop", "").strip()
+            verified_disease = verification_result.get("verified_disease", "").strip()
+            gemini_confidence = float(verification_result.get("confidence", 0.0))
+            
+            def norm(c):
+                c = c.lower().strip()
+                if "rice" in c or "paddy" in c: return "rice"
+                if "maize" in c or "corn" in c: return "maize"
+                return c
+
+            crop_match = norm(verified_crop) == norm(crop_name)
+            disease_match = norm(verified_disease) == norm(disease_name) or (
+                ("healthy" in verified_disease.lower() and "healthy" in disease_name.lower())
+            )
+            
+            report = dict(report)
+            
+            if not crop_match:
+                logger.info("[Verification Override] Crop conflict: CNN predicted '%s', Gemini identified '%s'. Overriding unconditionally.", crop_name, verified_crop)
+                crop_name = verified_crop.capitalize()
+                disease_name = verified_disease.title()
+                final_confidence = gemini_confidence
+                result_source = "HYBRID_ENGINE"
+                
+                new_db_key = f"{crop_name.lower()}_{disease_name.lower().replace(' ', '_')}"
+                if new_db_key in DISEASE_DB:
+                    db_entry = DISEASE_DB[new_db_key]
+                    report = dict(db_entry.get(lang_key, db_entry["en"]))
+                else:
+                    report = {
+                        "Plant": crop_name,
+                        "Disease": disease_name,
+                        "Severity": verification_result.get("severity", "Medium"),
+                        "Symptoms": verification_result.get("symptoms", "N/A"),
+                        "Causes": "Environmental or Pathogenic",
+                        "Treatment": verification_result.get("treatment", "N/A"),
+                        "Prevention": verification_result.get("prevention", "N/A"),
+                        "Organic Treatment": verification_result.get("organic_solution", "N/A"),
+                        "Suggested Products": verification_result.get("chemical_solution", "N/A"),
+                        "Explanation": verification_result.get("reason", "Verified and overridden by Gemini Vision.")
+                    }
+            else:
+                if disease_match:
+                    logger.info("[Verification Agreement] CNN and Gemini agree on '%s' for crop '%s'. Boosting confidence.", disease_name, crop_name)
+                    final_confidence = min(98.0, max(final_confidence, gemini_confidence) + 5.0)
+                    result_source = "HYBRID_ENGINE"
+                    warning_msg = "CNN result verified by Gemini Vision."
+                else:
+                    if "healthy" in verified_disease.lower() and final_confidence < 85.0:
+                        logger.info("[Verification Override] CNN predicted disease with confidence %.1f%%, but Gemini verified as healthy. Overriding to Healthy.", final_confidence)
+                        disease_name = "Healthy"
+                        final_confidence = gemini_confidence
+                        result_source = "HYBRID_ENGINE"
+                        report = {
+                            "Plant": crop_name,
+                            "Disease": "Healthy",
+                            "Severity": "None",
+                            "Symptoms": "No disease symptoms observed. Plant appears healthy.",
+                            "Causes": "None",
+                            "Treatment": "No treatment required.",
+                            "Prevention": "Maintain standard farm care.",
+                            "Organic Treatment": "None required.",
+                            "Suggested Products": "None",
+                            "Explanation": "Gemini Vision verified the leaf as healthy."
+                        }
+                    elif final_confidence < 75.0 or gemini_confidence > final_confidence:
+                        logger.info("[Verification Override] Disease conflict: CNN predicted '%s' (conf=%.1f%%), Gemini predicted '%s' (conf=%.1f%%). Overriding with Gemini result.", disease_name, final_confidence, verified_disease, gemini_confidence)
+                        disease_name = verified_disease.title()
+                        final_confidence = gemini_confidence
+                        result_source = "HYBRID_ENGINE"
+                        
+                        new_db_key = f"{crop_name.lower()}_{disease_name.lower().replace(' ', '_')}"
+                        if new_db_key in DISEASE_DB:
+                            db_entry = DISEASE_DB[new_db_key]
+                            report = dict(db_entry.get(lang_key, db_entry["en"]))
+                        else:
+                            report = {
+                                "Plant": crop_name,
+                                "Disease": disease_name,
+                                "Severity": verification_result.get("severity", "Medium"),
+                                "Symptoms": verification_result.get("symptoms", "N/A"),
+                                "Causes": "Environmental or Pathogenic",
+                                "Treatment": verification_result.get("treatment", "N/A"),
+                                "Prevention": verification_result.get("prevention", "N/A"),
+                                "Organic Treatment": verification_result.get("organic_solution", "N/A"),
+                                "Suggested Products": verification_result.get("chemical_solution", "N/A"),
+                                "Explanation": verification_result.get("reason", "Verified and overridden by Gemini Vision.")
+                            }
+                    else:
+                        logger.info("[Verification Retained] Disease conflict: CNN predicted '%s' (conf=%.1f%%), Gemini predicted '%s' (conf=%.1f%%). Retaining CNN result.", disease_name, final_confidence, verified_disease, gemini_confidence)
+                        result_source = "HYBRID_ENGINE"
+                        warning_msg = f"Discrepancy: CNN predicted '{disease_name}', Gemini predicted '{verified_disease}'."
+            
+            predictions_list = [{"class": f"{crop_name}___{disease_name.replace(' ', '_')}", "confidence": final_confidence}]
+
+    db_key = f"{crop_name.lower()}_{disease_name.lower().replace(' ', '_')}"
     # Determine severity
     severity = report.get("Severity", "Medium").replace(" (उच्च)", "").replace(" (मध्यम)", "").replace(" (कोई नहीं)", "")
-    if "healthy" in db_key or severity.lower() == "none":
+    if "healthy" in db_key or severity.lower() == "none" or disease_name.lower() == "healthy":
         severity = "None"
 
     # Format lists for symptoms, treatments, preventions
@@ -2306,7 +2442,7 @@ async def _detect_disease_inner(
         "explanation": report.get("Explanation", "Predicted based on deep learning CNN model visualization."),
         "gradcamBase64": gradcam_base64,
         "predictions": predictions_list,
-        "source": "LOCAL_ENGINE",
+        "source": result_source,
         "_timing_ms": {**_stage_times, "total": round((__import__("time").perf_counter() - _req_start) * 1000)},
     }
 
@@ -3737,7 +3873,7 @@ async def get_market_prices(
                     full_url,
                     headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
                 )
-                with urllib.request.urlopen(req, context=ctx, timeout=5.0) as response:
+                with urllib.request.urlopen(req, context=ctx, timeout=12.0) as response:
                     status_code = response.getcode()
                     logger.info("[Mandi Proxy] Live API attempt %d response code: %d", attempt + 1, status_code)
 

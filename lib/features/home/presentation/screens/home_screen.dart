@@ -174,9 +174,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     if (confirmed == true && mounted) {
-      await Provider.of<AuthProvider>(context, listen: false).signOut();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
+      await prefs.remove('last_activity_timestamp');
+      await prefs.remove('last_route');
+      if (mounted) {
+        Provider.of<UserProvider>(context, listen: false).clearUser();
+        await Provider.of<AuthProvider>(context, listen: false).signOut();
+      }
       if (mounted) {
         context.go(AppRouter.login);
       }

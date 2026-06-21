@@ -6,6 +6,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../config/routes/app_router.dart';
 import '../../../../core/providers/auth_provider.dart';
+import '../../../../core/providers/user_provider.dart';
 import '../../../../core/services/session_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -96,8 +97,12 @@ class _SplashScreenState extends State<SplashScreen>
         final isExpired = await SessionService.isSessionExpired();
         if (isExpired) {
           final prefs = await SharedPreferences.getInstance();
-          await prefs.clear();
-          await authProvider.signOut();
+          await prefs.remove('last_activity_timestamp');
+          await prefs.remove('last_route');
+          if (mounted) {
+            Provider.of<UserProvider>(context, listen: false).clearUser();
+            await authProvider.signOut();
+          }
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(

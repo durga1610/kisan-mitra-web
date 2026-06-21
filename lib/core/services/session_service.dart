@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../providers/user_provider.dart';
 import '../providers/auth_provider.dart';
 import '../../config/routes/app_router.dart';
 
@@ -47,10 +48,14 @@ class SessionService {
     if (await isSessionExpired()) {
       if (context.mounted) {
         final prefs = await SharedPreferences.getInstance();
-        await prefs.clear();
+        await prefs.remove('last_activity_timestamp');
+        await prefs.remove('last_route');
         
-        final authProvider = Provider.of<AuthProvider>(context, listen: false);
-        await authProvider.signOut();
+        if (context.mounted) {
+          Provider.of<UserProvider>(context, listen: false).clearUser();
+          final authProvider = Provider.of<AuthProvider>(context, listen: false);
+          await authProvider.signOut();
+        }
         
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

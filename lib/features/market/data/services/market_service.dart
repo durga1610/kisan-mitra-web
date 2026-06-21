@@ -103,7 +103,12 @@ class MarketService {
   }
 
   // Fetch from Live API or Local Cache using CACHE-FIRST strategy
-  Future<List<MarketPrice>?> getMarketPrices({List<String>? preferredCrops, String? preferredState, bool forceRefresh = false}) async {
+  Future<List<MarketPrice>?> getMarketPrices({
+    List<String>? preferredCrops, 
+    String? preferredState, 
+    bool forceRefresh = false,
+    VoidCallback? onBackgroundFetchComplete,
+  }) async {
     try {
       // 1. FAST PATH: Attempt to load from local SharedPreferences cache FIRST for instant response
       if (!forceRefresh) {
@@ -114,6 +119,9 @@ class MarketService {
             _isFetchingBackground = true;
             _fetchLiveApiAndUpdateCache(preferredCrops, preferredState).then((_) {
                _isFetchingBackground = false;
+               if (onBackgroundFetchComplete != null) {
+                 onBackgroundFetchComplete();
+               }
             }).catchError((e) {
                _isFetchingBackground = false;
                if (kDebugMode) print('Background API fetch failed: $e');

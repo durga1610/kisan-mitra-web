@@ -125,7 +125,28 @@ class MarketProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final newPrices = await _service.getMarketPrices(preferredCrops: _plantedCrops, preferredState: _farmState, forceRefresh: forceRefresh);
+      final newPrices = await _service.getMarketPrices(
+        preferredCrops: _plantedCrops, 
+        preferredState: _farmState, 
+        forceRefresh: forceRefresh,
+        onBackgroundFetchComplete: () async {
+          if (currentFetchId == _activeFetchId) {
+            final updatedPrices = await _service.getMarketPrices(
+              preferredCrops: _plantedCrops, 
+              preferredState: _farmState, 
+              forceRefresh: false,
+            );
+            if (updatedPrices != null && currentFetchId == _activeFetchId) {
+              _isServerDown = false;
+              _isFallbackActive = _service.isFallbackActive;
+              _lastUpdated = _service.lastUpdated;
+              _allPrices = updatedPrices;
+              _applyFilters();
+              notifyListeners();
+            }
+          }
+        },
+      );
       
       // Prevent race condition: only apply if this is the most recent fetch
       if (currentFetchId == _activeFetchId) {
