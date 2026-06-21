@@ -1,7 +1,7 @@
 import os
 import sys
 import faulthandler
-_log_dir = os.path.dirname(os.path.abspath(__file__))
+_log_dir = "/var/data" if os.path.isdir("/var/data") else os.path.dirname(os.path.abspath(__file__))
 _err_file = open(os.path.join(_log_dir, "stderr.log"), "a", encoding="utf-8", buffering=1)
 sys.stderr = _err_file
 sys.stdout = _err_file
@@ -3942,7 +3942,8 @@ def get_debug_logs():
     Returns the last 200 lines of captured stderr and stdout logs for debugging.
     """
     import os
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stderr.log")
+    log_dir = "/var/data" if os.path.isdir("/var/data") else os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(log_dir, "stderr.log")
     if os.path.exists(path):
         try:
             with open(path, "r", encoding="utf-8") as f:
