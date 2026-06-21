@@ -34,6 +34,9 @@ def trim_memory():
     """Force Python garbage collection to release unused memory."""
     import gc
     gc.collect()
+class LowCropConfidenceException(Exception):
+    """Raised when predicted crop confidence is below the minimum threshold."""
+    pass
 
 
 import logging
