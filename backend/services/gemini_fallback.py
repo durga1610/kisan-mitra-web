@@ -566,7 +566,7 @@ def execute_gemini_call(
                     gen_config_args["response_mime_type"] = "application/json"
 
                 generation_config = genai.types.GenerationConfig(**gen_config_args)
-                model = genai.GenerativeModel(model_name)
+                model = genai.GenerativeModel(model_name, transport="rest")
 
                 def _run():
                     if is_vision:
