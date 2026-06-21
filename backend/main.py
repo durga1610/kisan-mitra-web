@@ -3732,3 +3732,74 @@ async def recommend_pest_control(request: Request, body: PestRequest, user: Dict
             "status": "fallback"
         }
 
+
+@app.get("/api/v1/system/gemini-status")
+def get_gemini_status():
+    """
+    Returns system status for the Gemini key rotation, caching, and health layer.
+    """
+    try:
+        from services.gemini_fallback import get_key_manager_stats
+        import sqlite3
+        from config import DB_PATH
+        
+        # Get stats from key manager
+        stats = get_key_manager_stats()
+        
+        active_key = stats.get("active_key", "NONE")
+        if active_key.startswith("KEY_"):
+            try:
+                active_key_index = int(active_key.split("_")[1])
+            except (IndexError, ValueError):
+                active_key_index = None
+        else:
+            active_key_index = None
+            
+        keys_detected = stats.get("total_keys", 0)
+        exhausted_count = stats.get("exhausted_count", 0)
+        healthy_keys = max(0, keys_detected - exhausted_count)
+        
+        # Count cache entries
+        cache_entries = 0
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM gemini_response_cache")
+            row = cursor.fetchone()
+            if row:
+                cache_entries = row[0]
+            conn.close()
+        except Exception as cache_err:
+            logger.warning("[Status API] Error counting cache: %s", cache_err)
+            
+        # Get last rotation timestamp
+        last_rotation = None
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT timestamp FROM gemini_key_rotation_log "
+                "WHERE event IN ('KEY_ROTATION', 'QUOTA_EXCEEDED') "
+                "ORDER BY id DESC LIMIT 1"
+            )
+            row = cursor.fetchone()
+            if row:
+                last_rotation = row["timestamp"]
+            conn.close()
+        except Exception as log_err:
+            logger.warning("[Status API] Error getting last rotation: %s", log_err)
+            
+        return {
+            "keys_detected": keys_detected,
+            "active_key_index": active_key_index,
+            "healthy_keys": healthy_keys,
+            "cache_enabled": True,
+            "cache_entries": cache_entries,
+            "last_rotation": last_rotation
+        }
+    except Exception as e:
+        logger.error(f"[Status API] Error generating status: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+

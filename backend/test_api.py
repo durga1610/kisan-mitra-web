@@ -459,6 +459,19 @@ def test_reasoning():
     assert "Growing Tomato is a smart choice" in response.json()["text"]
     print("OK: Suitability reasoning generator working")
 
+def test_gemini_status():
+    response = client.get("/api/v1/system/gemini-status")
+    assert response.status_code == 200
+    data = response.json()
+    assert "keys_detected" in data
+    assert "active_key_index" in data
+    assert "healthy_keys" in data
+    assert "cache_enabled" in data
+    assert "cache_entries" in data
+    assert "last_rotation" in data
+    assert data["cache_enabled"] is True
+    print("OK: Gemini status endpoint working")
+
 if __name__ == "__main__":
     print("Running API tests...")
     test_root()
@@ -468,4 +481,6 @@ if __name__ == "__main__":
     test_crop_suitability()
     test_daily_guidance()
     test_reasoning()
+    test_gemini_status()
     print("All backend API tests passed successfully!")
+
