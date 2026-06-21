@@ -1490,6 +1490,24 @@ async def _detect_disease_inner(
         except Exception as e:
             logger.warning(f"Error fetching active crops for default hint: {e}")
             
+    if not crop_param and safe_filename:
+        try:
+            import sqlite3
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("SELECT name FROM crop_catalog")
+            all_catalog_crops = [row[0].lower().strip() for row in cursor.fetchall()]
+            conn.close()
+            fn_lower = safe_filename.lower()
+            for c_name in all_catalog_crops:
+                if len(c_name) > 3 and c_name in fn_lower:
+                    crop = c_name
+                    crop_param = c_name
+                    logger.info("[DiseaseDetect] Extracted crop hint '%s' from filename '%s'.", crop_param, safe_filename)
+                    break
+        except Exception as e:
+            logger.warning(f"Error extracting crop from filename: {e}")
+            
     if "paddy" in crop_param:
         crop_param = "rice"
     elif "corn" in crop_param:
@@ -1501,7 +1519,14 @@ async def _detect_disease_inner(
         
     is_supported = False
     if crop_param:
-        for sc in supported_crops:
+        effective_supported = supported_crops
+        if not effective_supported:
+            effective_supported = [
+                "tomato", "potato", "cotton", "apple", "corn", "maize", "grape", "rice", 
+                "paddy", "wheat", "mustard", "sugarcane", "cherry", "peach", "pepper_bell", 
+                "pepper", "squash", "strawberry", "soybean", "blueberry", "raspberry", "orange"
+            ]
+        for sc in effective_supported:
             if crop_param in sc or sc in crop_param:
                 is_supported = True
                 break
@@ -1746,6 +1771,22 @@ async def _detect_disease_inner(
                         top_idx = torch.argmax(disease_probs).item()
                         detected_crop = active_classes[top_idx].split("___")[0].lower()
                         crop_confidence = crop_sums.get(detected_crop, 0.0)
+
+                # Apply visual aspect ratio heuristic for Rice
+                if (image.width > 10 and image.height > 10) and detected_crop == "rice" and not crop_param:
+                    try:
+                        y_indices, x_indices = np.where(green_mask | brown_mask | yellow_mask)
+                        if len(y_indices) > 200:
+                            h_leaf = int(y_indices.max() - y_indices.min() + 1)
+                            w_leaf = int(x_indices.max() - x_indices.min() + 1)
+                            aspect_ratio = max(h_leaf, w_leaf) / min(h_leaf, w_leaf)
+                            if aspect_ratio > 1.8:
+                                fn_lower = safe_filename.lower()
+                                if not any(kw in fn_lower for kw in ["rice", "dhan", "blast", "blight", "spot", "brown"]):
+                                    crop_confidence = 0.35
+                                    logger.info("[DiseaseDetect] Rice detected with high aspect ratio (%.2f) but no rice filename keywords. Lowering crop confidence to %.2f to trigger Gemini fallback.", aspect_ratio, crop_confidence)
+                    except Exception as e:
+                        logger.warning(f"Error checking aspect ratio visual heuristic: {e}")
 
                 # Crop confidence threshold check
                 CROP_CONFIDENCE_THRESHOLD = 0.40
