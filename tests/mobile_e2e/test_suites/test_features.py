@@ -36,6 +36,7 @@ def test_market_prices_page_load(auth_driver):
     market_title = (By.XPATH, "//*[contains(@content-desc, 'Market Prices')] | //*[contains(@text, 'Market Prices')]")
     assert home_page.wait_for_element(market_title) is not None, "Market Prices page failed to load"
     
+    time.sleep(1) # Let transition animation settle
     home_page.capture_screenshot("mobile_market_prices_load")
     print("[MobileTest] Market Prices verified.")
 
