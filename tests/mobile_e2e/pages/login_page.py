@@ -35,6 +35,18 @@ class LoginPage(BasePage):
             except Exception:
                 pass
             
+        # Debug: Print page source and list matched elements for the login button
+        try:
+            print("--- DEBUG LOGIN PAGE SOURCE ---")
+            print(self.driver.page_source)
+            print("--- END DEBUG LOGIN PAGE SOURCE ---")
+            buttons = self.driver.find_elements(*self.SUBMIT_BUTTON)
+            print(f"[DEBUG] Found {len(buttons)} matching submit buttons.")
+            for i, btn in enumerate(buttons):
+                print(f"  [{i}] class: {btn.get_attribute('class')}, text: {btn.get_attribute('text')}, desc: {btn.get_attribute('content-desc') or btn.get_attribute('contentDescription')}, resource-id: {btn.get_attribute('resource-id') or btn.get_attribute('resourceId')}, displayed: {btn.is_displayed()}")
+        except Exception as e:
+            print(f"[DEBUG] Error logging details: {e}")
+
         self.click(self.SUBMIT_BUTTON)
 
     def navigate_to_register(self):
