@@ -1,3 +1,4 @@
+# Android E2E workflow configuration
 name: Android E2E & Report Hosting
 
 on:
