@@ -93,11 +93,7 @@ jobs:
       - name: Determine Target URL
         id: get_url
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            echo "URL=https://durga1610.github.io/kisan-mitra-web/" >> $GITHUB_ENV
-          else
-            echo "URL=${{ needs.build-and-deploy.outputs.page_url }}" >> $GITHUB_ENV
-          fi
+          echo "URL=https://durga1610.github.io/kisan-mitra-web/" >> $GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v5
