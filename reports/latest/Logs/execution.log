@@ -1,0 +1,553 @@
+======================================================================
+KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-22 13:57:10
+======================================================================
+Running pytest with args: ['-s', '-v', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/test_suites']
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.15/x64/bin/python
+cachedir: .pytest_cache
+rootdir: /home/runner/work/kisan-mitra-web/kisan-mitra-web
+collecting ... collected 8 items
+
+tests/mobile_e2e/test_suites/test_auth.py::test_auth_client_validation [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/mobile_login_screen_load.png
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/mobile_login_empty_fields.png
+[MobileTest] Verification complete: still on login screen.
+PASSED
+tests/mobile_e2e/test_suites/test_auth.py::test_auth_invalid_credentials [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/mobile_login_invalid_credentials.png
+[MobileTest] Verification complete: invalid login failed as expected.
+PASSED
+tests/mobile_e2e/test_suites/test_features.py::test_home_page_load [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
+[MobileTest] Performing E2E test login...
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/mobile_home_page_load.png
+[MobileTest] Home screen verified.
+PASSED
+tests/mobile_e2e/test_suites/test_features.py::test_market_prices_page_load [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
+[MobileTest] Performing E2E test login...
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_wait_1782136734.png
+[MobileConftest] Captured failure screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_test_market_prices_page_load_1782136703.png
+FAILED
+tests/mobile_e2e/test_suites/test_features.py::test_ai_advisor_page_load [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
+[MobileTest] Performing E2E test login...
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_wait_1782136783.png
+[MobileConftest] Captured failure screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_test_ai_advisor_page_load_1782136753.png
+FAILED
+tests/mobile_e2e/test_suites/test_features.py::test_disease_scanner_page_load [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
+[MobileTest] Performing E2E test login...
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_wait_1782136833.png
+[MobileConftest] Captured failure screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_test_disease_scanner_page_load_1782136803.png
+FAILED
+tests/mobile_e2e/test_suites/test_features.py::test_navigation_between_screens [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
+[MobileTest] Performing E2E test login...
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_wait_1782136883.png
+[MobileConftest] Captured failure screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_test_navigation_between_screens_1782136852.png
+FAILED
+tests/mobile_e2e/test_suites/test_features.py::test_responsive_ui_smoke [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
+[MobileTest] Performing E2E test login...
+[MobileTest] Rotating emulator to LANDSCAPE...
+[MobileConftest] Captured failure screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_test_responsive_ui_smoke_1782136902.png
+FAILED
+
+=================================== FAILURES ===================================
+_________________________ test_market_prices_page_load _________________________
+
+auth_driver = <appium.webdriver.webdriver.WebDriver (session="6f3351bd-fceb-4cca-901a-6a1f50a7f7e3")>
+
+    def test_market_prices_page_load(auth_driver):
+        """Verify that the Market Prices page opens successfully."""
+        home_page = HomePage(auth_driver)
+        # Navigate to Market tab
+>       home_page.click(home_page.MARKET_TAB)
+
+tests/mobile_e2e/test_suites/test_features.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/mobile_e2e/pages/base_page.py:26: in click
+    element = self.wait_for_element(locator)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
+    raise e
+tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
+    return WebDriverWait(self.driver, self.timeout).until(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.support.wait.WebDriverWait (session="6f3351bd-fceb-4cca-901a-6a1f50a7f7e3")>
+method = <function visibility_of_element_located.<locals>._predicate at 0x7f7b57f59f80>
+message = ''
+
+    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
+        """Wait until the method returns a value that is not False.
+    
+        Calls the method provided with the driver as an argument until the
+        return value does not evaluate to ``False``.
+    
+        Args:
+            method: A callable object that takes a WebDriver instance as an
+                argument.
+            message: Optional message for TimeoutException.
+    
+        Returns:
+            The result of the last call to `method`.
+    
+        Raises:
+            TimeoutException: If 'method' does not return a truthy value within
+                the WebDriverWait object's timeout.
+    
+        Example:
+            >>> from selenium.webdriver.common.by import By
+            >>> from selenium.webdriver.support.ui import WebDriverWait
+            >>> from selenium.webdriver.support import expected_conditions as EC
+            >>>
+            >>> # Wait until an element is visible on the page
+            >>> wait = WebDriverWait(driver, 10)
+            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
+            >>> print(element.text)
+        """
+        screen = None
+        stacktrace = None
+    
+        end_time = time.monotonic() + self._timeout
+        while True:
+            try:
+                value = method(self._driver)
+                if value:
+                    return value
+            except self._ignored_exceptions as exc:
+                screen = getattr(exc, "screen", None)
+                stacktrace = getattr(exc, "stacktrace", None)
+            if time.monotonic() > end_time:
+                break
+            time.sleep(self._poll)
+>       raise TimeoutException(message, screen, stacktrace)
+E       selenium.common.exceptions.TimeoutException: Message: 
+E       Stacktrace:
+E       NoSuchElementError: An element could not be located on the page using the given search parameters.
+E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException
+__________________________ test_ai_advisor_page_load ___________________________
+
+auth_driver = <appium.webdriver.webdriver.WebDriver (session="7bb29e16-7452-4c9c-a87f-6907764daf4f")>
+
+    def test_ai_advisor_page_load(auth_driver):
+        """Verify that the AI Advisor chat panel opens successfully."""
+        home_page = HomePage(auth_driver)
+        # Navigate to Advisory tab
+>       home_page.click(home_page.ADVISORY_TAB)
+
+tests/mobile_e2e/test_suites/test_features.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/mobile_e2e/pages/base_page.py:26: in click
+    element = self.wait_for_element(locator)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
+    raise e
+tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
+    return WebDriverWait(self.driver, self.timeout).until(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.support.wait.WebDriverWait (session="7bb29e16-7452-4c9c-a87f-6907764daf4f")>
+method = <function visibility_of_element_located.<locals>._predicate at 0x7f7b57fcc900>
+message = ''
+
+    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
+        """Wait until the method returns a value that is not False.
+    
+        Calls the method provided with the driver as an argument until the
+        return value does not evaluate to ``False``.
+    
+        Args:
+            method: A callable object that takes a WebDriver instance as an
+                argument.
+            message: Optional message for TimeoutException.
+    
+        Returns:
+            The result of the last call to `method`.
+    
+        Raises:
+            TimeoutException: If 'method' does not return a truthy value within
+                the WebDriverWait object's timeout.
+    
+        Example:
+            >>> from selenium.webdriver.common.by import By
+            >>> from selenium.webdriver.support.ui import WebDriverWait
+            >>> from selenium.webdriver.support import expected_conditions as EC
+            >>>
+            >>> # Wait until an element is visible on the page
+            >>> wait = WebDriverWait(driver, 10)
+            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
+            >>> print(element.text)
+        """
+        screen = None
+        stacktrace = None
+    
+        end_time = time.monotonic() + self._timeout
+        while True:
+            try:
+                value = method(self._driver)
+                if value:
+                    return value
+            except self._ignored_exceptions as exc:
+                screen = getattr(exc, "screen", None)
+                stacktrace = getattr(exc, "stacktrace", None)
+            if time.monotonic() > end_time:
+                break
+            time.sleep(self._poll)
+>       raise TimeoutException(message, screen, stacktrace)
+E       selenium.common.exceptions.TimeoutException: Message: 
+E       Stacktrace:
+E       NoSuchElementError: An element could not be located on the page using the given search parameters.
+E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException
+________________________ test_disease_scanner_page_load ________________________
+
+auth_driver = <appium.webdriver.webdriver.WebDriver (session="204841d0-8078-4f8d-a58e-8f54cc523e86")>
+
+    def test_disease_scanner_page_load(auth_driver):
+        """Verify that the Disease Scanner interface opens successfully."""
+        home_page = HomePage(auth_driver)
+        # Navigate to Crops tab (where Scanner entry resides)
+>       home_page.click(home_page.CROPS_TAB)
+
+tests/mobile_e2e/test_suites/test_features.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/mobile_e2e/pages/base_page.py:26: in click
+    element = self.wait_for_element(locator)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
+    raise e
+tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
+    return WebDriverWait(self.driver, self.timeout).until(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.support.wait.WebDriverWait (session="204841d0-8078-4f8d-a58e-8f54cc523e86")>
+method = <function visibility_of_element_located.<locals>._predicate at 0x7f7b57fcca40>
+message = ''
+
+    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
+        """Wait until the method returns a value that is not False.
+    
+        Calls the method provided with the driver as an argument until the
+        return value does not evaluate to ``False``.
+    
+        Args:
+            method: A callable object that takes a WebDriver instance as an
+                argument.
+            message: Optional message for TimeoutException.
+    
+        Returns:
+            The result of the last call to `method`.
+    
+        Raises:
+            TimeoutException: If 'method' does not return a truthy value within
+                the WebDriverWait object's timeout.
+    
+        Example:
+            >>> from selenium.webdriver.common.by import By
+            >>> from selenium.webdriver.support.ui import WebDriverWait
+            >>> from selenium.webdriver.support import expected_conditions as EC
+            >>>
+            >>> # Wait until an element is visible on the page
+            >>> wait = WebDriverWait(driver, 10)
+            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
+            >>> print(element.text)
+        """
+        screen = None
+        stacktrace = None
+    
+        end_time = time.monotonic() + self._timeout
+        while True:
+            try:
+                value = method(self._driver)
+                if value:
+                    return value
+            except self._ignored_exceptions as exc:
+                screen = getattr(exc, "screen", None)
+                stacktrace = getattr(exc, "stacktrace", None)
+            if time.monotonic() > end_time:
+                break
+            time.sleep(self._poll)
+>       raise TimeoutException(message, screen, stacktrace)
+E       selenium.common.exceptions.TimeoutException: Message: 
+E       Stacktrace:
+E       NoSuchElementError: An element could not be located on the page using the given search parameters.
+E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException
+_______________________ test_navigation_between_screens ________________________
+
+auth_driver = <appium.webdriver.webdriver.WebDriver (session="ee47b003-6268-4a52-be9e-3182fb8279d8")>
+
+    def test_navigation_between_screens(auth_driver):
+        """Verify navigation flows between different main sections of the app."""
+        home_page = HomePage(auth_driver)
+    
+        # Go to Crops
+>       home_page.click(home_page.CROPS_TAB)
+
+tests/mobile_e2e/test_suites/test_features.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/mobile_e2e/pages/base_page.py:26: in click
+    element = self.wait_for_element(locator)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
+    raise e
+tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
+    return WebDriverWait(self.driver, self.timeout).until(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.support.wait.WebDriverWait (session="ee47b003-6268-4a52-be9e-3182fb8279d8")>
+method = <function visibility_of_element_located.<locals>._predicate at 0x7f7b57fcd800>
+message = ''
+
+    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
+        """Wait until the method returns a value that is not False.
+    
+        Calls the method provided with the driver as an argument until the
+        return value does not evaluate to ``False``.
+    
+        Args:
+            method: A callable object that takes a WebDriver instance as an
+                argument.
+            message: Optional message for TimeoutException.
+    
+        Returns:
+            The result of the last call to `method`.
+    
+        Raises:
+            TimeoutException: If 'method' does not return a truthy value within
+                the WebDriverWait object's timeout.
+    
+        Example:
+            >>> from selenium.webdriver.common.by import By
+            >>> from selenium.webdriver.support.ui import WebDriverWait
+            >>> from selenium.webdriver.support import expected_conditions as EC
+            >>>
+            >>> # Wait until an element is visible on the page
+            >>> wait = WebDriverWait(driver, 10)
+            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
+            >>> print(element.text)
+        """
+        screen = None
+        stacktrace = None
+    
+        end_time = time.monotonic() + self._timeout
+        while True:
+            try:
+                value = method(self._driver)
+                if value:
+                    return value
+            except self._ignored_exceptions as exc:
+                screen = getattr(exc, "screen", None)
+                stacktrace = getattr(exc, "stacktrace", None)
+            if time.monotonic() > end_time:
+                break
+            time.sleep(self._poll)
+>       raise TimeoutException(message, screen, stacktrace)
+E       selenium.common.exceptions.TimeoutException: Message: 
+E       Stacktrace:
+E       NoSuchElementError: An element could not be located on the page using the given search parameters.
+E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException
+___________________________ test_responsive_ui_smoke ___________________________
+
+auth_driver = <appium.webdriver.webdriver.WebDriver (session="40354a37-cfa0-4db9-8966-43d2f675bb98")>
+
+    def test_responsive_ui_smoke(auth_driver):
+        """Verify that the layout dynamically handles landscape and portrait rotation safely."""
+        home_page = HomePage(auth_driver)
+    
+        # Rotate to Landscape
+        print("[MobileTest] Rotating emulator to LANDSCAPE...")
+>       auth_driver.orientation = "LANDSCAPE"
+        ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/mobile_e2e/test_suites/test_features.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/appium/webdriver/webdriver.py:435: in orientation
+    self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:492: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <appium.webdriver.errorhandler.MobileErrorHandler object at 0x7f7b57f982d0>
+response = {'status': 400, 'value': '{"value":{"error":"invalid element state","message":"Screen rotation cannot be changed to RO...rent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)\\n\\tat java.lang.Thread.run(Thread.java:919)\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        https://www.w3.org/TR/webdriver/#errors
+        """
+        payload = response.get('value', '')
+        if isinstance(payload, dict):
+            payload_dict = payload
+        else:
+            try:
+                payload_dict = json.loads(payload)
+            except (json.JSONDecodeError, TypeError):
+                return
+            if not isinstance(payload_dict, dict):
+                return
+        value = payload_dict.get('value')
+        if not isinstance(value, dict):
+            return
+        error = value.get('error')
+        if not error:
+            return
+    
+        message = value.get('message', error)
+        stacktrace = value.get('stacktrace', '')
+        # In theory, we should also be checking HTTP status codes.
+        # Java client, for example, prints a warning if the actual `error`
+        # value does not match to the response's HTTP status code.
+        exception_class: Type[sel_exceptions.WebDriverException] = ERROR_TO_EXC_MAPPING.get(
+            error, sel_exceptions.WebDriverException
+        )
+        if exception_class is sel_exceptions.WebDriverException and message:
+            if message == 'No such context found.':
+                exception_class = appium_exceptions.NoSuchContextException
+            elif message == 'That command could not be executed in the current context.':
+                exception_class = appium_exceptions.InvalidSwitchToTargetException
+    
+        if exception_class is sel_exceptions.UnexpectedAlertPresentException:
+            raise sel_exceptions.UnexpectedAlertPresentException(
+                msg=message,
+                stacktrace=format_stacktrace(stacktrace),
+                alert_text=value.get('data'),
+            )
+>       raise exception_class(msg=message, stacktrace=format_stacktrace(stacktrace))
+E       selenium.common.exceptions.InvalidElementStateException: Message: Screen rotation cannot be changed to ROTATION_270 after 2000ms. Is it locked programmatically?
+E       Stacktrace:
+E       io.appium.uiautomator2.common.exceptions.InvalidElementStateException: Screen rotation cannot be changed to ROTATION_270 after 2000ms. Is it locked programmatically?
+E       	at io.appium.uiautomator2.model.internal.CustomUiDevice.setRotationSync(CustomUiDevice.java:226)
+E       	at io.appium.uiautomator2.handler.SetOrientation.safeHandle(SetOrientation.java:41)
+E       	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
+E       	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:267)
+E       	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:261)
+E       	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:77)
+E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+E       	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:107)
+E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+E       	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:434)
+E       	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+E       	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+E       	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:249)
+E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
+E       	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:288)
+E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
+E       	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1429)
+E       	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:918)
+E       	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:176)
+E       	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.handle(AbstractNioChannel.java:445)
+E       	at io.netty.channel.nio.NioIoHandler$DefaultNioRegistration.handle(NioIoHandler.java:388)
+E       	at io.netty.channel.nio.NioIoHandler.processSelectedKey(NioIoHandler.java:596)
+E       	at io.netty.channel.nio.NioIoHandler.processSelectedKeysOptimized(NioIoHandler.java:571)
+E       	at io.netty.channel.nio.NioIoHandler.processSelectedKeys(NioIoHandler.java:512)
+E       	at io.netty.channel.nio.NioIoHandler.run(NioIoHandler.java:484)
+E       	at io.netty.channel.SingleThreadIoEventLoop.runIo(SingleThreadIoEventLoop.java:225)
+E       	at io.netty.channel.SingleThreadIoEventLoop.run(SingleThreadIoEventLoop.java:196)
+E       	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:1195)
+E       	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+E       	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+E       	at java.lang.Thread.run(Thread.java:919)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/appium/webdriver/errorhandler.py:125: InvalidElementStateException
+=========================== short test summary info ============================
+FAILED tests/mobile_e2e/test_suites/test_features.py::test_market_prices_page_load - selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+NoSuchElementError: An element could not be located on the page using the given search parameters.
+    at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+    at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+    at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+FAILED tests/mobile_e2e/test_suites/test_features.py::test_ai_advisor_page_load - selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+NoSuchElementError: An element could not be located on the page using the given search parameters.
+    at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+    at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+    at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+FAILED tests/mobile_e2e/test_suites/test_features.py::test_disease_scanner_page_load - selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+NoSuchElementError: An element could not be located on the page using the given search parameters.
+    at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+    at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+    at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+FAILED tests/mobile_e2e/test_suites/test_features.py::test_navigation_between_screens - selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+NoSuchElementError: An element could not be located on the page using the given search parameters.
+    at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+    at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+    at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+FAILED tests/mobile_e2e/test_suites/test_features.py::test_responsive_ui_smoke - selenium.common.exceptions.InvalidElementStateException: Message: Screen rotation cannot be changed to ROTATION_270 after 2000ms. Is it locked programmatically?
+Stacktrace:
+io.appium.uiautomator2.common.exceptions.InvalidElementStateException: Screen rotation cannot be changed to ROTATION_270 after 2000ms. Is it locked programmatically?
+	at io.appium.uiautomator2.model.internal.CustomUiDevice.setRotationSync(CustomUiDevice.java:226)
+	at io.appium.uiautomator2.handler.SetOrientation.safeHandle(SetOrientation.java:41)
+	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
+	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:267)
+	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:261)
+	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:77)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:107)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:434)
+	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:249)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
+	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:288)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1429)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:918)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:176)
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.handle(AbstractNioChannel.java:445)
+	at io.netty.channel.nio.NioIoHandler$DefaultNioRegistration.handle(NioIoHandler.java:388)
+	at io.netty.channel.nio.NioIoHandler.processSelectedKey(NioIoHandler.java:596)
+	at io.netty.channel.nio.NioIoHandler.processSelectedKeysOptimized(NioIoHandler.java:571)
+	at io.netty.channel.nio.NioIoHandler.processSelectedKeys(NioIoHandler.java:512)
+	at io.netty.channel.nio.NioIoHandler.run(NioIoHandler.java:484)
+	at io.netty.channel.SingleThreadIoEventLoop.runIo(SingleThreadIoEventLoop.java:225)
+	at io.netty.channel.SingleThreadIoEventLoop.run(SingleThreadIoEventLoop.java:196)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:1195)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:919)
+=================== 5 failed, 3 passed in 273.90s (0:04:33) ====================
+
+======================================================================
+MOBILE TEST SUITE COMPLETED. GENERATING REPORTS...
+======================================================================
+[MobileTestRunner] Copied screenshots to HTML folder for local viewing: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/HTML/Screenshots
+[MobileExcelReporter] Report saved successfully to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Excel/Automation_Test_Report.xlsx
+[MobileHTMLReporter] Report saved successfully to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/HTML/execution-report.html
+[MobileSummaryReporter] Summary saved successfully to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Summary/summary.md
+Excel report: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Excel/Automation_Test_Report.xlsx
+HTML report: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/HTML/execution-report.html
+Summary markdown: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Summary/summary.md
+Logs: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Logs/execution.log
+======================================================================
+Execution finished with 5 failures. Exiting with status code 1.

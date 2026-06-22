@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisan Mitra - Android Appium E2E Test Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0B0F19;
+            --card-bg: #151D30;
+            --text-main: #F1F5F9;
+            --text-muted: #64748B;
+            --primary: #10B981;
+            --success: #34D399;
+            --error: #F87171;
+            --warning: #FBBF24;
+            --border-color: #1E293B;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 24px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+        }
+        
+        h1 {
+            margin: 0 0 8px 0;
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: -0.5px;
+            color: var(--primary);
+        }
+        
+        .meta {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .card-value {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        
+        .card.success { border-left: 4px solid var(--success); }
+        .card.error { border-left: 4px solid var(--error); }
+        .card.warning { border-left: 4px solid var(--warning); }
+        
+        .card-value.success { color: var(--success); }
+        .card-value.error { color: var(--error); }
+        .card-value.warning { color: var(--warning); }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            background-color: rgba(255, 255, 255, 0.02);
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge.passed {
+            background-color: rgba(52, 211, 153, 0.1);
+            color: var(--success);
+        }
+        
+        .badge.failed {
+            background-color: rgba(248, 113, 113, 0.1);
+            color: var(--error);
+        }
+        
+        .badge.skipped {
+            background-color: rgba(251, 191, 36, 0.1);
+            color: var(--warning);
+        }
+        
+        .error-log {
+            font-family: monospace;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 8px;
+            color: #FECACA;
+            font-size: 12px;
+            max-width: 500px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .gallery-title {
+            margin-top: 40px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+        
+        .gallery-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            background-color: #0d131f;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .gallery-caption {
+            padding: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(11, 15, 25, 0.95);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kisan Mitra Android Appium E2E Test Report</h1>
+            <div class="meta">
+                Run Date: <strong>2026-06-22 14:01:45</strong> &nbsp;|&nbsp; 
+                Target Platform: <strong>Android Emulator (KVM)</strong> &nbsp;|&nbsp; 
+                Build Number: <strong>#5</strong>
+            </div>
+        </header>
+        
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-title">Total Run</div>
+                <div class="card-value">8</div>
+            </div>
+            <div class="card success">
+                <div class="card-title">Passed</div>
+                <div class="card-value success">3</div>
+            </div>
+            <div class="card error">
+                <div class="card-title">Failed</div>
+                <div class="card-value error">5</div>
+            </div>
+            <div class="card warning">
+                <div class="card-title">Skipped</div>
+                <div class="card-value warning">0</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Pass Rate</div>
+                <div class="card-value error">37.5%</div>
+            </div>
+        </div>
+        
+        <h2>Execution Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Test Suite</th>
+                    <th>Test Name</th>
+                    <th>Status</th>
+                    <th>Duration</th>
+                    <th>Timestamp</th>
+                    <th>Failure Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td style="font-weight: 600;">test_auth.py</td>
+                    <td>test_auth_client_validation</td>
+                    <td><span class="badge passed">passed</span></td>
+                    <td>19.01s</td>
+                    <td>2026-06-22 13:57:21</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td style="font-weight: 600;">test_auth.py</td>
+                    <td>test_auth_invalid_credentials</td>
+                    <td><span class="badge passed">passed</span></td>
+                    <td>14.39s</td>
+                    <td>2026-06-22 13:57:37</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td style="font-weight: 600;">test_features.py</td>
+                    <td>test_home_page_load</td>
+                    <td><span class="badge passed">passed</span></td>
+                    <td>19.34s</td>
+                    <td>2026-06-22 13:58:02</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td style="font-weight: 600;">test_features.py</td>
+                    <td>test_market_prices_page_load</td>
+                    <td><span class="badge failed">failed</span></td>
+                    <td>50.85s</td>
+                    <td>2026-06-22 13:58:23</td>
+                    <td><div class="error-log">auth_driver = <appium.webdriver.webdriver.WebDriver (session="6f3351bd-fceb-4cca-901a-6a1f50a7f7e3")>
+
+    def test_market_prices_page_load(auth_driver):
+        """Verify that the Market Prices page opens successfully."""
+        home_page = HomePage(auth_driver)
+        # Navigate to Market tab
+>       home_page.click(home_page.MARKET_TAB)
+
+tests/mobile_e2e/test_suites/test_features.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/mobile_e2e/pages/base_page.py:26: in click
+    element = self.wait_for_element(locator)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
+    raise e
+tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
+    return WebDriverWait(self.driver, self.timeout).until(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.support.wait.WebDriverWait (session="6f3351bd-fceb-4cca-901a-6a1f50a7f7e3")>
+method = <function visibility_of_element_located.<locals>._predicate at 0x7f7b57f59f80>
+message = ''
+
+    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
+        """Wait until the method returns a value that is not False.
+    
+        Calls the method provided with the driver as an argument until the
+        return value does not evaluate to ``False``.
+    
+        Args:
+            method: A callable object that takes a WebDriver instance as an
+                argument.
+            message: Optional message for TimeoutException.
+    
+        Returns:
+            The result of the last call to `method`.
+    
+        Raises:
+            TimeoutException: If 'method' does not return a truthy value within
+                the WebDriverWait object's timeout.
+    
+        Example:
+            >>> from selenium.webdriver.common.by import By
+            >>> from selenium.webdriver.support.ui import WebDriverWait
+            >>> from selenium.webdriver.support import expected_conditions as EC
+            >>>
+            >>> # Wait until an element is visible on the page
+            >>> wait = WebDriverWait(driver, 10)
+            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
+            >>> print(element.text)
+        """
+        screen = None
+        stacktrace = None
+    
+        end_time = time.monotonic() + self._timeout
+        while True:
+            try:
+                value = method(self._driver)
+                if value:
+                    return value
+            except self._ignored_exceptions as exc:
+                screen = getattr(exc, "screen", None)
+                stacktrace = getattr(exc, "stacktrace", None)
+            if time.monotonic() > end_time:
+                break
+            time.sleep(self._poll)
+>       raise TimeoutException(message, screen, stacktrace)
+E       selenium.common.exceptions.TimeoutException: Message: 
+E       Stacktrace:
+E       NoSuchElementError: An element could not be located on the page using the given search parameters.
+E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException</div></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td style="font-weight: 600;">test_features.py</td>
+                    <td>test_ai_advisor_page_load</td>
+                    <td><span class="badge failed">failed</span></td>
+                    <td>49.57s</td>
+                    <td>2026-06-22 13:59:13</td>
+                    <td><div class="error-log">auth_driver = <appium.webdriver.webdriver.WebDriver (session="7bb29e16-7452-4c9c-a87f-6907764daf4f")>
+
+    def test_ai_advisor_page_load(auth_driver):
+        """Verify that the AI Advisor chat panel opens successfully."""
+        home_page = HomePage(auth_driver)
+        # Navigate to Advisory tab
+>       home_page.click(home_page.ADVISORY_TAB)
+
+tests/mobile_e2e/test_suites/test_features.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/mobile_e2e/pages/base_page.py:26: in click
+    element = self.wait_for_element(locator)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
+    raise e
+tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
+    return WebDriverWait(self.driver, self.timeout).until(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.support.wait.WebDriverWait (session="7bb29e16-7452-4c9c-a87f-6907764daf4f")>
+method = <function visibility_of_element_located.<locals>._predicate at 0x7f7b57fcc900>
+message = ''
+
+    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
+        """Wait until the method returns a value that is not False.
+    
+        Calls the method provided with the driver as an argument until the
+        return value does not evaluate to ``False``.
+    
+        Args:
+            method: A callable object that takes a WebDriver instance as an
+                argument.
+            message: Optional message for TimeoutException.
+    
+        Returns:
+            The result of the last call to `method`.
+    
+        Raises:
+            TimeoutException: If 'method' does not return a truthy value within
+                the WebDriverWait object's timeout.
+    
+        Example:
+            >>> from selenium.webdriver.common.by import By
+            >>> from selenium.webdriver.support.ui import WebDriverWait
+            >>> from selenium.webdriver.support import expected_conditions as EC
+            >>>
+            >>> # Wait until an element is visible on the page
+            >>> wait = WebDriverWait(driver, 10)
+            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
+            >>> print(element.text)
+        """
+        screen = None
+        stacktrace = None
+    
+        end_time = time.monotonic() + self._timeout
+        while True:
+            try:
+                value = method(self._driver)
+                if value:
+                    return value
+            except self._ignored_exceptions as exc:
+                screen = getattr(exc, "screen", None)
+                stacktrace = getattr(exc, "stacktrace", None)
+            if time.monotonic() > end_time:
+                break
+            time.sleep(self._poll)
+>       raise TimeoutException(message, screen, stacktrace)
+E       selenium.common.exceptions.TimeoutException: Message: 
+E       Stacktrace:
+E       NoSuchElementError: An element could not be located on the page using the given search parameters.
+E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException</div></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td style="font-weight: 600;">test_features.py</td>
+                    <td>test_disease_scanner_page_load</td>
+                    <td><span class="badge failed">failed</span></td>
+                    <td>49.57s</td>
+                    <td>2026-06-22 14:00:03</td>
+                    <td><div class="error-log">auth_driver = <appium.webdriver.webdriver.WebDriver (session="204841d0-8078-4f8d-a58e-8f54cc523e86")>
+
+    def test_disease_scanner_page_load(auth_driver):
+        """Verify that the Disease Scanner interface opens successfully."""
+        home_page = HomePage(auth_driver)
+        # Navigate to Crops tab (where Scanner entry resides)
+>       home_page.click(home_page.CROPS_TAB)
+
+tests/mobile_e2e/test_suites/test_features.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/mobile_e2e/pages/base_page.py:26: in click
+    element = self.wait_for_element(locator)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
+    raise e
+tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
+    return WebDriverWait(self.driver, self.timeout).until(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.support.wait.WebDriverWait (session="204841d0-8078-4f8d-a58e-8f54cc523e86")>
+method = <function visibility_of_element_located.<locals>._predicate at 0x7f7b57fcca40>
+message = ''
+
+    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
+        """Wait until the method returns a value that is not False.
+    
+        Calls the method provided with the driver as an argument until the
+        return value does not evaluate to ``False``.
+    
+        Args:
+            method: A callable object that takes a WebDriver instance as an
+                argument.
+            message: Optional message for TimeoutException.
+    
+        Returns:
+            The result of the last call to `method`.
+    
+        Raises:
+            TimeoutException: If 'method' does not return a truthy value within
+                the WebDriverWait object's timeout.
+    
+        Example:
+            >>> from selenium.webdriver.common.by import By
+            >>> from selenium.webdriver.support.ui import WebDriverWait
+            >>> from selenium.webdriver.support import expected_conditions as EC
+            >>>
+            >>> # Wait until an element is visible on the page
+            >>> wait = WebDriverWait(driver, 10)
+            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
+            >>> print(element.text)
+        """
+        screen = None
+        stacktrace = None
+    
+        end_time = time.monotonic() + self._timeout
+        while True:
+            try:
+                value = method(self._driver)
+                if value:
+                    return value
+            except self._ignored_exceptions as exc:
+                screen = getattr(exc, "screen", None)
+                stacktrace = getattr(exc, "stacktrace", None)
+            if time.monotonic() > end_time:
+                break
+            time.sleep(self._poll)
+>       raise TimeoutException(message, screen, stacktrace)
+E       selenium.common.exceptions.TimeoutException: Message: 
+E       Stacktrace:
+E       NoSuchElementError: An element could not be located on the page using the given search parameters.
+E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException</div></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td style="font-weight: 600;">test_features.py</td>
+                    <td>test_navigation_between_screens</td>
+                    <td><span class="badge failed">failed</span></td>
+                    <td>49.74s</td>
+                    <td>2026-06-22 14:00:52</td>
+                    <td><div class="error-log">auth_driver = <appium.webdriver.webdriver.WebDriver (session="ee47b003-6268-4a52-be9e-3182fb8279d8")>
+
+    def test_navigation_between_screens(auth_driver):
+        """Verify navigation flows between different main sections of the app."""
+        home_page = HomePage(auth_driver)
+    
+        # Go to Crops
+>       home_page.click(home_page.CROPS_TAB)
+
+tests/mobile_e2e/test_suites/test_features.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/mobile_e2e/pages/base_page.py:26: in click
+    element = self.wait_for_element(locator)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
+    raise e
+tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
+    return WebDriverWait(self.driver, self.timeout).until(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.support.wait.WebDriverWait (session="ee47b003-6268-4a52-be9e-3182fb8279d8")>
+method = <function visibility_of_element_located.<locals>._predicate at 0x7f7b57fcd800>
+message = ''
+
+    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
+        """Wait until the method returns a value that is not False.
+    
+        Calls the method provided with the driver as an argument until the
+        return value does not evaluate to ``False``.
+    
+        Args:
+            method: A callable object that takes a WebDriver instance as an
+                argument.
+            message: Optional message for TimeoutException.
+    
+        Returns:
+            The result of the last call to `method`.
+    
+        Raises:
+            TimeoutException: If 'method' does not return a truthy value within
+                the WebDriverWait object's timeout.
+    
+        Example:
+            >>> from selenium.webdriver.common.by import By
+            >>> from selenium.webdriver.support.ui import WebDriverWait
+            >>> from selenium.webdriver.support import expected_conditions as EC
+            >>>
+            >>> # Wait until an element is visible on the page
+            >>> wait = WebDriverWait(driver, 10)
+            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
+            >>> print(element.text)
+        """
+        screen = None
+        stacktrace = None
+    
+        end_time = time.monotonic() + self._timeout
+        while True:
+            try:
+                value = method(self._driver)
+                if value:
+                    return value
+            except self._ignored_exceptions as exc:
+                screen = getattr(exc, "screen", None)
+                stacktrace = getattr(exc, "stacktrace", None)
+            if time.monotonic() > end_time:
+                break
+            time.sleep(self._poll)
+>       raise TimeoutException(message, screen, stacktrace)
+E       selenium.common.exceptions.TimeoutException: Message: 
+E       Stacktrace:
+E       NoSuchElementError: An element could not be located on the page using the given search parameters.
+E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
+E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
+E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
+E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException</div></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td style="font-weight: 600;">test_features.py</td>
+                    <td>test_responsive_ui_smoke</td>
+                    <td><span class="badge failed">failed</span></td>
+                    <td>20.34s</td>
+                    <td>2026-06-22 14:01:42</td>
+                    <td><div class="error-log">auth_driver = <appium.webdriver.webdriver.WebDriver (session="40354a37-cfa0-4db9-8966-43d2f675bb98")>
+
+    def test_responsive_ui_smoke(auth_driver):
+        """Verify that the layout dynamically handles landscape and portrait rotation safely."""
+        home_page = HomePage(auth_driver)
+    
+        # Rotate to Landscape
+        print("[MobileTest] Rotating emulator to LANDSCAPE...")
+>       auth_driver.orientation = "LANDSCAPE"
+        ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/mobile_e2e/test_suites/test_features.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/appium/webdriver/webdriver.py:435: in orientation
+    self.execute(Command.SET_SCREEN_ORIENTATION, {'orientation': value})
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:492: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <appium.webdriver.errorhandler.MobileErrorHandler object at 0x7f7b57f982d0>
+response = {'status': 400, 'value': '{"value":{"error":"invalid element state","message":"Screen rotation cannot be changed to RO...rent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)\\n\\tat java.lang.Thread.run(Thread.java:919)\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        https://www.w3.org/TR/webdriver/#errors
+        """
+        payload = response.get('value', '')
+        if isinstance(payload, dict):
+            payload_dict = payload
+        else:
+            try:
+                payload_dict = json.loads(payload)
+            except (json.JSONDecodeError, TypeError):
+                return
+            if not isinstance(payload_dict, dict):
+                return
+        value = payload_dict.get('value')
+        if not isinstance(value, dict):
+            return
+        error = value.get('error')
+        if not error:
+            return
+    
+        message = value.get('message', error)
+        stacktrace = value.get('stacktrace', '')
+        # In theory, we should also be checking HTTP status codes.
+        # Java client, for example, prints a warning if the actual `error`
+        # value does not match to the response's HTTP status code.
+        exception_class: Type[sel_exceptions.WebDriverException] = ERROR_TO_EXC_MAPPING.get(
+            error, sel_exceptions.WebDriverException
+        )
+        if exception_class is sel_exceptions.WebDriverException and message:
+            if message == 'No such context found.':
+                exception_class = appium_exceptions.NoSuchContextException
+            elif message == 'That command could not be executed in the current context.':
+                exception_class = appium_exceptions.InvalidSwitchToTargetException
+    
+        if exception_class is sel_exceptions.UnexpectedAlertPresentException:
+            raise sel_exceptions.UnexpectedAlertPresentException(
+                msg=message,
+                stacktrace=format_stacktrace(stacktrace),
+                alert_text=value.get('data'),
+            )
+>       raise exception_class(msg=message, stacktrace=format_stacktrace(stacktrace))
+E       selenium.common.exceptions.InvalidElementStateException: Message: Screen rotation cannot be changed to ROTATION_270 after 2000ms. Is it locked programmatically?
+E       Stacktrace:
+E       io.appium.uiautomator2.common.exceptions.InvalidElementStateException: Screen rotation cannot be changed to ROTATION_270 after 2000ms. Is it locked programmatically?
+E       	at io.appium.uiautomator2.model.internal.CustomUiDevice.setRotationSync(CustomUiDevice.java:226)
+E       	at io.appium.uiautomator2.handler.SetOrientation.safeHandle(SetOrientation.java:41)
+E       	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
+E       	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:267)
+E       	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:261)
+E       	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:77)
+E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+E       	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:107)
+E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
+E       	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:434)
+E       	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+E       	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+E       	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:249)
+E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
+E       	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:288)
+E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
+E       	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1429)
+E       	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:918)
+E       	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:176)
+E       	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.handle(AbstractNioChannel.java:445)
+E       	at io.netty.channel.nio.NioIoHandler$DefaultNioRegistration.handle(NioIoHandler.java:388)
+E       	at io.netty.channel.nio.NioIoHandler.processSelectedKey(NioIoHandler.java:596)
+E       	at io.netty.channel.nio.NioIoHandler.processSelectedKeysOptimized(NioIoHandler.java:571)
+E       	at io.netty.channel.nio.NioIoHandler.processSelectedKeys(NioIoHandler.java:512)
+E       	at io.netty.channel.nio.NioIoHandler.run(NioIoHandler.java:484)
+E       	at io.netty.channel.SingleThreadIoEventLoop.runIo(SingleThreadIoEventLoop.java:225)
+E       	at io.netty.channel.SingleThreadIoEventLoop.run(SingleThreadIoEventLoop.java:196)
+E       	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:1195)
+E       	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+E       	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+E       	at java.lang.Thread.run(Thread.java:919)
+
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/appium/webdriver/errorhandler.py:125: InvalidElementStateException</div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="gallery-title">Execution Screenshots</h2>
+        <div class="gallery">
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_test_ai_advisor_page_load_1782136753.png')">
+                <img src="Screenshots/fail_test_ai_advisor_page_load_1782136753.png" alt="Fail Test Ai Advisor Page Load 1782136753">
+                <div class="gallery-caption">Fail Test Ai Advisor Page Load 1782136753</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_test_disease_scanner_page_load_1782136803.png')">
+                <img src="Screenshots/fail_test_disease_scanner_page_load_1782136803.png" alt="Fail Test Disease Scanner Page Load 1782136803">
+                <div class="gallery-caption">Fail Test Disease Scanner Page Load 1782136803</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_test_market_prices_page_load_1782136703.png')">
+                <img src="Screenshots/fail_test_market_prices_page_load_1782136703.png" alt="Fail Test Market Prices Page Load 1782136703">
+                <div class="gallery-caption">Fail Test Market Prices Page Load 1782136703</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_test_navigation_between_screens_1782136852.png')">
+                <img src="Screenshots/fail_test_navigation_between_screens_1782136852.png" alt="Fail Test Navigation Between Screens 1782136852">
+                <div class="gallery-caption">Fail Test Navigation Between Screens 1782136852</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_test_responsive_ui_smoke_1782136902.png')">
+                <img src="Screenshots/fail_test_responsive_ui_smoke_1782136902.png" alt="Fail Test Responsive Ui Smoke 1782136902">
+                <div class="gallery-caption">Fail Test Responsive Ui Smoke 1782136902</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_wait_1782136734.png')">
+                <img src="Screenshots/fail_wait_1782136734.png" alt="Fail Wait 1782136734">
+                <div class="gallery-caption">Fail Wait 1782136734</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_wait_1782136783.png')">
+                <img src="Screenshots/fail_wait_1782136783.png" alt="Fail Wait 1782136783">
+                <div class="gallery-caption">Fail Wait 1782136783</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_wait_1782136833.png')">
+                <img src="Screenshots/fail_wait_1782136833.png" alt="Fail Wait 1782136833">
+                <div class="gallery-caption">Fail Wait 1782136833</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/fail_wait_1782136883.png')">
+                <img src="Screenshots/fail_wait_1782136883.png" alt="Fail Wait 1782136883">
+                <div class="gallery-caption">Fail Wait 1782136883</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/mobile_home_page_load.png')">
+                <img src="Screenshots/mobile_home_page_load.png" alt="Mobile Home Page Load">
+                <div class="gallery-caption">Mobile Home Page Load</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/mobile_login_empty_fields.png')">
+                <img src="Screenshots/mobile_login_empty_fields.png" alt="Mobile Login Empty Fields">
+                <div class="gallery-caption">Mobile Login Empty Fields</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/mobile_login_invalid_credentials.png')">
+                <img src="Screenshots/mobile_login_invalid_credentials.png" alt="Mobile Login Invalid Credentials">
+                <div class="gallery-caption">Mobile Login Invalid Credentials</div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Screenshots/mobile_login_screen_load.png')">
+                <img src="Screenshots/mobile_login_screen_load.png" alt="Mobile Login Screen Load">
+                <div class="gallery-caption">Mobile Login Screen Load</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="Screenshot Large">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
