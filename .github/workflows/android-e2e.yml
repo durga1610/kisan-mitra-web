@@ -99,9 +99,8 @@ jobs:
             # Wait for Appium to spin up
             sleep 10
             
-            # Execute mobile test runner
-            cd tests/mobile_e2e
-            python run_mobile_tests.py
+            # Execute mobile test runner from repository root
+            python tests/mobile_e2e/run_mobile_tests.py
 
       - name: Upload Test Report Artifacts
         if: always()
