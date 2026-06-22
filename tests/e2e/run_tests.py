@@ -14,6 +14,7 @@ class Logger(object):
     def __init__(self, filename):
         self.terminal = sys.stdout
         self.log = open(filename, "w", encoding="utf-8")
+        self.encoding = self.terminal.encoding if hasattr(self.terminal, 'encoding') else 'utf-8'
 
     def write(self, message):
         self.terminal.write(message)
@@ -23,6 +24,9 @@ class Logger(object):
     def flush(self):
         self.terminal.flush()
         self.log.flush()
+
+    def isatty(self):
+        return self.terminal.isatty() if hasattr(self.terminal, 'isatty') else False
 
 # Pytest plugin to collect test execution details
 class ResultCollector:
