@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -45,17 +45,37 @@ jobs:
       - name: Build Web Client
         run: flutter build web --base-href "/kisan-mitra-web/"
 
-      - name: Setup Pages Config
-        uses: actions/configure-pages@v5
-
-      - name: Upload Build Artifacts to Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './build/web'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to gh-pages Branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Copy compiled web build to a temporary folder
+          mkdir -p ../temp_web_build
+          cp -r build/web/* ../temp_web_build/
+          
+          # Initialize or checkout gh-pages
+          git fetch origin
+          if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf .
+            echo "<h1>Kisan Mitra Web Client</h1>" > index.html
+            git add index.html
+            git commit -m "Initialize gh-pages"
+          fi
+          
+          # Remove existing files at root, but preserve reports/ directory
+          find . -maxdepth 1 -not -name '.' -not -name '..' -not -name '.git' -not -name 'reports' -exec rm -rf {} +
+          
+          # Copy new web build files from temp folder
+          cp -r ../temp_web_build/* .
+          
+          # Commit and push
+          git add .
+          git commit -m "docs(web): deploy web client for commit ${{ github.sha }}"
+          git push origin gh-pages
 
   e2e-testing:
     name: Selenium E2E Live Testing

@@ -3,8 +3,8 @@ from pages.base_page import BasePage
 
 class LoginPage(BasePage):
     # Flexible locators for Flutter Android UiAutomator2 semantics
-    EMAIL_INPUT = (By.XPATH, "//android.widget.EditText[contains(@text, 'Email')] | //android.view.View[contains(@content-desc, 'Email')] | //android.widget.EditText")
-    PASSWORD_INPUT = (By.XPATH, "//android.widget.EditText[contains(@text, 'Password')] | //android.view.View[contains(@content-desc, 'Password')] | //android.view.View[@text='Password']")
+    EMAIL_INPUT = (By.XPATH, "(//android.widget.EditText)[1]")
+    PASSWORD_INPUT = (By.XPATH, "(//android.widget.EditText)[2]")
     SUBMIT_BUTTON = (By.XPATH, "//android.widget.Button | //android.view.View[contains(@content-desc, 'Login')] | //android.view.View[@text='Login']")
     REGISTER_BUTTON = (By.XPATH, "//android.view.View[contains(@content-desc, 'Register')] | //android.view.View[@text='Register']")
 

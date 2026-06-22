@@ -29,7 +29,10 @@ class BasePage:
     def send_keys(self, locator, text):
         """Clear text and type in element."""
         element = self.wait_for_element(locator)
+        element.click()  # Focus element
+        time.sleep(0.5)
         element.clear()
+        time.sleep(0.5)
         element.send_keys(text)
 
     def capture_screenshot(self, name):
