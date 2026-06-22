@@ -93,8 +93,8 @@ jobs:
           arch: x86_64
           profile: Nexus 6
           script: |
-            # Start Appium in background
-            appium --port 4723 &
+            # Start Appium in background and redirect streams to prevent step hang
+            nohup appium --port 4723 > appium.log 2>&1 < /dev/null &
             # Wait for Appium to spin up
             sleep 10
             
