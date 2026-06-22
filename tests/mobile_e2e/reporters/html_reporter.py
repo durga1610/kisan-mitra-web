@@ -166,6 +166,77 @@ def generate_html_report(test_results, output_path):
             word-wrap: break-word;
             white-space: pre-wrap;
         }}
+
+        .gallery-title {{
+            margin-top: 40px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--primary);
+        }}
+
+        .gallery {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }}
+        
+        .gallery-item {{
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }}
+        
+        .gallery-item:hover {{
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }}
+        
+        .gallery-item img {{
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            background-color: #0d131f;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }}
+        
+        .gallery-caption {{
+            padding: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+        
+        .lightbox {{
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(11, 15, 25, 0.95);
+            align-items: center;
+            justify-content: center;
+        }}
+        
+        .lightbox img {{
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }}
     </style>
 </head>
 <body>
@@ -234,7 +305,39 @@ def generate_html_report(test_results, output_path):
         
     html += """            </tbody>
         </table>
+"""
+
+    # Scan for screenshots to embed in the gallery
+    screenshots_dir = os.path.join(os.path.dirname(os.path.dirname(output_path)), "Screenshots")
+    if os.path.exists(screenshots_dir):
+        files = [f for f in os.listdir(screenshots_dir) if f.lower().endswith('.png')]
+        files.sort()
+        if files:
+            html += """
+        <h2 class="gallery-title">Execution Screenshots</h2>
+        <div class="gallery">
+"""
+            for file in files:
+                name = os.path.splitext(file)[0].replace("_", " ").replace("-", " ").title()
+                html += f"""            <div class="gallery-item" onclick="openLightbox('Screenshots/{file}')">
+                <img src="Screenshots/{file}" alt="{name}">
+                <div class="gallery-caption">{name}</div>
+            </div>
+"""
+            html += "        </div>\n"
+
+    html += """    </div>
+
+    <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+        <img id="lightbox-img" src="" alt="Screenshot Large">
     </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
 """

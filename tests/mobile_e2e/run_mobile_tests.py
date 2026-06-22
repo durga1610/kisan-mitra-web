@@ -155,6 +155,22 @@ def main():
     print("MOBILE TEST SUITE COMPLETED. GENERATING REPORTS...")
     print("=" * 70)
     
+    # Copy screenshots to HTML/Screenshots for local relative path consistency
+    screenshots_src = os.path.join(results_dir, "Screenshots")
+    screenshots_dest = os.path.join(results_dir, "HTML", "Screenshots")
+    if os.path.exists(screenshots_src):
+        import shutil
+        if os.path.exists(screenshots_dest):
+            try:
+                shutil.rmtree(screenshots_dest)
+            except Exception:
+                pass
+        try:
+            shutil.copytree(screenshots_src, screenshots_dest)
+            print(f"[MobileTestRunner] Copied screenshots to HTML folder for local viewing: {screenshots_dest}")
+        except Exception as e:
+            print(f"[MobileTestRunner] Failed to copy screenshots: {e}")
+            
     generate_excel_report(results_list, excel_path)
     generate_html_report(results_list, html_path)
     generate_summary_markdown(results_list, summary_path)
