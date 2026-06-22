@@ -26,9 +26,10 @@ def test_home_page_load(auth_driver):
 def test_market_prices_page_load(auth_driver):
     """Verify that the Market Prices page opens successfully."""
     home_page = HomePage(auth_driver)
-    # Navigate to Market tab
-    home_page.click(home_page.MARKET_TAB)
-    time.sleep(4)
+    # Scroll down to reveal the quick actions grid
+    home_page.swipe(720, 1600, 720, 800, 300)
+    # Navigate to Market
+    home_page.click(home_page.MARKET_TILE)
     
     # Assert Market Prices title is visible
     from selenium.webdriver.common.by import By
@@ -41,13 +42,14 @@ def test_market_prices_page_load(auth_driver):
 def test_ai_advisor_page_load(auth_driver):
     """Verify that the AI Advisor chat panel opens successfully."""
     home_page = HomePage(auth_driver)
-    # Navigate to Advisory tab
-    home_page.click(home_page.ADVISORY_TAB)
-    time.sleep(4)
+    # Scroll down to reveal the quick actions grid
+    home_page.swipe(720, 1600, 720, 800, 300)
+    # Navigate to Advisory
+    home_page.click(home_page.ADVISORY_TILE)
     
     # Assert Advisory title or subtitle is visible
     from selenium.webdriver.common.by import By
-    advisory_title = (By.XPATH, "//*[contains(@content-desc, 'Advisory')] | //*[contains(@text, 'Advisory')]")
+    advisory_title = (By.XPATH, "//*[contains(@content-desc, 'Kisan Mitra AI')] | //*[contains(@text, 'Kisan Mitra AI')]")
     assert home_page.wait_for_element(advisory_title) is not None, "AI Advisor page failed to load"
     
     advisory_page = AdvisoryPage(auth_driver)
@@ -57,13 +59,14 @@ def test_ai_advisor_page_load(auth_driver):
 def test_disease_scanner_page_load(auth_driver):
     """Verify that the Disease Scanner interface opens successfully."""
     home_page = HomePage(auth_driver)
+    # Scroll down to reveal the quick actions grid
+    home_page.swipe(720, 1600, 720, 800, 300)
     # Click Scan Disease quick action card
     home_page.click(home_page.SCAN_DISEASE_TILE)
-    time.sleep(4)
     
     # Assert Disease Scanner title is visible
     from selenium.webdriver.common.by import By
-    scanner_title = (By.XPATH, "//*[contains(@content-desc, 'Scan Plant')] | //*[contains(@text, 'Scan Plant')]")
+    scanner_title = (By.XPATH, "//*[contains(@content-desc, 'Scan Plant Disease')] | //*[contains(@text, 'Scan Plant Disease')]")
     assert home_page.wait_for_element(scanner_title) is not None, "Disease Scanner page failed to load"
     
     scan_page = DiseaseScanPage(auth_driver)
