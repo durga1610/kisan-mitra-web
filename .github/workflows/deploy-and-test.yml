@@ -54,6 +54,10 @@ jobs:
           mkdir -p ../temp_web_build
           cp -r build/web/* ../temp_web_build/
           
+          # Clean working directory to prevent checkout conflict (e.g. from pubspec.lock modifications)
+          git reset --hard
+          git clean -fd
+          
           # Initialize or checkout gh-pages
           git fetch origin
           if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
