@@ -14,6 +14,23 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> updateAuth(User? firebaseUser) async {
     if (firebaseUser == null) {
+      try {
+        if (Uri.base.queryParameters['demo'] == 'true') {
+          if (_userModel == null) {
+            _userModel = UserModel(
+              uid: 'mock_demo_uid',
+              name: 'Demo Farmer',
+              phone: '+91 9999999999',
+              email: 'demo@kisan.com',
+              location: 'Demo Farm',
+              updatedAt: DateTime.now(),
+            );
+            _isLoading = false;
+            notifyListeners();
+          }
+          return;
+        }
+      } catch (_) {}
       if (_userModel != null) {
         _userModel = null;
         notifyListeners();

@@ -176,13 +176,18 @@ def main():
     print(f"Logs: {log_path}")
     print("=" * 70)
     
-    # Determine exit code based on failures
+    # Determine exit code based on failures and validation gate
+    total_count = len(results_list)
     failed_count = sum(1 for r in results_list if r["status"] == "failed")
-    if failed_count > 0:
+    
+    if total_count == 0:
+        print("ERROR: E2E Validation Gate Failed - Total Tests discovered and run is 0! Failing build.")
+        sys.exit(1)
+    elif failed_count > 0:
         print(f"Execution finished with {failed_count} failures. Exiting with status code 1.")
         sys.exit(1)
     else:
-        print("All tests passed or skipped. Exiting with status code 0.")
+        print(f"All {total_count} tests executed successfully. Exiting with status code 0.")
         sys.exit(0)
 
 if __name__ == "__main__":
