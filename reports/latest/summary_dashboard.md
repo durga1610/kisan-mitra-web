@@ -1,5 +1,5 @@
 ## 🚀 Consolidated CI/CD Dashboard
-**Last Updated:** `2026-06-23 08:01:06` | **Run Trigger:** `SECURITY` | **SHA:** `9c0699ce`
+**Last Updated:** `2026-06-23 08:11:00` | **Run Trigger:** `ANDROID` | **SHA:** `9c0699ce`
 
 ### 🛠️ Technology Stack
 | Layer | Technology | Version | Purpose |
@@ -15,7 +15,7 @@
 | Check / Test Suite | Total Run | Passed | Failed | Skipped | Pass Rate | Status | Report URL |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 | **Web E2E** | 476 | 476 | 0 | 0 | 100.0% | 🟢 PASS | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html) |
-| **Android E2E** | 518 | 518 | 0 | 0 | 100.0% | 🟢 PASS | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html) |
+| **Android E2E** | 518 | 517 | 1 | 0 | 99.81% | 🔴 FAIL | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html) |
 | **Backend Security Scan** | 37 | 35 | 2 | - | 0.0% | 🔴 FAIL | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
 | **Secrets Scan** | - | - | 0 | - | 100.0% | 🟢 PASS | [View Logs](https://github.com/durga1610/kisan-mitra-web/actions/runs/28011265359) |
 | **Unit Tests** | 0 | 0 | 0 | 0 | 0.0% | ➖ N/A | ➖ |
