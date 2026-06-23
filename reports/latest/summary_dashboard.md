@@ -1,6 +1,6 @@
 # 🚀 Kisan Mitra Consolidated CI/CD Test Dashboard
 
-**Build Number:** #16 · **Execution Date:** 2026-06-23 16:34:47 UTC · **Branch:** `main`
+**Build Number:** #17 · **Execution Date:** 2026-06-23 17:47:43 UTC · **Branch:** `main`
 
 ---
 
@@ -15,11 +15,11 @@
 | Testing Tier | Total Test Cases | Passed | Failed | Skipped | Pass Rate / Score | Status | Report URL |
 |--------------|------------------|--------|--------|---------|-------------------|--------|------------|
 | **🌐 Web Application E2E** | 476 | 476 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html) |
-| **📱 Android Mobile E2E** | 518 | 517 | 1 | 0 | **99.81%** | ❌ FAIL | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html) |
+| **📱 Android Mobile E2E** | 518 | 518 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html) |
 | **⚙️ Backend Service Tests** | 408 | 407 | 1 | 0 | **99.75%** | ❌ FAIL | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/backend/test-output.txt) |
 | **🛡️ Backend Security Scan** | 400 (Rules Checked) | — | — | — | **100/100** | ✅ SECURE | [Vulnerability MD](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
 | **🔒 Security E2E Tests** | 400 | 400 | 0 | 0 | **100.0%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-e2e/execution-report.html) |
-| **📈 Performance Load Test** | 134100 (Reqs) | — | — | — | **0.00% Success** | ⚠️ SLOW | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
+| **📈 Performance Load Test** | 179400 (Reqs) | — | — | — | **0.00% Success** | ⚠️ SLOW | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
 
 ---
 
@@ -33,8 +33,8 @@
 ---
 
 ## 📈 Performance Load Metrics
-- **Requests Per Second (RPS):** 2231.32 RPS
-- **Average Response Time:** 29.31 ms
+- **Requests Per Second (RPS):** 2987.3 RPS
+- **Average Response Time:** 22.12 ms
 - **Latency Range:** 15.0 ms (min) – 850.0 ms (max)
 - **Status rates:** 100.00% successful, 0.00% errors
 
