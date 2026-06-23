@@ -541,6 +541,9 @@ jobs:
                         run: |
                                   pip install openpyxl
 
+      - name: "📦 Install openpyxl dependency"
+        run: pip install openpyxl
+
       - name: "📋 Publish Combined Step Summary Dashboard"
         run: |
           mkdir -p gh-pages-dir/reports/latest/web
