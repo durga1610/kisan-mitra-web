@@ -7,8 +7,8 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html",
-    "build_number": "13",
-    "commit": "a4f94f4e"
+    "build_number": "14",
+    "commit": "af603f77"
   },
   "android_e2e": {
     "status": "PASS",
@@ -18,26 +18,62 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "13",
-    "commit": "a4f94f4e"
+    "build_number": "14",
+    "commit": "af603f77"
   },
   "backend_security": {
-    "status": "FAIL",
-    "critical": 2,
-    "high": 5,
-    "medium": 30,
+    "status": "PASS",
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
     "low": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md",
-    "build_number": "13",
-    "commit": "a4f94f4e"
+    "build_number": "14",
+    "commit": "af603f77"
   },
   "secrets_scan": {
-    "status": "PASS",
-    "secrets_found": 0,
-    "leaks": [],
-    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28028378115",
-    "build_number": "13",
-    "commit": "a4f94f4e"
+    "status": "FAIL",
+    "secrets_found": 7,
+    "leaks": [
+      {
+        "rule_id": "gcp-api-key",
+        "file_name": "android/app/google-services.json",
+        "author": "durga1610"
+      },
+      {
+        "rule_id": "gcp-api-key",
+        "file_name": "backend/scratch/live_production_checklist_verifier.py",
+        "author": "durga1610"
+      },
+      {
+        "rule_id": "gcp-api-key",
+        "file_name": "lib/firebase_options.dart",
+        "author": "durga1610"
+      },
+      {
+        "rule_id": "gcp-api-key",
+        "file_name": "lib/firebase_options.dart",
+        "author": "durga1610"
+      },
+      {
+        "rule_id": "gcp-api-key",
+        "file_name": "lib/firebase_options.dart",
+        "author": "durga1610"
+      },
+      {
+        "rule_id": "gcp-api-key",
+        "file_name": "lib/firebase_options.dart",
+        "author": "durga1610"
+      },
+      {
+        "rule_id": "gcp-api-key",
+        "file_name": "lib/firebase_options.dart",
+        "author": "durga1610"
+      }
+    ],
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28033839712",
+    "build_number": "14",
+    "commit": "af603f77"
   },
   "unit_tests": {
     "status": "N/A",
@@ -50,15 +86,15 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 13:19:49",
+  "last_updated": "2026-06-23 14:47:26",
   "load_testing": {
     "status": "FAIL",
-    "total_requests": 151100,
-    "rps": 2514.82,
-    "avg_latency": 25.65,
-    "failed_requests": 151100,
+    "total_requests": 150500,
+    "rps": 2505.19,
+    "avg_latency": 25.75,
+    "failed_requests": 150500,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md",
-    "build_number": "13",
-    "commit": "a4f94f4e"
+    "build_number": "14",
+    "commit": "af603f77"
   }
 }

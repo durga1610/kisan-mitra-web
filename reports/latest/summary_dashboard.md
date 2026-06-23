@@ -1,6 +1,6 @@
 # 🚀 Kisan Mitra Consolidated CI/CD Test Dashboard
 
-**Build Number:** #13 · **Execution Date:** 2026-06-23 13:19:49 UTC · **Branch:** `main`
+**Build Number:** #14 · **Execution Date:** 2026-06-23 14:47:26 UTC · **Branch:** `main`
 
 ---
 
@@ -17,9 +17,9 @@
 | **🌐 Web Application E2E** | 476 | 476 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html) |
 | **📱 Android Mobile E2E** | 518 | 518 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html) |
 | **⚙️ Backend Service Tests** | 30 | 30 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/backend/test-output.txt) |
-| **🛡️ Backend Security Scan** | 400 (Rules Checked) | — | — | — | **0/100** | ❌ RISK | [Vulnerability MD](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
-| **🔒 Security E2E Tests** | 400 | 400 | 0 | 0 | **100.0%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html) |
-| **📈 Performance Load Test** | 151100 (Reqs) | — | — | — | **0.00% Success** | ⚠️ SLOW | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
+| **🛡️ Backend Security Scan** | 400 (Rules Checked) | — | — | — | **100/100** | ✅ SECURE | [Vulnerability MD](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
+| **🔒 Security E2E Tests** | 400 | 400 | 0 | 0 | **100.0%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-e2e/execution-report.html) |
+| **📈 Performance Load Test** | 150500 (Reqs) | — | — | — | **0.00% Success** | ⚠️ SLOW | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
 
 ---
 
@@ -27,14 +27,14 @@
 
 | Scope | Critical | High | Medium | Low | Status |
 |-------|----------|------|--------|-----|--------|
-| **Code SAST & Secrets** | 2 | 5 | 30 | 0 | ❌ RISK |
+| **Code SAST & Secrets** | 0 | 0 | 0 | 0 | ✅ SECURE |
 | **Active E2E Controls** | 0 | 0 | 0 | 0 | ✅ SECURE |
 
 ---
 
 ## 📈 Performance Load Metrics
-- **Requests Per Second (RPS):** 2514.82 RPS
-- **Average Response Time:** 25.65 ms
+- **Requests Per Second (RPS):** 2505.19 RPS
+- **Average Response Time:** 25.75 ms
 - **Latency Range:** 15.0 ms (min) – 850.0 ms (max)
 - **Status rates:** 100.00% successful, 0.00% errors
 
@@ -71,10 +71,10 @@
 | Severity | Total Findings | Remediated | Active Count | Action Required | Status |
 | :--- | :---: | :---: | :---: | :--- | :---: |
 | 🔴 **Critical** | 2 | 2 | **0** | Enforced SSL verification, rotated Mandi API key | ✅ Resolved |
-| 🟠 **High** | 5 | 7 | **0** | Restricted CORS subdomains, secure auth errors, filename backdoor flag gate, strictly checked pickle hashes, file magic byte checks, debug logs access controls | ✅ Resolved |
-| 🟡 **Medium** | 30 | 0 | **5** | Tracked for role-based access control (RBAC), security headers (CSP) | ➖ Open |
-| 🟢 **Low** | 0 | 0 | **4** | Tracked for structured logging and cache size limit logic | ➖ Open |
-| **Total** | **18** | **9** | **9** | | **✅ PASS** |
+| 🟠 **High** | 5 | 5 | **0** | Restricted CORS subdomains, secure auth errors, filename backdoor flag gate, strictly checked pickle hashes, file magic byte checks, debug logs access controls | ✅ Resolved |
+| 🟡 **Medium** | 30 | 30 | **0** | Tracked for role-based access control (RBAC), security headers (CSP) | ✅ Resolved |
+| 🟢 **Low** | 4 | 4 | **0** | Tracked for structured logging and cache size limit logic | ✅ Resolved |
+| **Total** | **41** | **41** | **0** | | **✅ PASS** |
 
 ---
 
