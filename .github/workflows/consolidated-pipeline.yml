@@ -537,9 +537,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-                      - name: "Install dependencies for summary generator"
-                        run: |
-                                  pip install openpyxl
 
       - name: "📦 Install openpyxl dependency"
         run: pip install openpyxl
