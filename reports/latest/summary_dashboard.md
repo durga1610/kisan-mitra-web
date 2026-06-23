@@ -1,5 +1,5 @@
 ## 🚀 Consolidated CI/CD Dashboard
-**Last Updated:** `2026-06-23 08:54:09` | **Run Trigger:** `ANDROID` | **SHA:** `6a492635`
+**Last Updated:** `2026-06-23 08:57:37` | **Run Trigger:** `WEB` | **SHA:** `cbac567c`
 
 ### 🛠️ Technology Stack
 | Layer | Technology | Version | Purpose |
@@ -19,7 +19,7 @@
 | **Backend Security Scan** | 37 | 35 | 2 | - | 0.0% | 🔴 FAIL | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
 | **Secrets Scan** | - | - | 7 | - | 0.0% | 🔴 FAIL | [View Logs](https://github.com/durga1610/kisan-mitra-web/actions/runs/28013479803) |
 | **Unit Tests** | 0 | 0 | 0 | 0 | 0.0% | ➖ N/A | ➖ |
-| **Load Testing** | 179800 reqs / 2993.4 RPS / Avg 22.1ms | - | 179800 | - | 0.0% | 🔴 FAIL | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
+| **Load Testing** | 32590 reqs / 541.0 RPS / Avg 177.6ms | - | 0 | - | 100.0% | 🟢 PASS | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
 
 ### 🛡️ Security Findings Summary
 | Severity | Count | Action Required |
