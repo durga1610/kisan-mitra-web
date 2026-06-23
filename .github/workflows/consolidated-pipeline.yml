@@ -313,7 +313,14 @@ jobs:
         run: |
           cd backend
           python -m uvicorn main:app --host 127.0.0.1 --port 8000 &
-          sleep 8 # wait for backend startup
+          echo "Waiting for backend to be ready..."
+          for i in {1..30}; do
+            if curl -s http://127.0.0.1:8000/healthz > /dev/null; then
+              echo "Backend is up!"
+              break
+            fi
+            sleep 2
+          done
 
       - name: "📈 Run Load Testing"
         env:
@@ -587,6 +594,15 @@ jobs:
           if [ -f "backend-reports/test-results.xml" ]; then
             cp backend-reports/test-results.xml security-reports/test-results/
           fi
+          
+          # Compile fresh Excel reports
+          python "Vulnerability Test Results/generate_all_reports.py"
+          python "Vulnerability Test Results/generate_security_excel.py"
+          
+          # Copy Excel security reports
+          cp "Vulnerability Test Results/findings.xlsx" gh-pages-dir/reports/latest/ 2>/dev/null || true
+          cp "Vulnerability Test Results/endpoint-inventory.xlsx" gh-pages-dir/reports/latest/ 2>/dev/null || true
+          cp "Vulnerability Test Results/test-cases.xlsx" gh-pages-dir/reports/latest/ 2>/dev/null || true
           
           # Run consolidated generator for security
           python tests/generate_consolidated_summary.py --type security --run-number ${{ github.run_number }} --commit ${{ github.sha }} --pages-dir gh-pages-dir
