@@ -1,11 +1,59 @@
-# Unified CI/CD & Security Dashboard
+# 🚀 Kisan Mitra Consolidated CI/CD Test Dashboard
 
-**Last Updated:** `2026-06-23 12:26:28` | **Run Trigger:** `ANDROID` | **SHA:** `0b348717`
-**Status:** **PASSED (All Automation & Critical/High Security Issues Resolved)**
+**Build Number:** #13 · **Execution Date:** 2026-06-23 13:19:49 UTC · **Branch:** `main`
 
 ---
 
-## 1. Technology Stack
+## 🛠️ Build Summary
+- **Android APK Build:** ✅ SUCCESS
+- **Web App Deploy:** ✅ SUCCESS
+
+---
+
+## 📊 Executive Testing Status Board
+
+| Testing Tier | Total Test Cases | Passed | Failed | Skipped | Pass Rate / Score | Status | Report URL |
+|--------------|------------------|--------|--------|---------|-------------------|--------|------------|
+| **🌐 Web Application E2E** | 476 | 476 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html) |
+| **📱 Android Mobile E2E** | 518 | 518 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html) |
+| **⚙️ Backend Service Tests** | 30 | 30 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/backend/test-output.txt) |
+| **🛡️ Backend Security Scan** | 400 (Rules Checked) | — | — | — | **0/100** | ❌ RISK | [Vulnerability MD](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
+| **🔒 Security E2E Tests** | 400 | 400 | 0 | 0 | **100.0%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html) |
+| **📈 Performance Load Test** | 151100 (Reqs) | — | — | — | **0.00% Success** | ⚠️ SLOW | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
+
+---
+
+## 🔒 Security Findings Summary
+
+| Scope | Critical | High | Medium | Low | Status |
+|-------|----------|------|--------|-----|--------|
+| **Code SAST & Secrets** | 2 | 5 | 30 | 0 | ❌ RISK |
+| **Active E2E Controls** | 0 | 0 | 0 | 0 | ✅ SECURE |
+
+---
+
+## 📈 Performance Load Metrics
+- **Requests Per Second (RPS):** 2514.82 RPS
+- **Average Response Time:** 25.65 ms
+- **Latency Range:** 15.0 ms (min) – 850.0 ms (max)
+- **Status rates:** 100.00% successful, 0.00% errors
+
+---
+
+## 📂 Downloads & Artifacts
+- **Excel Reports:**
+  - 📊 [Consolidated Unified Summary Excel](https://durga1610.github.io/kisan-mitra-web/reports/latest/unified-summary.xlsx)
+  - 🌐 [Web E2E Excel Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/Excel/Automation_Test_Report.xlsx)
+  - 📱 [Android E2E Excel Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/Excel/Automation_Test_Report.xlsx)
+  - 🛡️ [Security Findings Excel](https://durga1610.github.io/kisan-mitra-web/reports/latest/findings.xlsx)
+  - 🗂️ [API Endpoint Inventory Excel](https://durga1610.github.io/kisan-mitra-web/reports/latest/endpoint-inventory.xlsx)
+- **Detailed Markdown Reports:**
+  - 📝 [Dependency Audit Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/dependency-report.md)
+  - 📝 [Security Executive Summary](https://durga1610.github.io/kisan-mitra-web/reports/latest/executive-summary.md)
+
+---
+
+## 📋 Technology Stack
 
 | Layer | Technology | Version | Purpose |
 | :--- | :--- | :--- | :--- |
@@ -18,40 +66,19 @@
 
 ---
 
-## 2. Testing & Validation Status Board
+## 🛡️ Findings Register Table
 
-| Test Suite / Scan Type | Total Test Cases | Executed | Passed | Failed | Skipped | Pass Rate | Status |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Web E2E Suite** | 476 | 476 | 476 | 0 | 0 | 100.00% | 🟢 PASS |
-| **Android E2E Suite** | 518 | 518 | 518 | 0 | 0 | 100.00% | 🟢 PASS |
-| **Load Testing (100 VUs / 1m)** | 1 | 150,233 reqs | 0 | 150,233 | - | 0.00% | 🔴 FAIL |
-| **Security Validation Suite** | **400** | **400** | **400** | **0** | **0** | **100.00%** | **🟢 PASS** |
-
----
-
-## 3. Security Findings & Vulnerabilities Summary
-
-Static application security scans (Semgrep, Bandit, pip-audit) and credentials scan (Gitleaks) audited **262 active rules** checking for weaknesses in the code, dependencies, and commits.
-
-### A. Security Scans Metrics
-*   **Total Executed Scan Rules:** **262 rules** (Semgrep: 120, Bandit: 39, Gitleaks: 85, pip-audit: 18)
-*   **Distinct Vulnerabilities Discovered:** **18**
-*   **Total Findings Flagged:** **18**
-*   **Remediated Findings (Critical / High):** **9** (100% resolved in codebase)
-*   **Active Findings Remaining:** **9** (Medium / Low)
-
-### B. Findings Register Table
 | Severity | Total Findings | Remediated | Active Count | Action Required | Status |
 | :--- | :---: | :---: | :---: | :--- | :---: |
 | 🔴 **Critical** | 2 | 2 | **0** | Enforced SSL verification, rotated Mandi API key | ✅ Resolved |
-| 🟠 **High** | 7 | 7 | **0** | Restricted CORS subdomains, secure auth errors, filename backdoor flag gate, strictly checked pickle hashes, file magic byte checks, debug logs access controls | ✅ Resolved |
-| 🟡 **Medium** | 5 | 0 | **5** | Tracked for role-based access control (RBAC), security headers (CSP) | ➖ Open |
-| 🟢 **Low** | 4 | 0 | **4** | Tracked for structured logging and cache size limit logic | ➖ Open |
+| 🟠 **High** | 5 | 7 | **0** | Restricted CORS subdomains, secure auth errors, filename backdoor flag gate, strictly checked pickle hashes, file magic byte checks, debug logs access controls | ✅ Resolved |
+| 🟡 **Medium** | 30 | 0 | **5** | Tracked for role-based access control (RBAC), security headers (CSP) | ➖ Open |
+| 🟢 **Low** | 0 | 0 | **4** | Tracked for structured logging and cache size limit logic | ➖ Open |
 | **Total** | **18** | **9** | **9** | | **✅ PASS** |
 
 ---
 
-## 4. Verification Proof
+## 🔍 Verification Proof
 
 - **Test Cases Sheet:** [test-cases.xlsx](https://durga1610.github.io/kisan-mitra-web/reports/latest/test-cases.xlsx) (400 cases)
 - **Findings Sheet:** [findings.xlsx](https://durga1610.github.io/kisan-mitra-web/reports/latest/findings.xlsx) (18 findings)

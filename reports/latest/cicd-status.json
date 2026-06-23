@@ -7,8 +7,8 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html",
-    "build_number": "10",
-    "commit": "0b348717"
+    "build_number": "13",
+    "commit": "a4f94f4e"
   },
   "android_e2e": {
     "status": "PASS",
@@ -18,8 +18,8 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "10",
-    "commit": "0b348717"
+    "build_number": "13",
+    "commit": "a4f94f4e"
   },
   "backend_security": {
     "status": "FAIL",
@@ -28,52 +28,16 @@
     "medium": 30,
     "low": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md",
-    "build_number": "10",
-    "commit": "0b348717"
+    "build_number": "13",
+    "commit": "a4f94f4e"
   },
   "secrets_scan": {
-    "status": "FAIL",
-    "secrets_found": 7,
-    "leaks": [
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "android/app/google-services.json",
-        "author": "durga1610"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "backend/scratch/live_production_checklist_verifier.py",
-        "author": "durga1610"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "durga1610"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "durga1610"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "durga1610"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "durga1610"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "durga1610"
-      }
-    ],
-    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28025284631",
-    "build_number": "10",
-    "commit": "0b348717"
+    "status": "PASS",
+    "secrets_found": 0,
+    "leaks": [],
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28028378115",
+    "build_number": "13",
+    "commit": "a4f94f4e"
   },
   "unit_tests": {
     "status": "N/A",
@@ -86,15 +50,15 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 12:26:28",
+  "last_updated": "2026-06-23 13:19:49",
   "load_testing": {
     "status": "FAIL",
-    "total_requests": 150233,
-    "rps": 2499.54,
-    "avg_latency": 25.89,
-    "failed_requests": 150233,
+    "total_requests": 151100,
+    "rps": 2514.82,
+    "avg_latency": 25.65,
+    "failed_requests": 151100,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md",
-    "build_number": "10",
-    "commit": "0b348717"
+    "build_number": "13",
+    "commit": "a4f94f4e"
   }
 }
