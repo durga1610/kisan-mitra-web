@@ -8,8 +8,8 @@ _BASE = os.path.dirname(os.path.abspath(__file__))
 # but falls back to backend/app_data.db locally to support out-of-the-box development.
 DB_PATH = os.getenv("KISAN_DATABASE_PATH")
 if not DB_PATH:
-    # If /var/data directory exists and is writable, use it as default (standard Render Volume)
-    if os.path.isdir("/var/data") or (os.name != 'nt' and os.path.exists("/var")):
+    # If /var/data directory exists, use it as default (standard Render Volume)
+    if os.path.isdir("/var/data"):
         DB_PATH = "/var/data/app_data.db"
     else:
         DB_PATH = os.path.join(_BASE, "app_data.db")
@@ -17,14 +17,14 @@ if not DB_PATH:
 # Phase 2: Dataset Path configs
 DATASET_V2_DIR = os.getenv("KISAN_DATASET_V2_PATH")
 if not DATASET_V2_DIR:
-    if os.path.isdir("/var/data") or (os.name != 'nt' and os.path.exists("/var")):
+    if os.path.isdir("/var/data"):
         DATASET_V2_DIR = "/var/data/dataset_v2"
     else:
         DATASET_V2_DIR = os.path.join(_BASE, "dataset_v2")
 
 HARD_CASES_DIR = os.getenv("KISAN_HARD_CASES_PATH")
 if not HARD_CASES_DIR:
-    if os.path.isdir("/var/data") or (os.name != 'nt' and os.path.exists("/var")):
+    if os.path.isdir("/var/data"):
         HARD_CASES_DIR = "/var/data/hard_cases"
     else:
         HARD_CASES_DIR = os.path.join(_BASE, "hard_cases")
