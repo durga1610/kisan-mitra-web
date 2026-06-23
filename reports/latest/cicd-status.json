@@ -28,52 +28,16 @@
     "medium": 30,
     "low": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md",
-    "build_number": "5",
-    "commit": "cbac567c"
+    "build_number": "80",
+    "commit": "8408c252"
   },
   "secrets_scan": {
-    "status": "FAIL",
-    "secrets_found": 7,
-    "leaks": [
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "android/app/google-services.json",
-        "author": "KARI DURGA MANI SANKAR"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "backend/scratch/live_production_checklist_verifier.py",
-        "author": "KARI DURGA MANI SANKAR"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "KARI DURGA MANI SANKAR"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "KARI DURGA MANI SANKAR"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "KARI DURGA MANI SANKAR"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "KARI DURGA MANI SANKAR"
-      },
-      {
-        "rule_id": "gcp-api-key",
-        "file_name": "lib/firebase_options.dart",
-        "author": "KARI DURGA MANI SANKAR"
-      }
-    ],
-    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28013864753",
-    "build_number": "5",
-    "commit": "cbac567c"
+    "status": "PASS",
+    "secrets_found": 0,
+    "leaks": [],
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28016027677",
+    "build_number": "80",
+    "commit": "8408c252"
   },
   "unit_tests": {
     "status": "N/A",
@@ -86,7 +50,7 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 09:13:04",
+  "last_updated": "2026-06-23 09:25:57",
   "load_testing": {
     "status": "PASS",
     "total_requests": 32590,
