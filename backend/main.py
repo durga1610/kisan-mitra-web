@@ -73,7 +73,10 @@ ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp"}
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 
 # ── Filename-bypass gate (F-09) ───────────────────────────────────────────
-ALLOW_FILENAME_BYPASS = os.getenv("KISAN_ALLOW_FILENAME_BYPASS", "0") == "1"
+ALLOW_FILENAME_BYPASS = (
+    os.getenv("KISAN_ALLOW_FILENAME_BYPASS", "0") == "1"
+    and APP_ENV == "development"
+)
 
 # Initialize FastAPI based on environment for security compliance
 if APP_ENV == "development":
@@ -171,16 +174,14 @@ ALLOWED_ORIGINS = os.getenv(
 # Explicitly ensure required Vercel origins are allowed
 if "https://kisan-mitra-web-olive.vercel.app" not in ALLOWED_ORIGINS:
     ALLOWED_ORIGINS.append("https://kisan-mitra-web-olive.vercel.app")
-if "https://*.vercel.app" not in ALLOWED_ORIGINS:
-    ALLOWED_ORIGINS.append("https://*.vercel.app")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
-    allow_origin_regex=r"https://.*\.vercel\.app|https?://(localhost|127\.0\.0\.1)(:\d+)?",
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # ── Rate Limiting (F-06) ──────────────────────────────────────────────────
@@ -300,7 +301,7 @@ async def verify_token(
         logger.warning("[Auth Trace] Backend authentication result: FAILED. Token verification failed: %s. Exact source of 401: verify_id_token raised Exception.", exc)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"Invalid or expired authentication token. Error: {str(exc)}",
+            detail="Invalid or expired authentication token.",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
@@ -1310,6 +1311,23 @@ async def detect_disease(
     contents = await file.read(MAX_FILE_SIZE + 1)
     if len(contents) > MAX_FILE_SIZE:
         raise HTTPException(status_code=413, detail="Image exceeds the 10 MB size limit.")
+    
+    # Inspect magic bytes to prevent MIME-type header spoofing (FINDING-006)
+    def check_image_signature(data: bytes) -> bool:
+        if data.startswith(b"\xff\xd8\xff"):
+            return True
+        if data.startswith(b"\x89PNG\r\n\x1a\n"):
+            return True
+        if data.startswith(b"RIFF") and len(data) >= 12 and data[8:12] == b"WEBP":
+            return True
+        return False
+
+    if not check_image_signature(contents):
+        raise HTTPException(
+            status_code=400,
+            detail="File content integrity validation failed. Uploaded file is not a valid JPEG, PNG, or WebP image.",
+        )
+        
     await file.seek(0)
     """
     Accepts a leaf image file, runs pure PyTorch model inference,
@@ -3693,8 +3711,8 @@ async def log_crop_suitability_audit(
         raise HTTPException(status_code=404, detail=f"Farm '{body.farmId}' not found.")
 
     farm_owner = row[0]
-    # Allow: owner matches OR guest farms accessible to all authenticated users
-    if farm_owner not in (authenticated_uid, "guest") and authenticated_uid not in (farm_owner, "guest"):
+    # Strict validation: owner matches authenticated uid
+    if farm_owner != authenticated_uid:
         logger.warning(
             "[IDOR] uid=%s attempted to write audit log for farm=%s owned by uid=%s",
             authenticated_uid, body.farmId, farm_owner,
@@ -3845,10 +3863,8 @@ async def get_market_prices(
 
     # Try live request if API key is valid
     if mandi_api_key and mandi_api_key != "YOUR_MANDI_API_KEY" and mandi_api_key.strip():
-        # Setup SSL bypass just in case of local/development gateway issues
+        # Enforce SSL/TLS verification
         ctx = ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
 
         base_url = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070"
         query_params = {
@@ -4200,6 +4216,10 @@ def get_debug_logs(user: Dict = Depends(get_current_user)):
     """
     Returns the last 200 lines of captured stderr and stdout logs for debugging.
     """
+    # Enforce access control: Admin only or dev environment (FINDING-009)
+    is_admin = user.get("admin") is True or user.get("uid") == "admin-uid-placeholder"
+    if not is_admin and APP_ENV != "development":
+        raise HTTPException(status_code=403, detail="Forbidden: Admin access required.")
     import os
     log_dir = "/var/data" if os.path.isdir("/var/data") else os.path.dirname(os.path.abspath(__file__))
     path = os.path.join(log_dir, "stderr.log")

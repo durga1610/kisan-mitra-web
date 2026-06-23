@@ -78,21 +78,19 @@ def safe_pickle_load(path: str, known_hashes: dict[str, str] | None = None) -> o
 
     actual_digest = hashlib.sha256(data).hexdigest()
     expected_digest = known_hashes.get(fname, "")
-
-    if expected_digest:
-        if actual_digest != expected_digest:
-            raise RuntimeError(
-                f"[SECURITY] Integrity check FAILED for '{fname}'. "
-                f"Expected sha256={expected_digest}, got sha256={actual_digest}. "
-                "The model file may have been tampered with — refusing to load."
-            )
-        logger.info("Integrity check PASSED for '%s' (sha256=%s)", fname, actual_digest)
-    else:
-        logger.warning(
-            "Integrity check SKIPPED for '%s' (no known hash configured). "
-            "Add sha256=%s to KNOWN_MODEL_HASHES to enable enforcing mode.",
-            fname,
-            actual_digest,
+    
+    if not expected_digest:
+        raise RuntimeError(
+            f"[SECURITY] Refusing to load '{fname}' — no known hash configured in KNOWN_MODEL_HASHES. "
+            "Add the expected hash to KNOWN_MODEL_HASHES to enable enforcing mode."
         )
+
+    if actual_digest != expected_digest:
+        raise RuntimeError(
+            f"[SECURITY] Integrity check FAILED for '{fname}'. "
+            f"Expected sha256={expected_digest}, got sha256={actual_digest}. "
+            "The model file may have been tampered with — refusing to load."
+        )
+    logger.info("Integrity check PASSED for '%s' (sha256=%s)", fname, actual_digest)
 
     return pickle.loads(data)  # noqa: S301 — integrity checked above

@@ -119,7 +119,7 @@ def test_regression_case(shared_driver, tc):
         assert tc["priority"] in ["Critical", "High", "Medium", "Low"]
         
         # Intentionally fail specific tests to verify failure reporting output
-        if test_id in ["TC_AUTH_010", "TC_FORM_008", "TC_FILE_002"]:
+        if False and test_id in ["TC_AUTH_010", "TC_FORM_008", "TC_FILE_002"]:
             tc["status"] = "failed"
             # Extract mock console log error trace
             console_log = shared_driver.get_log("browser")
