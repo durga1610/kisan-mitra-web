@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   security-events: write
   actions: read
 
@@ -432,11 +432,6 @@ jobs:
           with open("consolidated-report.md","w") as f:
               f.write(report)
 
-          # Also write to GitHub Step Summary
-          summary_path = os.environ.get("GITHUB_STEP_SUMMARY","/dev/null")
-          with open(summary_path,"a") as f:
-              f.write(report)
-
           print("Report generated successfully.")
           EOF
       - uses: actions/upload-artifact@v4
@@ -472,17 +467,82 @@ jobs:
           [ "$SEC" = "failure" ] && echo "BLOCKED: Secrets/credentials found in repo!"  && FAIL=true
           [ "$TST" = "failure" ] && echo "WARNING: Test suite failures detected."
 
-          {
-            echo "### Security Gate"
-            echo "| Check | Result |"
-            echo "|-------|--------|"
-            echo "| API Security | $API |"
-            echo "| Secret Scan | $SEC |"
-            echo "| Test Suite | $TST |"
-          } >> $GITHUB_STEP_SUMMARY
-
           if [ "$FAIL" = "true" ]; then
             echo "Security gate FAILED — fix critical issues before merging."
             exit 1
           fi
           echo "Security gate PASSED."
+
+  # ============================================================
+  # JOB 11: Deploy Security Reports to GitHub Pages
+  # ============================================================
+  deploy-reports:
+    name: Deploy Security Reports to GitHub Pages
+    needs:
+      - generate-report
+      - security-gate
+      - sast-semgrep
+      - sast-bandit
+      - dependency-scan
+      - secret-scan
+      - trivy-scan
+      - api-security-check
+      - run-tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo (main branch)
+        uses: actions/checkout@v4
+
+      - name: Checkout gh-pages Branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-dir
+        continue-on-error: true
+
+      - name: Download all scan artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-artifacts/
+        continue-on-error: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Consolidated Summary Generator
+        run: |
+          # Ensure directories exist in gh-pages-dir
+          mkdir -p gh-pages-dir/reports/latest
+          mkdir -p gh-pages-dir/reports/history/security/build-${{ github.run_number }}
+          
+          # Run script to read/write gh-pages-dir/reports/latest/cicd-status.json
+          python tests/generate_consolidated_summary.py --type security --run-number ${{ github.run_number }} --commit ${{ github.sha }} --pages-dir gh-pages-dir
+          
+          # Copy consolidated security report to latest and history
+          if [ -f "all-artifacts/security-report-consolidated/consolidated-report.md" ]; then
+            cp "all-artifacts/security-report-consolidated/consolidated-report.md" gh-pages-dir/reports/latest/security-review.md
+            cp "all-artifacts/security-report-consolidated/consolidated-report.md" gh-pages-dir/reports/history/security/build-${{ github.run_number }}/security-review.md
+          fi
+
+      - name: Deploy Reports to gh-pages
+        run: |
+          cd gh-pages-dir
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # In case gh-pages wasn't checked out (orphan)
+          if [ ! -d ".git" ]; then
+            git init
+            git checkout -b gh-pages
+            git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+            echo "<h1>Kisan Mitra Security Reports Hosting</h1>" > index.html
+            git add index.html
+            git commit -m "Initialize gh-pages"
+          fi
+          
+          git add reports/
+          git diff --quiet && git diff --staged --quiet || git commit -m "docs(reports): deploy security reports for build ${{ github.run_number }}"
+          git push origin gh-pages

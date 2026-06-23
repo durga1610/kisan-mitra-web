@@ -137,29 +137,21 @@ jobs:
             tests/e2e/Test Results/
           retention-days: 30
 
-      - name: Generate Actions Step Summary
-        if: always()
-        run: |
-          if [ -f "tests/e2e/Test Results/Summary/summary.md" ]; then
-            cat "tests/e2e/Test Results/Summary/summary.md" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "### Live GitHub Pages E2E Test Summary" >> $GITHUB_STEP_SUMMARY
-            echo "No summary.md file was found." >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Live Hosted Reports" >> $GITHUB_STEP_SUMMARY
-          echo "- **Live Report URL**: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/latest/execution-report.html" >> $GITHUB_STEP_SUMMARY
-          echo "- **History Report URL**: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/history/build-${{ github.run_number }}/execution-report.html" >> $GITHUB_STEP_SUMMARY
-
   deploy-reports:
     name: Deploy E2E Reports to GitHub Pages
     needs: e2e-testing
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: Checkout Repo (main branch)
         uses: actions/checkout@v4
+
+      - name: Checkout gh-pages Branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-dir
+        continue-on-error: true
 
       - name: Download Test Reports
         uses: actions/download-artifact@v4
@@ -167,41 +159,64 @@ jobs:
           name: selenium-e2e-test-results
           path: temp_reports/
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Consolidated Summary Generator
+        run: |
+          # Ensure directories exist in gh-pages-dir
+          mkdir -p gh-pages-dir/reports/latest/web
+          mkdir -p gh-pages-dir/reports/history/web/build-${{ github.run_number }}
+          
+          # Copy current test results to temp_reports to be read by summary generator
+          mkdir -p tests/e2e/"Test Results"/JSON
+          if [ -f "temp_reports/JSON/execution-results.json" ]; then
+            cp "temp_reports/JSON/execution-results.json" tests/e2e/"Test Results"/JSON/
+          fi
+          
+          # Run script to read/write gh-pages-dir/reports/latest/cicd-status.json
+          python tests/generate_consolidated_summary.py --type web --run-number ${{ github.run_number }} --commit ${{ github.sha }} --pages-dir gh-pages-dir
+          
+          # Copy actual HTML/XLSX/Logs/Screenshots reports to latest and history dirs
+          if [ -f "temp_reports/HTML/execution-report.html" ]; then
+            cp -r temp_reports/HTML/* gh-pages-dir/reports/latest/web/
+            cp -r temp_reports/HTML/* gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          fi
+          if [ -d "temp_reports/Screenshots" ]; then
+            cp -r temp_reports/Screenshots gh-pages-dir/reports/latest/web/
+            cp -r temp_reports/Screenshots gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          fi
+          if [ -d "temp_reports/Logs" ]; then
+            cp -r temp_reports/Logs gh-pages-dir/reports/latest/web/
+            cp -r temp_reports/Logs gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          fi
+          if [ -f "temp_reports/Summary/summary.md" ]; then
+            cp temp_reports/Summary/summary.md gh-pages-dir/reports/latest/web/
+            cp temp_reports/Summary/summary.md gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          fi
+          if [ -d "temp_reports/Excel" ]; then
+            cp -r temp_reports/Excel gh-pages-dir/reports/latest/web/
+            cp -r temp_reports/Excel gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          fi
+
       - name: Deploy Reports to gh-pages
         run: |
+          cd gh-pages-dir
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          git fetch origin
-          if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
-            git checkout gh-pages
-          else
-            git checkout --orphan gh-pages
-            git rm -rf .
+          # In case gh-pages wasn't checked out (orphan)
+          if [ ! -d ".git" ]; then
+            git init
+            git checkout -b gh-pages
+            git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             echo "<h1>Kisan Mitra E2E Web Client</h1>" > index.html
             git add index.html
             git commit -m "Initialize gh-pages"
           fi
           
-          # Setup directories
-          mkdir -p reports/latest
-          mkdir -p reports/history/build-${{ github.run_number }}
-          
-          # Copy reports
-          cp -r temp_reports/HTML/execution-report.html reports/latest/
-          cp -r temp_reports/HTML/dashboard.html reports/latest/
-          cp -r temp_reports/Summary/summary.md reports/latest/
-          if [ -d "temp_reports/Screenshots" ]; then
-            cp -r temp_reports/Screenshots reports/latest/
-          fi
-          if [ -d "temp_reports/Logs" ]; then
-            cp -r temp_reports/Logs reports/latest/
-          fi
-          
-          # Copy to history folder
-          cp -r reports/latest/* reports/history/build-${{ github.run_number }}/
-          
-          # Add and commit
           git add reports/
-          git commit -m "docs(reports): deploy Selenium E2E report for build ${{ github.run_number }}"
+          git diff --quiet && git diff --staged --quiet || git commit -m "docs(reports): deploy Selenium E2E report for build ${{ github.run_number }}"
           git push origin gh-pages
