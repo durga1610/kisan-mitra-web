@@ -22,22 +22,22 @@
     "commit": ""
   },
   "backend_security": {
-    "status": "N/A",
-    "critical": 0,
-    "high": 0,
-    "medium": 0,
+    "status": "FAIL",
+    "critical": 2,
+    "high": 5,
+    "medium": 30,
     "low": 0,
-    "report_url": "",
-    "build_number": "",
-    "commit": ""
+    "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md",
+    "build_number": "72",
+    "commit": "8d2cfb92"
   },
   "secrets_scan": {
-    "status": "N/A",
+    "status": "PASS",
     "secrets_found": 0,
     "leaks": [],
-    "report_url": "",
-    "build_number": "",
-    "commit": ""
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28004352166",
+    "build_number": "72",
+    "commit": "8d2cfb92"
   },
   "unit_tests": {
     "status": "N/A",
@@ -50,5 +50,5 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 05:29:57"
+  "last_updated": "2026-06-23 05:30:19"
 }
