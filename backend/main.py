@@ -3,12 +3,16 @@ from dotenv import load_dotenv
 load_dotenv()
 import sys
 import faulthandler
-_log_dir = "/var/data" if (os.name != 'nt' and os.path.exists("/var")) else os.path.dirname(os.path.abspath(__file__))
+_log_dir = os.path.dirname(os.path.abspath(__file__))
+if os.name != 'nt' and os.path.exists("/var"):
+    if os.getenv("RENDER") or os.getenv("APP_ENV") == "production":
+        _log_dir = "/var/data"
+
 if _log_dir == "/var/data":
     try:
         os.makedirs(_log_dir, exist_ok=True)
     except Exception:
-        pass
+        _log_dir = os.path.dirname(os.path.abspath(__file__))
 _err_file = open(os.path.join(_log_dir, "stderr.log"), "a", encoding="utf-8", buffering=1)
 sys.stderr = _err_file
 sys.stdout = _err_file

@@ -307,27 +307,24 @@ jobs:
           cd tests/e2e
           python run_tests.py
 
-      - name: "⚙️ Start Backend Server in Background for Load Test"
+      - name: "⚙️ Start Backend Server & Run Load Testing"
         env:
           TESTING: "1"
+          LOAD_TEST_URL: "http://127.0.0.1:8000/"
+          LOAD_TEST_CONCURRENCY: "100"
+          LOAD_TEST_DURATION: "60"
         run: |
           cd backend
           python -m uvicorn main:app --host 127.0.0.1 --port 8000 &
           echo "Waiting for backend to be ready..."
           for i in {1..30}; do
-            if curl -s http://127.0.0.1:8000/healthz > /dev/null; then
+            if curl -s http://127.0.0.1:8000/ > /dev/null; then
               echo "Backend is up!"
               break
             fi
             sleep 2
           done
-
-      - name: "📈 Run Load Testing"
-        env:
-          LOAD_TEST_URL: "http://127.0.0.1:8000/"
-          LOAD_TEST_CONCURRENCY: "100"
-          LOAD_TEST_DURATION: "60"
-        run: |
+          cd ..
           python tests/perf_load_test.py
 
       - name: "📤 Upload web test reports"
@@ -620,7 +617,15 @@ jobs:
             mkdir -p gh-pages-dir/reports/history/security/build-${{ github.run_number }}
             cp security-reports/security-reports/consolidated-report.md gh-pages-dir/reports/history/security/build-${{ github.run_number }}/security-review.md
           fi
-          
+
+          # Copy Backend Test files
+          if [ -d "backend-reports" ]; then
+            mkdir -p gh-pages-dir/reports/latest/backend/
+            cp backend-reports/* gh-pages-dir/reports/latest/backend/ 2>/dev/null || true
+            mkdir -p gh-pages-dir/reports/history/backend/build-${{ github.run_number }}
+            cp backend-reports/* gh-pages-dir/reports/history/backend/build-${{ github.run_number }}/ 2>/dev/null || true
+          fi
+
           # Copy Web E2E files
           if [ -f "web-reports/HTML/execution-report.html" ]; then
             cp -r web-reports/HTML/* gh-pages-dir/reports/latest/web/
