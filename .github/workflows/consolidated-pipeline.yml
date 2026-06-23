@@ -297,7 +297,8 @@ jobs:
       - name: "📦 Install Python dependencies"
         run: |
           python -m pip install --upgrade pip
-          pip install selenium pytest openpyxl httpx numpy uvicorn pillow pydantic python-multipart torch torchvision faiss-cpu sentence-transformers transformers accelerate scikit-learn pandas slowapi firebase-admin google-generativeai python-dotenv
+          pip install -r backend/requirements.txt
+          pip install selenium pytest openpyxl
 
       - name: "🧪 Run Selenium E2E tests"
         env:
@@ -315,7 +316,7 @@ jobs:
           LOAD_TEST_DURATION: "60"
         run: |
           cd backend
-          python -m uvicorn main:app --host 127.0.0.1 --port 8000 &
+          python -m uvicorn main:app --host 127.0.0.1 --port 8000 > uvicorn.log 2>&1 &
           echo "Waiting for backend to be ready..."
           for i in {1..30}; do
             if curl -s http://127.0.0.1:8000/ > /dev/null; then
@@ -324,6 +325,11 @@ jobs:
             fi
             sleep 2
           done
+          if ! curl -s http://127.0.0.1:8000/ > /dev/null; then
+            echo "ERROR: Backend failed to start. Printing uvicorn.log:"
+            cat uvicorn.log
+            exit 1
+          fi
           cd ..
           python tests/perf_load_test.py
 

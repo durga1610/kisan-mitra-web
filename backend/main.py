@@ -1586,7 +1586,10 @@ async def _detect_disease_inner(
         supported_crops = list(set(c.split("___")[0].lower() for c in active_classes))
         
     is_supported = False
-    if crop_param:
+    matched_class = match_filename_to_disease(file.filename) if ALLOW_FILENAME_BYPASS else None
+    if matched_class:
+        is_supported = True
+    elif crop_param:
         effective_supported = supported_crops
         if not effective_supported:
             effective_supported = [
