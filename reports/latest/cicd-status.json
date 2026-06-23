@@ -11,15 +11,15 @@
     "commit": "cbac567c"
   },
   "android_e2e": {
-    "status": "FAIL",
+    "status": "PASS",
     "total": 518,
-    "passed": 517,
-    "failed": 1,
+    "passed": 518,
+    "failed": 0,
     "skipped": 0,
-    "pass_rate": 99.81,
+    "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "4",
-    "commit": "6a492635"
+    "build_number": "22",
+    "commit": "cbac567c"
   },
   "backend_security": {
     "status": "FAIL",
@@ -86,7 +86,7 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 08:57:37",
+  "last_updated": "2026-06-23 08:58:28",
   "load_testing": {
     "status": "PASS",
     "total_requests": 32590,
