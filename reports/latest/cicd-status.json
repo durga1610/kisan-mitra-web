@@ -7,8 +7,8 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html",
-    "build_number": "5",
-    "commit": "cbac567c"
+    "build_number": "28",
+    "commit": "c5714057"
   },
   "android_e2e": {
     "status": "PASS",
@@ -86,15 +86,15 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 09:12:36",
+  "last_updated": "2026-06-23 09:13:04",
   "load_testing": {
-    "status": "FAIL",
-    "total_requests": 179800,
-    "rps": 2992.9,
-    "avg_latency": 22.18,
-    "failed_requests": 179800,
+    "status": "PASS",
+    "total_requests": 32590,
+    "rps": 541.02,
+    "avg_latency": 177.55,
+    "failed_requests": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md",
-    "build_number": "5",
-    "commit": "cbac567c"
+    "build_number": "28",
+    "commit": "c5714057"
   }
 }
