@@ -135,7 +135,7 @@ jobs:
           name: selenium-e2e-test-results
           path: |
             tests/e2e/Test Results/
-          retention-days: 14
+          retention-days: 30
 
       - name: Generate Actions Step Summary
         if: always()
@@ -146,3 +146,62 @@ jobs:
             echo "### Live GitHub Pages E2E Test Summary" >> $GITHUB_STEP_SUMMARY
             echo "No summary.md file was found." >> $GITHUB_STEP_SUMMARY
           fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Live Hosted Reports" >> $GITHUB_STEP_SUMMARY
+          echo "- **Live Report URL**: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/latest/execution-report.html" >> $GITHUB_STEP_SUMMARY
+          echo "- **History Report URL**: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/history/build-${{ github.run_number }}/execution-report.html" >> $GITHUB_STEP_SUMMARY
+
+  deploy-reports:
+    name: Deploy E2E Reports to GitHub Pages
+    needs: e2e-testing
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Download Test Reports
+        uses: actions/download-artifact@v4
+        with:
+          name: selenium-e2e-test-results
+          path: temp_reports/
+
+      - name: Deploy Reports to gh-pages
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git fetch origin
+          if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf .
+            echo "<h1>Kisan Mitra E2E Web Client</h1>" > index.html
+            git add index.html
+            git commit -m "Initialize gh-pages"
+          fi
+          
+          # Setup directories
+          mkdir -p reports/latest
+          mkdir -p reports/history/build-${{ github.run_number }}
+          
+          # Copy reports
+          cp -r temp_reports/HTML/execution-report.html reports/latest/
+          cp -r temp_reports/HTML/dashboard.html reports/latest/
+          cp -r temp_reports/Summary/summary.md reports/latest/
+          if [ -d "temp_reports/Screenshots" ]; then
+            cp -r temp_reports/Screenshots reports/latest/
+          fi
+          if [ -d "temp_reports/Logs" ]; then
+            cp -r temp_reports/Logs reports/latest/
+          fi
+          
+          # Copy to history folder
+          cp -r reports/latest/* reports/history/build-${{ github.run_number }}/
+          
+          # Add and commit
+          git add reports/
+          git commit -m "docs(reports): deploy Selenium E2E report for build ${{ github.run_number }}"
+          git push origin gh-pages

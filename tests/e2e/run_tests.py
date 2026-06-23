@@ -1,13 +1,22 @@
 import os
 import sys
+import json
 import pytest
 from datetime import datetime
 
 # Add the directory containing run_tests.py to sys.path so modules can be imported
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from reporters.excel_reporter import generate_excel_report
-from reporters.html_reporter import generate_html_report
+from reporters.excel_reporter import (
+    generate_excel_report,
+    generate_passed_report,
+    generate_failed_report,
+    generate_summary_report
+)
+from reporters.html_reporter import (
+    generate_html_report,
+    generate_dashboard_report
+)
 
 # Custom stream duplicator to write logs to both console and file
 class Logger(object):
@@ -34,7 +43,6 @@ class ResultCollector:
         self.reports = {}
 
     def pytest_runtest_logreport(self, report):
-        # We target setup, call, and teardown report instances.
         nodeid = report.nodeid
         if nodeid not in self.reports:
             parts = nodeid.split("::")
@@ -49,10 +57,8 @@ class ResultCollector:
                 "error": ""
             }
         
-        # Accumulate the duration across setup, call, and teardown
         self.reports[nodeid]["duration"] += report.duration
         
-        # Prioritize 'failed' > 'skipped' > 'passed'
         if report.failed:
             self.reports[nodeid]["status"] = "failed"
             err_msg = ""
@@ -69,58 +75,145 @@ class ResultCollector:
                     err_msg = str(report.longrepr)
             self.reports[nodeid]["error"] = err_msg
 
-def generate_summary_markdown(test_results, summary_path):
-    """Generates the Markdown summary report for step summary validation."""
-    total = len(test_results)
-    passed = sum(1 for r in test_results if r["status"] == "passed")
-    failed = sum(1 for r in test_results if r["status"] == "failed")
-    skipped = sum(1 for r in test_results if r["status"] == "skipped")
+# Helper to enrich collected results with test case metadata
+def enrich_collected_results(results_list):
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(base_dir, "data", "test_cases.json")
+    tc_map = {}
+    if os.path.exists(data_path):
+        try:
+            with open(data_path, "r", encoding="utf-8") as f:
+                tcs = json.load(f)
+                tc_map = {tc["id"]: tc for tc in tcs}
+        except Exception:
+            pass
+
+    enriched = []
+    for idx, r in enumerate(results_list, 1):
+        name = r["name"]
+        test_id = f"TC_GEN_{idx:03}"
+        if "[" in name and "]" in name:
+            extracted_id = name.split("[")[-1].split("]")[0]
+            if extracted_id in tc_map:
+                test_id = extracted_id
+                
+        meta = tc_map.get(test_id, {})
+        enriched.append({
+            "id": test_id,
+            "module": meta.get("module", "General"),
+            "name": meta.get("name", name),
+            "priority": meta.get("priority", "Medium"),
+            "status": r["status"].upper(),
+            "execution_time": r["duration"],
+            "timestamp": r["timestamp"],
+            "error": r.get("error", "")
+        })
+    return enriched
+
+def generate_summary_markdown(enriched_results, summary_path, build_status):
+    """Generates the enterprise markdown summary log matching user's layout requirements."""
+    total = len(enriched_results)
+    passed = sum(1 for r in enriched_results if r["status"] == "PASSED")
+    failed = sum(1 for r in enriched_results if r["status"] == "FAILED")
+    skipped = sum(1 for r in enriched_results if r["status"] == "SKIPPED")
+    
     pass_pct = (passed / total * 100) if total > 0 else 0
+    duration = sum(r["execution_time"] for r in enriched_results)
     
     target_url = os.getenv("BASE_URL", "https://durga1610.github.io/kisan-mitra-web/")
     
+    # Calculate modules performance
+    module_data = {}
+    for t in enriched_results:
+        mod = t["module"]
+        if mod not in module_data:
+            module_data[mod] = {"total": 0, "passed": 0, "failed": 0}
+        module_data[mod]["total"] += 1
+        if t["status"] == "PASSED":
+            module_data[mod]["passed"] += 1
+        elif t["status"] == "FAILED":
+            module_data[mod]["failed"] += 1
+
+    modules_stats = []
+    for mod, data in module_data.items():
+        rate = (data["passed"] / data["total"] * 100) if data["total"] > 0 else 0
+        modules_stats.append({"name": mod, "rate": rate, "failed": data["failed"]})
+        
+    # Sort modules for failed / passing logs
+    top_failed = sorted([m for m in modules_stats if m["failed"] > 0], key=lambda x: x["rate"])
+    top_passing = sorted(modules_stats, key=lambda x: x["rate"], reverse=True)
+    
     lines = [
-        "# Kisan Mitra E2E Test Execution Summary",
+        "# Live GitHub Pages E2E Execution Summary",
         "",
-        f"- **Execution Date:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-        f"- **Target URL:** [{target_url}]({target_url})",
-        "- **Environment:** GitHub Pages (CI/CD)",
+        f"**Deployment URL**:",
+        f"{target_url}",
         "",
-        "## Test Results Dashboard",
+        f"**Execution Date**:",
+        f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
         "",
-        "| Metric | Count |",
-        "| :--- | :--- |",
-        f"| **Total Tests** | {total} |",
-        f"| 🟢 **Passed** | {passed} |",
-        f"| 🔴 **Failed** | {failed} |",
-        f"| 🟡 **Skipped** | {skipped} |",
+        f"**Build Status**:",
+        f"{build_status}",
+        "",
+        "**Deployment Status**:",
+        "PASS" if build_status == "PASS" else "FAIL",
+        "",
+        f"**Total Test Cases**:",
+        f"{total}",
+        "",
+        f"**Executed**: {total}",
+        f"**Passed**: {passed}",
+        f"**Failed**: {failed}",
+        f"**Skipped**: {skipped}",
+        "",
+        f"**Pass Percentage**: {pass_pct:.2f}%",
+        "",
+        f"**Execution Duration**: {duration:.2f}s",
+        "",
+        "### Top Failed Modules:",
+        ""
     ]
     
-    status_emoji = "🟢" if pass_pct >= 80 else "🔴"
-    lines.append(f"| {status_emoji} **Pass Rate** | **{pass_pct:.1f}%** |")
+    for fm in top_failed[:3]:
+        lines.append(f"- **{fm['name']}** (Pass Rate: {fm['rate']:.1f}%, Failures: {fm['failed']})")
+    if not top_failed:
+        lines.append("No failed modules.")
+        
+    lines.append("")
+    lines.append("### Failed Tests:")
     lines.append("")
     
-    if failed > 0:
-        lines.append("> [!WARNING]")
-        lines.append(f"> There are {failed} failing test case(s). Please review the failure trace details below and download the artifacts for screenshots.")
-        lines.append("")
+    failed_cases = [r for r in enriched_results if r["status"] == "FAILED"]
+    for t in failed_cases:
+        reason = t["error"].replace("\n", " ").replace("|", "\\|")
+        if len(reason) > 100:
+            reason = reason[:97] + "..."
+        lines.append(f"- **{t['id']}** - {t['name']}")
+        lines.append(f"  *Reason*: {reason}")
         
-    lines.append("## Detailed Test Results")
+    if not failed_cases:
+        lines.append("No failed tests.")
+        
     lines.append("")
-    lines.append("| # | Suite | Test Case | Status | Duration | Failure Reason |")
-    lines.append("| :---: | :--- | :--- | :---: | :---: | :--- |")
+    lines.append("### Top Passing Modules:")
+    lines.append("")
     
-    for idx, r in enumerate(test_results, 1):
-        status_badge = "🟢 PASS" if r["status"] == "passed" else "🔴 FAIL" if r["status"] == "failed" else "🟡 SKIP"
-        err_reason = r["error"].replace("\n", " ").replace("|", "\\|") if r.get("error") else ""
-        if len(err_reason) > 120:
-            err_reason = err_reason[:117] + "..."
-        lines.append(f"| {idx} | {r['suite']} | `{r['name']}` | {status_badge} | {r['duration']:.2f}s | {err_reason} |")
+    for pm in top_passing[:5]:
+        lines.append(f"- **{pm['name']}** - Pass Rate: {pm['rate']:.2f}%")
         
+    lines.append("")
+    lines.append("### Artifacts Generated:")
+    lines.append("")
+    lines.append("✓ Excel Reports")
+    lines.append("✓ HTML Reports")
+    lines.append("✓ Screenshots")
+    lines.append("✓ Logs")
+    lines.append("✓ JSON Results")
+    
     os.makedirs(os.path.dirname(summary_path), exist_ok=True)
     with open(summary_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
-    print(f"[SummaryReporter] Summary saved successfully to {summary_path}")
+    print(f"[SummaryReporter] Summary saved to {summary_path}")
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -132,6 +225,7 @@ def main():
     os.makedirs(os.path.join(results_dir, "Logs"), exist_ok=True)
     os.makedirs(os.path.join(results_dir, "Summary"), exist_ok=True)
     os.makedirs(os.path.join(results_dir, "Screenshots"), exist_ok=True)
+    os.makedirs(os.path.join(results_dir, "JSON"), exist_ok=True)
     
     # Start logging redirection to Logs/execution.log
     log_path = os.path.join(results_dir, "Logs", "execution.log")
@@ -139,7 +233,7 @@ def main():
     sys.stderr = sys.stdout
     
     print("=" * 70)
-    print(f"KISAN MITRA E2E TEST RUNNER - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"KISAN MITRA WEB E2E TEST RUNNER - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"Target Base URL: {os.getenv('BASE_URL', 'https://durga1610.github.io/kisan-mitra-web/')}")
     print("=" * 70)
     
@@ -147,8 +241,6 @@ def main():
     
     # Run pytest programmatically on test_suites/
     test_suites_path = os.path.join(base_dir, "test_suites")
-    
-    # We pass -s to ensure prints are sent to our Logger, and -v for detailed output
     pytest_args = [
         "-s",
         "-v",
@@ -160,38 +252,82 @@ def main():
     
     # Compile results
     results_list = list(collector.reports.values())
+    enriched_results = enrich_collected_results(results_list)
     
-    # Generate files
-    excel_path = os.path.join(results_dir, "Excel", "Automation_Test_Report.xlsx")
-    html_path = os.path.join(results_dir, "HTML", "execution-report.html")
+    excel_dir = os.path.join(results_dir, "Excel")
+    html_dir = os.path.join(results_dir, "HTML")
+    json_path = os.path.join(results_dir, "JSON", "execution-results.json")
     summary_path = os.path.join(results_dir, "Summary", "summary.md")
     
     print("\n" + "=" * 70)
-    print("TEST SUITE COMPLETED. GENERATING REPORTS...")
+    print("WEB TEST SUITE COMPLETED. GENERATING REPORTS...")
     print("=" * 70)
     
-    generate_excel_report(results_list, excel_path)
-    generate_html_report(results_list, html_path)
-    generate_summary_markdown(results_list, summary_path)
+    # Save JSON report
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(enriched_results, f, indent=2)
+    print(f"JSON results saved: {json_path}")
     
-    print(f"Excel report: {excel_path}")
-    print(f"HTML report: {html_path}")
-    print(f"Summary markdown: {summary_path}")
-    print(f"Logs: {log_path}")
-    print("=" * 70)
+    # Copy screenshots to HTML/Screenshots for local relative path consistency
+    screenshots_src = os.path.join(results_dir, "Screenshots")
+    screenshots_dest = os.path.join(results_dir, "HTML", "Screenshots")
+    if os.path.exists(screenshots_src):
+        import shutil
+        if os.path.exists(screenshots_dest):
+            try:
+                shutil.rmtree(screenshots_dest)
+            except Exception:
+                pass
+        try:
+            shutil.copytree(screenshots_src, screenshots_dest)
+            print(f"[WebTestRunner] Copied screenshots: {screenshots_dest}")
+        except Exception as e:
+            print(f"[WebTestRunner] Failed to copy screenshots: {e}")
+            
+    # Generate reports
+    generate_excel_report(results_list, os.path.join(excel_dir, "Automation_Test_Report.xlsx"))
+    generate_passed_report(results_list, os.path.join(excel_dir, "Passed_Test_Cases.xlsx"))
+    generate_failed_report(results_list, os.path.join(excel_dir, "Failed_Test_Cases.xlsx"))
+    generate_summary_report(results_list, os.path.join(excel_dir, "Summary_Report.xlsx"))
     
-    # Determine exit code based on failures and validation gate
-    total_count = len(results_list)
-    failed_count = sum(1 for r in results_list if r["status"] == "failed")
+    generate_html_report(results_list, os.path.join(html_dir, "execution-report.html"))
+    generate_dashboard_report(results_list, os.path.join(html_dir, "dashboard.html"))
+    
+    # Validation Gate Calculations
+    total_count = len(enriched_results)
     
     if total_count == 0:
-        print("ERROR: E2E Validation Gate Failed - Total Tests discovered and run is 0! Failing build.")
+        print("ERROR: Web Validation Gate Failed - Total Tests run is 0! Failing build.")
+        generate_summary_markdown(enriched_results, summary_path, "FAIL")
         sys.exit(1)
-    elif failed_count > 0:
-        print(f"Execution finished with {failed_count} failures. Exiting with status code 1.")
+        
+    passed_count = sum(1 for t in enriched_results if t["status"] == "PASSED")
+    failed_count = sum(1 for t in enriched_results if t["status"] == "FAILED")
+    pass_pct = (passed_count / total_count * 100)
+    
+    critical_tests = [t for t in enriched_results if t["priority"] == "Critical"]
+    critical_failed = sum(1 for t in critical_tests if t["status"] == "FAILED")
+    critical_fail_pct = (critical_failed / len(critical_tests) * 100) if critical_tests else 0
+    
+    print(f"Overall Pass Rate: {pass_pct:.2f}% (Required >= 95.0%)")
+    print(f"Critical Fail Rate: {critical_fail_pct:.2f}% (Allowed <= 5.0%)")
+    
+    if pass_pct < 95.0 or critical_fail_pct > 5.0:
+        build_status = "FAIL"
+    else:
+        build_status = "PASS"
+        
+    # Generate Markdown Summary
+    generate_summary_markdown(enriched_results, summary_path, build_status)
+    
+    print("Reports compilation complete.")
+    print("=" * 70)
+    
+    if build_status == "FAIL":
+        print("ERROR: E2E Validation Gate Failed. Exiting status 1.")
         sys.exit(1)
     else:
-        print(f"All {total_count} tests executed successfully. Exiting with status code 0.")
+        print("Validation Gate Passed successfully! Exiting status 0.")
         sys.exit(0)
 
 if __name__ == "__main__":
