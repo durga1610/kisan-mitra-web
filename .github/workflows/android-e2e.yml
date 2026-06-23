@@ -150,6 +150,8 @@ jobs:
           
           # Copy reports
           cp -r temp_reports/HTML/execution-report.html reports/latest/
+          cp -r temp_reports/HTML/dashboard.html reports/latest/
+          cp -r temp_reports/HTML/trends.html reports/latest/
           cp -r temp_reports/Summary/summary.md reports/latest/
           if [ -d "temp_reports/Screenshots" ]; then
             cp -r temp_reports/Screenshots reports/latest/
