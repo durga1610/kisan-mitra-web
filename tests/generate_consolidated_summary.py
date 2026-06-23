@@ -300,6 +300,32 @@ def load_e2e_json_results(json_path):
         
     return stats
 
+def parse_load_test_report(report_path):
+    stats = {"status": "N/A", "total_requests": 0, "rps": 0.0, "avg_latency": 0.0, "failed_requests": 0}
+    if not os.path.exists(report_path):
+        return stats
+    try:
+        with open(report_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        import re
+        total_reqs_match = re.search(r"\*\*Total Requests Sent\*\*\s*\|\s*(\d+)", content)
+        failed_reqs_match = re.search(r"\*\*Failed Requests\*\*\s*\|\s*(\d+)", content)
+        rps_match = re.search(r"\*\*Requests Per Second \(RPS\)\*\*\s*\|\s*\*\*([\d.]+)(?:\s*RPS)?\*\*", content)
+        avg_lat_match = re.search(r"\*\*Average Latency\*\*\s*\|\s*([\d.]+) ms", content)
+        if total_reqs_match:
+            stats["total_requests"] = int(total_reqs_match.group(1))
+        if failed_reqs_match:
+            stats["failed_requests"] = int(failed_reqs_match.group(1))
+        if rps_match:
+            stats["rps"] = float(rps_match.group(1))
+        if avg_lat_match:
+            stats["avg_latency"] = float(avg_lat_match.group(1))
+        if stats["total_requests"] > 0:
+            stats["status"] = "PASS" if stats["failed_requests"] == 0 else "FAIL"
+    except Exception as e:
+        print(f"[Warning] Failed to parse load test report {report_path}: {e}")
+    return stats
+
 def main():
     parser = argparse.ArgumentParser(description="Consolidated GHA Job Summary Generator")
     parser.add_argument("--type", required=True, choices=["web", "android", "security"], help="Workflow type")
@@ -335,6 +361,8 @@ def main():
         status_db["secrets_scan"] = {"status": "N/A", "secrets_found": 0, "leaks": [], "report_url": "", "build_number": "", "commit": ""}
     if "unit_tests" not in status_db:
         status_db["unit_tests"] = {"status": "N/A", "total": 0, "passed": 0, "failed": 0, "skipped": 0, "pass_rate": 0.0, "report_url": "", "build_number": "", "commit": ""}
+    if "load_testing" not in status_db:
+        status_db["load_testing"] = {"status": "N/A", "total_requests": 0, "rps": 0.0, "avg_latency": 0.0, "failed_requests": 0, "report_url": "", "build_number": "", "commit": ""}
 
     # Parse inputs and update the appropriate section
     owner_repo = os.getenv("GITHUB_REPOSITORY", "durga1610/kisan-mitra-web")
@@ -357,6 +385,24 @@ def main():
             "build_number": args.run_number,
             "commit": args.commit[:8]
         }
+
+        # Parse Load Testing if report exists
+        load_report_path = "all-artifacts/load-test-reports/load-test-report.md"
+        if not os.path.exists(load_report_path):
+            load_report_path = "Vulnerability Test Results/load-test-report.md"
+        
+        if os.path.exists(load_report_path):
+            l_stats = parse_load_test_report(load_report_path)
+            status_db["load_testing"] = {
+                "status": l_stats["status"],
+                "total_requests": l_stats["total_requests"],
+                "rps": l_stats["rps"],
+                "avg_latency": l_stats["avg_latency"],
+                "failed_requests": l_stats["failed_requests"],
+                "report_url": f"{base_url}/reports/latest/load-test-report.md",
+                "build_number": args.run_number,
+                "commit": args.commit[:8]
+            }
 
     elif args.type == "android":
         # Parse Android E2E
@@ -535,6 +581,24 @@ def main():
     
     # Unit Tests
     md.append(f"| **Unit Tests** | {u_stat['total']} | {u_stat['passed']} | {u_stat['failed']} | {u_stat['skipped']} | {u_stat['pass_rate']}% | {get_status_icon(u_stat['status'])} | {get_link(u_stat['report_url'])} |")
+    
+    # Load Testing
+    l_test = status_db.get("load_testing", {"status": "N/A", "total_requests": 0, "rps": 0.0, "avg_latency": 0.0, "failed_requests": 0, "report_url": "", "build_number": "", "commit": ""})
+    l_reqs = l_test.get("total_requests", 0)
+    l_rps = l_test.get("rps", 0.0)
+    l_avg = l_test.get("avg_latency", 0.0)
+    l_fail = l_test.get("failed_requests", 0)
+    
+    if l_test["status"] != "N/A":
+        l_perf_info = f"{l_reqs} reqs / {l_rps:.1f} RPS / Avg {l_avg:.1f}ms"
+        l_pass_rate = f"{(l_reqs - l_fail) / l_reqs * 100:.1f}%" if l_reqs > 0 else "-"
+        l_failed_str = str(l_fail)
+    else:
+        l_perf_info = "-"
+        l_pass_rate = "-"
+        l_failed_str = "-"
+        
+    md.append(f"| **Load Testing** | {l_perf_info} | - | {l_failed_str} | - | {l_pass_rate} | {get_status_icon(l_test['status'])} | {get_link(l_test['report_url'])} |")
     md.append("")
 
     # 3. Security Findings Summary
