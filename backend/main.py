@@ -13,10 +13,23 @@ if _log_dir == "/var/data":
         os.makedirs(_log_dir, exist_ok=True)
     except Exception:
         _log_dir = os.path.dirname(os.path.abspath(__file__))
-_err_file = open(os.path.join(_log_dir, "stderr.log"), "a", encoding="utf-8", buffering=1)
-sys.stderr = _err_file
-sys.stdout = _err_file
-faulthandler.enable(file=_err_file)
+
+try:
+    _err_file = open(os.path.join(_log_dir, "stderr.log"), "a", encoding="utf-8", buffering=1)
+except Exception:
+    _log_dir = os.path.dirname(os.path.abspath(__file__))
+    try:
+        _err_file = open(os.path.join(_log_dir, "stderr.log"), "a", encoding="utf-8", buffering=1)
+    except Exception:
+        _err_file = sys.stderr
+
+if _err_file is not sys.stderr:
+    sys.stderr = _err_file
+    sys.stdout = _err_file
+    try:
+        faulthandler.enable(file=_err_file)
+    except Exception:
+        pass
 
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 

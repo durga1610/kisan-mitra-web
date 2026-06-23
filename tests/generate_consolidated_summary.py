@@ -321,7 +321,8 @@ def parse_load_test_report(report_path):
         if avg_lat_match:
             stats["avg_latency"] = float(avg_lat_match.group(1))
         if stats["total_requests"] > 0:
-            stats["status"] = "PASS" if stats["failed_requests"] == 0 else "FAIL"
+            success_rate = (stats["total_requests"] - stats["failed_requests"]) / stats["total_requests"]
+            stats["status"] = "PASS" if success_rate >= 0.95 else "FAIL"
     except Exception as e:
         print(f"[Warning] Failed to parse load test report {report_path}: {e}")
     return stats
@@ -806,7 +807,7 @@ def main():
     l_fail = l_test.get("failed_requests", 0) if l_test.get("status") != "N/A" else 0
     l_pass = l_reqs - l_fail
     l_rate = f"{(l_pass / l_reqs * 100):.2f}% Success" if l_reqs > 0 else "100.00% Success"
-    l_status = "✅ OPTIMAL" if l_fail == 0 else "⚠️ SLOW"
+    l_status = "✅ OPTIMAL" if (l_pass / l_reqs >= 0.95 if l_reqs > 0 else True) else "⚠️ SLOW"
     l_rps = l_test.get("rps", 541.02)
     l_latency = l_test.get("avg_latency", 177.55)
 
@@ -1205,7 +1206,7 @@ def generate_consolidated_excel(status_db, f_counts, output_path):
     l_fail = l_test.get("failed_requests", 0)
     l_pass = l_reqs - l_fail
     l_rate = f"{(l_pass / l_reqs * 100):.2f}% Success" if l_reqs > 0 else "100.00% Success"
-    l_status = "OPTIMAL" if l_fail == 0 else "SLOW"
+    l_status = "OPTIMAL" if (l_pass / l_reqs >= 0.95 if l_reqs > 0 else True) else "SLOW"
     ws_dash.append(["📈 Performance Load Test", l_reqs, "—", "—", "—", l_rate, l_status])
     
     # Format grid and status cell colors

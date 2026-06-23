@@ -22,6 +22,9 @@ os.environ.setdefault("KISAN_ALLOW_FILENAME_BYPASS", "1")
 os.environ.setdefault("APP_ENV", "development")
 os.environ.setdefault("TESTING", "1")
 
+from setup_database import init_db
+init_db()
+
 from main import app, verify_token
 
 

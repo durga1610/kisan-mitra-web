@@ -89,10 +89,19 @@ def driver():
     options.no_reset = False
     options.auto_grant_permissions = True
     options.set_capability("gpsEnabled", "true")
+    options.set_capability("settings[enforceXPath1]", True)
+    options.set_capability("settings[waitForIdleTimeout]", 100)
     
     try:
         print(f"[MobileConftest] Launching Appium driver targeting: {apk_path}")
         driver = webdriver.Remote(APPIUM_SERVER_URL, options=options)
+        try:
+            driver.update_settings({
+                "enforceXPath1": True,
+                "waitForIdleTimeout": 100
+            })
+        except Exception as se:
+            print(f"[MobileConftest] Warning: failed to update driver settings: {se}")
         driver.implicitly_wait(15)
         yield driver
         driver.quit()
