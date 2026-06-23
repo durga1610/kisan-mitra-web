@@ -1,0 +1,54 @@
+{
+  "web_e2e": {
+    "status": "PASS",
+    "total": 476,
+    "passed": 476,
+    "failed": 0,
+    "skipped": 0,
+    "pass_rate": 100.0,
+    "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html",
+    "build_number": "21",
+    "commit": "8d2cfb92"
+  },
+  "android_e2e": {
+    "status": "N/A",
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0,
+    "pass_rate": 0.0,
+    "report_url": "",
+    "build_number": "",
+    "commit": ""
+  },
+  "backend_security": {
+    "status": "N/A",
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "report_url": "",
+    "build_number": "",
+    "commit": ""
+  },
+  "secrets_scan": {
+    "status": "N/A",
+    "secrets_found": 0,
+    "leaks": [],
+    "report_url": "",
+    "build_number": "",
+    "commit": ""
+  },
+  "unit_tests": {
+    "status": "N/A",
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0,
+    "pass_rate": 0.0,
+    "report_url": "",
+    "build_number": "",
+    "commit": ""
+  },
+  "last_updated": "2026-06-23 05:29:57"
+}

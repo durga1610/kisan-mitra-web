@@ -1,0 +1,1467 @@
+======================================================================
+KISAN MITRA WEB E2E TEST RUNNER - 2026-06-23 05:28:42
+Target Base URL: https://durga1610.github.io/kisan-mitra-web/
+======================================================================
+Running pytest with args: ['-s', '-v', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/test_suites']
+
+============================= test session starts ==============================
+platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.15/x64/bin/python
+cachedir: .pytest_cache
+rootdir: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e
+collecting ... collected 476 items
+
+test_suites/test_live_features.py::test_home_page_load Navigating to: https://durga1610.github.io/kisan-mitra-web/?demo=true#/home
+[LiveTest] Captured screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Screenshots/home_page_load.png
+Current URL: https://durga1610.github.io/kisan-mitra-web/?demo=true#/home
+PASSED
+test_suites/test_live_features.py::test_market_prices_page_load Navigating to: https://durga1610.github.io/kisan-mitra-web/?demo=true#/market
+[LiveTest] Captured screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Screenshots/market_prices_load.png
+Current URL: https://durga1610.github.io/kisan-mitra-web/?demo=true#/market
+PASSED
+test_suites/test_live_features.py::test_ai_advisor_page_load Navigating to: https://durga1610.github.io/kisan-mitra-web/?demo=true#/ai-advisory
+[LiveTest] Captured screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Screenshots/ai_advisor_load.png
+Current URL: https://durga1610.github.io/kisan-mitra-web/?demo=true#/ai-advisory
+PASSED
+test_suites/test_live_features.py::test_disease_scanner_page_load Navigating to: https://durga1610.github.io/kisan-mitra-web/?demo=true#/disease-detection
+[LiveTest] Captured screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Screenshots/disease_scanner_load.png
+Current URL: https://durga1610.github.io/kisan-mitra-web/?demo=true#/disease-detection
+PASSED
+test_suites/test_live_features.py::test_navigation_between_screens [LiveTest] Captured screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Screenshots/nav_step_home.png
+[LiveTest] Captured screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Screenshots/nav_step_crops.png
+[LiveTest] Captured screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Screenshots/nav_step_profile.png
+PASSED
+test_suites/test_live_features.py::test_responsive_ui_smoke Navigating to mobile view: https://durga1610.github.io/kisan-mitra-web/?demo=true#/home
+[LiveTest] Captured screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Screenshots/responsive_mobile_home.png
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_001] 
+[WebRegression] Initializing Chrome Webdriver targeting: https://durga1610.github.io/kisan-mitra-web/...
+
+[Running Test] TC_AUTH_001 - Valid Email/Password Login (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_002] 
+[Running Test] TC_AUTH_002 - Invalid Email Format validation (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_003] 
+[Running Test] TC_AUTH_003 - Blank Password field validation (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_004] 
+[Running Test] TC_AUTH_004 - Blank Email field validation (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_005] 
+[Running Test] TC_AUTH_005 - Wrong Password rejection check (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_006] 
+[Running Test] TC_AUTH_006 - Account Lockout limit tests (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_007] 
+[Running Test] TC_AUTH_007 -  Biometric Toggle functionality (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_008] 
+[Running Test] TC_AUTH_008 - Session Persistence checks on reload (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_009] 
+[Running Test] TC_AUTH_009 - Successful Logout transition (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_010] 
+[Running Test] TC_AUTH_010 - Password visibility show/hide eye checks (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_011] 
+[Running Test] TC_AUTH_011 - Valid Email/Password Login - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_012] 
+[Running Test] TC_AUTH_012 - Invalid Email Format validation - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_013] 
+[Running Test] TC_AUTH_013 - Blank Password field validation - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_014] 
+[Running Test] TC_AUTH_014 - Blank Email field validation - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_015] 
+[Running Test] TC_AUTH_015 - Wrong Password rejection check - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_016] 
+[Running Test] TC_AUTH_016 - Account Lockout limit tests - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_017] 
+[Running Test] TC_AUTH_017 -  Biometric Toggle functionality - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_018] 
+[Running Test] TC_AUTH_018 - Session Persistence checks on reload - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_019] 
+[Running Test] TC_AUTH_019 - Successful Logout transition - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_020] 
+[Running Test] TC_AUTH_020 - Password visibility show/hide eye checks - Scenario Variant 1 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_021] 
+[Running Test] TC_AUTH_021 - Valid Email/Password Login - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_022] 
+[Running Test] TC_AUTH_022 - Invalid Email Format validation - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_023] 
+[Running Test] TC_AUTH_023 - Blank Password field validation - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_024] 
+[Running Test] TC_AUTH_024 - Blank Email field validation - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_025] 
+[Running Test] TC_AUTH_025 - Wrong Password rejection check - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_026] 
+[Running Test] TC_AUTH_026 - Account Lockout limit tests - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_027] 
+[Running Test] TC_AUTH_027 -  Biometric Toggle functionality - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_028] 
+[Running Test] TC_AUTH_028 - Session Persistence checks on reload - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_029] 
+[Running Test] TC_AUTH_029 - Successful Logout transition - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_030] 
+[Running Test] TC_AUTH_030 - Password visibility show/hide eye checks - Scenario Variant 2 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_031] 
+[Running Test] TC_AUTH_031 - Valid Email/Password Login - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_032] 
+[Running Test] TC_AUTH_032 - Invalid Email Format validation - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_033] 
+[Running Test] TC_AUTH_033 - Blank Password field validation - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_034] 
+[Running Test] TC_AUTH_034 - Blank Email field validation - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_035] 
+[Running Test] TC_AUTH_035 - Wrong Password rejection check - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_036] 
+[Running Test] TC_AUTH_036 - Account Lockout limit tests - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_037] 
+[Running Test] TC_AUTH_037 -  Biometric Toggle functionality - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_038] 
+[Running Test] TC_AUTH_038 - Session Persistence checks on reload - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_039] 
+[Running Test] TC_AUTH_039 - Successful Logout transition - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTH_040] 
+[Running Test] TC_AUTH_040 - Password visibility show/hide eye checks - Scenario Variant 3 (Authentication)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_001] 
+[Running Test] TC_AUTHZ_001 - Unauthenticated access redirection (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_002] 
+[Running Test] TC_AUTHZ_002 - Horizontal tenant data privilege check (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_003] 
+[Running Test] TC_AUTHZ_003 - Observer role read-only limitation (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_004] 
+[Running Test] TC_AUTHZ_004 - Admin view navigation guard check (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_005] 
+[Running Test] TC_AUTHZ_005 - JWT payload user_id tampering check (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_006] 
+[Running Test] TC_AUTHZ_006 - Role field manipulation prevention (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_007] 
+[Running Test] TC_AUTHZ_007 - Unauthenticated access redirection - Scenario Variant 1 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_008] 
+[Running Test] TC_AUTHZ_008 - Horizontal tenant data privilege check - Scenario Variant 1 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_009] 
+[Running Test] TC_AUTHZ_009 - Observer role read-only limitation - Scenario Variant 1 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_010] 
+[Running Test] TC_AUTHZ_010 - Admin view navigation guard check - Scenario Variant 1 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_011] 
+[Running Test] TC_AUTHZ_011 - JWT payload user_id tampering check - Scenario Variant 1 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_012] 
+[Running Test] TC_AUTHZ_012 - Role field manipulation prevention - Scenario Variant 1 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_013] 
+[Running Test] TC_AUTHZ_013 - Unauthenticated access redirection - Scenario Variant 2 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_014] 
+[Running Test] TC_AUTHZ_014 - Horizontal tenant data privilege check - Scenario Variant 2 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_015] 
+[Running Test] TC_AUTHZ_015 - Observer role read-only limitation - Scenario Variant 2 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_016] 
+[Running Test] TC_AUTHZ_016 - Admin view navigation guard check - Scenario Variant 2 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_017] 
+[Running Test] TC_AUTHZ_017 - JWT payload user_id tampering check - Scenario Variant 2 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_018] 
+[Running Test] TC_AUTHZ_018 - Role field manipulation prevention - Scenario Variant 2 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_019] 
+[Running Test] TC_AUTHZ_019 - Unauthenticated access redirection - Scenario Variant 3 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_020] 
+[Running Test] TC_AUTHZ_020 - Horizontal tenant data privilege check - Scenario Variant 3 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_021] 
+[Running Test] TC_AUTHZ_021 - Observer role read-only limitation - Scenario Variant 3 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_022] 
+[Running Test] TC_AUTHZ_022 - Admin view navigation guard check - Scenario Variant 3 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_023] 
+[Running Test] TC_AUTHZ_023 - JWT payload user_id tampering check - Scenario Variant 3 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_024] 
+[Running Test] TC_AUTHZ_024 - Role field manipulation prevention - Scenario Variant 3 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_025] 
+[Running Test] TC_AUTHZ_025 - Unauthenticated access redirection - Scenario Variant 4 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_026] 
+[Running Test] TC_AUTHZ_026 - Horizontal tenant data privilege check - Scenario Variant 4 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_027] 
+[Running Test] TC_AUTHZ_027 - Observer role read-only limitation - Scenario Variant 4 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_028] 
+[Running Test] TC_AUTHZ_028 - Admin view navigation guard check - Scenario Variant 4 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_029] 
+[Running Test] TC_AUTHZ_029 - JWT payload user_id tampering check - Scenario Variant 4 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_030] 
+[Running Test] TC_AUTHZ_030 - Role field manipulation prevention - Scenario Variant 4 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_031] 
+[Running Test] TC_AUTHZ_031 - Unauthenticated access redirection - Scenario Variant 5 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_032] 
+[Running Test] TC_AUTHZ_032 - Horizontal tenant data privilege check - Scenario Variant 5 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_033] 
+[Running Test] TC_AUTHZ_033 - Observer role read-only limitation - Scenario Variant 5 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_034] 
+[Running Test] TC_AUTHZ_034 - Admin view navigation guard check - Scenario Variant 5 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_035] 
+[Running Test] TC_AUTHZ_035 - JWT payload user_id tampering check - Scenario Variant 5 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_036] 
+[Running Test] TC_AUTHZ_036 - Role field manipulation prevention - Scenario Variant 5 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_037] 
+[Running Test] TC_AUTHZ_037 - Unauthenticated access redirection - Scenario Variant 6 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_038] 
+[Running Test] TC_AUTHZ_038 - Horizontal tenant data privilege check - Scenario Variant 6 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_039] 
+[Running Test] TC_AUTHZ_039 - Observer role read-only limitation - Scenario Variant 6 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_AUTHZ_040] 
+[Running Test] TC_AUTHZ_040 - Admin view navigation guard check - Scenario Variant 6 (Authorization)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_001] 
+[Running Test] TC_NAV_001 - Direct navigation to Crops tab (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_002] 
+[Running Test] TC_NAV_002 - Direct navigation to Profile page (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_003] 
+[Running Test] TC_NAV_003 - Browser Back button state recovery (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_004] 
+[Running Test] TC_NAV_004 - Invalid route 404 page redirection (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_005] 
+[Running Test] TC_NAV_005 - Sidebar menu items click triggers routing (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_006] 
+[Running Test] TC_NAV_006 - Direct navigation to Crops tab - Scenario Variant 1 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_007] 
+[Running Test] TC_NAV_007 - Direct navigation to Profile page - Scenario Variant 1 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_008] 
+[Running Test] TC_NAV_008 - Browser Back button state recovery - Scenario Variant 1 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_009] 
+[Running Test] TC_NAV_009 - Invalid route 404 page redirection - Scenario Variant 1 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_010] 
+[Running Test] TC_NAV_010 - Sidebar menu items click triggers routing - Scenario Variant 1 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_011] 
+[Running Test] TC_NAV_011 - Direct navigation to Crops tab - Scenario Variant 2 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_012] 
+[Running Test] TC_NAV_012 - Direct navigation to Profile page - Scenario Variant 2 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_013] 
+[Running Test] TC_NAV_013 - Browser Back button state recovery - Scenario Variant 2 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_014] 
+[Running Test] TC_NAV_014 - Invalid route 404 page redirection - Scenario Variant 2 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_015] 
+[Running Test] TC_NAV_015 - Sidebar menu items click triggers routing - Scenario Variant 2 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_016] 
+[Running Test] TC_NAV_016 - Direct navigation to Crops tab - Scenario Variant 3 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_017] 
+[Running Test] TC_NAV_017 - Direct navigation to Profile page - Scenario Variant 3 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_018] 
+[Running Test] TC_NAV_018 - Browser Back button state recovery - Scenario Variant 3 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_019] 
+[Running Test] TC_NAV_019 - Invalid route 404 page redirection - Scenario Variant 3 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_020] 
+[Running Test] TC_NAV_020 - Sidebar menu items click triggers routing - Scenario Variant 3 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_021] 
+[Running Test] TC_NAV_021 - Direct navigation to Crops tab - Scenario Variant 4 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_022] 
+[Running Test] TC_NAV_022 - Direct navigation to Profile page - Scenario Variant 4 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_023] 
+[Running Test] TC_NAV_023 - Browser Back button state recovery - Scenario Variant 4 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_024] 
+[Running Test] TC_NAV_024 - Invalid route 404 page redirection - Scenario Variant 4 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_025] 
+[Running Test] TC_NAV_025 - Sidebar menu items click triggers routing - Scenario Variant 4 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_026] 
+[Running Test] TC_NAV_026 - Direct navigation to Crops tab - Scenario Variant 5 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_027] 
+[Running Test] TC_NAV_027 - Direct navigation to Profile page - Scenario Variant 5 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_028] 
+[Running Test] TC_NAV_028 - Browser Back button state recovery - Scenario Variant 5 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_029] 
+[Running Test] TC_NAV_029 - Invalid route 404 page redirection - Scenario Variant 5 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_NAV_030] 
+[Running Test] TC_NAV_030 - Sidebar menu items click triggers routing - Scenario Variant 5 (Navigation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_001] 
+[Running Test] TC_UI_001 - Weather Widget card rendered (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_002] 
+[Running Test] TC_UI_002 - Mandi Prices dashboard summary cards (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_003] 
+[Running Test] TC_UI_003 - Dark mode theme transition check (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_004] 
+[Running Test] TC_UI_004 - Main header banner layout grid visibility (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_005] 
+[Running Test] TC_UI_005 - Responsive font scale compliance checking (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_006] 
+[Running Test] TC_UI_006 - Weather Widget card rendered - Scenario Variant 1 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_007] 
+[Running Test] TC_UI_007 - Mandi Prices dashboard summary cards - Scenario Variant 1 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_008] 
+[Running Test] TC_UI_008 - Dark mode theme transition check - Scenario Variant 1 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_009] 
+[Running Test] TC_UI_009 - Main header banner layout grid visibility - Scenario Variant 1 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_010] 
+[Running Test] TC_UI_010 - Responsive font scale compliance checking - Scenario Variant 1 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_011] 
+[Running Test] TC_UI_011 - Weather Widget card rendered - Scenario Variant 2 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_012] 
+[Running Test] TC_UI_012 - Mandi Prices dashboard summary cards - Scenario Variant 2 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_013] 
+[Running Test] TC_UI_013 - Dark mode theme transition check - Scenario Variant 2 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_014] 
+[Running Test] TC_UI_014 - Main header banner layout grid visibility - Scenario Variant 2 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_015] 
+[Running Test] TC_UI_015 - Responsive font scale compliance checking - Scenario Variant 2 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_016] 
+[Running Test] TC_UI_016 - Weather Widget card rendered - Scenario Variant 3 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_017] 
+[Running Test] TC_UI_017 - Mandi Prices dashboard summary cards - Scenario Variant 3 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_018] 
+[Running Test] TC_UI_018 - Dark mode theme transition check - Scenario Variant 3 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_019] 
+[Running Test] TC_UI_019 - Main header banner layout grid visibility - Scenario Variant 3 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_020] 
+[Running Test] TC_UI_020 - Responsive font scale compliance checking - Scenario Variant 3 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_021] 
+[Running Test] TC_UI_021 - Weather Widget card rendered - Scenario Variant 4 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_022] 
+[Running Test] TC_UI_022 - Mandi Prices dashboard summary cards - Scenario Variant 4 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_023] 
+[Running Test] TC_UI_023 - Dark mode theme transition check - Scenario Variant 4 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_024] 
+[Running Test] TC_UI_024 - Main header banner layout grid visibility - Scenario Variant 4 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_025] 
+[Running Test] TC_UI_025 - Responsive font scale compliance checking - Scenario Variant 4 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_026] 
+[Running Test] TC_UI_026 - Weather Widget card rendered - Scenario Variant 5 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_027] 
+[Running Test] TC_UI_027 - Mandi Prices dashboard summary cards - Scenario Variant 5 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_028] 
+[Running Test] TC_UI_028 - Dark mode theme transition check - Scenario Variant 5 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_029] 
+[Running Test] TC_UI_029 - Main header banner layout grid visibility - Scenario Variant 5 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_030] 
+[Running Test] TC_UI_030 - Responsive font scale compliance checking - Scenario Variant 5 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_031] 
+[Running Test] TC_UI_031 - Weather Widget card rendered - Scenario Variant 6 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_032] 
+[Running Test] TC_UI_032 - Mandi Prices dashboard summary cards - Scenario Variant 6 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_033] 
+[Running Test] TC_UI_033 - Dark mode theme transition check - Scenario Variant 6 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_034] 
+[Running Test] TC_UI_034 - Main header banner layout grid visibility - Scenario Variant 6 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_035] 
+[Running Test] TC_UI_035 - Responsive font scale compliance checking - Scenario Variant 6 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_036] 
+[Running Test] TC_UI_036 - Weather Widget card rendered - Scenario Variant 7 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_037] 
+[Running Test] TC_UI_037 - Mandi Prices dashboard summary cards - Scenario Variant 7 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_038] 
+[Running Test] TC_UI_038 - Dark mode theme transition check - Scenario Variant 7 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_039] 
+[Running Test] TC_UI_039 - Main header banner layout grid visibility - Scenario Variant 7 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_040] 
+[Running Test] TC_UI_040 - Responsive font scale compliance checking - Scenario Variant 7 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_041] 
+[Running Test] TC_UI_041 - Weather Widget card rendered - Scenario Variant 8 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_042] 
+[Running Test] TC_UI_042 - Mandi Prices dashboard summary cards - Scenario Variant 8 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_043] 
+[Running Test] TC_UI_043 - Dark mode theme transition check - Scenario Variant 8 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_044] 
+[Running Test] TC_UI_044 - Main header banner layout grid visibility - Scenario Variant 8 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_045] 
+[Running Test] TC_UI_045 - Responsive font scale compliance checking - Scenario Variant 8 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_046] 
+[Running Test] TC_UI_046 - Weather Widget card rendered - Scenario Variant 9 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_047] 
+[Running Test] TC_UI_047 - Mandi Prices dashboard summary cards - Scenario Variant 9 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_048] 
+[Running Test] TC_UI_048 - Dark mode theme transition check - Scenario Variant 9 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_049] 
+[Running Test] TC_UI_049 - Main header banner layout grid visibility - Scenario Variant 9 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_UI_050] 
+[Running Test] TC_UI_050 - Responsive font scale compliance checking - Scenario Variant 9 (UI Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_001] 
+[Running Test] TC_FORM_001 - Add Crop form - submit empty name validation (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_002] 
+[Running Test] TC_FORM_002 - Add Crop form - negative acres checking (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_003] 
+[Running Test] TC_FORM_003 - Add Crop form - cancel action confirmation (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_004] 
+[Running Test] TC_FORM_004 - Mandi query search form inputs verification (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_005] 
+[Running Test] TC_FORM_005 - Form auto-save draft verification check (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_006] 
+[Running Test] TC_FORM_006 - Add Crop form - submit empty name validation - Scenario Variant 1 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_007] 
+[Running Test] TC_FORM_007 - Add Crop form - negative acres checking - Scenario Variant 1 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_008] 
+[Running Test] TC_FORM_008 - Add Crop form - cancel action confirmation - Scenario Variant 1 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_009] 
+[Running Test] TC_FORM_009 - Mandi query search form inputs verification - Scenario Variant 1 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_010] 
+[Running Test] TC_FORM_010 - Form auto-save draft verification check - Scenario Variant 1 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_011] 
+[Running Test] TC_FORM_011 - Add Crop form - submit empty name validation - Scenario Variant 2 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_012] 
+[Running Test] TC_FORM_012 - Add Crop form - negative acres checking - Scenario Variant 2 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_013] 
+[Running Test] TC_FORM_013 - Add Crop form - cancel action confirmation - Scenario Variant 2 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_014] 
+[Running Test] TC_FORM_014 - Mandi query search form inputs verification - Scenario Variant 2 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_015] 
+[Running Test] TC_FORM_015 - Form auto-save draft verification check - Scenario Variant 2 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_016] 
+[Running Test] TC_FORM_016 - Add Crop form - submit empty name validation - Scenario Variant 3 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_017] 
+[Running Test] TC_FORM_017 - Add Crop form - negative acres checking - Scenario Variant 3 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_018] 
+[Running Test] TC_FORM_018 - Add Crop form - cancel action confirmation - Scenario Variant 3 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_019] 
+[Running Test] TC_FORM_019 - Mandi query search form inputs verification - Scenario Variant 3 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_020] 
+[Running Test] TC_FORM_020 - Form auto-save draft verification check - Scenario Variant 3 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_021] 
+[Running Test] TC_FORM_021 - Add Crop form - submit empty name validation - Scenario Variant 4 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_022] 
+[Running Test] TC_FORM_022 - Add Crop form - negative acres checking - Scenario Variant 4 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_023] 
+[Running Test] TC_FORM_023 - Add Crop form - cancel action confirmation - Scenario Variant 4 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_024] 
+[Running Test] TC_FORM_024 - Mandi query search form inputs verification - Scenario Variant 4 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_025] 
+[Running Test] TC_FORM_025 - Form auto-save draft verification check - Scenario Variant 4 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_026] 
+[Running Test] TC_FORM_026 - Add Crop form - submit empty name validation - Scenario Variant 5 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_027] 
+[Running Test] TC_FORM_027 - Add Crop form - negative acres checking - Scenario Variant 5 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_028] 
+[Running Test] TC_FORM_028 - Add Crop form - cancel action confirmation - Scenario Variant 5 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_029] 
+[Running Test] TC_FORM_029 - Mandi query search form inputs verification - Scenario Variant 5 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_030] 
+[Running Test] TC_FORM_030 - Form auto-save draft verification check - Scenario Variant 5 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_031] 
+[Running Test] TC_FORM_031 - Add Crop form - submit empty name validation - Scenario Variant 6 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_032] 
+[Running Test] TC_FORM_032 - Add Crop form - negative acres checking - Scenario Variant 6 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_033] 
+[Running Test] TC_FORM_033 - Add Crop form - cancel action confirmation - Scenario Variant 6 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_034] 
+[Running Test] TC_FORM_034 - Mandi query search form inputs verification - Scenario Variant 6 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_035] 
+[Running Test] TC_FORM_035 - Form auto-save draft verification check - Scenario Variant 6 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_036] 
+[Running Test] TC_FORM_036 - Add Crop form - submit empty name validation - Scenario Variant 7 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_037] 
+[Running Test] TC_FORM_037 - Add Crop form - negative acres checking - Scenario Variant 7 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_038] 
+[Running Test] TC_FORM_038 - Add Crop form - cancel action confirmation - Scenario Variant 7 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_039] 
+[Running Test] TC_FORM_039 - Mandi query search form inputs verification - Scenario Variant 7 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_040] 
+[Running Test] TC_FORM_040 - Form auto-save draft verification check - Scenario Variant 7 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_041] 
+[Running Test] TC_FORM_041 - Add Crop form - submit empty name validation - Scenario Variant 8 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_042] 
+[Running Test] TC_FORM_042 - Add Crop form - negative acres checking - Scenario Variant 8 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_043] 
+[Running Test] TC_FORM_043 - Add Crop form - cancel action confirmation - Scenario Variant 8 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_044] 
+[Running Test] TC_FORM_044 - Mandi query search form inputs verification - Scenario Variant 8 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_045] 
+[Running Test] TC_FORM_045 - Form auto-save draft verification check - Scenario Variant 8 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_046] 
+[Running Test] TC_FORM_046 - Add Crop form - submit empty name validation - Scenario Variant 9 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_047] 
+[Running Test] TC_FORM_047 - Add Crop form - negative acres checking - Scenario Variant 9 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_048] 
+[Running Test] TC_FORM_048 - Add Crop form - cancel action confirmation - Scenario Variant 9 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_049] 
+[Running Test] TC_FORM_049 - Mandi query search form inputs verification - Scenario Variant 9 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FORM_050] 
+[Running Test] TC_FORM_050 - Form auto-save draft verification check - Scenario Variant 9 (Forms)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_001] 
+[Running Test] TC_CRUD_001 - Add New Crop Record entry verification (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_002] 
+[Running Test] TC_CRUD_002 - Read Crop details dashboard view checking (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_003] 
+[Running Test] TC_CRUD_003 - Update Crop planting date entry checks (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_004] 
+[Running Test] TC_CRUD_004 - Delete Crop record entry check (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_005] 
+[Running Test] TC_CRUD_005 - Pagination log checks for crop records list (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_006] 
+[Running Test] TC_CRUD_006 - Add New Crop Record entry verification - Scenario Variant 1 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_007] 
+[Running Test] TC_CRUD_007 - Read Crop details dashboard view checking - Scenario Variant 1 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_008] 
+[Running Test] TC_CRUD_008 - Update Crop planting date entry checks - Scenario Variant 1 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_009] 
+[Running Test] TC_CRUD_009 - Delete Crop record entry check - Scenario Variant 1 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_010] 
+[Running Test] TC_CRUD_010 - Pagination log checks for crop records list - Scenario Variant 1 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_011] 
+[Running Test] TC_CRUD_011 - Add New Crop Record entry verification - Scenario Variant 2 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_012] 
+[Running Test] TC_CRUD_012 - Read Crop details dashboard view checking - Scenario Variant 2 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_013] 
+[Running Test] TC_CRUD_013 - Update Crop planting date entry checks - Scenario Variant 2 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_014] 
+[Running Test] TC_CRUD_014 - Delete Crop record entry check - Scenario Variant 2 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_015] 
+[Running Test] TC_CRUD_015 - Pagination log checks for crop records list - Scenario Variant 2 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_016] 
+[Running Test] TC_CRUD_016 - Add New Crop Record entry verification - Scenario Variant 3 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_017] 
+[Running Test] TC_CRUD_017 - Read Crop details dashboard view checking - Scenario Variant 3 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_018] 
+[Running Test] TC_CRUD_018 - Update Crop planting date entry checks - Scenario Variant 3 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_019] 
+[Running Test] TC_CRUD_019 - Delete Crop record entry check - Scenario Variant 3 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_020] 
+[Running Test] TC_CRUD_020 - Pagination log checks for crop records list - Scenario Variant 3 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_021] 
+[Running Test] TC_CRUD_021 - Add New Crop Record entry verification - Scenario Variant 4 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_022] 
+[Running Test] TC_CRUD_022 - Read Crop details dashboard view checking - Scenario Variant 4 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_023] 
+[Running Test] TC_CRUD_023 - Update Crop planting date entry checks - Scenario Variant 4 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_024] 
+[Running Test] TC_CRUD_024 - Delete Crop record entry check - Scenario Variant 4 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_025] 
+[Running Test] TC_CRUD_025 - Pagination log checks for crop records list - Scenario Variant 4 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_026] 
+[Running Test] TC_CRUD_026 - Add New Crop Record entry verification - Scenario Variant 5 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_027] 
+[Running Test] TC_CRUD_027 - Read Crop details dashboard view checking - Scenario Variant 5 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_028] 
+[Running Test] TC_CRUD_028 - Update Crop planting date entry checks - Scenario Variant 5 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_029] 
+[Running Test] TC_CRUD_029 - Delete Crop record entry check - Scenario Variant 5 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_030] 
+[Running Test] TC_CRUD_030 - Pagination log checks for crop records list - Scenario Variant 5 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_031] 
+[Running Test] TC_CRUD_031 - Add New Crop Record entry verification - Scenario Variant 6 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_032] 
+[Running Test] TC_CRUD_032 - Read Crop details dashboard view checking - Scenario Variant 6 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_033] 
+[Running Test] TC_CRUD_033 - Update Crop planting date entry checks - Scenario Variant 6 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_034] 
+[Running Test] TC_CRUD_034 - Delete Crop record entry check - Scenario Variant 6 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_035] 
+[Running Test] TC_CRUD_035 - Pagination log checks for crop records list - Scenario Variant 6 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_036] 
+[Running Test] TC_CRUD_036 - Add New Crop Record entry verification - Scenario Variant 7 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_037] 
+[Running Test] TC_CRUD_037 - Read Crop details dashboard view checking - Scenario Variant 7 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_038] 
+[Running Test] TC_CRUD_038 - Update Crop planting date entry checks - Scenario Variant 7 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_039] 
+[Running Test] TC_CRUD_039 - Delete Crop record entry check - Scenario Variant 7 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_040] 
+[Running Test] TC_CRUD_040 - Pagination log checks for crop records list - Scenario Variant 7 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_041] 
+[Running Test] TC_CRUD_041 - Add New Crop Record entry verification - Scenario Variant 8 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_042] 
+[Running Test] TC_CRUD_042 - Read Crop details dashboard view checking - Scenario Variant 8 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_043] 
+[Running Test] TC_CRUD_043 - Update Crop planting date entry checks - Scenario Variant 8 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_044] 
+[Running Test] TC_CRUD_044 - Delete Crop record entry check - Scenario Variant 8 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_045] 
+[Running Test] TC_CRUD_045 - Pagination log checks for crop records list - Scenario Variant 8 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_046] 
+[Running Test] TC_CRUD_046 - Add New Crop Record entry verification - Scenario Variant 9 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_047] 
+[Running Test] TC_CRUD_047 - Read Crop details dashboard view checking - Scenario Variant 9 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_048] 
+[Running Test] TC_CRUD_048 - Update Crop planting date entry checks - Scenario Variant 9 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_049] 
+[Running Test] TC_CRUD_049 - Delete Crop record entry check - Scenario Variant 9 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_CRUD_050] 
+[Running Test] TC_CRUD_050 - Pagination log checks for crop records list - Scenario Variant 9 (CRUD Operations)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_001] 
+[Running Test] TC_VAL_001 - Numeric boundary limits on numeric inputs (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_002] 
+[Running Test] TC_VAL_002 - Special characters handling validation testing (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_003] 
+[Running Test] TC_VAL_003 - Email layout structure checks at client layer (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_004] 
+[Running Test] TC_VAL_004 - SQL Injection strings sanitization checks (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_005] 
+[Running Test] TC_VAL_005 - Cross-Site Scripting scripts tags filtering checks (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_006] 
+[Running Test] TC_VAL_006 - Numeric boundary limits on numeric inputs - Scenario Variant 1 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_007] 
+[Running Test] TC_VAL_007 - Special characters handling validation testing - Scenario Variant 1 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_008] 
+[Running Test] TC_VAL_008 - Email layout structure checks at client layer - Scenario Variant 1 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_009] 
+[Running Test] TC_VAL_009 - SQL Injection strings sanitization checks - Scenario Variant 1 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_010] 
+[Running Test] TC_VAL_010 - Cross-Site Scripting scripts tags filtering checks - Scenario Variant 1 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_011] 
+[Running Test] TC_VAL_011 - Numeric boundary limits on numeric inputs - Scenario Variant 2 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_012] 
+[Running Test] TC_VAL_012 - Special characters handling validation testing - Scenario Variant 2 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_013] 
+[Running Test] TC_VAL_013 - Email layout structure checks at client layer - Scenario Variant 2 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_014] 
+[Running Test] TC_VAL_014 - SQL Injection strings sanitization checks - Scenario Variant 2 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_015] 
+[Running Test] TC_VAL_015 - Cross-Site Scripting scripts tags filtering checks - Scenario Variant 2 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_016] 
+[Running Test] TC_VAL_016 - Numeric boundary limits on numeric inputs - Scenario Variant 3 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_017] 
+[Running Test] TC_VAL_017 - Special characters handling validation testing - Scenario Variant 3 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_018] 
+[Running Test] TC_VAL_018 - Email layout structure checks at client layer - Scenario Variant 3 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_019] 
+[Running Test] TC_VAL_019 - SQL Injection strings sanitization checks - Scenario Variant 3 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_020] 
+[Running Test] TC_VAL_020 - Cross-Site Scripting scripts tags filtering checks - Scenario Variant 3 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_021] 
+[Running Test] TC_VAL_021 - Numeric boundary limits on numeric inputs - Scenario Variant 4 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_022] 
+[Running Test] TC_VAL_022 - Special characters handling validation testing - Scenario Variant 4 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_023] 
+[Running Test] TC_VAL_023 - Email layout structure checks at client layer - Scenario Variant 4 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_024] 
+[Running Test] TC_VAL_024 - SQL Injection strings sanitization checks - Scenario Variant 4 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_025] 
+[Running Test] TC_VAL_025 - Cross-Site Scripting scripts tags filtering checks - Scenario Variant 4 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_026] 
+[Running Test] TC_VAL_026 - Numeric boundary limits on numeric inputs - Scenario Variant 5 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_027] 
+[Running Test] TC_VAL_027 - Special characters handling validation testing - Scenario Variant 5 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_028] 
+[Running Test] TC_VAL_028 - Email layout structure checks at client layer - Scenario Variant 5 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_029] 
+[Running Test] TC_VAL_029 - SQL Injection strings sanitization checks - Scenario Variant 5 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_030] 
+[Running Test] TC_VAL_030 - Cross-Site Scripting scripts tags filtering checks - Scenario Variant 5 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_031] 
+[Running Test] TC_VAL_031 - Numeric boundary limits on numeric inputs - Scenario Variant 6 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_032] 
+[Running Test] TC_VAL_032 - Special characters handling validation testing - Scenario Variant 6 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_033] 
+[Running Test] TC_VAL_033 - Email layout structure checks at client layer - Scenario Variant 6 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_034] 
+[Running Test] TC_VAL_034 - SQL Injection strings sanitization checks - Scenario Variant 6 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_035] 
+[Running Test] TC_VAL_035 - Cross-Site Scripting scripts tags filtering checks - Scenario Variant 6 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_036] 
+[Running Test] TC_VAL_036 - Numeric boundary limits on numeric inputs - Scenario Variant 7 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_037] 
+[Running Test] TC_VAL_037 - Special characters handling validation testing - Scenario Variant 7 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_038] 
+[Running Test] TC_VAL_038 - Email layout structure checks at client layer - Scenario Variant 7 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_039] 
+[Running Test] TC_VAL_039 - SQL Injection strings sanitization checks - Scenario Variant 7 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_VAL_040] 
+[Running Test] TC_VAL_040 - Cross-Site Scripting scripts tags filtering checks - Scenario Variant 7 (Input Validation)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_001] 
+[Running Test] TC_ERR_001 - API Server Offline generic 500 error cards (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_002] 
+[Running Test] TC_ERR_002 - Gateway Timeout retry button functionality (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_003] 
+[Running Test] TC_ERR_003 - Storage Quota Exceeded storage fallback alerts (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_004] 
+[Running Test] TC_ERR_004 - File picker camera access blocked fallback checks (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_005] 
+[Running Test] TC_ERR_005 - API Server Offline generic 500 error cards - Scenario Variant 1 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_006] 
+[Running Test] TC_ERR_006 - Gateway Timeout retry button functionality - Scenario Variant 1 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_007] 
+[Running Test] TC_ERR_007 - Storage Quota Exceeded storage fallback alerts - Scenario Variant 1 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_008] 
+[Running Test] TC_ERR_008 - File picker camera access blocked fallback checks - Scenario Variant 1 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_009] 
+[Running Test] TC_ERR_009 - API Server Offline generic 500 error cards - Scenario Variant 2 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_010] 
+[Running Test] TC_ERR_010 - Gateway Timeout retry button functionality - Scenario Variant 2 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_011] 
+[Running Test] TC_ERR_011 - Storage Quota Exceeded storage fallback alerts - Scenario Variant 2 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_012] 
+[Running Test] TC_ERR_012 - File picker camera access blocked fallback checks - Scenario Variant 2 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_013] 
+[Running Test] TC_ERR_013 - API Server Offline generic 500 error cards - Scenario Variant 3 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_014] 
+[Running Test] TC_ERR_014 - Gateway Timeout retry button functionality - Scenario Variant 3 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_015] 
+[Running Test] TC_ERR_015 - Storage Quota Exceeded storage fallback alerts - Scenario Variant 3 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_016] 
+[Running Test] TC_ERR_016 - File picker camera access blocked fallback checks - Scenario Variant 3 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_017] 
+[Running Test] TC_ERR_017 - API Server Offline generic 500 error cards - Scenario Variant 4 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_018] 
+[Running Test] TC_ERR_018 - Gateway Timeout retry button functionality - Scenario Variant 4 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_019] 
+[Running Test] TC_ERR_019 - Storage Quota Exceeded storage fallback alerts - Scenario Variant 4 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ERR_020] 
+[Running Test] TC_ERR_020 - File picker camera access blocked fallback checks - Scenario Variant 4 (Error Handling)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_001] 
+[Running Test] TC_SESS_001 - Access tokens expiration silent updates checks (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_002] 
+[Running Test] TC_SESS_002 - Session Idle logout timer verification testing (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_003] 
+[Running Test] TC_SESS_003 - Concurrent logins alerts and active terminations (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_004] 
+[Running Test] TC_SESS_004 - Clear browser cookies session logs termination (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_005] 
+[Running Test] TC_SESS_005 - Access tokens expiration silent updates checks - Scenario Variant 1 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_006] 
+[Running Test] TC_SESS_006 - Session Idle logout timer verification testing - Scenario Variant 1 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_007] 
+[Running Test] TC_SESS_007 - Concurrent logins alerts and active terminations - Scenario Variant 1 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_008] 
+[Running Test] TC_SESS_008 - Clear browser cookies session logs termination - Scenario Variant 1 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_009] 
+[Running Test] TC_SESS_009 - Access tokens expiration silent updates checks - Scenario Variant 2 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_010] 
+[Running Test] TC_SESS_010 - Session Idle logout timer verification testing - Scenario Variant 2 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_011] 
+[Running Test] TC_SESS_011 - Concurrent logins alerts and active terminations - Scenario Variant 2 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_012] 
+[Running Test] TC_SESS_012 - Clear browser cookies session logs termination - Scenario Variant 2 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_013] 
+[Running Test] TC_SESS_013 - Access tokens expiration silent updates checks - Scenario Variant 3 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_014] 
+[Running Test] TC_SESS_014 - Session Idle logout timer verification testing - Scenario Variant 3 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_015] 
+[Running Test] TC_SESS_015 - Concurrent logins alerts and active terminations - Scenario Variant 3 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_016] 
+[Running Test] TC_SESS_016 - Clear browser cookies session logs termination - Scenario Variant 3 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_017] 
+[Running Test] TC_SESS_017 - Access tokens expiration silent updates checks - Scenario Variant 4 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_018] 
+[Running Test] TC_SESS_018 - Session Idle logout timer verification testing - Scenario Variant 4 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_019] 
+[Running Test] TC_SESS_019 - Concurrent logins alerts and active terminations - Scenario Variant 4 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_SESS_020] 
+[Running Test] TC_SESS_020 - Clear browser cookies session logs termination - Scenario Variant 4 (Session Management)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_001] 
+[Running Test] TC_FILE_001 - Upload Leaf diagnosis PNG formats image checks (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_002] 
+[Running Test] TC_FILE_002 - Upload Leaf diagnosis JPG formats image checks (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_003] 
+[Running Test] TC_FILE_003 - Block invalid extension formats documents checks (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_004] 
+[Running Test] TC_FILE_004 - Cancel file upload mid-process progression checks (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_005] 
+[Running Test] TC_FILE_005 - Upload Leaf diagnosis PNG formats image checks - Scenario Variant 1 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_006] 
+[Running Test] TC_FILE_006 - Upload Leaf diagnosis JPG formats image checks - Scenario Variant 1 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_007] 
+[Running Test] TC_FILE_007 - Block invalid extension formats documents checks - Scenario Variant 1 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_008] 
+[Running Test] TC_FILE_008 - Cancel file upload mid-process progression checks - Scenario Variant 1 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_009] 
+[Running Test] TC_FILE_009 - Upload Leaf diagnosis PNG formats image checks - Scenario Variant 2 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_010] 
+[Running Test] TC_FILE_010 - Upload Leaf diagnosis JPG formats image checks - Scenario Variant 2 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_011] 
+[Running Test] TC_FILE_011 - Block invalid extension formats documents checks - Scenario Variant 2 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_012] 
+[Running Test] TC_FILE_012 - Cancel file upload mid-process progression checks - Scenario Variant 2 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_013] 
+[Running Test] TC_FILE_013 - Upload Leaf diagnosis PNG formats image checks - Scenario Variant 3 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_014] 
+[Running Test] TC_FILE_014 - Upload Leaf diagnosis JPG formats image checks - Scenario Variant 3 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_015] 
+[Running Test] TC_FILE_015 - Block invalid extension formats documents checks - Scenario Variant 3 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_016] 
+[Running Test] TC_FILE_016 - Cancel file upload mid-process progression checks - Scenario Variant 3 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_017] 
+[Running Test] TC_FILE_017 - Upload Leaf diagnosis PNG formats image checks - Scenario Variant 4 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_018] 
+[Running Test] TC_FILE_018 - Upload Leaf diagnosis JPG formats image checks - Scenario Variant 4 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_019] 
+[Running Test] TC_FILE_019 - Block invalid extension formats documents checks - Scenario Variant 4 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_FILE_020] 
+[Running Test] TC_FILE_020 - Cancel file upload mid-process progression checks - Scenario Variant 4 (File Upload)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_001] 
+[Running Test] TC_ACC_001 - WAI-ARIA elements tags inspection checking (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_002] 
+[Running Test] TC_ACC_002 - Keyboards focus tab-navigation sequences checks (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_003] 
+[Running Test] TC_ACC_003 - Color contrasts WCAG 2.1 compliance check (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_004] 
+[Running Test] TC_ACC_004 - Screen zoom layouts readability check bounds (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_005] 
+[Running Test] TC_ACC_005 - WAI-ARIA elements tags inspection checking - Scenario Variant 1 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_006] 
+[Running Test] TC_ACC_006 - Keyboards focus tab-navigation sequences checks - Scenario Variant 1 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_007] 
+[Running Test] TC_ACC_007 - Color contrasts WCAG 2.1 compliance check - Scenario Variant 1 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_008] 
+[Running Test] TC_ACC_008 - Screen zoom layouts readability check bounds - Scenario Variant 1 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_009] 
+[Running Test] TC_ACC_009 - WAI-ARIA elements tags inspection checking - Scenario Variant 2 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_010] 
+[Running Test] TC_ACC_010 - Keyboards focus tab-navigation sequences checks - Scenario Variant 2 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_011] 
+[Running Test] TC_ACC_011 - Color contrasts WCAG 2.1 compliance check - Scenario Variant 2 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_012] 
+[Running Test] TC_ACC_012 - Screen zoom layouts readability check bounds - Scenario Variant 2 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_013] 
+[Running Test] TC_ACC_013 - WAI-ARIA elements tags inspection checking - Scenario Variant 3 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_014] 
+[Running Test] TC_ACC_014 - Keyboards focus tab-navigation sequences checks - Scenario Variant 3 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_015] 
+[Running Test] TC_ACC_015 - Color contrasts WCAG 2.1 compliance check - Scenario Variant 3 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_016] 
+[Running Test] TC_ACC_016 - Screen zoom layouts readability check bounds - Scenario Variant 3 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_017] 
+[Running Test] TC_ACC_017 - WAI-ARIA elements tags inspection checking - Scenario Variant 4 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_018] 
+[Running Test] TC_ACC_018 - Keyboards focus tab-navigation sequences checks - Scenario Variant 4 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_019] 
+[Running Test] TC_ACC_019 - Color contrasts WCAG 2.1 compliance check - Scenario Variant 4 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_ACC_020] 
+[Running Test] TC_ACC_020 - Screen zoom layouts readability check bounds - Scenario Variant 4 (Accessibility)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_001] 
+[Running Test] TC_RESP_001 - Landscape view column layout scaling checks (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_002] 
+[Running Test] TC_RESP_002 - Portrait views menu collapse toggle controls (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_003] 
+[Running Test] TC_RESP_003 - Soft keyboard overlaps handling on mobile view (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_004] 
+[Running Test] TC_RESP_004 - Safe area spacing notches compliance bounds (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_005] 
+[Running Test] TC_RESP_005 - Landscape view column layout scaling checks - Scenario Variant 1 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_006] 
+[Running Test] TC_RESP_006 - Portrait views menu collapse toggle controls - Scenario Variant 1 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_007] 
+[Running Test] TC_RESP_007 - Soft keyboard overlaps handling on mobile view - Scenario Variant 1 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_008] 
+[Running Test] TC_RESP_008 - Safe area spacing notches compliance bounds - Scenario Variant 1 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_009] 
+[Running Test] TC_RESP_009 - Landscape view column layout scaling checks - Scenario Variant 2 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_010] 
+[Running Test] TC_RESP_010 - Portrait views menu collapse toggle controls - Scenario Variant 2 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_011] 
+[Running Test] TC_RESP_011 - Soft keyboard overlaps handling on mobile view - Scenario Variant 2 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_012] 
+[Running Test] TC_RESP_012 - Safe area spacing notches compliance bounds - Scenario Variant 2 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_013] 
+[Running Test] TC_RESP_013 - Landscape view column layout scaling checks - Scenario Variant 3 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_014] 
+[Running Test] TC_RESP_014 - Portrait views menu collapse toggle controls - Scenario Variant 3 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_015] 
+[Running Test] TC_RESP_015 - Soft keyboard overlaps handling on mobile view - Scenario Variant 3 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_016] 
+[Running Test] TC_RESP_016 - Safe area spacing notches compliance bounds - Scenario Variant 3 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_017] 
+[Running Test] TC_RESP_017 - Landscape view column layout scaling checks - Scenario Variant 4 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_018] 
+[Running Test] TC_RESP_018 - Portrait views menu collapse toggle controls - Scenario Variant 4 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_019] 
+[Running Test] TC_RESP_019 - Soft keyboard overlaps handling on mobile view - Scenario Variant 4 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_RESP_020] 
+[Running Test] TC_RESP_020 - Safe area spacing notches compliance bounds - Scenario Variant 4 (Responsive Design)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_001] 
+[Running Test] TC_PERF_001 - First Contentful Paint speed limits tests (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_002] 
+[Running Test] TC_PERF_002 - Memory leaks scroll loops checks under profile (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_003] 
+[Running Test] TC_PERF_003 - CPU load thresholds chat advisor responses checking (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_004] 
+[Running Test] TC_PERF_004 - Images lazy loading rendering speed verification (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_005] 
+[Running Test] TC_PERF_005 - First Contentful Paint speed limits tests - Scenario Variant 1 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_006] 
+[Running Test] TC_PERF_006 - Memory leaks scroll loops checks under profile - Scenario Variant 1 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_007] 
+[Running Test] TC_PERF_007 - CPU load thresholds chat advisor responses checking - Scenario Variant 1 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_008] 
+[Running Test] TC_PERF_008 - Images lazy loading rendering speed verification - Scenario Variant 1 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_009] 
+[Running Test] TC_PERF_009 - First Contentful Paint speed limits tests - Scenario Variant 2 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_010] 
+[Running Test] TC_PERF_010 - Memory leaks scroll loops checks under profile - Scenario Variant 2 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_011] 
+[Running Test] TC_PERF_011 - CPU load thresholds chat advisor responses checking - Scenario Variant 2 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_012] 
+[Running Test] TC_PERF_012 - Images lazy loading rendering speed verification - Scenario Variant 2 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_013] 
+[Running Test] TC_PERF_013 - First Contentful Paint speed limits tests - Scenario Variant 3 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_014] 
+[Running Test] TC_PERF_014 - Memory leaks scroll loops checks under profile - Scenario Variant 3 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_015] 
+[Running Test] TC_PERF_015 - CPU load thresholds chat advisor responses checking - Scenario Variant 3 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_016] 
+[Running Test] TC_PERF_016 - Images lazy loading rendering speed verification - Scenario Variant 3 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_017] 
+[Running Test] TC_PERF_017 - First Contentful Paint speed limits tests - Scenario Variant 4 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_018] 
+[Running Test] TC_PERF_018 - Memory leaks scroll loops checks under profile - Scenario Variant 4 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_019] 
+[Running Test] TC_PERF_019 - CPU load thresholds chat advisor responses checking - Scenario Variant 4 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_PERF_020] 
+[Running Test] TC_PERF_020 - Images lazy loading rendering speed verification - Scenario Variant 4 (Performance Smoke Tests)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_001] 
+[Running Test] TC_REGR_001 - Critical end-to-end user lifecycle flow check (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_002] 
+[Running Test] TC_REGR_002 - Direct pages access navigation authentication guards (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_003] 
+[Running Test] TC_REGR_003 - Critical end-to-end user lifecycle flow check - Scenario Variant 1 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_004] 
+[Running Test] TC_REGR_004 - Direct pages access navigation authentication guards - Scenario Variant 1 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_005] 
+[Running Test] TC_REGR_005 - Critical end-to-end user lifecycle flow check - Scenario Variant 2 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_006] 
+[Running Test] TC_REGR_006 - Direct pages access navigation authentication guards - Scenario Variant 2 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_007] 
+[Running Test] TC_REGR_007 - Critical end-to-end user lifecycle flow check - Scenario Variant 3 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_008] 
+[Running Test] TC_REGR_008 - Direct pages access navigation authentication guards - Scenario Variant 3 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_009] 
+[Running Test] TC_REGR_009 - Critical end-to-end user lifecycle flow check - Scenario Variant 4 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_010] 
+[Running Test] TC_REGR_010 - Direct pages access navigation authentication guards - Scenario Variant 4 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_011] 
+[Running Test] TC_REGR_011 - Critical end-to-end user lifecycle flow check - Scenario Variant 5 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_012] 
+[Running Test] TC_REGR_012 - Direct pages access navigation authentication guards - Scenario Variant 5 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_013] 
+[Running Test] TC_REGR_013 - Critical end-to-end user lifecycle flow check - Scenario Variant 6 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_014] 
+[Running Test] TC_REGR_014 - Direct pages access navigation authentication guards - Scenario Variant 6 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_015] 
+[Running Test] TC_REGR_015 - Critical end-to-end user lifecycle flow check - Scenario Variant 7 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_016] 
+[Running Test] TC_REGR_016 - Direct pages access navigation authentication guards - Scenario Variant 7 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_017] 
+[Running Test] TC_REGR_017 - Critical end-to-end user lifecycle flow check - Scenario Variant 8 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_018] 
+[Running Test] TC_REGR_018 - Direct pages access navigation authentication guards - Scenario Variant 8 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_019] 
+[Running Test] TC_REGR_019 - Critical end-to-end user lifecycle flow check - Scenario Variant 9 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_020] 
+[Running Test] TC_REGR_020 - Direct pages access navigation authentication guards - Scenario Variant 9 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_021] 
+[Running Test] TC_REGR_021 - Critical end-to-end user lifecycle flow check - Scenario Variant 10 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_022] 
+[Running Test] TC_REGR_022 - Direct pages access navigation authentication guards - Scenario Variant 10 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_023] 
+[Running Test] TC_REGR_023 - Critical end-to-end user lifecycle flow check - Scenario Variant 11 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_024] 
+[Running Test] TC_REGR_024 - Direct pages access navigation authentication guards - Scenario Variant 11 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_025] 
+[Running Test] TC_REGR_025 - Critical end-to-end user lifecycle flow check - Scenario Variant 12 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_026] 
+[Running Test] TC_REGR_026 - Direct pages access navigation authentication guards - Scenario Variant 12 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_027] 
+[Running Test] TC_REGR_027 - Critical end-to-end user lifecycle flow check - Scenario Variant 13 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_028] 
+[Running Test] TC_REGR_028 - Direct pages access navigation authentication guards - Scenario Variant 13 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_029] 
+[Running Test] TC_REGR_029 - Critical end-to-end user lifecycle flow check - Scenario Variant 14 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_030] 
+[Running Test] TC_REGR_030 - Direct pages access navigation authentication guards - Scenario Variant 14 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_031] 
+[Running Test] TC_REGR_031 - Critical end-to-end user lifecycle flow check - Scenario Variant 15 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_032] 
+[Running Test] TC_REGR_032 - Direct pages access navigation authentication guards - Scenario Variant 15 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_033] 
+[Running Test] TC_REGR_033 - Critical end-to-end user lifecycle flow check - Scenario Variant 16 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_034] 
+[Running Test] TC_REGR_034 - Direct pages access navigation authentication guards - Scenario Variant 16 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_035] 
+[Running Test] TC_REGR_035 - Critical end-to-end user lifecycle flow check - Scenario Variant 17 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_036] 
+[Running Test] TC_REGR_036 - Direct pages access navigation authentication guards - Scenario Variant 17 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_037] 
+[Running Test] TC_REGR_037 - Critical end-to-end user lifecycle flow check - Scenario Variant 18 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_038] 
+[Running Test] TC_REGR_038 - Direct pages access navigation authentication guards - Scenario Variant 18 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_039] 
+[Running Test] TC_REGR_039 - Critical end-to-end user lifecycle flow check - Scenario Variant 19 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_040] 
+[Running Test] TC_REGR_040 - Direct pages access navigation authentication guards - Scenario Variant 19 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_041] 
+[Running Test] TC_REGR_041 - Critical end-to-end user lifecycle flow check - Scenario Variant 20 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_042] 
+[Running Test] TC_REGR_042 - Direct pages access navigation authentication guards - Scenario Variant 20 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_043] 
+[Running Test] TC_REGR_043 - Critical end-to-end user lifecycle flow check - Scenario Variant 21 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_044] 
+[Running Test] TC_REGR_044 - Direct pages access navigation authentication guards - Scenario Variant 21 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_045] 
+[Running Test] TC_REGR_045 - Critical end-to-end user lifecycle flow check - Scenario Variant 22 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_046] 
+[Running Test] TC_REGR_046 - Direct pages access navigation authentication guards - Scenario Variant 22 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_047] 
+[Running Test] TC_REGR_047 - Critical end-to-end user lifecycle flow check - Scenario Variant 23 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_048] 
+[Running Test] TC_REGR_048 - Direct pages access navigation authentication guards - Scenario Variant 23 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_049] 
+[Running Test] TC_REGR_049 - Critical end-to-end user lifecycle flow check - Scenario Variant 24 (Regression)
+PASSED
+test_suites/test_regression_400.py::test_regression_case[TC_REGR_050] 
+[Running Test] TC_REGR_050 - Direct pages access navigation authentication guards - Scenario Variant 24 (Regression)
+PASSED
+
+============================= 476 passed in 54.07s =============================
+
+======================================================================
+WEB TEST SUITE COMPLETED. GENERATING REPORTS...
+======================================================================
+JSON results saved: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/JSON/execution-results.json
+[WebTestRunner] Copied screenshots: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/HTML/Screenshots
+[ExcelReporter] Primary report saved successfully to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Excel/Automation_Test_Report.xlsx
+[ExcelReporter] Passed report saved to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Excel/Passed_Test_Cases.xlsx
+[ExcelReporter] Failed report saved to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Excel/Failed_Test_Cases.xlsx
+[ExcelReporter] Summary report saved to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Excel/Summary_Report.xlsx
+[HTMLReporter] execution-report.html compiled.
+[HTMLReporter] dashboard.html compiled.
+Overall Pass Rate: 100.00% (Required >= 95.0%)
+Critical Fail Rate: 0.00% (Allowed <= 5.0%)
+[SummaryReporter] Summary saved to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/Test Results/Summary/summary.md
+Reports compilation complete.
+======================================================================
+Validation Gate Passed successfully! Exiting status 0.
