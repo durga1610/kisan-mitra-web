@@ -1,8 +1,8 @@
 # Android Appium E2E Execution Summary
 
-**Build Number**: #15
-**Execution Date**: 2026-06-23 16:04:10
-**Git Commit**: 8a16edd7
+**Build Number**: #16
+**Execution Date**: 2026-06-23 16:34:21
+**Git Commit**: 752a32f6
 **Branch**: main
 
 **APK Version**: 1.0.0-debug
@@ -20,7 +20,7 @@
 
 - **Pass Percentage**: 99.81%
 - **Fail Percentage**: 0.19%
-- **Execution Duration**: 247.86s
+- **Execution Duration**: 251.16s
 
 ### Live Hosted Reports
 - **HTML Dashboard**: https://durga1610.github.io/kisan-mitra-web/reports/latest/execution-report.html
@@ -31,10 +31,10 @@
 
 ✓ TC_GEN_001 - test_auth_client_validation
 ✓ TC_GEN_002 - test_auth_invalid_credentials
-✓ TC_GEN_003 - test_home_page_load
 ✓ TC_GEN_004 - test_market_prices_page_load
 ✓ TC_GEN_005 - test_ai_advisor_page_load
 ✓ TC_GEN_006 - test_disease_scanner_page_load
+✓ TC_GEN_007 - test_navigation_between_screens
 ✓ TC_GEN_008 - test_responsive_ui_smoke
 ✓ TC_AUTH_001 - Valid Email/Password Login
 ✓ TC_AUTH_002 - Invalid Email Format
@@ -48,8 +48,8 @@
 
 #### FAILED TESTS
 
-✗ TC_GEN_007 - test_navigation_between_screens
-  *Reason*: driver = <appium.webdriver.webdriver.WebDriver (session="5d941e00-69e0-4516-8ef1-9aad1eb798d1")> ...
+✗ TC_GEN_003 - test_home_page_load
+  *Reason*: driver = <appium.webdriver.webdriver.WebDriver (session="780dd579-ad7d-405b-92c8-18302ab263c6")> ...
 
 #### SKIPPED TESTS
 

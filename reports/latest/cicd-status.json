@@ -7,8 +7,8 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html",
-    "build_number": "15",
-    "commit": "8a16edd7"
+    "build_number": "16",
+    "commit": "752a32f6"
   },
   "android_e2e": {
     "status": "FAIL",
@@ -18,8 +18,8 @@
     "skipped": 0,
     "pass_rate": 99.81,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "15",
-    "commit": "8a16edd7"
+    "build_number": "16",
+    "commit": "752a32f6"
   },
   "backend_security": {
     "status": "PASS",
@@ -28,8 +28,8 @@
     "medium": 0,
     "low": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md",
-    "build_number": "15",
-    "commit": "8a16edd7"
+    "build_number": "16",
+    "commit": "752a32f6"
   },
   "secrets_scan": {
     "status": "FAIL",
@@ -71,9 +71,9 @@
         "author": "durga1610"
       }
     ],
-    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28038483781",
-    "build_number": "15",
-    "commit": "8a16edd7"
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28040423380",
+    "build_number": "16",
+    "commit": "752a32f6"
   },
   "unit_tests": {
     "status": "FAIL",
@@ -82,19 +82,19 @@
     "failed": 1,
     "skipped": 0,
     "pass_rate": 99.75,
-    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28038483781",
-    "build_number": "15",
-    "commit": "8a16edd7"
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28040423380",
+    "build_number": "16",
+    "commit": "752a32f6"
   },
-  "last_updated": "2026-06-23 16:04:51",
+  "last_updated": "2026-06-23 16:34:47",
   "load_testing": {
     "status": "FAIL",
-    "total_requests": 179100,
-    "rps": 2981.93,
-    "avg_latency": 22.07,
-    "failed_requests": 179100,
+    "total_requests": 134100,
+    "rps": 2231.32,
+    "avg_latency": 29.31,
+    "failed_requests": 134100,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md",
-    "build_number": "15",
-    "commit": "8a16edd7"
+    "build_number": "16",
+    "commit": "752a32f6"
   }
 }
