@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisan Mitra - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0F172A;
+            --card-bg: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --border-color: #334155;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 24px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        header {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--success);
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 16px;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+            background-color: var(--border-color);
+        }
+        
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .panel {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .panel h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            align-self: flex-start;
+        }
+        
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--success) 0.0% 99.42084942084942%,
+                var(--error) 99.42084942084942% 100.0%,
+                var(--warning) 100.0% 100%
+            );
+            margin-bottom: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        
+        .stat-details {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .info-box {
+            background-color: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .info-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        
+        .info-val {
+            font-size: 20px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kisan Mitra E2E Dashboard</h1>
+            <div class="nav-links">
+                <a href="execution-report.html">Grid View</a>
+                <a href="dashboard.html" class="active">Dashboard</a>
+                <a href="trends.html">Trends</a>
+            </div>
+        </header>
+        
+        <div class="main-layout">
+            <div class="panel">
+                <h2>Execution Ratio</h2>
+                <div class="pie-chart"></div>
+                <div class="chart-legend">
+                    <div class="legend-item"><div class="legend-dot" style="background-color: var(--success)"></div>Passed (99.4%)</div>
+                    <div class="legend-item"><div class="legend-dot" style="background-color: var(--error)"></div>Failed (0.6%)</div>
+                    <div class="legend-item"><div class="legend-dot" style="background-color: var(--warning)"></div>Skipped (0.0%)</div>
+                </div>
+            </div>
+            
+            <div class="panel" style="justify-content: flex-start;">
+                <h2>Metrics Summary</h2>
+                <div class="stat-details">
+                    <div class="info-box"><div class="info-label">Total Executed</div><div class="info-val">518</div></div>
+                    <div class="info-box"><div class="info-label">Environment</div><div class="info-val" style="font-size:14px;">Android Emulator (KVM)</div></div>
+                    <div class="info-box"><div class="info-label">Pass Percentage</div><div class="info-val" style="color: var(--success);">99.4%</div></div>
+                    <div class="info-box"><div class="info-label">Build ID</div><div class="info-val">#14</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
