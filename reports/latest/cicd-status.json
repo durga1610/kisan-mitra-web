@@ -11,15 +11,15 @@
     "commit": "caa523d4"
   },
   "android_e2e": {
-    "status": "PASS",
+    "status": "FAIL",
     "total": 518,
-    "passed": 518,
-    "failed": 0,
+    "passed": 517,
+    "failed": 1,
     "skipped": 0,
-    "pass_rate": 100.0,
+    "pass_rate": 99.81,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "2",
-    "commit": "9c0699ce"
+    "build_number": "20",
+    "commit": "caa523d4"
   },
   "backend_security": {
     "status": "FAIL",
@@ -86,7 +86,7 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 08:21:09",
+  "last_updated": "2026-06-23 08:31:20",
   "load_testing": {
     "status": "PASS",
     "total_requests": 32590,
