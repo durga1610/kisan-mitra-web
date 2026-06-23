@@ -7,19 +7,19 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html",
-    "build_number": "9",
-    "commit": "919b9a34"
+    "build_number": "10",
+    "commit": "0b348717"
   },
   "android_e2e": {
-    "status": "FAIL",
+    "status": "PASS",
     "total": 518,
-    "passed": 517,
-    "failed": 1,
+    "passed": 518,
+    "failed": 0,
     "skipped": 0,
-    "pass_rate": 99.81,
+    "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "9",
-    "commit": "919b9a34"
+    "build_number": "10",
+    "commit": "0b348717"
   },
   "backend_security": {
     "status": "FAIL",
@@ -28,8 +28,8 @@
     "medium": 30,
     "low": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md",
-    "build_number": "9",
-    "commit": "919b9a34"
+    "build_number": "10",
+    "commit": "0b348717"
   },
   "secrets_scan": {
     "status": "FAIL",
@@ -71,9 +71,9 @@
         "author": "durga1610"
       }
     ],
-    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28024329821",
-    "build_number": "9",
-    "commit": "919b9a34"
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28025284631",
+    "build_number": "10",
+    "commit": "0b348717"
   },
   "unit_tests": {
     "status": "N/A",
@@ -86,15 +86,15 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 12:08:23",
+  "last_updated": "2026-06-23 12:26:28",
   "load_testing": {
     "status": "FAIL",
-    "total_requests": 134544,
-    "rps": 2238.79,
-    "avg_latency": 29.2,
-    "failed_requests": 134544,
+    "total_requests": 150233,
+    "rps": 2499.54,
+    "avg_latency": 25.89,
+    "failed_requests": 150233,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md",
-    "build_number": "9",
-    "commit": "919b9a34"
+    "build_number": "10",
+    "commit": "0b348717"
   }
 }
