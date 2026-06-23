@@ -332,6 +332,7 @@ def main():
     parser.add_argument("--run-number", required=True, help="GitHub Action Run Number")
     parser.add_argument("--commit", required=True, help="GitHub Commit SHA")
     parser.add_argument("--pages-dir", default="gh-pages-dir", help="Directory where gh-pages branch is checked out")
+    parser.add_argument("--publish-summary", action="store_true", help="Publish summary to GITHUB_STEP_SUMMARY")
     args = parser.parse_args()
 
     # Define paths
@@ -635,7 +636,7 @@ def main():
 
     # Write to GITHUB_STEP_SUMMARY if available
     summary_file = os.getenv("GITHUB_STEP_SUMMARY")
-    if summary_file:
+    if summary_file and args.publish_summary:
         try:
             with open(summary_file, "a", encoding="utf-8") as sf:
                 sf.write(summary_md)

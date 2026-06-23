@@ -588,7 +588,7 @@ jobs:
           python tests/generate_consolidated_summary.py --type web --run-number ${{ github.run_number }} --commit ${{ github.sha }} --pages-dir gh-pages-dir
           
           # Run consolidated generator for android
-          python tests/generate_consolidated_summary.py --type android --run-number ${{ github.run_number }} --commit ${{ github.sha }} --pages-dir gh-pages-dir
+          python tests/generate_consolidated_summary.py --type android --run-number ${{ github.run_number }} --commit ${{ github.sha }} --pages-dir gh-pages-dir --publish-summary
           
           # Copy reports and test directories
           # Copy security report
