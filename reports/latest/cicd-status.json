@@ -18,8 +18,8 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "7",
-    "commit": "8408c252"
+    "build_number": "25",
+    "commit": "be087893"
   },
   "backend_security": {
     "status": "FAIL",
@@ -86,7 +86,7 @@
     "build_number": "",
     "commit": ""
   },
-  "last_updated": "2026-06-23 09:40:59",
+  "last_updated": "2026-06-23 09:41:53",
   "load_testing": {
     "status": "FAIL",
     "total_requests": 146440,
