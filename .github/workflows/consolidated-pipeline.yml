@@ -502,35 +502,35 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: security-reports
-          path: all-artifacts/security-reports/
+          path: security-reports/
         continue-on-error: true
 
       - name: "📥 Download backend test reports"
         uses: actions/download-artifact@v4
         with:
           name: backend-test-reports
-          path: all-artifacts/backend-test-reports/
+          path: backend-reports/
         continue-on-error: true
 
       - name: "📥 Download android E2E reports"
         uses: actions/download-artifact@v4
         with:
           name: android-e2e-reports
-          path: all-artifacts/android-e2e-reports/
+          path: android-reports/
         continue-on-error: true
 
       - name: "📥 Download web E2E reports"
         uses: actions/download-artifact@v4
         with:
           name: selenium-e2e-reports
-          path: all-artifacts/selenium-e2e-reports/
+          path: web-reports/
         continue-on-error: true
 
       - name: "📥 Download load test reports"
         uses: actions/download-artifact@v4
         with:
           name: load-test-reports
-          path: all-artifacts/load-test-reports/
+          path: load-test-reports/
         continue-on-error: true
 
       - name: "🐍 Setup Python"
@@ -545,44 +545,44 @@ jobs:
           
           # Move Web E2E results to expected structure for generator
           mkdir -p tests/e2e/"Test Results"/JSON
-          if [ -f "all-artifacts/selenium-e2e-reports/JSON/execution-results.json" ]; then
-            cp "all-artifacts/selenium-e2e-reports/JSON/execution-results.json" tests/e2e/"Test Results"/JSON/
+          if [ -f "web-reports/JSON/execution-results.json" ]; then
+            cp "web-reports/JSON/execution-results.json" tests/e2e/"Test Results"/JSON/
           fi
           
           # Move Android E2E results to expected structure for generator
           mkdir -p tests/mobile_e2e/"Test Results"/JSON
-          if [ -f "all-artifacts/android-e2e-reports/JSON/execution-results.json" ]; then
-            cp "all-artifacts/android-e2e-reports/JSON/execution-results.json" tests/mobile_e2e/"Test Results"/JSON/
+          if [ -f "android-reports/JSON/execution-results.json" ]; then
+            cp "android-reports/JSON/execution-results.json" tests/mobile_e2e/"Test Results"/JSON/
           fi
           
           # Reconstruct security artifacts directory structures for parser
-          mkdir -p all-artifacts/semgrep-sarif
-          if [ -f "all-artifacts/security-reports/semgrep.sarif" ]; then
-            cp all-artifacts/security-reports/semgrep.sarif all-artifacts/semgrep-sarif/
+          mkdir -p security-reports/semgrep-sarif
+          if [ -f "security-reports/semgrep.sarif" ]; then
+            cp security-reports/semgrep.sarif security-reports/semgrep-sarif/
           fi
-          mkdir -p all-artifacts/bandit-report
-          if [ -f "all-artifacts/security-reports/security-reports/bandit.json" ]; then
-            cp all-artifacts/security-reports/security-reports/bandit.json all-artifacts/bandit-report/
+          mkdir -p security-reports/bandit-report
+          if [ -f "security-reports/security-reports/bandit.json" ]; then
+            cp security-reports/security-reports/bandit.json security-reports/bandit-report/
           fi
-          mkdir -p all-artifacts/dependency-scan
-          if [ -f "all-artifacts/security-reports/security-reports/pip-audit.json" ]; then
-            cp all-artifacts/security-reports/security-reports/pip-audit.json all-artifacts/dependency-scan/
+          mkdir -p security-reports/dependency-scan
+          if [ -f "security-reports/security-reports/pip-audit.json" ]; then
+            cp security-reports/security-reports/pip-audit.json security-reports/dependency-scan/
           fi
-          mkdir -p all-artifacts/trivy-report
-          if [ -f "all-artifacts/security-reports/trivy-fs.sarif" ]; then
-            cp all-artifacts/security-reports/trivy-fs.sarif all-artifacts/trivy-report/
+          mkdir -p security-reports/trivy-report
+          if [ -f "security-reports/trivy-fs.sarif" ]; then
+            cp security-reports/trivy-fs.sarif security-reports/trivy-report/
           fi
-          mkdir -p all-artifacts/api-security-check
-          if [ -f "all-artifacts/security-reports/security-reports/api-security.json" ]; then
-            cp all-artifacts/security-reports/security-reports/api-security.json all-artifacts/api-security-check/
+          mkdir -p security-reports/api-security-check
+          if [ -f "security-reports/security-reports/api-security.json" ]; then
+            cp security-reports/security-reports/api-security.json security-reports/api-security-check/
           fi
-          mkdir -p all-artifacts/gitleaks-report
-          if [ -f "all-artifacts/security-reports/results.sarif" ]; then
-            cp all-artifacts/security-reports/results.sarif all-artifacts/gitleaks-report/
+          mkdir -p security-reports/gitleaks-report
+          if [ -f "security-reports/results.sarif" ]; then
+            cp security-reports/results.sarif security-reports/gitleaks-report/
           fi
-          mkdir -p all-artifacts/test-results
-          if [ -f "all-artifacts/backend-test-reports/test-results.xml" ]; then
-            cp all-artifacts/backend-test-reports/test-results.xml all-artifacts/test-results/
+          mkdir -p security-reports/test-results
+          if [ -f "backend-reports/test-results.xml" ]; then
+            cp backend-reports/test-results.xml security-reports/test-results/
           fi
           
           # Run consolidated generator for security
@@ -596,63 +596,63 @@ jobs:
           
           # Copy reports and test directories
           # Copy security report
-          if [ -f "all-artifacts/security-reports/security-reports/consolidated-report.md" ]; then
-            cp all-artifacts/security-reports/security-reports/consolidated-report.md gh-pages-dir/reports/latest/security-review.md
+          if [ -f "security-reports/security-reports/consolidated-report.md" ]; then
+            cp security-reports/security-reports/consolidated-report.md gh-pages-dir/reports/latest/security-review.md
             mkdir -p gh-pages-dir/reports/history/security/build-${{ github.run_number }}
-            cp all-artifacts/security-reports/security-reports/consolidated-report.md gh-pages-dir/reports/history/security/build-${{ github.run_number }}/security-review.md
+            cp security-reports/security-reports/consolidated-report.md gh-pages-dir/reports/history/security/build-${{ github.run_number }}/security-review.md
           fi
           
           # Copy Web E2E files
-          if [ -f "all-artifacts/selenium-e2e-reports/HTML/execution-report.html" ]; then
-            cp -r all-artifacts/selenium-e2e-reports/HTML/* gh-pages-dir/reports/latest/web/
+          if [ -f "web-reports/HTML/execution-report.html" ]; then
+            cp -r web-reports/HTML/* gh-pages-dir/reports/latest/web/
             mkdir -p gh-pages-dir/reports/history/web/build-${{ github.run_number }}
-            cp -r all-artifacts/selenium-e2e-reports/HTML/* gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+            cp -r web-reports/HTML/* gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
           fi
-          if [ -d "all-artifacts/selenium-e2e-reports/Screenshots" ]; then
-            cp -r all-artifacts/selenium-e2e-reports/Screenshots gh-pages-dir/reports/latest/web/
-            cp -r all-artifacts/selenium-e2e-reports/Screenshots gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          if [ -d "web-reports/Screenshots" ]; then
+            cp -r web-reports/Screenshots gh-pages-dir/reports/latest/web/
+            cp -r web-reports/Screenshots gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
           fi
-          if [ -d "all-artifacts/selenium-e2e-reports/Logs" ]; then
-            cp -r all-artifacts/selenium-e2e-reports/Logs gh-pages-dir/reports/latest/web/
-            cp -r all-artifacts/selenium-e2e-reports/Logs gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          if [ -d "web-reports/Logs" ]; then
+            cp -r web-reports/Logs gh-pages-dir/reports/latest/web/
+            cp -r web-reports/Logs gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
           fi
-          if [ -f "all-artifacts/selenium-e2e-reports/Summary/summary.md" ]; then
-            cp all-artifacts/selenium-e2e-reports/Summary/summary.md gh-pages-dir/reports/latest/web/
-            cp all-artifacts/selenium-e2e-reports/Summary/summary.md gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          if [ -f "web-reports/Summary/summary.md" ]; then
+            cp web-reports/Summary/summary.md gh-pages-dir/reports/latest/web/
+            cp web-reports/Summary/summary.md gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
           fi
-          if [ -d "all-artifacts/selenium-e2e-reports/Excel" ]; then
-            cp -r all-artifacts/selenium-e2e-reports/Excel gh-pages-dir/reports/latest/web/
-            cp -r all-artifacts/selenium-e2e-reports/Excel gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
+          if [ -d "web-reports/Excel" ]; then
+            cp -r web-reports/Excel gh-pages-dir/reports/latest/web/
+            cp -r web-reports/Excel gh-pages-dir/reports/history/web/build-${{ github.run_number }}/
           fi
           
           # Copy Android Appium E2E files
-          if [ -f "all-artifacts/android-e2e-reports/HTML/execution-report.html" ]; then
-            cp -r all-artifacts/android-e2e-reports/HTML/* gh-pages-dir/reports/latest/android/
+          if [ -f "android-reports/HTML/execution-report.html" ]; then
+            cp -r android-reports/HTML/* gh-pages-dir/reports/latest/android/
             mkdir -p gh-pages-dir/reports/history/android/build-${{ github.run_number }}
-            cp -r all-artifacts/android-e2e-reports/HTML/* gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
+            cp -r android-reports/HTML/* gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
           fi
-          if [ -d "all-artifacts/android-e2e-reports/Screenshots" ]; then
-            cp -r all-artifacts/android-e2e-reports/Screenshots gh-pages-dir/reports/latest/android/
-            cp -r all-artifacts/android-e2e-reports/Screenshots gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
+          if [ -d "android-reports/Screenshots" ]; then
+            cp -r android-reports/Screenshots gh-pages-dir/reports/latest/android/
+            cp -r android-reports/Screenshots gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
           fi
-          if [ -d "all-artifacts/android-e2e-reports/Logs" ]; then
-            cp -r all-artifacts/android-e2e-reports/Logs gh-pages-dir/reports/latest/android/
-            cp -r all-artifacts/android-e2e-reports/Logs gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
+          if [ -d "android-reports/Logs" ]; then
+            cp -r android-reports/Logs gh-pages-dir/reports/latest/android/
+            cp -r android-reports/Logs gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
           fi
-          if [ -f "all-artifacts/android-e2e-reports/Summary/summary.md" ]; then
-            cp all-artifacts/android-e2e-reports/Summary/summary.md gh-pages-dir/reports/latest/android/
-            cp all-artifacts/android-e2e-reports/Summary/summary.md gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
+          if [ -f "android-reports/Summary/summary.md" ]; then
+            cp android-reports/Summary/summary.md gh-pages-dir/reports/latest/android/
+            cp android-reports/Summary/summary.md gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
           fi
-          if [ -d "all-artifacts/android-e2e-reports/Excel" ]; then
-            cp -r all-artifacts/android-e2e-reports/Excel gh-pages-dir/reports/latest/android/
-            cp -r all-artifacts/android-e2e-reports/Excel gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
+          if [ -d "android-reports/Excel" ]; then
+            cp -r android-reports/Excel gh-pages-dir/reports/latest/android/
+            cp -r android-reports/Excel gh-pages-dir/reports/history/android/build-${{ github.run_number }}/
           fi
 
           # Copy Load Test Report
-          if [ -f "all-artifacts/load-test-reports/load-test-report.md" ]; then
-            cp all-artifacts/load-test-reports/load-test-report.md gh-pages-dir/reports/latest/load-test-report.md
+          if [ -f "load-test-reports/load-test-report.md" ]; then
+            cp load-test-reports/load-test-report.md gh-pages-dir/reports/latest/load-test-report.md
             mkdir -p gh-pages-dir/reports/history/load/build-${{ github.run_number }}
-            cp all-artifacts/load-test-reports/load-test-report.md gh-pages-dir/reports/history/load/build-${{ github.run_number }}/load-test-report.md
+            cp load-test-reports/load-test-report.md gh-pages-dir/reports/history/load/build-${{ github.run_number }}/load-test-report.md
           fi
 
       - name: "🚀 Deploy All Consolidated Reports to gh-pages"
@@ -671,3 +671,11 @@ jobs:
           git add reports/
           git diff --quiet && git diff --staged --quiet || git commit -m "docs(reports): deploy unified consolidated summary reports for build ${{ github.run_number }}"
           git push origin gh-pages
+
+      - name: "📤 Upload unified summary reports"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unified-summary-reports
+          path: unified-reports/
+          retention-days: 7
