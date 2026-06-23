@@ -1,5 +1,5 @@
 ## 🚀 Consolidated CI/CD Dashboard
-**Last Updated:** `2026-06-23 09:03:08` | **Run Trigger:** `SECURITY` | **SHA:** `c5714057`
+**Last Updated:** `2026-06-23 09:09:55` | **Run Trigger:** `ANDROID` | **SHA:** `cbac567c`
 
 ### 🛠️ Technology Stack
 | Layer | Technology | Version | Purpose |
@@ -17,9 +17,9 @@
 | **Web E2E** | 476 | 476 | 0 | 0 | 100.0% | 🟢 PASS | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html) |
 | **Android E2E** | 518 | 518 | 0 | 0 | 100.0% | 🟢 PASS | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html) |
 | **Backend Security Scan** | 37 | 35 | 2 | - | 0.0% | 🔴 FAIL | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
-| **Secrets Scan** | - | - | 0 | - | 100.0% | 🟢 PASS | [View Logs](https://github.com/durga1610/kisan-mitra-web/actions/runs/28014713116) |
+| **Secrets Scan** | - | - | 7 | - | 0.0% | 🔴 FAIL | [View Logs](https://github.com/durga1610/kisan-mitra-web/actions/runs/28013864753) |
 | **Unit Tests** | 0 | 0 | 0 | 0 | 0.0% | ➖ N/A | ➖ |
-| **Load Testing** | 32590 reqs / 541.0 RPS / Avg 177.6ms | - | 0 | - | 100.0% | 🟢 PASS | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
+| **Load Testing** | 179800 reqs / 2992.9 RPS / Avg 22.2ms | - | 179800 | - | 0.0% | 🔴 FAIL | [View Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
 
 ### 🛡️ Security Findings Summary
 | Severity | Count | Action Required |
@@ -31,4 +31,12 @@
 | **Total Findings** | **37** | |
 
 ### 🔑 Secrets Leakage Log
-🟢 **No secrets leakage detected in this repository.**
+| Rule ID | File Name | Authors |
+| :--- | :--- | :--- |
+| gcp-api-key | android/app/google-services.json | KARI DURGA MANI SANKAR |
+| gcp-api-key | backend/scratch/live_production_checklist_verifier.py | KARI DURGA MANI SANKAR |
+| gcp-api-key | lib/firebase_options.dart | KARI DURGA MANI SANKAR |
+| gcp-api-key | lib/firebase_options.dart | KARI DURGA MANI SANKAR |
+| gcp-api-key | lib/firebase_options.dart | KARI DURGA MANI SANKAR |
+| gcp-api-key | lib/firebase_options.dart | KARI DURGA MANI SANKAR |
+| gcp-api-key | lib/firebase_options.dart | KARI DURGA MANI SANKAR |
