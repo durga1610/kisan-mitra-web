@@ -1,8 +1,8 @@
 # Android Appium E2E Execution Summary
 
-**Build Number**: #17
-**Execution Date**: 2026-06-23 17:47:12
-**Git Commit**: 024c7ccb
+**Build Number**: #18
+**Execution Date**: 2026-06-24 01:06:33
+**Git Commit**: c315ba55
 **Branch**: main
 
 **APK Version**: 1.0.0-debug
@@ -13,14 +13,14 @@
 
 - **Total Test Cases**: 518
 - **Executed**: 518
-- **Passed**: 518
-- **Failed**: 0
+- **Passed**: 517
+- **Failed**: 1
 - **Skipped**: 0
 - **Blocked**: 0
 
-- **Pass Percentage**: 100.00%
-- **Fail Percentage**: 0.00%
-- **Execution Duration**: 262.48s
+- **Pass Percentage**: 99.81%
+- **Fail Percentage**: 0.19%
+- **Execution Duration**: 275.97s
 
 ### Live Hosted Reports
 - **HTML Dashboard**: https://durga1610.github.io/kisan-mitra-web/reports/latest/execution-report.html
@@ -29,7 +29,6 @@
 
 #### PASSED TESTS
 
-✓ TC_GEN_001 - test_auth_client_validation
 ✓ TC_GEN_002 - test_auth_invalid_credentials
 ✓ TC_GEN_003 - test_home_page_load
 ✓ TC_GEN_004 - test_market_prices_page_load
@@ -44,11 +43,13 @@
 ✓ TC_AUTH_005 - Incorrect Password Attempt
 ✓ TC_AUTH_006 - Account Lockout Threshold
 ✓ TC_AUTH_007 - Biometrics Toggle Settings
-... and 503 more passed tests.
+✓ TC_AUTH_008 - Session Persistence on App Kill
+... and 502 more passed tests.
 
 #### FAILED TESTS
 
-No failed tests.
+✗ TC_GEN_001 - test_auth_client_validation
+  *Reason*: driver = <appium.webdriver.webdriver.WebDriver (session="00625872-fc8f-4afa-8e82-501673e0c66e")> ...
 
 #### SKIPPED TESTS
 
