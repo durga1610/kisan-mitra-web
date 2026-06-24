@@ -1,8 +1,8 @@
 # Android Appium E2E Execution Summary
 
-**Build Number**: #24
-**Execution Date**: 2026-06-24 06:47:35
-**Git Commit**: c7dbbfe2
+**Build Number**: #25
+**Execution Date**: 2026-06-24 07:30:35
+**Git Commit**: 4beee4f2
 **Branch**: main
 
 **APK Version**: 1.0.0-debug
@@ -20,7 +20,7 @@
 
 - **Pass Percentage**: 100.00%
 - **Fail Percentage**: 0.00%
-- **Execution Duration**: 262.07s
+- **Execution Duration**: 305.37s
 
 ### Live Hosted Reports
 - **HTML Dashboard**: https://durga1610.github.io/kisan-mitra-web/reports/latest/execution-report.html
