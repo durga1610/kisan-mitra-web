@@ -1,12 +1,13 @@
 ======================================================================
-KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-23 08:45:31
+KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-24 04:15:43
 ======================================================================
-Running pytest with args: ['-s', '-v', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/test_suites']
+Running pytest with args: ['-s', '-v', '--reruns', '3', '--reruns-delay', '5', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/test_suites']
 
 ============================= test session starts ==============================
 platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.15/x64/bin/python
 cachedir: .pytest_cache
 rootdir: /home/runner/work/kisan-mitra-web/kisan-mitra-web
+plugins: rerunfailures-16.3
 collecting ... collected 518 items
 
 tests/mobile_e2e/test_suites/test_auth.py::test_auth_client_validation [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
@@ -1905,7 +1906,7 @@ tests/mobile_e2e/test_suites/test_regression_400.py::test_regression_case[TC_REG
 [Running Test] TC_REGR_050 - Authentication flow state checks - Scenario Variant 24 (Regression Suite)
 PASSED
 
-======================= 518 passed in 300.05s (0:05:00) ========================
+======================= 518 passed in 263.16s (0:04:23) ========================
 
 ======================================================================
 MOBILE TEST SUITE COMPLETED. GENERATING REPORTS...

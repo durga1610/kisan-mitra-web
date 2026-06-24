@@ -1,0 +1,3878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kisan Mitra Backend Service Test Execution Details</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-color: #0F172A;
+    --card-bg: #1E293B;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --success: #10B981;
+    --error: #EF4444;
+    --warning: #F59E0B;
+    --border-color: #334155;
+  }
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    padding: 24px;
+  }
+  .container {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  header {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  h1 {
+    margin: 0 0 4px 0;
+    font-size: 24px;
+    color: var(--success);
+  }
+  .meta {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .stat-val {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .stat-val.passed { color: var(--success); }
+  .stat-val.failed { color: var(--error); }
+  .stat-val.skipped { color: var(--warning); }
+  .filter-section {
+    margin-bottom: 16px;
+    display: flex;
+    gap: 12px;
+  }
+  .filter-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  .filter-btn.active {
+    background-color: var(--success);
+    color: var(--bg-color);
+    font-weight: 600;
+    border-color: var(--success);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+  th, td {
+    padding: 12px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+  }
+  th {
+    background-color: rgba(255, 255, 255, 0.02);
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  tr:hover td {
+    background-color: rgba(255, 255, 255, 0.01);
+  }
+  .badge {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .badge.passed { background-color: rgba(52, 211, 153, 0.1); color: var(--success); }
+  .badge.failed { background-color: rgba(248, 113, 113, 0.1); color: var(--error); }
+  .badge.skipped { background-color: rgba(251, 191, 36, 0.1); color: var(--warning); }
+  .tc-id {
+    font-family: monospace;
+    background: #0f172a;
+    padding: .2rem .4rem;
+    border-radius: .25rem;
+    color: #38bdf8;
+    font-size: .8rem;
+  }
+  .error-log {
+    font-family: monospace;
+    background-color: #0F172A;
+    padding: 10px;
+    border-radius: 6px;
+    color: #FECACA;
+    font-size: 11px;
+    max-width: 500px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <h1>⚙️ Kisan Mitra Backend Service Test Execution Report</h1>
+      <div class="meta">Run Date: <strong>2026-06-24 04:20:36 UTC</strong> | Build: <strong>#21</strong> | Branch: <code>main</code></div>
+    </div>
+  </header>
+  
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val">408</div></div>
+    <div class="stat-card"><div class="stat-label">Passed</div><div class="stat-val passed">408</div></div>
+    <div class="stat-card"><div class="stat-label">Failed</div><div class="stat-val failed">0</div></div>
+    <div class="stat-card"><div class="stat-label">Skipped</div><div class="stat-val skipped">0</div></div>
+    <div class="stat-card"><div class="stat-label">Pass Rate</div><div class="stat-val">100.00%</div></div>
+  </div>
+  
+  <div class="filter-section">
+    <button class="filter-btn active" onclick="filterTable('all', this)">All</button>
+    <button class="filter-btn" onclick="filterTable('passed', this)">Passed</button>
+    <button class="filter-btn" onclick="filterTable('failed', this)">Failed</button>
+    <button class="filter-btn" onclick="filterTable('skipped', this)">Skipped</button>
+  </div>
+  
+  <table id="test-table">
+    <thead>
+      <tr>
+        <th>Test ID</th>
+        <th>Classname</th>
+        <th>Test Name</th>
+        <th>Status</th>
+        <th>Duration</th>
+        <th>Error / Trace Log</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BE_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_root</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0190s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BE_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_disease_detect</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>1.7200s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BE_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_chat_advisory</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>4.1620s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BE_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_generate_advisory</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BE_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_crop_suitability</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BE_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_daily_guidance</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0100s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BE_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_reasoning</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BE_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_gemini_status</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.3240s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-001-Authentication-Auth check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0150s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-002-Authentication-Auth check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0050s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-003-Authentication-Auth check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0050s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-004-Authentication-Auth check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-005-Authentication-Auth check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0050s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-006-Authentication-Auth check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0050s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-007-Authentication-Auth check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-008-Authentication-Auth check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-009-Authentication-Auth check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-010-Authentication-Auth check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-011-Authentication-Auth check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-012-Authentication-Auth check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-013-Authentication-Auth check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-014-Authentication-Auth check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-015-Authentication-Auth check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-016-Authentication-Auth check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0080s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-017-Authentication-Auth check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-018-Authentication-Auth check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-019-Authentication-Auth check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-020-Authentication-Auth check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-021-Authentication-Auth check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-022-Authentication-Auth check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0070s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-023-Authentication-Auth check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-024-Authentication-Auth check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-025-Authentication-Auth check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-026-Authentication-Auth check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0050s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-027-Authentication-Auth check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-028-Authentication-Auth check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0060s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-029-Authentication-Auth check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0050s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTH_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTH-030-Authentication-Auth check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0050s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-001-Authorization-Authz check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-002-Authorization-Authz check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-003-Authorization-Authz check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-004-Authorization-Authz check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-005-Authorization-Authz check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-006-Authorization-Authz check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-007-Authorization-Authz check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-008-Authorization-Authz check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-009-Authorization-Authz check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-010-Authorization-Authz check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-011-Authorization-Authz check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-012-Authorization-Authz check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-013-Authorization-Authz check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-014-Authorization-Authz check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-015-Authorization-Authz check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-016-Authorization-Authz check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-017-Authorization-Authz check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-018-Authorization-Authz check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-019-Authorization-Authz check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-020-Authorization-Authz check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-021-Authorization-Authz check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-022-Authorization-Authz check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-023-Authorization-Authz check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-024-Authorization-Authz check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-025-Authorization-Authz check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-026-Authorization-Authz check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-027-Authorization-Authz check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-028-Authorization-Authz check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-029-Authorization-Authz check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-030-Authorization-Authz check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_031</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-031-Authorization-Authz check 31]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_032</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-032-Authorization-Authz check 32]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_033</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-033-Authorization-Authz check 33]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_034</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-034-Authorization-Authz check 34]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_035</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-035-Authorization-Authz check 35]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_036</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-036-Authorization-Authz check 36]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_037</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-037-Authorization-Authz check 37]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_038</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-038-Authorization-Authz check 38]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_039</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-039-Authorization-Authz check 39]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_AUTHZ_040</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-AUTHZ-040-Authorization-Authz check 40]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-001-Input Validation-Input validation check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-002-Input Validation-Input validation check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-003-Input Validation-Input validation check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-004-Input Validation-Input validation check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-005-Input Validation-Input validation check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-006-Input Validation-Input validation check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-007-Input Validation-Input validation check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-008-Input Validation-Input validation check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-009-Input Validation-Input validation check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-010-Input Validation-Input validation check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-011-Input Validation-Input validation check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-012-Input Validation-Input validation check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-013-Input Validation-Input validation check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-014-Input Validation-Input validation check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-015-Input Validation-Input validation check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-016-Input Validation-Input validation check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-017-Input Validation-Input validation check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-018-Input Validation-Input validation check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-019-Input Validation-Input validation check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-020-Input Validation-Input validation check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-021-Input Validation-Input validation check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-022-Input Validation-Input validation check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-023-Input Validation-Input validation check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-024-Input Validation-Input validation check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-025-Input Validation-Input validation check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-026-Input Validation-Input validation check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-027-Input Validation-Input validation check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-028-Input Validation-Input validation check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-029-Input Validation-Input validation check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-030-Input Validation-Input validation check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_031</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-031-Input Validation-Input validation check 31]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_032</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-032-Input Validation-Input validation check 32]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_033</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-033-Input Validation-Input validation check 33]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_034</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-034-Input Validation-Input validation check 34]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_035</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-035-Input Validation-Input validation check 35]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_036</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-036-Input Validation-Input validation check 36]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_037</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-037-Input Validation-Input validation check 37]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_038</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-038-Input Validation-Input validation check 38]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_039</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-039-Input Validation-Input validation check 39]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INP_040</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INP-040-Input Validation-Input validation check 40]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-001-Injection-Injection prevention check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>2.5750s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-002-Injection-Injection prevention check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.3000s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-003-Injection-Injection prevention check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.3200s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-004-Injection-Injection prevention check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2800s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-005-Injection-Injection prevention check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-006-Injection-Injection prevention check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2800s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-007-Injection-Injection prevention check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.3450s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-008-Injection-Injection prevention check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2980s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-009-Injection-Injection prevention check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-010-Injection-Injection prevention check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2820s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-011-Injection-Injection prevention check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-012-Injection-Injection prevention check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2820s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-013-Injection-Injection prevention check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-014-Injection-Injection prevention check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-015-Injection-Injection prevention check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2780s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-016-Injection-Injection prevention check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-017-Injection-Injection prevention check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-018-Injection-Injection prevention check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2880s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-019-Injection-Injection prevention check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-020-Injection-Injection prevention check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-021-Injection-Injection prevention check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-022-Injection-Injection prevention check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-023-Injection-Injection prevention check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-024-Injection-Injection prevention check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-025-Injection-Injection prevention check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-026-Injection-Injection prevention check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2810s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-027-Injection-Injection prevention check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2800s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-028-Injection-Injection prevention check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-029-Injection-Injection prevention check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2830s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-030-Injection-Injection prevention check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2840s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_031</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-031-Injection-Injection prevention check 31]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.3160s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_032</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-032-Injection-Injection prevention check 32]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.3300s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_033</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-033-Injection-Injection prevention check 33]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2780s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_034</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-034-Injection-Injection prevention check 34]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_035</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-035-Injection-Injection prevention check 35]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_036</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-036-Injection-Injection prevention check 36]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_037</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-037-Injection-Injection prevention check 37]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_038</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-038-Injection-Injection prevention check 38]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_039</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-039-Injection-Injection prevention check 39]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2800s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_040</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-040-Injection-Injection prevention check 40]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2810s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_041</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-041-Injection-Injection prevention check 41]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_042</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-042-Injection-Injection prevention check 42]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2860s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_043</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-043-Injection-Injection prevention check 43]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_044</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-044-Injection-Injection prevention check 44]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_045</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-045-Injection-Injection prevention check 45]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_046</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-046-Injection-Injection prevention check 46]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_047</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-047-Injection-Injection prevention check 47]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2750s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_048</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-048-Injection-Injection prevention check 48]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_049</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-049-Injection-Injection prevention check 49]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2770s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_050</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-050-Injection-Injection prevention check 50]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2780s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_051</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-051-Injection-Injection prevention check 51]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_052</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-052-Injection-Injection prevention check 52]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2780s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_053</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-053-Injection-Injection prevention check 53]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2760s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_054</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-054-Injection-Injection prevention check 54]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_055</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-055-Injection-Injection prevention check 55]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2780s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_056</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-056-Injection-Injection prevention check 56]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2780s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_057</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-057-Injection-Injection prevention check 57]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2780s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_058</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-058-Injection-Injection prevention check 58]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2810s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_059</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-059-Injection-Injection prevention check 59]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2780s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_INJ_060</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-INJ-060-Injection-Injection prevention check 60]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.2790s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-001-Business Logic-Business logic validation check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-002-Business Logic-Business logic validation check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-003-Business Logic-Business logic validation check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-004-Business Logic-Business logic validation check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-005-Business Logic-Business logic validation check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-006-Business Logic-Business logic validation check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-007-Business Logic-Business logic validation check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-008-Business Logic-Business logic validation check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-009-Business Logic-Business logic validation check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-010-Business Logic-Business logic validation check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-011-Business Logic-Business logic validation check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-012-Business Logic-Business logic validation check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-013-Business Logic-Business logic validation check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-014-Business Logic-Business logic validation check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-015-Business Logic-Business logic validation check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-016-Business Logic-Business logic validation check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-017-Business Logic-Business logic validation check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-018-Business Logic-Business logic validation check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-019-Business Logic-Business logic validation check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-020-Business Logic-Business logic validation check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-021-Business Logic-Business logic validation check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-022-Business Logic-Business logic validation check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-023-Business Logic-Business logic validation check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-024-Business Logic-Business logic validation check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-025-Business Logic-Business logic validation check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-026-Business Logic-Business logic validation check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-027-Business Logic-Business logic validation check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-028-Business Logic-Business logic validation check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-029-Business Logic-Business logic validation check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_BIZ_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-BIZ-030-Business Logic-Business logic validation check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-001-Configuration-Configuration integrity check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-002-Configuration-Configuration integrity check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-003-Configuration-Configuration integrity check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-004-Configuration-Configuration integrity check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-005-Configuration-Configuration integrity check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-006-Configuration-Configuration integrity check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-007-Configuration-Configuration integrity check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-008-Configuration-Configuration integrity check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-009-Configuration-Configuration integrity check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-010-Configuration-Configuration integrity check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-011-Configuration-Configuration integrity check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-012-Configuration-Configuration integrity check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-013-Configuration-Configuration integrity check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-014-Configuration-Configuration integrity check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-015-Configuration-Configuration integrity check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-016-Configuration-Configuration integrity check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-017-Configuration-Configuration integrity check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-018-Configuration-Configuration integrity check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-019-Configuration-Configuration integrity check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-020-Configuration-Configuration integrity check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-021-Configuration-Configuration integrity check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-022-Configuration-Configuration integrity check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-023-Configuration-Configuration integrity check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-024-Configuration-Configuration integrity check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-025-Configuration-Configuration integrity check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-026-Configuration-Configuration integrity check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-027-Configuration-Configuration integrity check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-028-Configuration-Configuration integrity check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-029-Configuration-Configuration integrity check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_CFG_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-CFG-030-Configuration-Configuration integrity check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-001-Functional API-Functional API verification check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-002-Functional API-Functional API verification check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-003-Functional API-Functional API verification check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-004-Functional API-Functional API verification check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-005-Functional API-Functional API verification check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-006-Functional API-Functional API verification check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-007-Functional API-Functional API verification check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-008-Functional API-Functional API verification check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-009-Functional API-Functional API verification check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-010-Functional API-Functional API verification check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-011-Functional API-Functional API verification check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-012-Functional API-Functional API verification check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-013-Functional API-Functional API verification check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-014-Functional API-Functional API verification check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-015-Functional API-Functional API verification check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-016-Functional API-Functional API verification check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-017-Functional API-Functional API verification check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-018-Functional API-Functional API verification check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-019-Functional API-Functional API verification check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-020-Functional API-Functional API verification check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-021-Functional API-Functional API verification check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-022-Functional API-Functional API verification check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-023-Functional API-Functional API verification check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-024-Functional API-Functional API verification check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-025-Functional API-Functional API verification check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-026-Functional API-Functional API verification check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-027-Functional API-Functional API verification check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-028-Functional API-Functional API verification check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-029-Functional API-Functional API verification check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-030-Functional API-Functional API verification check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_031</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-031-Functional API-Functional API verification check 31]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_032</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-032-Functional API-Functional API verification check 32]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_033</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-033-Functional API-Functional API verification check 33]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_034</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-034-Functional API-Functional API verification check 34]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_035</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-035-Functional API-Functional API verification check 35]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_036</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-036-Functional API-Functional API verification check 36]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_037</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-037-Functional API-Functional API verification check 37]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_038</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-038-Functional API-Functional API verification check 38]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_039</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-039-Functional API-Functional API verification check 39]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_040</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-040-Functional API-Functional API verification check 40]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_041</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-041-Functional API-Functional API verification check 41]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_042</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-042-Functional API-Functional API verification check 42]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_043</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-043-Functional API-Functional API verification check 43]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_044</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-044-Functional API-Functional API verification check 44]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_045</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-045-Functional API-Functional API verification check 45]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_046</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-046-Functional API-Functional API verification check 46]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_047</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-047-Functional API-Functional API verification check 47]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_048</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-048-Functional API-Functional API verification check 48]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_049</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-049-Functional API-Functional API verification check 49]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_050</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-050-Functional API-Functional API verification check 50]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_051</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-051-Functional API-Functional API verification check 51]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_052</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-052-Functional API-Functional API verification check 52]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_053</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-053-Functional API-Functional API verification check 53]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_054</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-054-Functional API-Functional API verification check 54]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_055</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-055-Functional API-Functional API verification check 55]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_056</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-056-Functional API-Functional API verification check 56]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_057</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-057-Functional API-Functional API verification check 57]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_058</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-058-Functional API-Functional API verification check 58]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_059</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-059-Functional API-Functional API verification check 59]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_060</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-060-Functional API-Functional API verification check 60]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_061</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-061-Functional API-Functional API verification check 61]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_062</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-062-Functional API-Functional API verification check 62]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_063</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-063-Functional API-Functional API verification check 63]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_064</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-064-Functional API-Functional API verification check 64]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_065</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-065-Functional API-Functional API verification check 65]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_066</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-066-Functional API-Functional API verification check 66]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_067</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-067-Functional API-Functional API verification check 67]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_068</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-068-Functional API-Functional API verification check 68]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_069</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-069-Functional API-Functional API verification check 69]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_070</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-070-Functional API-Functional API verification check 70]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_071</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-071-Functional API-Functional API verification check 71]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_072</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-072-Functional API-Functional API verification check 72]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_073</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-073-Functional API-Functional API verification check 73]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_074</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-074-Functional API-Functional API verification check 74]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_075</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-075-Functional API-Functional API verification check 75]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_076</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-076-Functional API-Functional API verification check 76]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_077</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-077-Functional API-Functional API verification check 77]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_078</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-078-Functional API-Functional API verification check 78]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_079</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-079-Functional API-Functional API verification check 79]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_080</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-080-Functional API-Functional API verification check 80]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_081</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-081-Functional API-Functional API verification check 81]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_082</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-082-Functional API-Functional API verification check 82]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_083</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-083-Functional API-Functional API verification check 83]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_084</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-084-Functional API-Functional API verification check 84]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_085</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-085-Functional API-Functional API verification check 85]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_086</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-086-Functional API-Functional API verification check 86]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_087</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-087-Functional API-Functional API verification check 87]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_088</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-088-Functional API-Functional API verification check 88]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_089</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-089-Functional API-Functional API verification check 89]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_090</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-090-Functional API-Functional API verification check 90]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_091</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-091-Functional API-Functional API verification check 91]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_092</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-092-Functional API-Functional API verification check 92]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_093</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-093-Functional API-Functional API verification check 93]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_094</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-094-Functional API-Functional API verification check 94]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_095</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-095-Functional API-Functional API verification check 95]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_096</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-096-Functional API-Functional API verification check 96]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_097</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-097-Functional API-Functional API verification check 97]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_098</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-098-Functional API-Functional API verification check 98]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_099</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-099-Functional API-Functional API verification check 99]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_FUNC_100</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-FUNC-100-Functional API-Functional API verification check 100]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-001-Performance-Performance SLA check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-002-Performance-Performance SLA check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-003-Performance-Performance SLA check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-004-Performance-Performance SLA check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-005-Performance-Performance SLA check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-006-Performance-Performance SLA check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-007-Performance-Performance SLA check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-008-Performance-Performance SLA check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-009-Performance-Performance SLA check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-010-Performance-Performance SLA check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-011-Performance-Performance SLA check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-012-Performance-Performance SLA check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-013-Performance-Performance SLA check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-014-Performance-Performance SLA check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-015-Performance-Performance SLA check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-016-Performance-Performance SLA check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-017-Performance-Performance SLA check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-018-Performance-Performance SLA check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-019-Performance-Performance SLA check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-020-Performance-Performance SLA check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-021-Performance-Performance SLA check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-022-Performance-Performance SLA check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-023-Performance-Performance SLA check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-024-Performance-Performance SLA check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-025-Performance-Performance SLA check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-026-Performance-Performance SLA check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-027-Performance-Performance SLA check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-028-Performance-Performance SLA check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-029-Performance-Performance SLA check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_PERF_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-PERF-030-Performance-Performance SLA check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_001</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-001-DAST-DAST scan simulation check 1]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_002</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-002-DAST-DAST scan simulation check 2]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_003</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-003-DAST-DAST scan simulation check 3]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_004</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-004-DAST-DAST scan simulation check 4]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_005</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-005-DAST-DAST scan simulation check 5]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_006</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-006-DAST-DAST scan simulation check 6]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_007</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-007-DAST-DAST scan simulation check 7]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_008</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-008-DAST-DAST scan simulation check 8]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_009</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-009-DAST-DAST scan simulation check 9]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_010</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-010-DAST-DAST scan simulation check 10]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_011</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-011-DAST-DAST scan simulation check 11]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_012</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-012-DAST-DAST scan simulation check 12]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_013</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-013-DAST-DAST scan simulation check 13]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_014</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-014-DAST-DAST scan simulation check 14]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_015</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-015-DAST-DAST scan simulation check 15]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_016</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-016-DAST-DAST scan simulation check 16]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_017</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-017-DAST-DAST scan simulation check 17]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_018</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-018-DAST-DAST scan simulation check 18]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_019</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-019-DAST-DAST scan simulation check 19]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_020</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-020-DAST-DAST scan simulation check 20]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_021</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-021-DAST-DAST scan simulation check 21]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_022</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-022-DAST-DAST scan simulation check 22]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_023</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-023-DAST-DAST scan simulation check 23]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_024</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-024-DAST-DAST scan simulation check 24]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_025</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-025-DAST-DAST scan simulation check 25]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_026</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-026-DAST-DAST scan simulation check 26]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_027</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-027-DAST-DAST scan simulation check 27]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_028</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-028-DAST-DAST scan simulation check 28]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_029</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-029-DAST-DAST scan simulation check 29]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_030</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-030-DAST-DAST scan simulation check 30]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_031</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-031-DAST-DAST scan simulation check 31]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_032</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-032-DAST-DAST scan simulation check 32]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_033</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-033-DAST-DAST scan simulation check 33]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_034</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-034-DAST-DAST scan simulation check 34]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_035</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-035-DAST-DAST scan simulation check 35]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_036</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-036-DAST-DAST scan simulation check 36]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_037</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-037-DAST-DAST scan simulation check 37]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_038</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-038-DAST-DAST scan simulation check 38]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_039</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-039-DAST-DAST scan simulation check 39]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0030s</td>
+          <td></td>
+        </tr>
+        
+        <tr class="test-row passed">
+          <td><span class="tc-id">TC_DAST_040</span></td>
+          <td>test_api</td>
+          <td><strong>test_parameterized_security_compliance[TC-DAST-040-DAST-DAST scan simulation check 40]</strong></td>
+          <td><span class="badge passed">PASSED</span></td>
+          <td>0.0040s</td>
+          <td></td>
+        </tr>
+        
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function filterTable(status, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    document.querySelectorAll('.test-row').forEach(row => {
+      if (status === 'all') {
+        row.style.display = '';
+      } else if (row.classList.contains(status)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>

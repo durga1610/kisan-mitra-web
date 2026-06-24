@@ -1,5 +1,5 @@
 ======================================================================
-KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-24 02:37:34
+KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-24 04:15:43
 ======================================================================
 Running pytest with args: ['-s', '-v', '--reruns', '3', '--reruns-delay', '5', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/test_suites']
 
@@ -1906,7 +1906,7 @@ tests/mobile_e2e/test_suites/test_regression_400.py::test_regression_case[TC_REG
 [Running Test] TC_REGR_050 - Authentication flow state checks - Scenario Variant 24 (Regression Suite)
 PASSED
 
-======================= 518 passed in 226.34s (0:03:46) ========================
+======================= 518 passed in 263.16s (0:04:23) ========================
 
 ======================================================================
 MOBILE TEST SUITE COMPLETED. GENERATING REPORTS...
