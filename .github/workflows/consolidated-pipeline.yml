@@ -685,6 +685,41 @@ jobs:
             cp load-test-reports/load-test-report.md gh-pages-dir/reports/history/load/build-${{ github.run_number }}/load-test-report.md
           fi
 
+          # Copy Unified Excel Summary report
+          if [ -f "unified-reports/unified-summary.xlsx" ]; then
+            cp "unified-reports/unified-summary.xlsx" gh-pages-dir/reports/latest/unified-summary.xlsx
+            mkdir -p gh-pages-dir/reports/history/build-${{ github.run_number }}
+            cp "unified-reports/unified-summary.xlsx" gh-pages-dir/reports/history/build-${{ github.run_number }}/unified-summary.xlsx 2>/dev/null || true
+          fi
+
+          # Copy Markdown Reports (Dependency Audit, Executive Summary, Retest Reports)
+          cp "Vulnerability Test Results/dependency-report.md" gh-pages-dir/reports/latest/dependency-report.md 2>/dev/null || true
+          cp "Vulnerability Test Results/executive-summary.md" gh-pages-dir/reports/latest/executive-summary.md 2>/dev/null || true
+          cp "Vulnerability Test Results/security_retest_report.md" gh-pages-dir/reports/latest/security_retest_report.md 2>/dev/null || true
+          cp "Vulnerability Test Results/android_e2e_retest_report.md" gh-pages-dir/reports/latest/android_e2e_retest_report.md 2>/dev/null || true
+
+          # Copy Markdown Reports to History folder
+          mkdir -p gh-pages-dir/reports/history/security/build-${{ github.run_number }}
+          cp "Vulnerability Test Results/dependency-report.md" gh-pages-dir/reports/history/security/build-${{ github.run_number }}/dependency-report.md 2>/dev/null || true
+          cp "Vulnerability Test Results/executive-summary.md" gh-pages-dir/reports/history/security/build-${{ github.run_number }}/executive-summary.md 2>/dev/null || true
+          cp "Vulnerability Test Results/security_retest_report.md" gh-pages-dir/reports/history/security/build-${{ github.run_number }}/security_retest_report.md 2>/dev/null || true
+
+          mkdir -p gh-pages-dir/reports/history/android/build-${{ github.run_number }}
+          cp "Vulnerability Test Results/android_e2e_retest_report.md" gh-pages-dir/reports/history/android/build-${{ github.run_number }}/android_e2e_retest_report.md 2>/dev/null || true
+
+          # Copy JSON execution results
+          if [ -f "web-reports/JSON/execution-results.json" ]; then
+            cp "web-reports/JSON/execution-results.json" gh-pages-dir/reports/latest/web/execution-results.json
+            mkdir -p gh-pages-dir/reports/history/web/build-${{ github.run_number }}
+            cp "web-reports/JSON/execution-results.json" gh-pages-dir/reports/history/web/build-${{ github.run_number }}/execution-results.json
+          fi
+          if [ -f "android-reports/JSON/execution-results.json" ]; then
+            cp "android-reports/JSON/execution-results.json" gh-pages-dir/reports/latest/android/execution-results.json
+            mkdir -p gh-pages-dir/reports/history/android/build-${{ github.run_number }}
+            cp "android-reports/JSON/execution-results.json" gh-pages-dir/reports/history/android/build-${{ github.run_number }}/execution-results.json
+          fi
+
+
       - name: "🚀 Deploy All Consolidated Reports to gh-pages"
         run: |
           cd gh-pages-dir
