@@ -6,6 +6,7 @@ import '../config/api_config.dart';
 import '../models/farm_model.dart';
 import '../../features/weather/data/models/weather_model.dart';
 import '../../features/crop_recommendation/data/recommendation_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'market_repository.dart';
 
 class RecommendationRepository {
@@ -32,12 +33,48 @@ class RecommendationRepository {
     bool forceRefresh = false,
   }) async {
     final cacheKey = '${farm.id ?? farm.name}_$languageCode';
-    
-    if (!forceRefresh && _cache.containsKey(cacheKey)) {
-      final lastTime = _cacheTime[cacheKey];
-      if (lastTime != null && DateTime.now().difference(lastTime).inHours < 12) {
-        debugPrint('[RecommendationRepository] Returning cached AI recommendations.');
-        return _cache[cacheKey]!;
+    final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+
+    if (!forceRefresh) {
+      if (_cache.containsKey(cacheKey)) {
+        final lastTime = _cacheTime[cacheKey];
+        if (lastTime != null && DateTime.now().difference(lastTime).inHours < 12) {
+          debugPrint('[RecommendationRepository] Returning in-memory cached AI recommendations.');
+          return _cache[cacheKey]!;
+        }
+      }
+
+      // Check Firestore Cache
+      if (userId != 'guest' && farm.id != null) {
+        try {
+          final query = await FirebaseFirestore.instance
+              .collection('crop_recommendations')
+              .where('uid', isEqualTo: userId)
+              .where('farmId', isEqualTo: farm.id)
+              .get();
+
+          if (query.docs.isNotEmpty) {
+            final doc = query.docs.first;
+            final timestampStr = doc.data()['timestamp'] as String?;
+            if (timestampStr != null) {
+              final timestamp = DateTime.tryParse(timestampStr);
+              if (timestamp != null && DateTime.now().difference(timestamp).inHours < 12) {
+                final List<dynamic> recsList = doc.data()['recommendations'] as List<dynamic>? ?? [];
+                if (recsList.isNotEmpty) {
+                  debugPrint('[RecommendationRepository] Returning Firestore cached AI recommendations.');
+                  final List<RecommendationModel> recommendations = recsList
+                      .map((item) => RecommendationModel.fromMap(Map<String, dynamic>.from(item)))
+                      .toList();
+                  _cache[cacheKey] = recommendations;
+                  _cacheTime[cacheKey] = timestamp;
+                  return recommendations;
+                }
+              }
+            }
+          }
+        } catch (e) {
+          debugPrint('[RecommendationRepository] Firestore cache read failed: $e');
+        }
       }
     }
 
@@ -104,6 +141,35 @@ class RecommendationRepository {
         if (recommendations.isNotEmpty) {
           _cache[cacheKey] = recommendations;
           _cacheTime[cacheKey] = DateTime.now();
+
+          // Write back to Firestore Cache
+          if (userId != 'guest' && farm.id != null) {
+            try {
+              final query = await FirebaseFirestore.instance
+                  .collection('crop_recommendations')
+                  .where('uid', isEqualTo: userId)
+                  .where('farmId', isEqualTo: farm.id)
+                  .get();
+
+              if (query.docs.isNotEmpty) {
+                await query.docs.first.reference.update({
+                  'recommendations': recommendations.map((r) => r.toMap()).toList(),
+                  'timestamp': DateTime.now().toIso8601String(),
+                  'reason': 'Updated AI recommendations',
+                });
+              } else {
+                await FirebaseFirestore.instance.collection('crop_recommendations').add({
+                  'uid': userId,
+                  'farmId': farm.id,
+                  'recommendations': recommendations.map((r) => r.toMap()).toList(),
+                  'timestamp': DateTime.now().toIso8601String(),
+                  'reason': 'AI recommendations',
+                });
+              }
+            } catch (e) {
+              debugPrint('[RecommendationRepository] Firestore cache write failed: $e');
+            }
+          }
         }
         return recommendations;
       } else {

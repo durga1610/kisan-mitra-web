@@ -26,6 +26,40 @@ class RecommendationModel {
     this.isLocallyCultivated = false,
     this.source,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'cropName': cropName,
+      'imageUrl': imageUrl,
+      'marketDemand': marketDemand,
+      'demandScore': demandScore,
+      'expectedProfit': expectedProfit,
+      'suitableSoil': suitableSoil,
+      'suitableRegions': suitableRegions,
+      'growthPeriod': growthPeriod,
+      'matchReason': matchReason,
+      'suitabilityScore': suitabilityScore,
+      'isLocallyCultivated': isLocallyCultivated,
+      'source': source,
+    };
+  }
+
+  factory RecommendationModel.fromMap(Map<String, dynamic> map) {
+    return RecommendationModel(
+      cropName: map['cropName'] ?? '',
+      imageUrl: map['imageUrl'] ?? '',
+      marketDemand: map['marketDemand'] ?? 'Medium',
+      demandScore: (map['demandScore'] ?? 0.0).toDouble(),
+      expectedProfit: map['expectedProfit'] ?? 'N/A',
+      suitableSoil: List<String>.from(map['suitableSoil'] ?? []),
+      suitableRegions: List<String>.from(map['suitableRegions'] ?? []),
+      growthPeriod: map['growthPeriod'] ?? 'N/A',
+      matchReason: map['matchReason'] ?? '',
+      suitabilityScore: (map['suitabilityScore'] ?? 0.0).toDouble(),
+      isLocallyCultivated: map['isLocallyCultivated'] ?? false,
+      source: map['source'],
+    );
+  }
 }
 
 class CustomCropAnalysisModel {
