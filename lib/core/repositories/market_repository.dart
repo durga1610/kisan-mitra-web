@@ -5,13 +5,18 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../../core/config/api_config.dart';
-import '../models/market_price.dart';
+import '../config/api_config.dart';
+import '../../features/market/data/models/market_price.dart';
 
-class MarketService {
+class MarketRepository {
+  static final MarketRepository _instance = MarketRepository._internal();
+  factory MarketRepository() => _instance;
+  MarketRepository._internal();
+
   final Random _random = Random();
   bool isFallbackActive = false;
   DateTime? lastUpdated;
+  bool _isFetchingBackground = false;
 
   List<double> _generateHistoricalPrices(double basePrice, int days) {
     List<double> prices = [];
@@ -19,14 +24,11 @@ class MarketService {
     for (int i = 0; i < days; i++) {
       // Fluctuate by -5% to +5%
       currentPrice = currentPrice * (1 + ((_random.nextDouble() * 10) - 5) / 100);
-      prices.insert(0, currentPrice); // Insert at beginning so index 0 is oldest, last is newest
+      prices.insert(0, currentPrice);
     }
     return prices;
   }
 
-  // Mock data has been completely removed as per user request to use only real Government API data.
-
-  // Helper to title case strings
   String _capitalize(String text) {
     if (text.isEmpty) return text;
     return text.split(' ').map((word) {
@@ -35,7 +37,6 @@ class MarketService {
     }).join(' ');
   }
 
-  // Helper to fix common state misspellings
   String _normalizeState(String state) {
     String s = state.toLowerCase().replaceAll(' ', '').replaceAll('_', '');
     if (s.contains('andhra')) return 'Andhra Pradesh';
@@ -58,7 +59,6 @@ class MarketService {
     return _capitalize(state.trim());
   }
 
-  // Helper to fix common crop misspellings
   static String normalizeCrop(String crop) {
     String c = crop.toLowerCase().trim();
     if (c.contains('cotten') || c.contains('cotton')) return 'Cotton';
@@ -73,8 +73,6 @@ class MarketService {
     if (c.contains('apple')) return 'Apple';
     return crop.substring(0, 1).toUpperCase() + crop.substring(1).toLowerCase();
   }
-
-  bool _isFetchingBackground = false;
 
   Future<List<MarketPrice>?> _getLocalCache() async {
     try {
@@ -102,7 +100,6 @@ class MarketService {
     return null;
   }
 
-  // Fetch from Live API or Local Cache using CACHE-FIRST strategy
   Future<List<MarketPrice>?> getMarketPrices({
     List<String>? preferredCrops, 
     String? preferredState, 
@@ -110,11 +107,9 @@ class MarketService {
     VoidCallback? onBackgroundFetchComplete,
   }) async {
     try {
-      // 1. FAST PATH: Attempt to load from local SharedPreferences cache FIRST for instant response
       if (!forceRefresh) {
         final cached = await _getLocalCache();
         if (cached != null) {
-          // Trigger a background refresh so data stays fresh for the next load
           if (!_isFetchingBackground) {
             _isFetchingBackground = true;
             _fetchLiveApiAndUpdateCache(preferredCrops, preferredState).then((_) {
@@ -131,17 +126,15 @@ class MarketService {
         }
       }
 
-      // 2. SLOW PATH: Cache is empty or failed, we must block and wait for the Live API
       if (kDebugMode) print('Cache empty or failed, performing blocking Live API fetch...');
       final livePrices = await _fetchLiveApiAndUpdateCache(preferredCrops, preferredState);
       if (livePrices != null) {
         return livePrices;
       }
       
-      // If live API failed, fall back to cached data immediately
       final cached = await _getLocalCache();
       if (cached != null) {
-        debugPrint('[MarketService] Live fetch failed, fell back to local cache immediately.');
+        debugPrint('[MarketRepository] Live fetch failed, fell back to local cache.');
         return cached;
       }
       return null;
@@ -154,21 +147,15 @@ class MarketService {
     }
   }
 
-  // Live API Fetching Logic
   Future<List<MarketPrice>?> _fetchLiveApiAndUpdateCache(List<String>? preferredCrops, String? preferredState) async {
     try {
-      // Force-refresh token to prevent stale-token 401s
       final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
-      if (kDebugMode) {
-        print('[MarketService] Token retrieved: ${token != null ? "YES (${token.length} chars)" : "NULL — user not signed in"}');
-      }
       final headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         if (token != null) 'Authorization': 'Bearer $token',
       };
 
-      // Prepare query parameters
       final Map<String, String> queryParams = {};
       if (preferredCrops != null && preferredCrops.isNotEmpty) {
         queryParams['crops'] = preferredCrops.map((c) => normalizeCrop(c)).join(',');
@@ -178,15 +165,7 @@ class MarketService {
       }
 
       final uri = Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/market/prices').replace(queryParameters: queryParams);
-      if (kDebugMode) {
-        print('[MarketService] Request URL: $uri');
-      }
-
       final response = await http.get(uri, headers: headers).timeout(const Duration(seconds: 45));
-
-      if (kDebugMode) {
-        print('[MarketService] Response status: ${response.statusCode}');
-      }
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -200,10 +179,6 @@ class MarketService {
         }
 
         final List<dynamic> records = data['records'] ?? [];
-        if (kDebugMode) {
-          print('[MarketService] Successfully retrieved ${records.length} records. isFallback: $isFallbackActive');
-        }
-
         final List<MarketPrice> fetchedPrices = records.map<MarketPrice>((record) {
           double modalPrice = double.tryParse(record['modal_price'].toString()) ?? 0.0;
           double minPrice = double.tryParse(record['min_price'].toString()) ?? 0.0;
@@ -238,7 +213,6 @@ class MarketService {
             await prefs.setString('market_prices_cache', jsonEncode(serializedList));
             await prefs.setString('market_prices_cache_is_fallback', isFallbackActive.toString());
             await prefs.setString('market_prices_cache_last_updated', lastUpdated?.toIso8601String() ?? '');
-            if (kDebugMode) print('Successfully cached ${itemsToCache.length} records locally.');
           } catch(e) {
             if (kDebugMode) print('Error saving to local cache: $e');
           }
@@ -246,14 +220,11 @@ class MarketService {
 
         return _processBestPrices(fetchedPrices);
       } else {
-        if (kDebugMode) {
-          print('[MarketService] Backend proxy returned error status: ${response.statusCode}.');
-        }
         return null;
       }
     } catch (e) {
       if (kDebugMode) {
-        print('[MarketService] Exception during live fetch from proxy: $e');
+        print('[MarketRepository] Exception during live fetch: $e');
       }
       return null;
     }
@@ -281,7 +252,6 @@ class MarketService {
     return '🌱';
   }
 
-  // Automatically calculate and mark the best price for each unique crop
   List<MarketPrice> _processBestPrices(List<MarketPrice> prices) {
     final Map<String, double> maxPrices = {};
     for (var p in prices) {

@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../data/models/market_price.dart';
-import '../../data/services/market_service.dart';
+import '../../../../core/repositories/market_repository.dart';
 
 enum MarketSortBy { priceHigh, priceLow, distance, trend, state }
 
 class MarketProvider extends ChangeNotifier {
-  final MarketService _service = MarketService();
+  final MarketRepository _service = MarketRepository();
   
   List<MarketPrice> _allPrices = [];
   List<MarketPrice> _myCropPrices = [];
@@ -23,7 +23,6 @@ class MarketProvider extends ChangeNotifier {
   
   List<String> _plantedCrops = [];
   String _farmState = '';
-  Timer? _livePriceTimer;
   Timer? _refreshTimer;
   final Random _random = Random();
 
@@ -42,13 +41,11 @@ class MarketProvider extends ChangeNotifier {
 
   MarketProvider() {
     fetchPrices();
-    _startLivePriceSimulation();
     _startPeriodicRefresh();
   }
 
   @override
   void dispose() {
-    _livePriceTimer?.cancel();
     _refreshTimer?.cancel();
     super.dispose();
   }
@@ -58,57 +55,11 @@ class MarketProvider extends ChangeNotifier {
     if (_plantedCrops.join(',') != plantedCrops.join(',') || _farmState != farmState) {
       _plantedCrops = plantedCrops;
       _farmState = farmState;
-      // Re-fetch prices to guarantee we query the API for the specific crops and state
       fetchPrices();
     } else {
       _applyFilters();
       notifyListeners();
     }
-  }
-
-  void _startLivePriceSimulation() {
-    // Simulate live market fluctuation every 30 seconds instead of 3 to reduce UI lag
-    _livePriceTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
-      if (_allPrices.isEmpty) return;
-
-      bool hasChanges = false;
-      // Randomly update 1 or 2 prices to simulate live ticker
-      int numUpdates = _random.nextInt(3) + 1; // 1 to 3 updates
-      
-      for (int i = 0; i < numUpdates; i++) {
-        int index = _random.nextInt(_allPrices.length);
-        MarketPrice p = _allPrices[index];
-        
-        // Fluctuate price by -2% to +2%
-        double changePercent = (_random.nextDouble() * 4) - 2;
-        double newModalPrice = p.modalPrice * (1 + changePercent / 100);
-        
-        // Update trend based on latest tick
-        double newTrend = p.trendPercentage + (changePercent * 0.1);
-
-        // Update historical prices (keep last 7)
-        List<double> newHistory = List.from(p.historicalPrices);
-        if (newHistory.isNotEmpty) {
-          newHistory.removeAt(0); // remove oldest
-          newHistory.add(newModalPrice); // add newest
-        }
-        
-        _allPrices[index] = p.copyWith(
-          modalPrice: newModalPrice,
-          trendPercentage: newTrend,
-          updatedTime: DateTime.now(),
-          historicalPrices: newHistory,
-        );
-        hasChanges = true;
-      }
-
-      if (hasChanges) {
-        _applyFilters();
-        notifyListeners();
-        
-
-      }
-    });
   }
 
   void _startPeriodicRefresh() {
@@ -273,7 +224,7 @@ class MarketProvider extends ChangeNotifier {
       bool isMyCrop = _plantedCrops.any((c) {
         String cLower = c.toLowerCase();
         String pLower = price.cropName.toLowerCase();
-        return pLower.contains(cLower) || pLower.contains(MarketService.normalizeCrop(c).toLowerCase());
+        return pLower.contains(cLower) || pLower.contains(MarketRepository.normalizeCrop(c).toLowerCase());
       });
       if (isMyCrop) {
         _myCropPrices.add(price);

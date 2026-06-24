@@ -7,6 +7,7 @@ class UserModel {
   final bool setupCompleted;
   final String? profileImageUrl;
   final DateTime updatedAt;
+  final String? selectedFarmId;
 
   UserModel({
     required this.uid,
@@ -17,6 +18,7 @@ class UserModel {
     this.setupCompleted = false,
     this.profileImageUrl,
     required this.updatedAt,
+    this.selectedFarmId,
   });
 
   Map<String, dynamic> toMap() {
@@ -29,6 +31,7 @@ class UserModel {
       'setupCompleted': setupCompleted,
       'profileImageUrl': profileImageUrl,
       'updatedAt': updatedAt.toIso8601String(),
+      'selectedFarmId': selectedFarmId,
     };
   }
 
@@ -42,6 +45,7 @@ class UserModel {
       setupCompleted: map['setupCompleted'] ?? false,
       profileImageUrl: map['profileImageUrl'],
       updatedAt: DateTime.parse(map['updatedAt'] ?? DateTime.now().toIso8601String()),
+      selectedFarmId: map['selectedFarmId'],
     );
   }
 }

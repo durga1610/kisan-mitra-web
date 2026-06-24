@@ -139,6 +139,7 @@ class _FertilizerScreenState extends State<FertilizerScreen> {
           });
           await _loadRecommendations();
         },
+        notificationPredicate: (notification) => kIsWeb ? defaultScrollNotificationPredicate(notification) : false,
         child: ListView.builder(
           padding: const EdgeInsets.all(16),
           itemCount: farm.plantedCrops.length,

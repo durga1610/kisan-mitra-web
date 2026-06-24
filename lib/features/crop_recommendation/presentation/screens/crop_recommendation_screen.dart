@@ -10,8 +10,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/services/firestore_service.dart';
-import '../../../../core/services/weather_service.dart';
-import '../../../../core/services/recommendation_service.dart';
+import '../../../../core/repositories/weather_repository.dart';
+import '../../../../core/repositories/recommendation_repository.dart';
 import '../../../../core/providers/auth_provider.dart';
 import '../../../../core/providers/farm_provider.dart';
 import '../../../../core/providers/language_provider.dart';
@@ -29,7 +29,8 @@ class CropRecommendationScreen extends StatefulWidget {
 
 class _CropRecommendationScreenState extends State<CropRecommendationScreen> {
   final _firestoreService = FirestoreService();
-  final _weatherService = WeatherService();
+  final _weatherRepository = WeatherRepository();
+  final _recommendationRepository = RecommendationRepository();
   
   bool _isLoadingUser = true;
   bool _isLoadingRecommendations = false;
@@ -81,19 +82,22 @@ class _CropRecommendationScreenState extends State<CropRecommendationScreen> {
     if (_lastFetchedFarmId == farm.id) return;
     
     _lastFetchedFarmId = farm.id;
-    setState(() => _isLoadingRecommendations = true);
+    setState(() {
+      _isLoadingRecommendations = true;
+      _error = null;
+    });
 
     try {
       final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-      _weather = await _weatherService.getWeatherForLocation(farm.village, farm.district, farm.state, lang: lang);
-      _recommendations = await RecommendationService.getRecommendations(farm: farm, weather: _weather!, languageCode: lang);
-
-      if (_recommendations.isEmpty) {
-        _recommendations = CropRecommendationData.getMockRecommendations();
-      }
+      _weather = await _weatherRepository.getWeatherForLocation(farm.village, farm.district, farm.state, lang: lang);
+      _recommendations = await _recommendationRepository.getRecommendations(farm: farm, weather: _weather!, languageCode: lang);
     } catch (e) {
       debugPrint('Recommendation error: $e');
-      _recommendations = CropRecommendationData.getMockRecommendations();
+      if (mounted) {
+        setState(() {
+          _error = e.toString().replaceAll('Exception:', '').trim();
+        });
+      }
     } finally {
       if (mounted) setState(() => _isLoadingRecommendations = false);
     }
@@ -671,7 +675,7 @@ class _CustomCropAnalyzerSheetState extends State<_CustomCropAnalyzerSheet> {
     FocusScope.of(context).unfocus();
     
     final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
-    final result = await RecommendationService.analyzeCustomCrop(
+    final result = await RecommendationRepository().analyzeCustomCrop(
       cropName: _controller.text.trim(),
       farm: widget.farm,
       weather: widget.weather,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:kisan_mitra/core/localization/app_translations.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../config/routes/app_router.dart';
@@ -9,7 +10,7 @@ import 'package:intl/intl.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/services/location_service.dart';
-import '../../../../core/services/weather_service.dart';
+import '../../../../core/repositories/weather_repository.dart';
 import '../../../../core/providers/language_provider.dart';
 import '../../../../core/providers/farm_provider.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   final _locationService = LocationService();
-  final _weatherService = WeatherService();
+  final _weatherService = WeatherRepository();
   
   bool _isLoading = true;
   String? _error;
@@ -178,6 +179,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       
       body: RefreshIndicator(
         onRefresh: _fetchWeather,
+        notificationPredicate: (notification) => kIsWeb ? defaultScrollNotificationPredicate(notification) : false,
         color: Colors.white,
         child: CustomScrollView(
           slivers: [

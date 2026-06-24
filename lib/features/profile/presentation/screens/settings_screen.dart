@@ -10,6 +10,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:go_router/go_router.dart';
 import '../../../../config/routes/app_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/providers/auth_provider.dart';
@@ -761,61 +763,157 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
 
   void _showDeleteAccountDialog(BuildContext context, bool isDarkMode) {
     final tc = TextEditingController();
+    bool isDeleting = false;
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: Row(
-            children: [
-              const Icon(Icons.warning_rounded, color: Colors.redAccent),
-              const SizedBox(width: 8),
-              Text("Delete Account".tr(context), style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Colors.redAccent)),
-            ],
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("This action cannot be undone. All your farm data, history, and preferences will be permanently removed.".tr(context), style: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7))),
-              const SizedBox(height: 16),
-              TextField(
-                controller: tc,
-                obscureText: true,
-                decoration: const InputDecoration(labelText: "Confirm Password to delete", filled: true),
-              )
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text("Cancel".tr(context)),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (tc.text.isEmpty) {
-                  _showSnackbar("Please enter password", isError: true);
-                  return;
-                }
-                Navigator.pop(context);
-                _showSnackbar("Account deleted successfully.", isError: true);
-                final prefs = await SharedPreferences.getInstance();
-                await prefs.remove('last_activity_timestamp');
-                await prefs.remove('last_route');
-                if (context.mounted) {
-                  Provider.of<UserProvider>(context, listen: false).clearUser();
-                  await Provider.of<AuthProvider>(context, listen: false).signOut();
-                }
-                if (context.mounted) {
-                  context.go(AppRouter.login);
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              title: Row(
+                children: [
+                  const Icon(Icons.warning_rounded, color: Colors.redAccent),
+                  const SizedBox(width: 8),
+                  Text("Delete Account".tr(context), style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Colors.redAccent)),
+                ],
               ),
-              child: Text("Delete Permanently".tr(context), style: GoogleFonts.poppins(color: Colors.white)),
-            ),
-          ],
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (isDeleting) ...[
+                    const CircularProgressIndicator(color: Colors.redAccent),
+                    const SizedBox(height: 16),
+                    Text("Deleting account and all associated data. Please wait...", textAlign: TextAlign.center, style: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7))),
+                  ] else ...[
+                    Text("This action cannot be undone. All your farm data, history, and preferences will be permanently removed.".tr(context), style: GoogleFonts.poppins(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7))),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: tc,
+                      obscureText: true,
+                      decoration: const InputDecoration(labelText: "Confirm Password to delete", filled: true),
+                    )
+                  ]
+                ],
+              ),
+              actions: isDeleting ? null : [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Cancel".tr(context)),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (tc.text.isEmpty) {
+                      _showSnackbar("Please enter password", isError: true);
+                      return;
+                    }
+                    
+                    setDialogState(() {
+                      isDeleting = true;
+                    });
+                    
+                    try {
+                      final currentUser = FirebaseAuth.instance.currentUser;
+                      if (currentUser != null) {
+                        if (currentUser.email != null) {
+                          // Re-authenticate user
+                          final credential = EmailAuthProvider.credential(
+                            email: currentUser.email!,
+                            password: tc.text,
+                          );
+                          await currentUser.reauthenticateWithCredential(credential);
+                        }
+                        
+                        final uid = currentUser.uid;
+                        
+                        // 1. Delete user profit records
+                        final profitDocs = await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(uid)
+                            .collection('profit_records')
+                            .get();
+                        for (var doc in profitDocs.docs) {
+                          await doc.reference.delete();
+                        }
+                        
+                        // 2. Delete user farms
+                        final farmDocs = await FirebaseFirestore.instance
+                            .collection('farms')
+                            .where('ownerId', isEqualTo: uid)
+                            .get();
+                        for (var doc in farmDocs.docs) {
+                          await doc.reference.delete();
+                        }
+                        
+                        // 3. Delete user recommendations
+                        final recDocs = await FirebaseFirestore.instance
+                            .collection('crop_recommendations')
+                            .where('uid', isEqualTo: uid)
+                            .get();
+                        for (var doc in recDocs.docs) {
+                          await doc.reference.delete();
+                        }
+                        
+                        // 4. Delete user disease reports
+                        final reportDocs = await FirebaseFirestore.instance
+                            .collection('disease_reports')
+                            .where('uid', isEqualTo: uid)
+                            .get();
+                        for (var doc in reportDocs.docs) {
+                          await doc.reference.delete();
+                        }
+                        
+                        // 5. Delete user document from users collection
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(uid)
+                            .delete();
+                        
+                        // 6. Delete FirebaseAuth user
+                        await currentUser.delete();
+                      }
+                      
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.remove('last_activity_timestamp');
+                      await prefs.remove('last_route');
+                      
+                      if (context.mounted) {
+                        Provider.of<UserProvider>(context, listen: false).clearUser();
+                        await Provider.of<AuthProvider>(context, listen: false).signOut();
+                        Navigator.pop(context); // Close dialog
+                        _showSnackbar("Account deleted successfully.");
+                        context.go(AppRouter.login);
+                      }
+                    } on FirebaseAuthException catch (e) {
+                      setDialogState(() {
+                        isDeleting = false;
+                      });
+                      String errMsg = "Failed to delete account.";
+                      if (e.code == 'wrong-password') {
+                        errMsg = "Incorrect password. Please try again.";
+                      } else if (e.code == 'requires-recent-login') {
+                        errMsg = "Please log out and log back in to perform this action.";
+                      } else if (e.message != null) {
+                        errMsg = e.message!;
+                      }
+                      _showSnackbar(errMsg, isError: true);
+                    } catch (e) {
+                      setDialogState(() {
+                        isDeleting = false;
+                      });
+                      _showSnackbar("An error occurred: $e", isError: true);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  child: Text("Delete Permanently".tr(context), style: GoogleFonts.poppins(color: Colors.white)),
+                ),
+              ],
+            );
+          },
         );
       },
     );

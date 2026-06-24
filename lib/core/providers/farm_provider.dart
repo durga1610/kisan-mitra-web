@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/farm_model.dart';
 import 'auth_provider.dart';
+import 'user_provider.dart';
 import '../services/location_service.dart';
 
 class FarmProvider extends ChangeNotifier {
@@ -20,12 +21,35 @@ class FarmProvider extends ChangeNotifier {
   int get selectedFarmIndex => _selectedFarmIndex;
   bool get isLoading => _isLoading;
 
-  void update(AuthProvider authProvider) {
+  UserProvider? _userProvider;
+  String? _currentUid;
+
+  void update(AuthProvider authProvider, UserProvider userProvider) {
+    _userProvider = userProvider;
     final user = authProvider.user;
     if (user != null) {
-      _listenToFarms(user.uid);
+      if (_currentUid != user.uid) {
+        _currentUid = user.uid;
+        _listenToFarms(user.uid);
+      } else {
+        _syncSelectedFarmFromUserProvider();
+      }
     } else {
       _clear();
+      _currentUid = null;
+    }
+  }
+
+  void _syncSelectedFarmFromUserProvider() {
+    if (_farms.isEmpty || _userProvider == null) return;
+    final selectedFarmId = _userProvider!.userModel?.selectedFarmId;
+    if (selectedFarmId != null) {
+      final index = _farms.indexWhere((f) => f.id == selectedFarmId);
+      if (index != -1 && index != _selectedFarmIndex) {
+        _selectedFarmIndex = index;
+        _selectedFarm = _farms[index];
+        notifyListeners();
+      }
     }
   }
 
@@ -81,20 +105,25 @@ class FarmProvider extends ChangeNotifier {
       }
       
       if (_farms.isNotEmpty) {
-        // Restore selected farm index from SharedPreferences
-        try {
-          final prefs = await SharedPreferences.getInstance();
-          final savedIndex = prefs.getInt('selected_farm_index') ?? 0;
-          if (savedIndex >= 0 && savedIndex < _farms.length) {
-            _selectedFarmIndex = savedIndex;
+        final selectedFarmId = _userProvider?.userModel?.selectedFarmId;
+        if (selectedFarmId != null) {
+          final index = _farms.indexWhere((f) => f.id == selectedFarmId);
+          if (index != -1) {
+            _selectedFarmIndex = index;
+            _selectedFarm = _farms[index];
           } else {
             _selectedFarmIndex = 0;
+            _selectedFarm = _farms[0];
           }
-        } catch (e) {
-          debugPrint('Error loading saved farm index: $e');
+        } else {
           _selectedFarmIndex = 0;
+          _selectedFarm = _farms[0];
+          if (_selectedFarm != null && _selectedFarm!.id != null) {
+            FirebaseFirestore.instance.collection('users').doc(uid).update({
+              'selectedFarmId': _selectedFarm!.id,
+            }).catchError((e) => debugPrint('Error saving initial selectedFarmId: $e'));
+          }
         }
-        _selectedFarm = _farms[_selectedFarmIndex];
       } else {
         _selectedFarm = null;
         _selectedFarmIndex = 0;
@@ -119,6 +148,18 @@ class FarmProvider extends ChangeNotifier {
         await prefs.setInt('selected_farm_index', index);
       } catch (e) {
         debugPrint('Error saving farm index: $e');
+      }
+
+      // Also update Firestore to sync with other devices
+      final farmId = _farms[index].id;
+      if (farmId != null) {
+        try {
+          await FirebaseFirestore.instance.collection('users').doc(_selectedFarm!.ownerId).update({
+            'selectedFarmId': farmId,
+          });
+        } catch (e) {
+          debugPrint('Error updating selectedFarmId in Firestore: $e');
+        }
       }
     }
   }

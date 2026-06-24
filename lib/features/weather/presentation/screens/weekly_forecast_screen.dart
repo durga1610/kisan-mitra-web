@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +8,7 @@ import 'package:kisan_mitra/core/localization/app_translations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/services/location_service.dart';
-import '../../../../core/services/weather_service.dart';
+import '../../../../core/repositories/weather_repository.dart';
 import '../../../../core/providers/language_provider.dart';
 import '../../../../core/providers/farm_provider.dart';
 import '../../data/models/weather_model.dart';
@@ -25,7 +26,7 @@ class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
   late WeatherModel _weather;
   bool _isLoading = false;
   String? _error;
-  final _weatherService = WeatherService();
+  final _weatherService = WeatherRepository();
 
   @override
   void initState() {
@@ -149,6 +150,7 @@ class _WeeklyForecastScreenState extends State<WeeklyForecastScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: _refreshForecast,
+        notificationPredicate: (notification) => kIsWeb ? defaultScrollNotificationPredicate(notification) : false,
         color: Colors.white,
         backgroundColor: AppColors.primary,
         child: forecast.isEmpty

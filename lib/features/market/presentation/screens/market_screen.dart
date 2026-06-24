@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -127,6 +128,7 @@ class _MarketScreenContentState extends State<_MarketScreenContent> with SingleT
           Expanded(
             child: RefreshIndicator(
               onRefresh: () => provider.fetchPrices(forceRefresh: true),
+              notificationPredicate: (notification) => kIsWeb ? defaultScrollNotificationPredicate(notification) : false,
               color: AppColors.primary,
               child: _buildMainContent(provider),
             ),

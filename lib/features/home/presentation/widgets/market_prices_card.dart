@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../market/presentation/providers/market_provider.dart';
 import '../../../market/data/models/market_price.dart';
-import '../../../market/data/services/market_service.dart';
+import '../../../../core/repositories/market_repository.dart';
 import '../../../../core/localization/app_translations.dart';
 
 class MarketPricesCard extends StatelessWidget {
@@ -48,7 +48,7 @@ class MarketPricesCard extends StatelessWidget {
         final matches = provider.myCropPrices.where((p) {
           String pLower = p.cropName.toLowerCase();
           String cLower = cropName.toLowerCase();
-          return pLower.contains(cLower) || pLower.contains(MarketService.normalizeCrop(cropName).toLowerCase());
+          return pLower.contains(cLower) || pLower.contains(MarketRepository.normalizeCrop(cropName).toLowerCase());
         }).toList();
 
         if (matches.isNotEmpty) {

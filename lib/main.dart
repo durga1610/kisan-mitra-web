@@ -101,9 +101,9 @@ class _KisanMitraAppState extends State<KisanMitraApp> with WidgetsBindingObserv
           create: (_) => UserProvider(),
           update: (_, auth, user) => user!..updateAuth(auth.user),
         ),
-        ChangeNotifierProxyProvider<AuthProvider, FarmProvider>(
+        ChangeNotifierProxyProvider2<AuthProvider, UserProvider, FarmProvider>(
           create: (_) => FarmProvider(),
-          update: (_, auth, farm) => farm!..update(auth),
+          update: (_, auth, user, farm) => farm!..update(auth, user),
         ),
         ChangeNotifierProxyProvider<FarmProvider, MarketProvider>(
           create: (_) => MarketProvider(),

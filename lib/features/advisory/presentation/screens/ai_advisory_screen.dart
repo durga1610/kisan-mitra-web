@@ -12,7 +12,7 @@ import '../../../../core/services/gemini_service.dart';
 import '../../../../core/providers/farm_provider.dart';
 import '../../../../core/providers/language_provider.dart';
 import '../../../../core/models/farm_model.dart';
-import '../../../../core/services/weather_service.dart';
+import '../../../../core/repositories/weather_repository.dart';
 import '../../../weather/data/models/weather_model.dart';
 import '../../data/models/chat_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,7 +54,7 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
     }
     
     try {
-      final weatherService = WeatherService();
+      final weatherService = WeatherRepository();
       WeatherModel weather;
       if (farm.latitude != null && farm.longitude != null) {
         weather = await weatherService.getWeather(farm.latitude!, farm.longitude!, lang: lang, farmName: farm.name);

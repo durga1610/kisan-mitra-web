@@ -229,6 +229,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
           uid: user.uid,
           name: _nameController.text.trim(),
           phone: _phoneController.text.trim(),
+          email: user.email,
+          location: _farms.isNotEmpty ? "${_farms.first.district}, ${_farms.first.state}" : 'Local Farm',
           setupCompleted: true,
           updatedAt: DateTime.now(),
         );
