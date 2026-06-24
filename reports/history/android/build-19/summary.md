@@ -1,8 +1,8 @@
 # Android Appium E2E Execution Summary
 
 **Build Number**: #19
-**Execution Date**: 2026-06-23 08:10:43
-**Git Commit**: 9c0699ce
+**Execution Date**: 2026-06-24 01:36:02
+**Git Commit**: c31a0ca9
 **Branch**: main
 
 **APK Version**: 1.0.0-debug
@@ -20,7 +20,7 @@
 
 - **Pass Percentage**: 99.81%
 - **Fail Percentage**: 0.19%
-- **Execution Duration**: 252.95s
+- **Execution Duration**: 236.66s
 
 ### Live Hosted Reports
 - **HTML Dashboard**: https://durga1610.github.io/kisan-mitra-web/reports/latest/execution-report.html
@@ -30,12 +30,12 @@
 #### PASSED TESTS
 
 ✓ TC_GEN_001 - test_auth_client_validation
-✓ TC_GEN_002 - test_auth_invalid_credentials
 ✓ TC_GEN_003 - test_home_page_load
 ✓ TC_GEN_004 - test_market_prices_page_load
 ✓ TC_GEN_005 - test_ai_advisor_page_load
 ✓ TC_GEN_006 - test_disease_scanner_page_load
 ✓ TC_GEN_007 - test_navigation_between_screens
+✓ TC_GEN_008 - test_responsive_ui_smoke
 ✓ TC_AUTH_001 - Valid Email/Password Login
 ✓ TC_AUTH_002 - Invalid Email Format
 ✓ TC_AUTH_003 - Blank Password Validation
@@ -48,8 +48,8 @@
 
 #### FAILED TESTS
 
-✗ TC_GEN_008 - test_responsive_ui_smoke
-  *Reason*: @pytest.fixture(scope="function")     def driver():         """Initializes and yields Appium driv...
+✗ TC_GEN_002 - test_auth_invalid_credentials
+  *Reason*: driver = <appium.webdriver.webdriver.WebDriver (session="8df9b57d-e778-4b63-9dc7-3ab099e509dd")> ...
 
 #### SKIPPED TESTS
 
