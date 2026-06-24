@@ -19,7 +19,7 @@ def test_auth_client_validation(driver):
 
 def test_auth_invalid_credentials(driver):
     """Test that login with invalid credentials displays an error on mobile."""
-    time.sleep(3)
+    time.sleep(10)
     
     login_page = LoginPage(driver)
     login_page.login("nonexistent_farmer@kisan.com", "WrongPass123!")

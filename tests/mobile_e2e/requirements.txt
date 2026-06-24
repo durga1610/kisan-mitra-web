@@ -1,3 +1,4 @@
 Appium-Python-Client>=3.0.0
 pytest>=8.2.0
 openpyxl>=3.1.2
+pytest-rerunfailures>=14.0

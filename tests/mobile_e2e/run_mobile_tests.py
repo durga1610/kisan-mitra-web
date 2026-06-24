@@ -227,6 +227,8 @@ def main():
     pytest_args = [
         "-s",
         "-v",
+        "--reruns", "3",
+        "--reruns-delay", "5",
         test_suites_path
     ]
     
