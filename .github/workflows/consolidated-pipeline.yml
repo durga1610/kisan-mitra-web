@@ -618,10 +618,10 @@ jobs:
           
           # Copy reports and test directories
           # Copy security report
-          if [ -f "security-reports/security-reports/consolidated-report.md" ]; then
-            cp security-reports/security-reports/consolidated-report.md gh-pages-dir/reports/latest/security-review.md
+          if [ -f "Vulnerability Test Results/security-review.md" ]; then
+            cp "Vulnerability Test Results/security-review.md" gh-pages-dir/reports/latest/security-review.md
             mkdir -p gh-pages-dir/reports/history/security/build-${{ github.run_number }}
-            cp security-reports/security-reports/consolidated-report.md gh-pages-dir/reports/history/security/build-${{ github.run_number }}/security-review.md
+            cp "Vulnerability Test Results/security-review.md" gh-pages-dir/reports/history/security/build-${{ github.run_number }}/security-review.md
           fi
 
           # Copy Backend Test files
