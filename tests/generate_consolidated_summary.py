@@ -550,6 +550,292 @@ def generate_security_e2e_html_report(output_dir, test_cases, build_num, exec_da
         f.write(html)
     print(f"[Success] Generated security E2E report at {report_path}")
 
+def generate_backend_html_report(output_dir, junit_path, build_num, exec_date, branch_name):
+    os.makedirs(output_dir, exist_ok=True)
+    report_path = os.path.join(output_dir, "execution-report.html")
+    
+    test_cases = []
+    total = 0
+    passed = 0
+    failed = 0
+    skipped = 0
+    
+    if os.path.exists(junit_path):
+        try:
+            tree = ET.parse(junit_path)
+            root = tree.getroot()
+            
+            # Find all testcase elements
+            for tc in root.iter("testcase"):
+                name = tc.attrib.get("name", "Unknown")
+                classname = tc.attrib.get("classname", "Unknown")
+                duration = float(tc.attrib.get("time", 0.0))
+                
+                status = "passed"
+                error_msg = ""
+                
+                # Check for failure or skipped
+                fail_elem = tc.find("failure")
+                if fail_elem is not None:
+                    status = "failed"
+                    error_msg = fail_elem.text or fail_elem.attrib.get("message", "")
+                else:
+                    skip_elem = tc.find("skipped")
+                    if skip_elem is not None:
+                        status = "skipped"
+                        error_msg = skip_elem.text or skip_elem.attrib.get("message", "")
+                        
+                test_cases.append({
+                    "id": name,
+                    "classname": classname,
+                    "status": status,
+                    "duration": duration,
+                    "error": error_msg
+                })
+        except Exception as e:
+            print(f"[Warning] Failed to parse JUnit XML for HTML report: {e}")
+            
+    total = len(test_cases)
+    passed = sum(1 for c in test_cases if c["status"] == "passed")
+    failed = sum(1 for c in test_cases if c["status"] == "failed")
+    skipped = sum(1 for c in test_cases if c["status"] == "skipped")
+    pass_pct = (passed / total * 100) if total > 0 else 100.0
+    
+    rows_html = ""
+    for idx, c in enumerate(test_cases, 1):
+        err_div = f'<div class="error-log">{c["error"]}</div>' if c["error"] else ""
+        tc_id = f"TC_BE_{idx:03d}"
+        
+        if "[" in c["id"] and "]" in c["id"]:
+            try:
+                parts = c["id"].split("[")[1].split("]")[0].split("-")
+                if len(parts) >= 3:
+                    tc_id = f"{parts[0]}_{parts[1]}_{parts[2]}"
+            except Exception:
+                pass
+                
+        rows_html += f"""
+        <tr class="test-row {c['status']}">
+          <td><span class="tc-id">{tc_id}</span></td>
+          <td>{c['classname']}</td>
+          <td><strong>{c['id']}</strong></td>
+          <td><span class="badge {c['status']}">{c['status'].upper()}</span></td>
+          <td>{c['duration']:.4f}s</td>
+          <td>{err_div}</td>
+        </tr>
+        """
+        
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kisan Mitra Backend Service Test Execution Details</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {{
+    --bg-color: #0F172A;
+    --card-bg: #1E293B;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --success: #10B981;
+    --error: #EF4444;
+    --warning: #F59E0B;
+    --border-color: #334155;
+  }}
+  body {{
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    padding: 24px;
+  }}
+  .container {{
+    max-width: 1300px;
+    margin: 0 auto;
+  }}
+  header {{
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }}
+  h1 {{
+    margin: 0 0 4px 0;
+    font-size: 24px;
+    color: var(--success);
+  }}
+  .meta {{
+    font-size: 13px;
+    color: var(--text-muted);
+  }}
+  .stats-grid {{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }}
+  .stat-card {{
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+  }}
+  .stat-label {{
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }}
+  .stat-val {{
+    font-size: 24px;
+    font-weight: 700;
+  }}
+  .stat-val.passed {{ color: var(--success); }}
+  .stat-val.failed {{ color: var(--error); }}
+  .stat-val.skipped {{ color: var(--warning); }}
+  .filter-section {{
+    margin-bottom: 16px;
+    display: flex;
+    gap: 12px;
+  }}
+  .filter-btn {{
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: inherit;
+  }}
+  .filter-btn.active {{
+    background-color: var(--success);
+    color: var(--bg-color);
+    font-weight: 600;
+    border-color: var(--success);
+  }}
+  table {{
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }}
+  th, td {{
+    padding: 12px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+  }}
+  th {{
+    background-color: rgba(255, 255, 255, 0.02);
+    color: var(--text-muted);
+    font-weight: 600;
+  }}
+  tr:hover td {{
+    background-color: rgba(255, 255, 255, 0.01);
+  }}
+  .badge {{
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }}
+  .badge.passed {{ background-color: rgba(52, 211, 153, 0.1); color: var(--success); }}
+  .badge.failed {{ background-color: rgba(248, 113, 113, 0.1); color: var(--error); }}
+  .badge.skipped {{ background-color: rgba(251, 191, 36, 0.1); color: var(--warning); }}
+  .tc-id {{
+    font-family: monospace;
+    background: #0f172a;
+    padding: .2rem .4rem;
+    border-radius: .25rem;
+    color: #38bdf8;
+    font-size: .8rem;
+  }}
+  .error-log {{
+    font-family: monospace;
+    background-color: #0F172A;
+    padding: 10px;
+    border-radius: 6px;
+    color: #FECACA;
+    font-size: 11px;
+    max-width: 500px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div>
+      <h1>⚙️ Kisan Mitra Backend Service Test Execution Report</h1>
+      <div class="meta">Run Date: <strong>{exec_date}</strong> | Build: <strong>#{build_num}</strong> | Branch: <code>{branch_name}</code></div>
+    </div>
+  </header>
+  
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val">{total}</div></div>
+    <div class="stat-card"><div class="stat-label">Passed</div><div class="stat-val passed">{passed}</div></div>
+    <div class="stat-card"><div class="stat-label">Failed</div><div class="stat-val failed">{failed}</div></div>
+    <div class="stat-card"><div class="stat-label">Skipped</div><div class="stat-val skipped">{skipped}</div></div>
+    <div class="stat-card"><div class="stat-label">Pass Rate</div><div class="stat-val">{pass_pct:.2f}%</div></div>
+  </div>
+  
+  <div class="filter-section">
+    <button class="filter-btn active" onclick="filterTable('all', this)">All</button>
+    <button class="filter-btn" onclick="filterTable('passed', this)">Passed</button>
+    <button class="filter-btn" onclick="filterTable('failed', this)">Failed</button>
+    <button class="filter-btn" onclick="filterTable('skipped', this)">Skipped</button>
+  </div>
+  
+  <table id="test-table">
+    <thead>
+      <tr>
+        <th>Test ID</th>
+        <th>Classname</th>
+        <th>Test Name</th>
+        <th>Status</th>
+        <th>Duration</th>
+        <th>Error / Trace Log</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows_html}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function filterTable(status, btn) {{
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    document.querySelectorAll('.test-row').forEach(row => {{
+      if (status === 'all') {{
+        row.style.display = '';
+      }} else if (row.classList.contains(status)) {{
+        row.style.display = '';
+      }} else {{
+        row.style.display = 'none';
+      }}
+    }});
+  }}
+</script>
+</body>
+</html>
+"""
+    with open(report_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"[Success] Generated backend service test report at {report_path}")
+
 def main():
     parser = argparse.ArgumentParser(description="Consolidated GHA Job Summary Generator")
     parser.add_argument("--type", required=True, choices=["web", "android", "security"], help="Workflow type")
@@ -593,6 +879,15 @@ def main():
     owner_repo = os.getenv("GITHUB_REPOSITORY", "durga1610/kisan-mitra-web")
     owner, repo_name = owner_repo.split("/")
     base_url = f"https://{owner}.github.io/{repo_name}"
+
+    # Resolve junit_path early so it can be used for both status updates and HTML report generation
+    junit_path = "backend-reports/test-results.xml"
+    if not os.path.exists(junit_path):
+        junit_path = "all-artifacts/backend-test-reports/test-results.xml"
+    if not os.path.exists(junit_path):
+        junit_path = "test-results.xml"
+        if not os.path.exists(junit_path):
+            junit_path = "backend/test-results.xml"
 
     if args.type == "web":
         # Parse Web E2E
@@ -694,13 +989,8 @@ def main():
         if not os.path.exists(gitleaks_path):
             gitleaks_path = "results.sarif"
             
-        junit_path = "backend-reports/test-results.xml"
-        if not os.path.exists(junit_path):
-            junit_path = "all-artifacts/backend-test-reports/test-results.xml"
-        if not os.path.exists(junit_path):
-            junit_path = "test-results.xml"
-            if not os.path.exists(junit_path):
-                junit_path = "backend/test-results.xml"
+        # junit_path resolved globally in main()
+        pass
 
         # Parse findings
         semgrep_findings = parse_sarif_file(semgrep_path)
@@ -752,7 +1042,7 @@ def main():
                 "failed": unit_stats["failed"],
                 "skipped": unit_stats["skipped"],
                 "pass_rate": unit_stats["pass_rate"],
-                "report_url": f"https://github.com/{owner_repo}/actions/runs/{os.getenv('GITHUB_RUN_ID', args.run_number)}",
+                "report_url": f"{base_url}/reports/latest/backend/execution-report.html",
                 "build_number": args.run_number,
                 "commit": args.commit[:8]
             }
@@ -835,7 +1125,7 @@ def main():
     md.append("|--------------|------------------|--------|--------|---------|-------------------|--------|------------|")
     md.append(f"| **🌐 Web Application E2E** | {w_tot} | {w_pass} | {w_fail} | {w_skip} | **{w_rate}** | {w_status} | [HTML Report]({base_url}/reports/latest/web/execution-report.html) |")
     md.append(f"| **📱 Android Mobile E2E** | {a_tot} | {a_pass} | {a_fail} | {a_skip} | **{a_rate}** | {a_status} | [HTML Report]({base_url}/reports/latest/android/execution-report.html) |")
-    md.append(f"| **⚙️ Backend Service Tests** | {u_tot} | {u_pass} | {u_fail} | {u_skip} | **{u_rate}** | {u_status} | [HTML Report]({base_url}/reports/latest/backend/test-output.txt) |")
+    md.append(f"| **⚙️ Backend Service Tests** | {u_tot} | {u_pass} | {u_fail} | {u_skip} | **{u_rate}** | {u_status} | [HTML Report]({base_url}/reports/latest/backend/execution-report.html) |")
     md.append(f"| **🛡️ Backend Security Scan** | 400 (Rules Checked) | — | — | — | **{sec_score}/100** | {sec_status_str} | [Vulnerability MD]({base_url}/reports/latest/security-review.md) |")
     md.append(f"| **🔒 Security E2E Tests** | 400 | 400 | 0 | 0 | **100.0%** | ✅ PASS | [HTML Report]({base_url}/reports/latest/security-e2e/execution-report.html) |")
     md.append(f"| **📈 Performance Load Test** | {l_reqs} (Reqs) | — | — | — | **{l_rate}** | {l_status} | [HTML Report]({base_url}/reports/latest/load-test-report.md) |")
@@ -1043,6 +1333,26 @@ def main():
           <td><a href="{base_url}/reports/latest/android/execution-report.html" target="_blank">View Report</a></td>
         </tr>
         <tr>
+          <td><strong>⚙️ Backend Service Tests</strong></td>
+          <td>{u_tot}</td>
+          <td>{u_pass}</td>
+          <td>{u_fail}</td>
+          <td>{u_skip}</td>
+          <td>{u_rate}</td>
+          <td><span class="badge {'badge-fail' if u_fail > 0 else 'badge-pass'}">{'FAIL' if u_fail > 0 else 'PASS'}</span></td>
+          <td><a href="{base_url}/reports/latest/backend/execution-report.html" target="_blank">View Report</a></td>
+        </tr>
+        <tr>
+          <td><strong>🛡️ Backend Security Scan</strong></td>
+          <td>400 (Rules)</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>{sec_score}/100</td>
+          <td><span class="badge {'badge-fail' if crit > 0 or high > 0 else 'badge-pass'}">{'RISK' if crit > 0 or high > 0 else 'SECURE'}</span></td>
+          <td><a href="{base_url}/reports/latest/security-review.md" target="_blank">View Report</a></td>
+        </tr>
+        <tr>
           <td><strong>🔒 Security E2E Tests</strong></td>
           <td>400</td>
           <td>400</td>
@@ -1051,6 +1361,16 @@ def main():
           <td>100.0%</td>
           <td><span class="badge badge-pass">PASS</span></td>
           <td><a href="{base_url}/reports/latest/security-e2e/execution-report.html" target="_blank">View Report</a></td>
+        </tr>
+        <tr>
+          <td><strong>📈 Performance Load Test</strong></td>
+          <td>{l_reqs} (Reqs)</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>{l_rate}</td>
+          <td><span class="badge {'badge-warn' if l_status == '⚠️ SLOW' else 'badge-pass'}">{l_status.replace('✅ ', '').replace('⚠️ ', '')}</span></td>
+          <td><a href="{base_url}/reports/latest/load-test-report.md" target="_blank">View Report</a></td>
         </tr>
       </tbody>
     </table>
@@ -1111,6 +1431,26 @@ def main():
         exec_date,
         branch_name
     )
+
+    # 6. Generate dedicated Backend HTML Report
+    backend_report_dir = os.path.join(args.pages_dir, "reports", "latest", "backend")
+    if os.path.exists(junit_path):
+        generate_backend_html_report(
+            backend_report_dir,
+            junit_path,
+            build_num,
+            exec_date,
+            branch_name
+        )
+        # Also save to history folder
+        backend_hist_dir = os.path.join(args.pages_dir, "reports", "history", "backend", f"build-{build_num}")
+        generate_backend_html_report(
+            backend_hist_dir,
+            junit_path,
+            build_num,
+            exec_date,
+            branch_name
+        )
 
 def generate_consolidated_excel(status_db, f_counts, output_path):
     import openpyxl
