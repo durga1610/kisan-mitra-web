@@ -1,12 +1,13 @@
 ======================================================================
-KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-23 08:26:03
+KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-24 02:37:34
 ======================================================================
-Running pytest with args: ['-s', '-v', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/test_suites']
+Running pytest with args: ['-s', '-v', '--reruns', '3', '--reruns-delay', '5', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/test_suites']
 
 ============================= test session starts ==============================
 platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.15/x64/bin/python
 cachedir: .pytest_cache
 rootdir: /home/runner/work/kisan-mitra-web/kisan-mitra-web
+plugins: rerunfailures-16.3
 collecting ... collected 518 items
 
 tests/mobile_e2e/test_suites/test_auth.py::test_auth_client_validation [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
@@ -230,9 +231,9 @@ tests/mobile_e2e/test_suites/test_features.py::test_disease_scanner_page_load [M
 --- END DEBUG LOGIN PAGE SOURCE ---
 [DEBUG] Found 1 matching submit buttons.
   [0] class: android.widget.Button, text: , desc: Login, resource-id: , displayed: True
-[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_wait_1782203380.png
-[MobileConftest] Captured failure screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_test_disease_scanner_page_load_1782203348.png
-FAILED
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/mobile_disease_scanner_load.png
+[MobileTest] Disease Scanner verified.
+PASSED
 tests/mobile_e2e/test_suites/test_features.py::test_navigation_between_screens [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
 [MobileTest] Performing E2E test login...
 --- DEBUG LOGIN PAGE SOURCE ---
@@ -1905,98 +1906,7 @@ tests/mobile_e2e/test_suites/test_regression_400.py::test_regression_case[TC_REG
 [Running Test] TC_REGR_050 - Authentication flow state checks - Scenario Variant 24 (Regression Suite)
 PASSED
 
-=================================== FAILURES ===================================
-________________________ test_disease_scanner_page_load ________________________
-
-auth_driver = <appium.webdriver.webdriver.WebDriver (session="caec251d-484a-4d98-9a09-a0a6753be343")>
-
-    def test_disease_scanner_page_load(auth_driver):
-        """Verify that the Disease Scanner interface opens successfully."""
-        home_page = HomePage(auth_driver)
-        # Scroll down to reveal the quick actions grid
-        home_page.swipe(720, 1600, 720, 800, 300)
-        # Click Scan Disease quick action card
->       home_page.click(home_page.SCAN_DISEASE_TILE)
-
-tests/mobile_e2e/test_suites/test_features.py:66: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/mobile_e2e/pages/base_page.py:26: in click
-    element = self.wait_for_element(locator)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
-    raise e
-tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
-    return WebDriverWait(self.driver, self.timeout).until(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = <selenium.webdriver.support.wait.WebDriverWait (session="caec251d-484a-4d98-9a09-a0a6753be343")>
-method = <function visibility_of_element_located.<locals>._predicate at 0x7fd013d99d00>
-message = ''
-
-    def until(self, method: Callable[[D], Literal[False] | T], message: str = "") -> T:
-        """Wait until the method returns a value that is not False.
-    
-        Calls the method provided with the driver as an argument until the
-        return value does not evaluate to ``False``.
-    
-        Args:
-            method: A callable object that takes a WebDriver instance as an
-                argument.
-            message: Optional message for TimeoutException.
-    
-        Returns:
-            The result of the last call to `method`.
-    
-        Raises:
-            TimeoutException: If 'method' does not return a truthy value within
-                the WebDriverWait object's timeout.
-    
-        Example:
-            >>> from selenium.webdriver.common.by import By
-            >>> from selenium.webdriver.support.ui import WebDriverWait
-            >>> from selenium.webdriver.support import expected_conditions as EC
-            >>>
-            >>> # Wait until an element is visible on the page
-            >>> wait = WebDriverWait(driver, 10)
-            >>> element = wait.until(EC.visibility_of_element_located((By.ID, "exampleId")))
-            >>> print(element.text)
-        """
-        screen = None
-        stacktrace = None
-    
-        end_time = time.monotonic() + self._timeout
-        while True:
-            try:
-                value = method(self._driver)
-                if value:
-                    return value
-            except self._ignored_exceptions as exc:
-                screen = getattr(exc, "screen", None)
-                stacktrace = getattr(exc, "stacktrace", None)
-            if time.monotonic() > end_time:
-                break
-            time.sleep(self._poll)
->       raise TimeoutException(message, screen, stacktrace)
-E       selenium.common.exceptions.TimeoutException: Message: 
-E       Stacktrace:
-E       NoSuchElementError: An element could not be located on the page using the given search parameters.
-E           at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
-E           at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-E           at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
-E           at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
-E           at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
-
-/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:121: TimeoutException
-=========================== short test summary info ============================
-FAILED tests/mobile_e2e/test_suites/test_features.py::test_disease_scanner_page_load - selenium.common.exceptions.TimeoutException: Message: 
-Stacktrace:
-NoSuchElementError: An element could not be located on the page using the given search parameters.
-    at AndroidUiautomator2Driver.findElOrEls (/home/runner/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/build/lib/commands/find.js:62:15)
-    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at async AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:12:16)
-    at async AndroidUiautomator2Driver.findElement (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/commands/find.js:28:16)
-    at async runCommandPromise (/opt/hostedtoolcache/node/20.20.2/x64/lib/node_modules/appium/node_modules/@appium/base-driver/build/lib/basedriver/driver.js:119:24)
-================== 1 failed, 517 passed in 296.97s (0:04:56) ===================
+======================= 518 passed in 226.34s (0:03:46) ========================
 
 ======================================================================
 MOBILE TEST SUITE COMPLETED. GENERATING REPORTS...
@@ -2013,6 +1923,6 @@ JSON results saved: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobi
 [MobileSummaryReporter] Summary saved successfully to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Summary/summary.md
 Reports compilation complete.
 ======================================================================
-Overall Pass Rate: 99.81% (Required >= 95.0%)
+Overall Pass Rate: 100.00% (Required >= 95.0%)
 Critical Fail Rate: 0.00% (Allowed <= 5.0%)
 Validation Gate Passed successfully! Exiting with status code 0.

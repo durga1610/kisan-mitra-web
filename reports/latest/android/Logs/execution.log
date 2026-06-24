@@ -1,12 +1,13 @@
 ======================================================================
-KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-24 01:32:03
+KISAN MITRA MOBILE APPIUM TEST RUNNER - 2026-06-24 02:37:34
 ======================================================================
-Running pytest with args: ['-s', '-v', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/test_suites']
+Running pytest with args: ['-s', '-v', '--reruns', '3', '--reruns-delay', '5', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/test_suites']
 
 ============================= test session starts ==============================
 platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.15/x64/bin/python
 cachedir: .pytest_cache
 rootdir: /home/runner/work/kisan-mitra-web/kisan-mitra-web
+plugins: rerunfailures-16.3
 collecting ... collected 518 items
 
 tests/mobile_e2e/test_suites/test_auth.py::test_auth_client_validation [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
@@ -15,36 +16,75 @@ tests/mobile_e2e/test_suites/test_auth.py::test_auth_client_validation [MobileCo
 [MobileTest] Verification complete: still on login screen.
 PASSED
 tests/mobile_e2e/test_suites/test_auth.py::test_auth_invalid_credentials [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
-[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_wait_1782264771.png
-[MobileConftest] Captured failure screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/fail_test_auth_invalid_credentials_1782264758.png
-FAILED
+--- DEBUG LOGIN PAGE SOURCE ---
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<hierarchy index="0" class="hierarchy" rotation="0" width="1440" height="2392">
+  <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2560]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+    <android.widget.LinearLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.LinearLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="1" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+      <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" resource-id="android:id/content" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="2" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+        <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="true" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="1" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" pane-title=" " window-id="13">
+          <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+            <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+              <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+                <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+                  <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Kisan Mitra" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[459,464][981,583]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                  <android.widget.ScrollView index="1" package="com.kisanmitra.kisan_mitra" class="android.widget.ScrollView" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="true" selected="false" bounds="[0,670][1440,2392]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+                    <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,782][1356,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+                      <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Welcome Back!" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,782][827,911]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                      <android.view.View index="1" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Sign in to access your farm dashboard" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,932][998,999]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                      <android.view.View index="2" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Email" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1111][216,1177]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                      <android.widget.EditText index="3" package="com.kisanmitra.kisan_mitra" class="android.widget.EditText" text="nonexistent_farmer@kisan.com" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1198][1356,1391]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                      <android.view.View index="4" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Password" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1461][316,1527]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                      <android.widget.EditText index="5" package="com.kisanmitra.kisan_mitra" class="android.widget.EditText" text="•••••••••••••" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="true" long-clickable="false" password="true" scrollable="false" selected="false" bounds="[84,1548][1356,1741]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13">
+                        <android.widget.Button index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[1188,1561][1356,1729]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                      </android.widget.EditText>
+                      <android.widget.Button index="6" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" content-desc="Forgot Password?" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[863,1783][1356,1951]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                      <android.widget.Button index="7" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" content-desc="Login" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,2049][1356,2245]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                      <android.view.View index="8" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Or continue with" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[527,2343][913,2392]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="13" />
+                    </android.view.View>
+                  </android.widget.ScrollView>
+                </android.view.View>
+              </android.view.View>
+            </android.view.View>
+          </android.view.View>
+        </android.widget.FrameLayout>
+      </android.widget.FrameLayout>
+    </android.widget.LinearLayout>
+  </android.widget.FrameLayout>
+</hierarchy>
+--- END DEBUG LOGIN PAGE SOURCE ---
+[DEBUG] Found 1 matching submit buttons.
+  [0] class: android.widget.Button, text: , desc: Login, resource-id: , displayed: True
+[MobileScreenshot] Saved screenshot: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Screenshots/mobile_login_invalid_credentials.png
+[MobileTest] Verification complete: invalid login failed as expected.
+PASSED
 tests/mobile_e2e/test_suites/test_features.py::test_home_page_load [MobileConftest] Launching Appium driver targeting: /home/runner/work/kisan-mitra-web/kisan-mitra-web/build/app/outputs/flutter-apk/app-debug.apk
 [MobileTest] Performing E2E test login...
 --- DEBUG LOGIN PAGE SOURCE ---
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <hierarchy index="0" class="hierarchy" rotation="0" width="1440" height="2392">
-  <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2560]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-    <android.widget.LinearLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.LinearLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="1" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-      <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" resource-id="android:id/content" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="2" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-        <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="true" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="1" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" pane-title=" " window-id="21">
-          <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-            <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-              <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-                <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-                  <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Kisan Mitra" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[459,464][981,583]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
-                  <android.widget.ScrollView index="1" package="com.kisanmitra.kisan_mitra" class="android.widget.ScrollView" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="true" selected="false" bounds="[0,670][1440,2392]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-                    <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,782][1356,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-                      <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Welcome Back!" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,782][827,911]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
-                      <android.view.View index="1" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Sign in to access your farm dashboard" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,932][998,999]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
-                      <android.view.View index="2" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Email" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1111][216,1177]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
-                      <android.widget.EditText index="3" package="com.kisanmitra.kisan_mitra" class="android.widget.EditText" text="testfarmer@example.com" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1198][1356,1391]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
-                      <android.view.View index="4" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Password" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1461][316,1527]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
-                      <android.widget.EditText index="5" package="com.kisanmitra.kisan_mitra" class="android.widget.EditText" text="••••••••••••••" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="true" long-clickable="false" password="true" scrollable="false" selected="false" bounds="[84,1548][1356,1741]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21">
-                        <android.widget.Button index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[1188,1561][1356,1729]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
+  <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2560]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+    <android.widget.LinearLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.LinearLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="1" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+      <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" resource-id="android:id/content" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="2" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+        <android.widget.FrameLayout index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.FrameLayout" text="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="true" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="1" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" pane-title=" " window-id="22">
+          <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+            <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+              <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+                <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[0,0][1440,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+                  <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Kisan Mitra" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[459,464][981,583]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
+                  <android.widget.ScrollView index="1" package="com.kisanmitra.kisan_mitra" class="android.widget.ScrollView" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="true" selected="false" bounds="[0,670][1440,2392]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+                    <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="false" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,782][1356,2392]" displayed="true" a11y-important="false" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+                      <android.view.View index="0" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Welcome Back!" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,782][827,911]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
+                      <android.view.View index="1" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Sign in to access your farm dashboard" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,932][998,999]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
+                      <android.view.View index="2" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Email" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1111][216,1177]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
+                      <android.widget.EditText index="3" package="com.kisanmitra.kisan_mitra" class="android.widget.EditText" text="testfarmer@example.com" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1198][1356,1391]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
+                      <android.view.View index="4" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Password" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,1461][316,1527]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
+                      <android.widget.EditText index="5" package="com.kisanmitra.kisan_mitra" class="android.widget.EditText" text="••••••••••••••" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="true" long-clickable="false" password="true" scrollable="false" selected="false" bounds="[84,1548][1356,1741]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22">
+                        <android.widget.Button index="0" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[1188,1561][1356,1729]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
                       </android.widget.EditText>
-                      <android.widget.Button index="6" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" content-desc="Forgot Password?" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[863,1783][1356,1951]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
-                      <android.widget.Button index="7" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" content-desc="Login" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,2049][1356,2245]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
-                      <android.view.View index="8" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Or continue with" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[527,2343][913,2392]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="21" />
+                      <android.widget.Button index="6" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" content-desc="Forgot Password?" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[863,1783][1356,1951]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
+                      <android.widget.Button index="7" package="com.kisanmitra.kisan_mitra" class="android.widget.Button" text="" content-desc="Login" resource-id="" checkable="false" checked="false" clickable="true" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[84,2049][1356,2245]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
+                      <android.view.View index="8" package="com.kisanmitra.kisan_mitra" class="android.view.View" text="" content-desc="Or continue with" resource-id="" checkable="false" checked="false" clickable="false" enabled="true" focusable="true" focused="false" long-clickable="false" password="false" scrollable="false" selected="false" bounds="[527,2343][913,2392]" displayed="true" a11y-important="true" screen-reader-focusable="false" drawing-order="0" showing-hint="false" text-entry-key="false" dismissable="false" a11y-focused="false" heading="false" live-region="0" context-clickable="false" content-invalid="false" window-id="22" />
                     </android.view.View>
                   </android.widget.ScrollView>
                 </android.view.View>
@@ -1866,179 +1906,7 @@ tests/mobile_e2e/test_suites/test_regression_400.py::test_regression_case[TC_REG
 [Running Test] TC_REGR_050 - Authentication flow state checks - Scenario Variant 24 (Regression Suite)
 PASSED
 
-=================================== FAILURES ===================================
-________________________ test_auth_invalid_credentials _________________________
-
-driver = <appium.webdriver.webdriver.WebDriver (session="8df9b57d-e778-4b63-9dc7-3ab099e509dd")>
-
-    def test_auth_invalid_credentials(driver):
-        """Test that login with invalid credentials displays an error on mobile."""
-        time.sleep(3)
-    
-        login_page = LoginPage(driver)
->       login_page.login("nonexistent_farmer@kisan.com", "WrongPass123!")
-
-tests/mobile_e2e/test_suites/test_auth.py:25: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests/mobile_e2e/pages/login_page.py:14: in login
-    self.send_keys(self.EMAIL_INPUT, email)
-tests/mobile_e2e/pages/base_page.py:31: in send_keys
-    element = self.wait_for_element(locator)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-tests/mobile_e2e/pages/base_page.py:22: in wait_for_element
-    raise e
-tests/mobile_e2e/pages/base_page.py:17: in wait_for_element
-    return WebDriverWait(self.driver, self.timeout).until(
-/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/wait.py:112: in until
-    value = method(self._driver)
-            ^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/support/expected_conditions.py:188: in _predicate
-    return _element_if_visible(driver.find_element(*locator))
-                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:899: in find_element
-    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py:492: in execute
-    self.error_handler.check_response(response)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = <appium.webdriver.errorhandler.MobileErrorHandler object at 0x7f2b9cc46990>
-response = {'status': 500, 'value': '{"value":{"error":"unknown error","message":"io.appium.uiautomator2.common.exceptions.UiAuto...r2.core.AccessibilityNodeInfoDumper.findNodesUsingXpath1(AccessibilityNodeInfoDumper.java:279)\\n\\t... 33 more\\n"}}'}
-
-    def check_response(self, response: Dict[str, Any]) -> None:
-        """
-        https://www.w3.org/TR/webdriver/#errors
-        """
-        payload = response.get('value', '')
-        if isinstance(payload, dict):
-            payload_dict = payload
-        else:
-            try:
-                payload_dict = json.loads(payload)
-            except (json.JSONDecodeError, TypeError):
-                return
-            if not isinstance(payload_dict, dict):
-                return
-        value = payload_dict.get('value')
-        if not isinstance(value, dict):
-            return
-        error = value.get('error')
-        if not error:
-            return
-    
-        message = value.get('message', error)
-        stacktrace = value.get('stacktrace', '')
-        # In theory, we should also be checking HTTP status codes.
-        # Java client, for example, prints a warning if the actual `error`
-        # value does not match to the response's HTTP status code.
-        exception_class: Type[sel_exceptions.WebDriverException] = ERROR_TO_EXC_MAPPING.get(
-            error, sel_exceptions.WebDriverException
-        )
-        if exception_class is sel_exceptions.WebDriverException and message:
-            if message == 'No such context found.':
-                exception_class = appium_exceptions.NoSuchContextException
-            elif message == 'That command could not be executed in the current context.':
-                exception_class = appium_exceptions.InvalidSwitchToTargetException
-    
-        if exception_class is sel_exceptions.UnexpectedAlertPresentException:
-            raise sel_exceptions.UnexpectedAlertPresentException(
-                msg=message,
-                stacktrace=format_stacktrace(stacktrace),
-                alert_text=value.get('data'),
-            )
->       raise exception_class(msg=message, stacktrace=format_stacktrace(stacktrace))
-E       selenium.common.exceptions.WebDriverException: Message: io.appium.uiautomator2.common.exceptions.UiAutomator2Exception: Timed out after 10504ms waiting for the root AccessibilityNodeInfo in the active window. Make sure the active window is not constantly hogging the main UI thread (e.g. the application is being idle long enough), so the accessibility manager could do its work
-E       Stacktrace:
-E       io.appium.uiautomator2.common.exceptions.UiAutomator2Exception: io.appium.uiautomator2.common.exceptions.UiAutomator2Exception: Timed out after 10504ms waiting for the root AccessibilityNodeInfo in the active window. Make sure the active window is not constantly hogging the main UI thread (e.g. the application is being idle long enough), so the accessibility manager could do its work
-E       	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodesUsingXpath1(AccessibilityNodeInfoDumper.java:306)
-E       	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodes(AccessibilityNodeInfoDumper.java:377)
-E       	at io.appium.uiautomator2.utils.ElementLocationHelpers.getXPathNodeMatch(ElementLocationHelpers.java:124)
-E       	at io.appium.uiautomator2.utils.ElementLocationHelpers.findElement(ElementLocationHelpers.java:151)
-E       	at io.appium.uiautomator2.handler.FindElement.safeHandle(FindElement.java:60)
-E       	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
-E       	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:267)
-E       	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:261)
-E       	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:77)
-E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
-E       	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:107)
-E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
-E       	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:434)
-E       	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
-E       	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
-E       	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:249)
-E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
-E       	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:288)
-E       	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
-E       	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1429)
-E       	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:918)
-E       	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:176)
-E       	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.handle(AbstractNioChannel.java:445)
-E       	at io.netty.channel.nio.NioIoHandler$DefaultNioRegistration.handle(NioIoHandler.java:388)
-E       	at io.netty.channel.nio.NioIoHandler.processSelectedKey(NioIoHandler.java:596)
-E       	at io.netty.channel.nio.NioIoHandler.processSelectedKeysOptimized(NioIoHandler.java:571)
-E       	at io.netty.channel.nio.NioIoHandler.processSelectedKeys(NioIoHandler.java:512)
-E       	at io.netty.channel.nio.NioIoHandler.run(NioIoHandler.java:484)
-E       	at io.netty.channel.SingleThreadIoEventLoop.runIo(SingleThreadIoEventLoop.java:225)
-E       	at io.netty.channel.SingleThreadIoEventLoop.run(SingleThreadIoEventLoop.java:196)
-E       	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:1195)
-E       	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
-E       	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-E       	at java.lang.Thread.run(Thread.java:919)
-E       Caused by: io.appium.uiautomator2.common.exceptions.UiAutomator2Exception: Timed out after 10504ms waiting for the root AccessibilityNodeInfo in the active window. Make sure the active window is not constantly hogging the main UI thread (e.g. the application is being idle long enough), so the accessibility manager could do its work
-E       	at io.appium.uiautomator2.utils.AXWindowHelpers.getActiveWindowRoot(AXWindowHelpers.java:107)
-E       	at io.appium.uiautomator2.utils.AXWindowHelpers.retrieveWindowRoots(AXWindowHelpers.java:87)
-E       	at io.appium.uiautomator2.utils.AXWindowHelpers.getCachedWindowRoots(AXWindowHelpers.java:68)
-E       	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.toStream(AccessibilityNodeInfoDumper.java:228)
-E       	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodesUsingXpath1(AccessibilityNodeInfoDumper.java:279)
-E       	... 33 more
-
-/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/appium/webdriver/errorhandler.py:125: WebDriverException
-=========================== short test summary info ============================
-FAILED tests/mobile_e2e/test_suites/test_auth.py::test_auth_invalid_credentials - selenium.common.exceptions.WebDriverException: Message: io.appium.uiautomator2.common.exceptions.UiAutomator2Exception: Timed out after 10504ms waiting for the root AccessibilityNodeInfo in the active window. Make sure the active window is not constantly hogging the main UI thread (e.g. the application is being idle long enough), so the accessibility manager could do its work
-Stacktrace:
-io.appium.uiautomator2.common.exceptions.UiAutomator2Exception: io.appium.uiautomator2.common.exceptions.UiAutomator2Exception: Timed out after 10504ms waiting for the root AccessibilityNodeInfo in the active window. Make sure the active window is not constantly hogging the main UI thread (e.g. the application is being idle long enough), so the accessibility manager could do its work
-	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodesUsingXpath1(AccessibilityNodeInfoDumper.java:306)
-	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodes(AccessibilityNodeInfoDumper.java:377)
-	at io.appium.uiautomator2.utils.ElementLocationHelpers.getXPathNodeMatch(ElementLocationHelpers.java:124)
-	at io.appium.uiautomator2.utils.ElementLocationHelpers.findElement(ElementLocationHelpers.java:151)
-	at io.appium.uiautomator2.handler.FindElement.safeHandle(FindElement.java:60)
-	at io.appium.uiautomator2.handler.request.SafeRequestHandler.handle(SafeRequestHandler.java:59)
-	at io.appium.uiautomator2.server.AppiumServlet.handleRequest(AppiumServlet.java:267)
-	at io.appium.uiautomator2.server.AppiumServlet.handleHttpRequest(AppiumServlet.java:261)
-	at io.appium.uiautomator2.http.ServerHandler.channelRead(ServerHandler.java:77)
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
-	at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:107)
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:357)
-	at io.netty.channel.CombinedChannelDuplexHandler$DelegatingChannelHandlerContext.fireChannelRead(CombinedChannelDuplexHandler.java:434)
-	at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
-	at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
-	at io.netty.channel.CombinedChannelDuplexHandler.channelRead(CombinedChannelDuplexHandler.java:249)
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
-	at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:288)
-	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:355)
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1429)
-	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:918)
-	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:176)
-	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.handle(AbstractNioChannel.java:445)
-	at io.netty.channel.nio.NioIoHandler$DefaultNioRegistration.handle(NioIoHandler.java:388)
-	at io.netty.channel.nio.NioIoHandler.processSelectedKey(NioIoHandler.java:596)
-	at io.netty.channel.nio.NioIoHandler.processSelectedKeysOptimized(NioIoHandler.java:571)
-	at io.netty.channel.nio.NioIoHandler.processSelectedKeys(NioIoHandler.java:512)
-	at io.netty.channel.nio.NioIoHandler.run(NioIoHandler.java:484)
-	at io.netty.channel.SingleThreadIoEventLoop.runIo(SingleThreadIoEventLoop.java:225)
-	at io.netty.channel.SingleThreadIoEventLoop.run(SingleThreadIoEventLoop.java:196)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:1195)
-	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:919)
-Caused by: io.appium.uiautomator2.common.exceptions.UiAutomator2Exception: Timed out after 10504ms waiting for the root AccessibilityNodeInfo in the active window. Make sure the active window is not constantly hogging the main UI thread (e.g. the application is being idle long enough), so the accessibility manager could do its work
-	at io.appium.uiautomator2.utils.AXWindowHelpers.getActiveWindowRoot(AXWindowHelpers.java:107)
-	at io.appium.uiautomator2.utils.AXWindowHelpers.retrieveWindowRoots(AXWindowHelpers.java:87)
-	at io.appium.uiautomator2.utils.AXWindowHelpers.getCachedWindowRoots(AXWindowHelpers.java:68)
-	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.toStream(AccessibilityNodeInfoDumper.java:228)
-	at io.appium.uiautomator2.core.AccessibilityNodeInfoDumper.findNodesUsingXpath1(AccessibilityNodeInfoDumper.java:279)
-	... 33 more
-================== 1 failed, 517 passed in 237.38s (0:03:57) ===================
+======================= 518 passed in 226.34s (0:03:46) ========================
 
 ======================================================================
 MOBILE TEST SUITE COMPLETED. GENERATING REPORTS...
@@ -2055,6 +1923,6 @@ JSON results saved: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobi
 [MobileSummaryReporter] Summary saved successfully to /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/mobile_e2e/Test Results/Summary/summary.md
 Reports compilation complete.
 ======================================================================
-Overall Pass Rate: 99.81% (Required >= 95.0%)
+Overall Pass Rate: 100.00% (Required >= 95.0%)
 Critical Fail Rate: 0.00% (Allowed <= 5.0%)
 Validation Gate Passed successfully! Exiting with status code 0.
