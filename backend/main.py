@@ -112,6 +112,285 @@ else:
         openapi_url=None,
     )
 
+@app.get("/admin/db", response_class=HTMLResponse)
+async def view_database_ui(token: str = None, table: str = None):
+    if token != "Mani1610":
+        return HTMLResponse(
+            "<h3>Unauthorized</h3><p>Please provide a valid token in the URL query. e.g. <code>/admin/db?token=Mani1610</code></p>",
+            status_code=401
+        )
+    
+    import sqlite3
+    from db_utils import get_db_connection
+    from fastapi.responses import HTMLResponse
+    
+    try:
+        conn = get_db_connection(DB_PATH)
+        cursor = conn.cursor()
+        
+        # Get all tables
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = [row[0] for row in cursor.fetchall() if row[0] not in ("sqlite_sequence",)]
+        
+        # Get counts for each table
+        table_counts = {}
+        for t in tables:
+            cursor.execute(f"SELECT COUNT(*) FROM {t}")
+            table_counts[t] = cursor.fetchone()[0]
+            
+        selected_table = table if table in tables else (tables[0] if tables else None)
+        headers = []
+        rows = []
+        
+        if selected_table:
+            cursor.execute(f"PRAGMA table_info({selected_table})")
+            headers = [col[1] for col in cursor.fetchall()]
+            cursor.execute(f"SELECT * FROM {selected_table} LIMIT 100")
+            rows = cursor.fetchall()
+            
+        conn.close()
+    except Exception as e:
+        return HTMLResponse(f"<h3>Database Error</h3><p>{e}</p>", status_code=500)
+
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Kisan Mitra Database Viewer</title>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <style>
+            body {{
+                font-family: 'Outfit', sans-serif;
+                background-color: #0B0F19;
+                color: #E5E7EB;
+                margin: 0;
+                padding: 20px;
+            }}
+            .container {{
+                max-width: 1280px;
+                margin: 0 auto;
+            }}
+            header {{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #1F2937;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+            }}
+            h1 {{
+                margin: 0;
+                font-size: 24px;
+                background: linear-gradient(135deg, #10B981, #3B82F6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }}
+            .btn-download {{
+                background-color: #10B981;
+                color: white;
+                text-decoration: none;
+                padding: 10px 18px;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 14px;
+                transition: background-color 0.2s;
+            }}
+            .btn-download:hover {{
+                background-color: #059669;
+            }}
+            .layout {{
+                display: grid;
+                grid-template-columns: 280px 1fr;
+                gap: 24px;
+            }}
+            .sidebar {{
+                background: #111827;
+                border: 1px solid #1F2937;
+                border-radius: 12px;
+                padding: 16px;
+                height: fit-content;
+            }}
+            .sidebar h2 {{
+                font-size: 16px;
+                margin-top: 0;
+                color: #9CA3AF;
+                border-bottom: 1px solid #1F2937;
+                padding-bottom: 8px;
+            }}
+            .table-list {{
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }}
+            .table-item {{
+                margin-bottom: 8px;
+            }}
+            .table-link {{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 12px;
+                color: #9CA3AF;
+                text-decoration: none;
+                border-radius: 8px;
+                transition: all 0.2s;
+                font-weight: 500;
+            }}
+            .table-link:hover {{
+                background: #1F2937;
+                color: #E5E7EB;
+            }}
+            .table-link.active {{
+                background: rgba(59, 130, 246, 0.1);
+                color: #3B82F6;
+                border: 1px solid rgba(59, 130, 246, 0.2);
+            }}
+            .count-badge {{
+                background: #1F2937;
+                padding: 2px 8px;
+                border-radius: 6px;
+                font-size: 12px;
+                color: #9CA3AF;
+            }}
+            .table-link.active .count-badge {{
+                background: #3B82F6;
+                color: #FFFFFF;
+            }}
+            .content {{
+                background: #111827;
+                border: 1px solid #1F2937;
+                border-radius: 12px;
+                padding: 24px;
+                overflow-x: auto;
+            }}
+            .table-title {{
+                margin-top: 0;
+                font-size: 20px;
+                color: #FFFFFF;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }}
+            .grid {{
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 16px;
+                font-size: 14px;
+            }}
+            .grid th {{
+                text-align: left;
+                padding: 12px;
+                background: #1F2937;
+                border-bottom: 2px solid #374151;
+                font-weight: 600;
+                color: #9CA3AF;
+            }}
+            .grid td {{
+                padding: 12px;
+                border-bottom: 1px solid #1F2937;
+                color: #D1D5DB;
+                white-space: nowrap;
+                max-width: 300px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }}
+            .grid tr:hover {{
+                background: #1F2937;
+            }}
+            .empty-state {{
+                text-align: center;
+                color: #9CA3AF;
+                padding: 48px 0;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div>
+                    <h1>Kisan Mitra Live DB Viewer</h1>
+                    <p style="margin: 4px 0 0 0; color: #9CA3AF; font-size: 14px;">Render Production Database Manager</p>
+                </div>
+                <a href="/admin/db/download?token={token}" class="btn-download">📥 Download Database (.db)</a>
+            </header>
+            
+            <div class="layout">
+                <div class="sidebar">
+                    <h2>Database Tables</h2>
+                    <ul class="table-list">
+    """
+    
+    for t in tables:
+        is_active = "active" if t == selected_table else ""
+        html_content += f"""
+                        <li class="table-item">
+                            <a class="table-link {is_active}" href="/admin/db?token={token}&table={t}">
+                                <span>📁 {t}</span>
+                                <span class="count-badge">{table_counts[t]}</span>
+                            </a>
+                        </li>
+        """
+        
+    html_content += f"""
+                    </ul>
+                </div>
+                
+                <div class="content">
+    """
+    
+    if selected_table:
+        html_content += f"""
+                    <h2 class="table-title">📊 Table: {selected_table} <span style="font-size: 14px; color: #9CA3AF; font-weight: normal;">(Showing up to 100 rows)</span></h2>
+                    <table class="grid">
+                        <thead>
+                            <tr>
+        """
+        for h in headers:
+            html_content += f"<th>{h}</th>"
+        html_content += """
+                            </tr>
+                        </thead>
+                        <tbody>
+        """
+        if not rows:
+            html_content += f"""
+                            <tr>
+                                <td colspan="{len(headers)}" class="empty-state">No data available in this table.</td>
+                            </tr>
+            """
+        else:
+            for r in rows:
+                html_content += "<tr>"
+                for val in r:
+                    html_content += f"<td title='{str(val)}'>{str(val)}</td>"
+                html_content += "</tr>"
+        html_content += """
+                        </tbody>
+                    </table>
+        """
+    else:
+        html_content += """
+                    <div class="empty-state">No tables found in this database.</div>
+        """
+        
+    html_content += """
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    return HTMLResponse(html_content)
+
+@app.get("/admin/db/download")
+async def download_db_file(token: str = None):
+    if token != "Mani1610":
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    from fastapi.responses import FileResponse
+    if not os.path.exists(DB_PATH):
+        raise HTTPException(status_code=404, detail="Database file not found")
+    return FileResponse(DB_PATH, filename="render_app_data.db", media_type="application/octet-stream")
+
 @app.on_event("startup")
 def startup_event():
     # ── SECURITY: Validate required secrets at startup ────────────────────
