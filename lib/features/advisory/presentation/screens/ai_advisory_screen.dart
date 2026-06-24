@@ -16,6 +16,7 @@ import '../../../../core/repositories/weather_repository.dart';
 import '../../../weather/data/models/weather_model.dart';
 import '../../data/models/chat_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AIAdvisoryScreen extends StatefulWidget {
   const AIAdvisoryScreen({super.key});
@@ -117,9 +118,52 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
 
   Future<void> _loadChatHistory() async {
     try {
+      final farmProvider = Provider.of<FarmProvider>(context, listen: false);
+      final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+      final farmId = farmProvider.selectedFarm?.id ?? 'default';
+
+      if (userId != 'guest') {
+        try {
+          final querySnapshot = await FirebaseFirestore.instance
+              .collection('chat_sessions')
+              .where('userId', isEqualTo: userId)
+              .where('farmId', isEqualTo: farmId)
+              .orderBy('timestamp', descending: true)
+              .get();
+              
+          if (querySnapshot.docs.isNotEmpty) {
+            _sessions = querySnapshot.docs.map((doc) => {
+              'id': doc.id,
+              'title': doc.data()['title'] ?? 'New Chat',
+              'timestamp': doc.data()['timestamp'] ?? DateTime.now().toIso8601String(),
+            }).toList();
+            
+            if (_currentSessionId == null || !_sessions.any((s) => s['id'] == _currentSessionId)) {
+              _currentSessionId = _sessions.first['id'];
+            }
+            
+            final currentSessionDoc = querySnapshot.docs.firstWhere((doc) => doc.id == _currentSessionId);
+            final messagesList = currentSessionDoc.data()['messages'] as List<dynamic>? ?? [];
+            
+            _messages.clear();
+            setState(() {
+              _messages.addAll(messagesList.map((m) => ChatMessage.fromMap(Map<String, dynamic>.from(m))).toList());
+            });
+            _scrollToBottom();
+            
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString(_sessionsKey, jsonEncode(_sessions));
+            final historyJson = jsonEncode(_messages.map((m) => m.toMap()).toList());
+            await prefs.setString(_historyKey, historyJson);
+            return;
+          }
+        } catch (dbError) {
+          debugPrint('Error loading chats from Firestore: $dbError');
+        }
+      }
+
       final prefs = await SharedPreferences.getInstance();
       
-      // Load sessions first
       final sessionsJson = prefs.getString(_sessionsKey);
       if (sessionsJson != null) {
         final List<dynamic> decoded = jsonDecode(sessionsJson);
@@ -127,7 +171,6 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
       }
 
       if (_sessions.isEmpty) {
-        // Create a default first session
         _currentSessionId = DateTime.now().millisecondsSinceEpoch.toString();
         _sessions.add({
           'id': _currentSessionId,
@@ -139,7 +182,6 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
         _currentSessionId = _sessions.first['id'];
       }
 
-      // Load messages for current session
       _messages.clear();
       final historyJson = prefs.getString(_historyKey);
       if (historyJson != null) {
@@ -168,6 +210,21 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
       final prefs = await SharedPreferences.getInstance();
       final historyJson = jsonEncode(_messages.map((m) => m.toMap()).toList());
       await prefs.setString(_historyKey, historyJson);
+
+      final farmProvider = Provider.of<FarmProvider>(context, listen: false);
+      final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+      final farmId = farmProvider.selectedFarm?.id ?? 'default';
+
+      if (userId != 'guest' && _currentSessionId != null) {
+        final currentSession = _sessions.firstWhere((s) => s['id'] == _currentSessionId);
+        await FirebaseFirestore.instance.collection('chat_sessions').doc(_currentSessionId).set({
+          'userId': userId,
+          'farmId': farmId,
+          'title': currentSession['title'],
+          'timestamp': currentSession['timestamp'],
+          'messages': _messages.map((m) => m.toMap()).toList(),
+        });
+      }
     } catch (e) {
       debugPrint('Error saving chat history: $e');
     }
@@ -177,6 +234,24 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_sessionsKey, jsonEncode(_sessions));
+
+      final farmProvider = Provider.of<FarmProvider>(context, listen: false);
+      final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+      final farmId = farmProvider.selectedFarm?.id ?? 'default';
+
+      if (userId != 'guest') {
+        for (final session in _sessions) {
+          final sId = session['id'];
+          if (sId != null) {
+            await FirebaseFirestore.instance.collection('chat_sessions').doc(sId).set({
+              'userId': userId,
+              'farmId': farmId,
+              'title': session['title'],
+              'timestamp': session['timestamp'],
+            }, SetOptions(merge: true));
+          }
+        }
+      }
     } catch (e) {
       debugPrint('Error saving chat sessions: $e');
     }
@@ -189,6 +264,30 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
       _messages.clear();
       _isTyping = false;
     });
+
+    final farmProvider = Provider.of<FarmProvider>(context, listen: false);
+    final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+    final farmId = farmProvider.selectedFarm?.id ?? 'default';
+
+    if (userId != 'guest') {
+      try {
+        final doc = await FirebaseFirestore.instance.collection('chat_sessions').doc(sessionId).get();
+        if (doc.exists) {
+          final messagesList = doc.data()?['messages'] as List<dynamic>? ?? [];
+          setState(() {
+            _messages.addAll(messagesList.map((m) => ChatMessage.fromMap(Map<String, dynamic>.from(m))).toList());
+          });
+          _scrollToBottom();
+          
+          final prefs = await SharedPreferences.getInstance();
+          final historyJson = jsonEncode(_messages.map((m) => m.toMap()).toList());
+          await prefs.setString(_historyKey, historyJson);
+          return;
+        }
+      } catch (dbError) {
+        debugPrint('Error loading chat session from Firestore: $dbError');
+      }
+    }
 
     final prefs = await SharedPreferences.getInstance();
     final historyJson = prefs.getString(_historyKey);
@@ -253,6 +352,14 @@ class _AIAdvisoryScreenState extends State<AIAdvisoryScreen> {
       final farmId = farmProvider.selectedFarm?.id ?? 'default';
       final histKey = 'ai_chat_history_${userId}_${farmId}_$sessionId';
       await prefs.remove(histKey);
+
+      if (userId != 'guest') {
+        try {
+          await FirebaseFirestore.instance.collection('chat_sessions').doc(sessionId).delete();
+        } catch (dbError) {
+          debugPrint('Error deleting session from Firestore: $dbError');
+        }
+      }
 
       setState(() {
         _sessions.removeWhere((s) => s['id'] == sessionId);

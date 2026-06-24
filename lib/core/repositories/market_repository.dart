@@ -157,9 +157,12 @@ class MarketRepository {
       };
 
       final Map<String, String> queryParams = {};
+      // Fetch all crop prices so client-side can display "Other Markets" on dashboard
+      /*
       if (preferredCrops != null && preferredCrops.isNotEmpty) {
         queryParams['crops'] = preferredCrops.map((c) => normalizeCrop(c)).join(',');
       }
+      */
       if (preferredState != null && preferredState.trim().isNotEmpty) {
         queryParams['state'] = preferredState.trim();
       }

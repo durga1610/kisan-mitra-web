@@ -23,7 +23,7 @@ import '../../../../core/providers/farm_provider.dart';
 import '../../../../core/providers/language_provider.dart';
 import '../../../../core/services/firestore_service.dart';
 import '../../../../core/services/location_service.dart';
-import '../../../../core/services/weather_service.dart';
+import '../../../../core/repositories/weather_repository.dart';
 import '../../../weather/data/models/weather_model.dart';
 import '../../../../core/models/farm_model.dart';
 import '../../../../core/providers/user_provider.dart';
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final _firestoreService = FirestoreService();
   final _locationService = LocationService();
-  final _weatherService = WeatherService();
+  final _weatherService = WeatherRepository();
 
   bool _isLoading = true;
   String? _error;
@@ -213,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
           notificationPredicate: (notification) => kIsWeb ? defaultScrollNotificationPredicate(notification) : false,
           color: Colors.white,
           child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: kIsWeb ? const BouncingScrollPhysics() : const ClampingScrollPhysics(),
             slivers: [
               // Header
               SliverToBoxAdapter(

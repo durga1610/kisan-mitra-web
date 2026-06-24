@@ -160,7 +160,24 @@ class AuthService {
   Future<UserCredential?> signInWithEmail(String email, String password) async {
     try {
       if (email == 'testfarmer@example.com' && password == 'TestFarmer123!') {
-        return await signInAnonymously();
+        try {
+          return await _auth.signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'user-not-found' || e.code == 'invalid-credential') {
+            try {
+              return await _auth.createUserWithEmailAndPassword(
+                email: email,
+                password: password,
+              );
+            } catch (_) {
+              rethrow;
+            }
+          }
+          rethrow;
+        }
       }
       return await _auth.signInWithEmailAndPassword(
         email: email,

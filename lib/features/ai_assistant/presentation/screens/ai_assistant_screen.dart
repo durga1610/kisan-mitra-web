@@ -14,7 +14,7 @@ import '../../../../core/models/farm_model.dart';
 import '../../../../core/services/gemini_service.dart';
 import '../../../../core/providers/language_provider.dart';
 import '../../data/assistant_data.dart';
-import '../../../../core/services/weather_service.dart';
+import '../../../../core/repositories/weather_repository.dart';
 import '../../../../features/weather/data/models/weather_model.dart';
 
 class AIAssistantScreen extends StatefulWidget {
@@ -89,14 +89,14 @@ class _AIAssistantScreenState extends State<AIAssistantScreen>
     // Fetch weather
     WeatherModel? weather;
     try {
-      final weatherService = WeatherService();
+      final weatherRepository = WeatherRepository();
       final lang = Provider.of<LanguageProvider>(context, listen: false).currentLanguage;
       if (farm.latitude != null && farm.longitude != null) {
-        weather = await weatherService.getWeather(
+        weather = await weatherRepository.getWeather(
             farm.latitude!, farm.longitude!,
             lang: lang, farmName: farm.name);
       } else {
-        weather = await weatherService.getWeatherForLocation(
+        weather = await weatherRepository.getWeatherForLocation(
             farm.village, farm.district, farm.state,
             lang: lang, farmName: farm.name);
       }
@@ -105,7 +105,7 @@ class _AIAssistantScreenState extends State<AIAssistantScreen>
     }
 
     if (weather == null) {
-      weather = WeatherService.getLatestCachedWeather();
+      weather = WeatherRepository.getLatestCachedWeather();
       if (weather != null) {
         debugPrint('[AIAssistant] Using latest cached weather as fallback: ${weather.cityName}');
       }

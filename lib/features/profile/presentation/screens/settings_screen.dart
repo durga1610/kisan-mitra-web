@@ -127,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
       body: FadeTransition(
         opacity: _animationController,
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: kIsWeb ? const BouncingScrollPhysics() : const ClampingScrollPhysics(),
           child: Column(
             children: [
               _buildProfileHeader(context, userModel),
@@ -861,6 +861,15 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
                             .where('uid', isEqualTo: uid)
                             .get();
                         for (var doc in reportDocs.docs) {
+                          await doc.reference.delete();
+                        }
+
+                        // 4.5 Delete user chat sessions
+                        final chatDocs = await FirebaseFirestore.instance
+                            .collection('chat_sessions')
+                            .where('userId', isEqualTo: uid)
+                            .get();
+                        for (var doc in chatDocs.docs) {
                           await doc.reference.delete();
                         }
                         

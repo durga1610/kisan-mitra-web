@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/localization/app_translations.dart';
 
@@ -37,7 +38,7 @@ class HelpSupportBottomSheet extends StatelessWidget {
           ),
           child: SingleChildScrollView(
             controller: controller,
-            physics: const BouncingScrollPhysics(),
+            physics: kIsWeb ? const BouncingScrollPhysics() : const ClampingScrollPhysics(),
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).padding.bottom + 24,
               left: 24,
