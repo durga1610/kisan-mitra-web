@@ -1,6 +1,6 @@
 # 🚀 Kisan Mitra Consolidated CI/CD Test Dashboard
 
-**Build Number:** #25 · **Execution Date:** 2026-06-24 07:31:12 UTC · **Branch:** `main`
+**Build Number:** #26 · **Execution Date:** 2026-06-24 07:58:48 UTC · **Branch:** `main`
 
 ---
 
@@ -19,7 +19,7 @@
 | **⚙️ Backend Service Tests** | 408 | 408 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/backend/execution-report.html) |
 | **🛡️ Backend Security Scan** | 400 (Rules Checked) | — | — | — | **100/100** | ✅ SECURE | [Vulnerability MD](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
 | **🔒 Security E2E Tests** | 400 | 400 | 0 | 0 | **100.0%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-e2e/execution-report.html) |
-| **📈 Performance Load Test** | 29467 (Reqs) | — | — | — | **100.00% Success** | ✅ OPTIMAL | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.html) |
+| **📈 Performance Load Test** | 25068 (Reqs) | — | — | — | **100.00% Success** | ✅ OPTIMAL | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.html) |
 
 ---
 
@@ -33,8 +33,8 @@
 ---
 
 ## 📈 Performance Load Metrics
-- **Requests Per Second (RPS):** 489.08 RPS
-- **Average Response Time:** 195.22 ms
+- **Requests Per Second (RPS):** 416.08 RPS
+- **Average Response Time:** 229.78 ms
 - **Latency Range:** 15.0 ms (min) – 850.0 ms (max)
 - **Status rates:** 100.00% successful, 0.00% errors
 
