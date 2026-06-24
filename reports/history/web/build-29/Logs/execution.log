@@ -1,5 +1,5 @@
 ======================================================================
-KISAN MITRA WEB E2E TEST RUNNER - 2026-06-23 10:59:57
+KISAN MITRA WEB E2E TEST RUNNER - 2026-06-24 09:32:55
 Target Base URL: https://durga1610.github.io/kisan-mitra-web/
 ======================================================================
 Running pytest with args: ['-s', '-v', '/home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e/test_suites']
@@ -8,6 +8,7 @@ Running pytest with args: ['-s', '-v', '/home/runner/work/kisan-mitra-web/kisan-
 platform linux -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.15/x64/bin/python
 cachedir: .pytest_cache
 rootdir: /home/runner/work/kisan-mitra-web/kisan-mitra-web/tests/e2e
+plugins: anyio-4.14.0
 collecting ... collected 476 items
 
 test_suites/test_live_features.py::test_home_page_load Navigating to: https://durga1610.github.io/kisan-mitra-web/?demo=true#/home
@@ -1446,7 +1447,7 @@ test_suites/test_regression_400.py::test_regression_case[TC_REGR_050]
 [Running Test] TC_REGR_050 - Direct pages access navigation authentication guards - Scenario Variant 24 (Regression)
 PASSED
 
-============================= 476 passed in 55.49s =============================
+============================= 476 passed in 55.89s =============================
 
 ======================================================================
 WEB TEST SUITE COMPLETED. GENERATING REPORTS...
