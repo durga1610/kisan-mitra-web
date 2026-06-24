@@ -380,13 +380,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
   }
 
   Widget _buildMetricsGrid(WeatherModel weather) {
+    final width = MediaQuery.of(context).size.width;
+    final int crossAxisCount = width > 800 ? 4 : 2;
+    final double childAspectRatio = width > 800 ? 4.5 : 2.2;
+
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
+      crossAxisCount: crossAxisCount,
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
-      childAspectRatio: 2.2,
+      childAspectRatio: childAspectRatio,
       children: [
         _buildMetricCard('Humidity', '${weather.humidity.toInt()}%', Icons.waves_rounded, Colors.blue),
         _buildMetricCard('Wind Speed', '${weather.windSpeed.toInt()} km/h', Icons.air_rounded, Colors.orange),

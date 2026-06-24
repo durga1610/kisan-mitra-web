@@ -180,11 +180,15 @@ class _NewProfitRecordScreenState extends State<NewProfitRecordScreen> {
   }
 
   Widget _buildExpenseGrid() {
+    final width = MediaQuery.of(context).size.width;
+    final int crossAxisCount = width > 800 ? 4 : 2;
+    final double childAspectRatio = width > 800 ? 5.0 : 2.5;
+
     return GridView.count(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      childAspectRatio: 2.5,
+      crossAxisCount: crossAxisCount,
+      childAspectRatio: childAspectRatio,
       mainAxisSpacing: 12,
       crossAxisSpacing: 12,
       children: _expenses.keys.map((key) {
