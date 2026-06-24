@@ -2378,7 +2378,7 @@ async def _detect_disease_inner(
                     logger.info("[Verification Agreement] CNN and Gemini agree on '%s' for crop '%s'. Boosting confidence.", disease_name, crop_name)
                     final_confidence = min(98.0, max(final_confidence, gemini_confidence) + 5.0)
                     result_source = "HYBRID_ENGINE"
-                    warning_msg = "CNN result verified by Gemini Vision."
+                    warning_msg = None
                 else:
                     if "healthy" in verified_disease.lower() and final_confidence < 85.0:
                         logger.info("[Verification Override] CNN predicted disease with confidence %.1f%%, but Gemini verified as healthy. Overriding to Healthy.", final_confidence)

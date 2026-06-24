@@ -56,14 +56,42 @@ class _MarketScreenContentState extends State<_MarketScreenContent> with SingleT
               style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18, color: Colors.white),
             ),
             const SizedBox(width: 8),
-            FadeTransition(
-              opacity: _pulseController,
-              child: Container(
+            if (!provider.isFallbackActive)
+              FadeTransition(
+                opacity: _pulseController,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.red.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.withValues(alpha: 0.5)),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 6,
+                        height: 6,
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        'LIVE',
+                        style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            if (provider.isFallbackActive)
+              Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: Colors.red.withValues(alpha: 0.1),
+                  color: Colors.amber.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.red.withValues(alpha: 0.5)),
+                  border: Border.all(color: Colors.amber.withValues(alpha: 0.5)),
                 ),
                 child: Row(
                   children: [
@@ -71,19 +99,18 @@ class _MarketScreenContentState extends State<_MarketScreenContent> with SingleT
                       width: 6,
                       height: 6,
                       decoration: const BoxDecoration(
-                        color: Colors.red,
+                        color: Colors.amber,
                         shape: BoxShape.circle,
                       ),
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      'LIVE',
-                      style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.red),
+                      'CACHED',
+                      style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.amber.shade800),
                     ),
                   ],
                 ),
               ),
-            ),
           ],
         ),
         actions: [
@@ -193,7 +220,7 @@ class _MarketScreenContentState extends State<_MarketScreenContent> with SingleT
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: Text(
-              'Live Prices for Your Crops',
+              provider.isFallbackActive ? 'Market Prices for Your Crops' : 'Live Prices for Your Crops',
               style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onSurface),
             ),
           ),
