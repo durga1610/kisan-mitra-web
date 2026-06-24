@@ -1,6 +1,6 @@
 # 🚀 Kisan Mitra Consolidated CI/CD Test Dashboard
 
-**Build Number:** #21 · **Execution Date:** 2026-06-24 04:20:36 UTC · **Branch:** `main`
+**Build Number:** #22 · **Execution Date:** 2026-06-24 04:43:07 UTC · **Branch:** `main`
 
 ---
 
@@ -19,7 +19,7 @@
 | **⚙️ Backend Service Tests** | 408 | 408 | 0 | 0 | **100.00%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/backend/execution-report.html) |
 | **🛡️ Backend Security Scan** | 400 (Rules Checked) | — | — | — | **100/100** | ✅ SECURE | [Vulnerability MD](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md) |
 | **🔒 Security E2E Tests** | 400 | 400 | 0 | 0 | **100.0%** | ✅ PASS | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/security-e2e/execution-report.html) |
-| **📈 Performance Load Test** | 34448 (Reqs) | — | — | — | **100.00% Success** | ✅ OPTIMAL | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) |
+| **📈 Performance Load Test** | 29197 (Reqs) | — | — | — | **100.00% Success** | ✅ OPTIMAL | [HTML Report](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.html) |
 
 ---
 
@@ -33,8 +33,8 @@
 ---
 
 ## 📈 Performance Load Metrics
-- **Requests Per Second (RPS):** 572.88 RPS
-- **Average Response Time:** 166.69 ms
+- **Requests Per Second (RPS):** 484.78 RPS
+- **Average Response Time:** 197.0 ms
 - **Latency Range:** 15.0 ms (min) – 850.0 ms (max)
 - **Status rates:** 100.00% successful, 0.00% errors
 
@@ -84,5 +84,5 @@
 - **Findings Sheet:** [findings.xlsx](https://durga1610.github.io/kisan-mitra-web/reports/latest/findings.xlsx) (18 findings)
 - **Mobile Execution JSON:** [execution-results.json](https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-results.json) (518 tests passed)
 - **Web Execution JSON:** [execution-results.json](https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-results.json) (476 tests passed)
-- **Performance Report:** [load-test-report.md](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.md) (32,590 requests, 541.02 RPS, 0 failures)
+- **Performance Report:** [load-test-report.html](https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.html) (32,590 requests, 541.02 RPS, 0 failures)
 - **Retest Reports:** [security_retest_report.md](https://durga1610.github.io/kisan-mitra-web/reports/latest/security_retest_report.md) and [android_e2e_retest_report.md](https://durga1610.github.io/kisan-mitra-web/reports/latest/android_e2e_retest_report.md).
