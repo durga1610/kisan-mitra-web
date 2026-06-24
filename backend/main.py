@@ -4099,10 +4099,10 @@ async def get_market_prices(
         new_r["is_ai_estimate"] = False
         all_returned_records.append(new_r)
 
-    logger.info("[Mandi Proxy] Returning %d records (isFallback=True)", len(all_returned_records))
+    logger.info("[Mandi Proxy] Returning %d records (isFallback=False)", len(all_returned_records))
 
     return {
-        "isFallback": True,
+        "isFallback": False,
         "lastUpdated": datetime.now().isoformat(),
         "records": all_returned_records,
     }
