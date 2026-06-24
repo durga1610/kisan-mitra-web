@@ -7,7 +7,7 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html",
-    "build_number": "31",
+    "build_number": "32",
     "commit": "393b2de6"
   },
   "android_e2e": {
@@ -18,7 +18,7 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "31",
+    "build_number": "32",
     "commit": "393b2de6"
   },
   "backend_security": {
@@ -28,7 +28,7 @@
     "medium": 0,
     "low": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md",
-    "build_number": "31",
+    "build_number": "32",
     "commit": "393b2de6"
   },
   "secrets_scan": {
@@ -71,8 +71,8 @@
         "author": "KARI DURGA MANI SANKAR"
       }
     ],
-    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28110873217",
-    "build_number": "31",
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/28113657967",
+    "build_number": "32",
     "commit": "393b2de6"
   },
   "unit_tests": {
@@ -83,18 +83,18 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/backend/execution-report.html",
-    "build_number": "31",
+    "build_number": "32",
     "commit": "393b2de6"
   },
-  "last_updated": "2026-06-24 15:59:40",
+  "last_updated": "2026-06-24 16:43:15",
   "load_testing": {
     "status": "PASS",
-    "total_requests": 30579,
-    "rps": 508.43,
-    "avg_latency": 187.79,
+    "total_requests": 28670,
+    "rps": 476.37,
+    "avg_latency": 200.44,
     "failed_requests": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.html",
-    "build_number": "31",
+    "build_number": "32",
     "commit": "393b2de6"
   }
 }
