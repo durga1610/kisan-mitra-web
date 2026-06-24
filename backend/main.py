@@ -64,7 +64,7 @@ import logging
 from typing import List, Optional, Dict, Any
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Depends, Request, status, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from starlette.middleware.base import BaseHTTPMiddleware
 from pydantic import BaseModel, Field
@@ -122,7 +122,6 @@ async def view_database_ui(token: str = None, table: str = None):
     
     import sqlite3
     from db_utils import get_db_connection
-    from fastapi.responses import HTMLResponse
     
     try:
         conn = get_db_connection(DB_PATH)
