@@ -1,0 +1,4762 @@
+[
+  {
+    "id": "TC_GEN_001",
+    "module": "General",
+    "name": "test_home_page_load",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 14.298119521999993,
+    "timestamp": "2026-06-24 06:03:40",
+    "error": ""
+  },
+  {
+    "id": "TC_GEN_002",
+    "module": "General",
+    "name": "test_market_prices_page_load",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 5.547063527999995,
+    "timestamp": "2026-06-24 06:03:46",
+    "error": ""
+  },
+  {
+    "id": "TC_GEN_003",
+    "module": "General",
+    "name": "test_ai_advisor_page_load",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 4.413257751999964,
+    "timestamp": "2026-06-24 06:03:52",
+    "error": ""
+  },
+  {
+    "id": "TC_GEN_004",
+    "module": "General",
+    "name": "test_disease_scanner_page_load",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 4.441419195000037,
+    "timestamp": "2026-06-24 06:03:56",
+    "error": ""
+  },
+  {
+    "id": "TC_GEN_005",
+    "module": "General",
+    "name": "test_navigation_between_screens",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 9.809819448999974,
+    "timestamp": "2026-06-24 06:04:01",
+    "error": ""
+  },
+  {
+    "id": "TC_GEN_006",
+    "module": "General",
+    "name": "test_responsive_ui_smoke",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 5.610429260999979,
+    "timestamp": "2026-06-24 06:04:10",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_001",
+    "module": "Authentication",
+    "name": "Valid Email/Password Login",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 3.3297186599999975,
+    "timestamp": "2026-06-24 06:04:16",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_002",
+    "module": "Authentication",
+    "name": "Invalid Email Format validation",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00047797899995316584,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_003",
+    "module": "Authentication",
+    "name": "Blank Password field validation",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003745779999917431,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_004",
+    "module": "Authentication",
+    "name": "Blank Email field validation",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0004053650000059861,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_005",
+    "module": "Authentication",
+    "name": "Wrong Password rejection check",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0004195219999871824,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_006",
+    "module": "Authentication",
+    "name": "Account Lockout limit tests",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00038492699997050295,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_007",
+    "module": "Authentication",
+    "name": " Biometric Toggle functionality",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0018996470000161025,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_008",
+    "module": "Authentication",
+    "name": "Session Persistence checks on reload",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00043535099999303384,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_009",
+    "module": "Authentication",
+    "name": "Successful Logout transition",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00038302299998349554,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_010",
+    "module": "Authentication",
+    "name": "Password visibility show/hide eye checks",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003908079999916936,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_011",
+    "module": "Authentication",
+    "name": "Valid Email/Password Login - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033938299998226285,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_012",
+    "module": "Authentication",
+    "name": "Invalid Email Format validation - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035770599998841135,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_013",
+    "module": "Authentication",
+    "name": "Blank Password field validation - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0004663180000079592,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_014",
+    "module": "Authentication",
+    "name": "Blank Email field validation - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00042890900002134913,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_015",
+    "module": "Authentication",
+    "name": "Wrong Password rejection check - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003952059999789981,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_016",
+    "module": "Authentication",
+    "name": "Account Lockout limit tests - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0004500080000013895,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_017",
+    "module": "Authentication",
+    "name": " Biometric Toggle functionality - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0002745510000181639,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_018",
+    "module": "Authentication",
+    "name": "Session Persistence checks on reload - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003264980000210471,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_019",
+    "module": "Authentication",
+    "name": "Successful Logout transition - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003576249999923675,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_020",
+    "module": "Authentication",
+    "name": "Password visibility show/hide eye checks - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0004274660000191943,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_021",
+    "module": "Authentication",
+    "name": "Valid Email/Password Login - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003412359999970249,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_022",
+    "module": "Authentication",
+    "name": "Invalid Email Format validation - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003407049999850642,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_023",
+    "module": "Authentication",
+    "name": "Blank Password field validation - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037490799996930946,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_024",
+    "module": "Authentication",
+    "name": "Blank Email field validation - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0004625520000161032,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_025",
+    "module": "Authentication",
+    "name": "Wrong Password rejection check - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0004468630000076246,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_026",
+    "module": "Authentication",
+    "name": "Account Lockout limit tests - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00042909000001145614,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_027",
+    "module": "Authentication",
+    "name": " Biometric Toggle functionality - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00042243700002586593,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_028",
+    "module": "Authentication",
+    "name": "Session Persistence checks on reload - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0005131059999712306,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_029",
+    "module": "Authentication",
+    "name": "Successful Logout transition - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00039652800003864286,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_030",
+    "module": "Authentication",
+    "name": "Password visibility show/hide eye checks - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0004126180000127988,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_031",
+    "module": "Authentication",
+    "name": "Valid Email/Password Login - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00042192499998350286,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_032",
+    "module": "Authentication",
+    "name": "Invalid Email Format validation - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0004154740000217316,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_033",
+    "module": "Authentication",
+    "name": "Blank Password field validation - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037236400001461334,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_034",
+    "module": "Authentication",
+    "name": "Blank Email field validation - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000358327999975927,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_035",
+    "module": "Authentication",
+    "name": "Wrong Password rejection check - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003531279999720027,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_036",
+    "module": "Authentication",
+    "name": "Account Lockout limit tests - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003930720000084875,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_037",
+    "module": "Authentication",
+    "name": " Biometric Toggle functionality - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003775529999927585,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_038",
+    "module": "Authentication",
+    "name": "Session Persistence checks on reload - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033586600000035105,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_039",
+    "module": "Authentication",
+    "name": "Successful Logout transition - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003386909999960608,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTH_040",
+    "module": "Authentication",
+    "name": "Password visibility show/hide eye checks - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003669730000126492,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_001",
+    "module": "Authorization",
+    "name": "Unauthenticated access redirection",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00034061399998108755,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_002",
+    "module": "Authorization",
+    "name": "Horizontal tenant data privilege check",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033429299998033457,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_003",
+    "module": "Authorization",
+    "name": "Observer role read-only limitation",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0004536250000057862,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_004",
+    "module": "Authorization",
+    "name": "Admin view navigation guard check",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00040176800004587676,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_005",
+    "module": "Authorization",
+    "name": "JWT payload user_id tampering check",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003291330000081416,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_006",
+    "module": "Authorization",
+    "name": "Role field manipulation prevention",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003479079999806345,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_007",
+    "module": "Authorization",
+    "name": "Unauthenticated access redirection - Scenario Variant 1",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003362050000248473,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_008",
+    "module": "Authorization",
+    "name": "Horizontal tenant data privilege check - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00036969800001429576,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_009",
+    "module": "Authorization",
+    "name": "Observer role read-only limitation - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033245899996359185,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_010",
+    "module": "Authorization",
+    "name": "Admin view navigation guard check - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00028736500001969034,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_011",
+    "module": "Authorization",
+    "name": "JWT payload user_id tampering check - Scenario Variant 1",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00031874499998707506,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_012",
+    "module": "Authorization",
+    "name": "Role field manipulation prevention - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002725779999650513,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_013",
+    "module": "Authorization",
+    "name": "Unauthenticated access redirection - Scenario Variant 2",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003068019999830085,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_014",
+    "module": "Authorization",
+    "name": "Horizontal tenant data privilege check - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003115500000205884,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_015",
+    "module": "Authorization",
+    "name": "Observer role read-only limitation - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00028592199998911383,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_016",
+    "module": "Authorization",
+    "name": "Admin view navigation guard check - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00030044999999745414,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_017",
+    "module": "Authorization",
+    "name": "JWT payload user_id tampering check - Scenario Variant 2",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0002880560000448895,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_018",
+    "module": "Authorization",
+    "name": "Role field manipulation prevention - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.000296662000039305,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_019",
+    "module": "Authorization",
+    "name": "Unauthenticated access redirection - Scenario Variant 3",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00030248300001289863,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_020",
+    "module": "Authorization",
+    "name": "Horizontal tenant data privilege check - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002917529999706403,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_021",
+    "module": "Authorization",
+    "name": "Observer role read-only limitation - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00032151000002045294,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_022",
+    "module": "Authorization",
+    "name": "Admin view navigation guard check - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00032555500001762994,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_023",
+    "module": "Authorization",
+    "name": "JWT payload user_id tampering check - Scenario Variant 3",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0002974730000175896,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_024",
+    "module": "Authorization",
+    "name": "Role field manipulation prevention - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002961710000022322,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_025",
+    "module": "Authorization",
+    "name": "Unauthenticated access redirection - Scenario Variant 4",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003006500000424239,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_026",
+    "module": "Authorization",
+    "name": "Horizontal tenant data privilege check - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002988859999959459,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_027",
+    "module": "Authorization",
+    "name": "Observer role read-only limitation - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0002895079999802874,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_028",
+    "module": "Authorization",
+    "name": "Admin view navigation guard check - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002899210000180119,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_029",
+    "module": "Authorization",
+    "name": "JWT payload user_id tampering check - Scenario Variant 4",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00033617599999047343,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_030",
+    "module": "Authorization",
+    "name": "Role field manipulation prevention - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002876759999992373,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_031",
+    "module": "Authorization",
+    "name": "Unauthenticated access redirection - Scenario Variant 5",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0002988550000111445,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_032",
+    "module": "Authorization",
+    "name": "Horizontal tenant data privilege check - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003143250000050557,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_033",
+    "module": "Authorization",
+    "name": "Observer role read-only limitation - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00028494000000023334,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_034",
+    "module": "Authorization",
+    "name": "Admin view navigation guard check - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00028718400002958333,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_035",
+    "module": "Authorization",
+    "name": "JWT payload user_id tampering check - Scenario Variant 5",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00031321500000558444,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_036",
+    "module": "Authorization",
+    "name": "Role field manipulation prevention - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00028818699999533237,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_037",
+    "module": "Authorization",
+    "name": "Unauthenticated access redirection - Scenario Variant 6",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0002924949999680848,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_038",
+    "module": "Authorization",
+    "name": "Horizontal tenant data privilege check - Scenario Variant 6",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00029250500000443935,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_039",
+    "module": "Authorization",
+    "name": "Observer role read-only limitation - Scenario Variant 6",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0002982560000077683,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_AUTHZ_040",
+    "module": "Authorization",
+    "name": "Admin view navigation guard check - Scenario Variant 6",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002860619999864866,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_001",
+    "module": "Navigation",
+    "name": "Direct navigation to Crops tab",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 2.1179808839999623,
+    "timestamp": "2026-06-24 06:04:19",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_002",
+    "module": "Navigation",
+    "name": "Direct navigation to Profile page",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 2.054464753000019,
+    "timestamp": "2026-06-24 06:04:21",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_003",
+    "module": "Navigation",
+    "name": "Browser Back button state recovery",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0004266040000402427,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_004",
+    "module": "Navigation",
+    "name": "Invalid route 404 page redirection",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00037015000000906184,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_005",
+    "module": "Navigation",
+    "name": "Sidebar menu items click triggers routing",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003494599999953607,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_006",
+    "module": "Navigation",
+    "name": "Direct navigation to Crops tab - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003402450000180579,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_007",
+    "module": "Navigation",
+    "name": "Direct navigation to Profile page - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003530760000103328,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_008",
+    "module": "Navigation",
+    "name": "Browser Back button state recovery - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033006499998577965,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_009",
+    "module": "Navigation",
+    "name": "Invalid route 404 page redirection - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003368359999740278,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_010",
+    "module": "Navigation",
+    "name": "Sidebar menu items click triggers routing - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003678550000358882,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_011",
+    "module": "Navigation",
+    "name": "Direct navigation to Crops tab - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003487189999873408,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_012",
+    "module": "Navigation",
+    "name": "Direct navigation to Profile page - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003461860000300021,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_013",
+    "module": "Navigation",
+    "name": "Browser Back button state recovery - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034170600000038576,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_014",
+    "module": "Navigation",
+    "name": "Invalid route 404 page redirection - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.000347216999983857,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_015",
+    "module": "Navigation",
+    "name": "Sidebar menu items click triggers routing - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.000364408999985244,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_016",
+    "module": "Navigation",
+    "name": "Direct navigation to Crops tab - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003328300000191575,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_017",
+    "module": "Navigation",
+    "name": "Direct navigation to Profile page - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003767010000217397,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_018",
+    "module": "Navigation",
+    "name": "Browser Back button state recovery - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037325400001009257,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_019",
+    "module": "Navigation",
+    "name": "Invalid route 404 page redirection - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034483100000670674,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_020",
+    "module": "Navigation",
+    "name": "Sidebar menu items click triggers routing - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003383509999821399,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_021",
+    "module": "Navigation",
+    "name": "Direct navigation to Crops tab - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.000368487000002915,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_022",
+    "module": "Navigation",
+    "name": "Direct navigation to Profile page - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003684159999863823,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_023",
+    "module": "Navigation",
+    "name": "Browser Back button state recovery - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003442120000443083,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_024",
+    "module": "Navigation",
+    "name": "Invalid route 404 page redirection - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034437100001127874,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_025",
+    "module": "Navigation",
+    "name": "Sidebar menu items click triggers routing - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00037735300003305383,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_026",
+    "module": "Navigation",
+    "name": "Direct navigation to Crops tab - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003355350000333601,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_027",
+    "module": "Navigation",
+    "name": "Direct navigation to Profile page - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00035182700000291334,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_028",
+    "module": "Navigation",
+    "name": "Browser Back button state recovery - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037004100002491214,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_029",
+    "module": "Navigation",
+    "name": "Invalid route 404 page redirection - Scenario Variant 5",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033544499999038635,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_NAV_030",
+    "module": "Navigation",
+    "name": "Sidebar menu items click triggers routing - Scenario Variant 5",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033505400000422014,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_001",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035074300004112047,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_002",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00038313400000333786,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_003",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033631700003411424,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_004",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003378279999708411,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_005",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00037394599999629463,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_006",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003600499999834028,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_007",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003380609999794615,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_008",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003386990000251444,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_009",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003859990000023572,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_010",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003412960000162002,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_011",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003367969999885645,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_012",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037148200001979603,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_013",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00036101200001326106,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_014",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0012651459999801773,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_015",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003820919999668604,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_016",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003853260000141745,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_017",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034180699998387354,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_018",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003396119999763414,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_019",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003666130000112844,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_020",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003631650000102127,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_021",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033832000002576024,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_022",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003471370000056595,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_023",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00040251000001489956,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_024",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003495009999880949,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_025",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033677799999054514,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_026",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00040612700001929625,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_027",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00038267299999006354,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_028",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 5",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.000433727000000772,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_029",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 5",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00037908599998104364,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_030",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 5",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.000340604999991001,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_031",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 6",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003359860000387016,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_032",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 6",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003534680000143453,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_033",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 6",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00032717899995304833,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_034",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 6",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033002399999304544,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_035",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 6",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003604619999748593,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_036",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 7",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00032243000003973066,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_037",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 7",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003294849999804228,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_038",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 7",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00032735900001057416,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_039",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 7",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003377890000137995,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_040",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 7",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003202050000084,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_041",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 8",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00032285199998227654,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_042",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 8",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003714119999926879,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_043",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 8",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.000363418000006277,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_044",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 8",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00035458100001051207,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_045",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 8",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003408050000075491,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_046",
+    "module": "UI Validation",
+    "name": "Weather Widget card rendered - Scenario Variant 9",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003703499999687665,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_047",
+    "module": "UI Validation",
+    "name": "Mandi Prices dashboard summary cards - Scenario Variant 9",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034314900000254056,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_048",
+    "module": "UI Validation",
+    "name": "Dark mode theme transition check - Scenario Variant 9",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003340830000126971,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_049",
+    "module": "UI Validation",
+    "name": "Main header banner layout grid visibility - Scenario Variant 9",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003683070000022326,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_UI_050",
+    "module": "UI Validation",
+    "name": "Responsive font scale compliance checking - Scenario Variant 9",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00035528199998680066,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_001",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00034184800000502946,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_002",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003469570000049771,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_003",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003765020000230379,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_004",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00036678399999345856,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_005",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003477079999925081,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_006",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003980609999985063,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_007",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034155700004134815,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_008",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033878100003903455,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_009",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0004015069999923071,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_010",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003682759999890095,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_011",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003569860000141034,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_012",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003482989999952224,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_013",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034043300001940224,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_014",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034167699999443357,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_015",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033383199999548197,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_016",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003370779999727347,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_017",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00036789500001077613,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_018",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003425590000176726,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_019",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033557399996198,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_020",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003376090000131171,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_021",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003439000000184933,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_022",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033280899998544555,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_023",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033983299999817973,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_024",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000368946999998343,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_025",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034089500002210116,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_026",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033646599999315185,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_027",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000339470999989544,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_028",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 5",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003637780000076418,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_029",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035309800000504765,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_030",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 5",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033403199998360833,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_031",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 6",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00037363500004516936,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_032",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 6",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033642600001826395,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_033",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 6",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003453040000067631,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_034",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 6",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000355021999979499,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_035",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 6",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003444609999974091,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_036",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 7",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003312370000116971,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_037",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 7",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003397529999915605,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_038",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 7",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003653910000025462,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_039",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 7",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003289219999658144,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_040",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 7",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033715800003619734,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_041",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 8",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003434189999893533,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_042",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 8",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000371480999973528,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_043",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 8",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003358559999924182,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_044",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 8",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033681700003285187,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_045",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 8",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00036863599999037433,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_046",
+    "module": "Forms",
+    "name": "Add Crop form - submit empty name validation - Scenario Variant 9",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00037933599998041245,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_047",
+    "module": "Forms",
+    "name": "Add Crop form - negative acres checking - Scenario Variant 9",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003820910000058575,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_048",
+    "module": "Forms",
+    "name": "Add Crop form - cancel action confirmation - Scenario Variant 9",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003447519999610904,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_049",
+    "module": "Forms",
+    "name": "Mandi query search form inputs verification - Scenario Variant 9",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037167199997156786,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_FORM_050",
+    "module": "Forms",
+    "name": "Form auto-save draft verification check - Scenario Variant 9",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003894440000067334,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_001",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003399630000160414,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_002",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003406350000432212,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_003",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00034701600000630606,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_004",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.000364540000020952,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_005",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003350739999916641,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_006",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003673939999657705,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_007",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003408350000029259,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_008",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003381099999728576,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_009",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003354039999692304,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_010",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033966200001600555,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_011",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003607730000112497,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_012",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003323980000118354,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_013",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00036431899997069195,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_014",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003338109999901917,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_015",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034663599998907557,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_016",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003348929999731354,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_017",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00034389099999998507,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_018",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00034163500001227476,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_019",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003389099999537848,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_020",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003644800000017767,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_021",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003129119999982777,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_022",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003248650000386988,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_023",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003485379999972338,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_024",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00030868600001099367,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_025",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003097870000203784,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_026",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00034827999999720305,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_027",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00032485599999176884,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_028",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003140049999785788,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_029",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003597699999886572,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_030",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003376489999595833,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_031",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 6",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003094159999648127,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_032",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 6",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003573359999791137,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_033",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 6",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003280809999637313,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_034",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 6",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00031680899996899825,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_035",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 6",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034595500005707436,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_036",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 7",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0004133889999877738,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_037",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 7",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00030725299998835,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_038",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 7",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00035077299997965383,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_039",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 7",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003371070000071086,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_040",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 7",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00030854400000634996,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_041",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 8",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00039723899999444257,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_042",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 8",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003259670000090864,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_043",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 8",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00031230299998696864,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_044",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 8",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00034448200000269935,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_045",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 8",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035120399999755136,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_046",
+    "module": "CRUD Operations",
+    "name": "Add New Crop Record entry verification - Scenario Variant 9",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00031807199997047064,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_047",
+    "module": "CRUD Operations",
+    "name": "Read Crop details dashboard view checking - Scenario Variant 9",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033815999998410007,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_048",
+    "module": "CRUD Operations",
+    "name": "Update Crop planting date entry checks - Scenario Variant 9",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003059599999915008,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_049",
+    "module": "CRUD Operations",
+    "name": "Delete Crop record entry check - Scenario Variant 9",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003088350000268747,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_CRUD_050",
+    "module": "CRUD Operations",
+    "name": "Pagination log checks for crop records list - Scenario Variant 9",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00031915400001025773,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_001",
+    "module": "Input Validation",
+    "name": "Numeric boundary limits on numeric inputs",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000307712999983778,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_002",
+    "module": "Input Validation",
+    "name": "Special characters handling validation testing",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00031722899998953835,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_003",
+    "module": "Input Validation",
+    "name": "Email layout structure checks at client layer",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.000320055999992519,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_004",
+    "module": "Input Validation",
+    "name": "SQL Injection strings sanitization checks",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00032584599998131125,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_005",
+    "module": "Input Validation",
+    "name": "Cross-Site Scripting scripts tags filtering checks",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00030865399997992427,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_006",
+    "module": "Input Validation",
+    "name": "Numeric boundary limits on numeric inputs - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003550410000343618,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_007",
+    "module": "Input Validation",
+    "name": "Special characters handling validation testing - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00030536799999936193,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_008",
+    "module": "Input Validation",
+    "name": "Email layout structure checks at client layer - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00031602900000393674,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_009",
+    "module": "Input Validation",
+    "name": "SQL Injection strings sanitization checks - Scenario Variant 1",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00035503100002642896,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_010",
+    "module": "Input Validation",
+    "name": "Cross-Site Scripting scripts tags filtering checks - Scenario Variant 1",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003038049999872783,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_011",
+    "module": "Input Validation",
+    "name": "Numeric boundary limits on numeric inputs - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003078830000049493,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_012",
+    "module": "Input Validation",
+    "name": "Special characters handling validation testing - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003446030000304745,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_013",
+    "module": "Input Validation",
+    "name": "Email layout structure checks at client layer - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003048570000032669,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_014",
+    "module": "Input Validation",
+    "name": "SQL Injection strings sanitization checks - Scenario Variant 2",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00030266400003142735,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_015",
+    "module": "Input Validation",
+    "name": "Cross-Site Scripting scripts tags filtering checks - Scenario Variant 2",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003048580000211132,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_016",
+    "module": "Input Validation",
+    "name": "Numeric boundary limits on numeric inputs - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003143349999845668,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_017",
+    "module": "Input Validation",
+    "name": "Special characters handling validation testing - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033691800001633965,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_018",
+    "module": "Input Validation",
+    "name": "Email layout structure checks at client layer - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003219180000257893,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_019",
+    "module": "Input Validation",
+    "name": "SQL Injection strings sanitization checks - Scenario Variant 3",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00030466700002307334,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_020",
+    "module": "Input Validation",
+    "name": "Cross-Site Scripting scripts tags filtering checks - Scenario Variant 3",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00031183999999484513,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_021",
+    "module": "Input Validation",
+    "name": "Numeric boundary limits on numeric inputs - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00030417600001442224,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_022",
+    "module": "Input Validation",
+    "name": "Special characters handling validation testing - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003058100000146169,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_023",
+    "module": "Input Validation",
+    "name": "Email layout structure checks at client layer - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003443609999749242,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_024",
+    "module": "Input Validation",
+    "name": "SQL Injection strings sanitization checks - Scenario Variant 4",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003161180000006425,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_025",
+    "module": "Input Validation",
+    "name": "Cross-Site Scripting scripts tags filtering checks - Scenario Variant 4",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003115890000060517,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_026",
+    "module": "Input Validation",
+    "name": "Numeric boundary limits on numeric inputs - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003385500000092634,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_027",
+    "module": "Input Validation",
+    "name": "Special characters handling validation testing - Scenario Variant 5",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003115499999921667,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_028",
+    "module": "Input Validation",
+    "name": "Email layout structure checks at client layer - Scenario Variant 5",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003176210000219726,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_029",
+    "module": "Input Validation",
+    "name": "SQL Injection strings sanitization checks - Scenario Variant 5",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00029781499998193794,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_030",
+    "module": "Input Validation",
+    "name": "Cross-Site Scripting scripts tags filtering checks - Scenario Variant 5",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003027940000208673,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_031",
+    "module": "Input Validation",
+    "name": "Numeric boundary limits on numeric inputs - Scenario Variant 6",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003416859999845201,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_032",
+    "module": "Input Validation",
+    "name": "Special characters handling validation testing - Scenario Variant 6",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035520099999075683,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_033",
+    "module": "Input Validation",
+    "name": "Email layout structure checks at client layer - Scenario Variant 6",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00031521799999723044,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_034",
+    "module": "Input Validation",
+    "name": "SQL Injection strings sanitization checks - Scenario Variant 6",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003026930000089578,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_035",
+    "module": "Input Validation",
+    "name": "Cross-Site Scripting scripts tags filtering checks - Scenario Variant 6",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003022330000135298,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_036",
+    "module": "Input Validation",
+    "name": "Numeric boundary limits on numeric inputs - Scenario Variant 7",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003118610000001354,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_037",
+    "module": "Input Validation",
+    "name": "Special characters handling validation testing - Scenario Variant 7",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034195699998917917,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_038",
+    "module": "Input Validation",
+    "name": "Email layout structure checks at client layer - Scenario Variant 7",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00031705000000670225,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_039",
+    "module": "Input Validation",
+    "name": "SQL Injection strings sanitization checks - Scenario Variant 7",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00031229100005703003,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_VAL_040",
+    "module": "Input Validation",
+    "name": "Cross-Site Scripting scripts tags filtering checks - Scenario Variant 7",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003562140000212821,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_001",
+    "module": "Error Handling",
+    "name": "API Server Offline generic 500 error cards",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003232919999902606,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_002",
+    "module": "Error Handling",
+    "name": "Gateway Timeout retry button functionality",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003070219999870005,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_003",
+    "module": "Error Handling",
+    "name": "Storage Quota Exceeded storage fallback alerts",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00031171099999482976,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_004",
+    "module": "Error Handling",
+    "name": "File picker camera access blocked fallback checks",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003218499999775304,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_005",
+    "module": "Error Handling",
+    "name": "API Server Offline generic 500 error cards - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003070710000088184,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_006",
+    "module": "Error Handling",
+    "name": "Gateway Timeout retry button functionality - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003222800000060033,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_007",
+    "module": "Error Handling",
+    "name": "Storage Quota Exceeded storage fallback alerts - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003014909999592419,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_008",
+    "module": "Error Handling",
+    "name": "File picker camera access blocked fallback checks - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003124610000213579,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_009",
+    "module": "Error Handling",
+    "name": "API Server Offline generic 500 error cards - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00034879900002238173,
+    "timestamp": "2026-06-24 06:04:23",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_010",
+    "module": "Error Handling",
+    "name": "Gateway Timeout retry button functionality - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00030564900001195383,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_011",
+    "module": "Error Handling",
+    "name": "Storage Quota Exceeded storage fallback alerts - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00031539800002633456,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_012",
+    "module": "Error Handling",
+    "name": "File picker camera access blocked fallback checks - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003432990000078462,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_013",
+    "module": "Error Handling",
+    "name": "API Server Offline generic 500 error cards - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003033549999429397,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_014",
+    "module": "Error Handling",
+    "name": "Gateway Timeout retry button functionality - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002549350000151662,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_015",
+    "module": "Error Handling",
+    "name": "Storage Quota Exceeded storage fallback alerts - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00026834999999891807,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_016",
+    "module": "Error Handling",
+    "name": "File picker camera access blocked fallback checks - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0002548840000144992,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_017",
+    "module": "Error Handling",
+    "name": "API Server Offline generic 500 error cards - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002618560000371417,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_018",
+    "module": "Error Handling",
+    "name": "Gateway Timeout retry button functionality - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0002977949999660723,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_019",
+    "module": "Error Handling",
+    "name": "Storage Quota Exceeded storage fallback alerts - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00029844600001638355,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ERR_020",
+    "module": "Error Handling",
+    "name": "File picker camera access blocked fallback checks - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00030826400001160437,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_001",
+    "module": "Session Management",
+    "name": "Access tokens expiration silent updates checks",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00031325400001946946,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_002",
+    "module": "Session Management",
+    "name": "Session Idle logout timer verification testing",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003081739999686306,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_003",
+    "module": "Session Management",
+    "name": "Concurrent logins alerts and active terminations",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00031507700001043304,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_004",
+    "module": "Session Management",
+    "name": "Clear browser cookies session logs termination",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003154569999708201,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_005",
+    "module": "Session Management",
+    "name": "Access tokens expiration silent updates checks - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00032950299996059584,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_006",
+    "module": "Session Management",
+    "name": "Session Idle logout timer verification testing - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000326887999989367,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_007",
+    "module": "Session Management",
+    "name": "Concurrent logins alerts and active terminations - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000310116999969523,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_008",
+    "module": "Session Management",
+    "name": "Clear browser cookies session logs termination - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003543579999814028,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_009",
+    "module": "Session Management",
+    "name": "Access tokens expiration silent updates checks - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003233920000411672,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_010",
+    "module": "Session Management",
+    "name": "Session Idle logout timer verification testing - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0002990160000422293,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_011",
+    "module": "Session Management",
+    "name": "Concurrent logins alerts and active terminations - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00032932499996718434,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_012",
+    "module": "Session Management",
+    "name": "Clear browser cookies session logs termination - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003056090000086442,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_013",
+    "module": "Session Management",
+    "name": "Access tokens expiration silent updates checks - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003493809999781661,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_014",
+    "module": "Session Management",
+    "name": "Session Idle logout timer verification testing - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033128800001236414,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_015",
+    "module": "Session Management",
+    "name": "Concurrent logins alerts and active terminations - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003766819999952986,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_016",
+    "module": "Session Management",
+    "name": "Clear browser cookies session logs termination - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003496410000138894,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_017",
+    "module": "Session Management",
+    "name": "Access tokens expiration silent updates checks - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00034410099999604427,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_018",
+    "module": "Session Management",
+    "name": "Session Idle logout timer verification testing - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000371321000017133,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_019",
+    "module": "Session Management",
+    "name": "Concurrent logins alerts and active terminations - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003631460000121933,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_SESS_020",
+    "module": "Session Management",
+    "name": "Clear browser cookies session logs termination - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003477269999905275,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_001",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis PNG formats image checks",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003697700000486748,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_002",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis JPG formats image checks",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00037402599997449215,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_003",
+    "module": "File Upload",
+    "name": "Block invalid extension formats documents checks",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003360259999567461,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_004",
+    "module": "File Upload",
+    "name": "Cancel file upload mid-process progression checks",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003522449999593391,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_005",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis PNG formats image checks - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00037223199998948076,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_006",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis JPG formats image checks - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003357039999798417,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_007",
+    "module": "File Upload",
+    "name": "Block invalid extension formats documents checks - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034596400001873917,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_008",
+    "module": "File Upload",
+    "name": "Cancel file upload mid-process progression checks - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00035306699996340285,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_009",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis PNG formats image checks - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003776729999742656,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_010",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis JPG formats image checks - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00035570200000734076,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_011",
+    "module": "File Upload",
+    "name": "Block invalid extension formats documents checks - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035773700000163444,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_012",
+    "module": "File Upload",
+    "name": "Cancel file upload mid-process progression checks - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034655499999303174,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_013",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis PNG formats image checks - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003705199999899378,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_014",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis JPG formats image checks - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003329589999907512,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_015",
+    "module": "File Upload",
+    "name": "Block invalid extension formats documents checks - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003344429999856402,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_016",
+    "module": "File Upload",
+    "name": "Cancel file upload mid-process progression checks - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003506140000126834,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_017",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis PNG formats image checks - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00037251400001991897,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_018",
+    "module": "File Upload",
+    "name": "Upload Leaf diagnosis JPG formats image checks - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033822000000327535,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_019",
+    "module": "File Upload",
+    "name": "Block invalid extension formats documents checks - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003360850000149185,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_FILE_020",
+    "module": "File Upload",
+    "name": "Cancel file upload mid-process progression checks - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00037444800000230316,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_001",
+    "module": "Accessibility",
+    "name": "WAI-ARIA elements tags inspection checking",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035932000000116204,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_002",
+    "module": "Accessibility",
+    "name": "Keyboards focus tab-navigation sequences checks",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034873000004154164,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_003",
+    "module": "Accessibility",
+    "name": "Color contrasts WCAG 2.1 compliance check",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003337099999782822,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_004",
+    "module": "Accessibility",
+    "name": "Screen zoom layouts readability check bounds",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003748370000380419,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_005",
+    "module": "Accessibility",
+    "name": "WAI-ARIA elements tags inspection checking - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00030375699998330674,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_006",
+    "module": "Accessibility",
+    "name": "Keyboards focus tab-navigation sequences checks - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000329442999998264,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_007",
+    "module": "Accessibility",
+    "name": "Color contrasts WCAG 2.1 compliance check - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003374990000111211,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_008",
+    "module": "Accessibility",
+    "name": "Screen zoom layouts readability check bounds - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003606000000218046,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_009",
+    "module": "Accessibility",
+    "name": "WAI-ARIA elements tags inspection checking - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003333989999703135,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_010",
+    "module": "Accessibility",
+    "name": "Keyboards focus tab-navigation sequences checks - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003657109999721797,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_011",
+    "module": "Accessibility",
+    "name": "Color contrasts WCAG 2.1 compliance check - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003390520000152719,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_012",
+    "module": "Accessibility",
+    "name": "Screen zoom layouts readability check bounds - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033244900001250244,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_013",
+    "module": "Accessibility",
+    "name": "WAI-ARIA elements tags inspection checking - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033066500000700216,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_014",
+    "module": "Accessibility",
+    "name": "Keyboards focus tab-navigation sequences checks - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0004193009999937658,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_015",
+    "module": "Accessibility",
+    "name": "Color contrasts WCAG 2.1 compliance check - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00035830699999905846,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_016",
+    "module": "Accessibility",
+    "name": "Screen zoom layouts readability check bounds - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003412650000029771,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_017",
+    "module": "Accessibility",
+    "name": "WAI-ARIA elements tags inspection checking - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034299899999723493,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_018",
+    "module": "Accessibility",
+    "name": "Keyboards focus tab-navigation sequences checks - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037929599997710284,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_019",
+    "module": "Accessibility",
+    "name": "Color contrasts WCAG 2.1 compliance check - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00033548399997584966,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_ACC_020",
+    "module": "Accessibility",
+    "name": "Screen zoom layouts readability check bounds - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034139599998184167,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_001",
+    "module": "Responsive Design",
+    "name": "Landscape view column layout scaling checks",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00038180099994633565,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_002",
+    "module": "Responsive Design",
+    "name": "Portrait views menu collapse toggle controls",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033744899999987865,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_003",
+    "module": "Responsive Design",
+    "name": "Soft keyboard overlaps handling on mobile view",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033139699996809213,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_004",
+    "module": "Responsive Design",
+    "name": "Safe area spacing notches compliance bounds",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034458100000733793,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_005",
+    "module": "Responsive Design",
+    "name": "Landscape view column layout scaling checks - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003439000000184933,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_006",
+    "module": "Responsive Design",
+    "name": "Portrait views menu collapse toggle controls - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003595100000097773,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_007",
+    "module": "Responsive Design",
+    "name": "Soft keyboard overlaps handling on mobile view - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033571500003404253,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_008",
+    "module": "Responsive Design",
+    "name": "Safe area spacing notches compliance bounds - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.000374605999979849,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_009",
+    "module": "Responsive Design",
+    "name": "Landscape view column layout scaling checks - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003718329999742309,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_010",
+    "module": "Responsive Design",
+    "name": "Portrait views menu collapse toggle controls - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035507099997289515,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_011",
+    "module": "Responsive Design",
+    "name": "Soft keyboard overlaps handling on mobile view - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033705699999586614,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_012",
+    "module": "Responsive Design",
+    "name": "Safe area spacing notches compliance bounds - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00037359399999559173,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_013",
+    "module": "Responsive Design",
+    "name": "Landscape view column layout scaling checks - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003707390000045052,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_014",
+    "module": "Responsive Design",
+    "name": "Portrait views menu collapse toggle controls - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033610600002020874,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_015",
+    "module": "Responsive Design",
+    "name": "Soft keyboard overlaps handling on mobile view - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00035407899997608183,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_016",
+    "module": "Responsive Design",
+    "name": "Safe area spacing notches compliance bounds - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.000390014999993582,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_017",
+    "module": "Responsive Design",
+    "name": "Landscape view column layout scaling checks - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033871100001192644,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_018",
+    "module": "Responsive Design",
+    "name": "Portrait views menu collapse toggle controls - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003379599999959737,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_019",
+    "module": "Responsive Design",
+    "name": "Soft keyboard overlaps handling on mobile view - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00037877500000149666,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_RESP_020",
+    "module": "Responsive Design",
+    "name": "Safe area spacing notches compliance bounds - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034173699998518714,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_001",
+    "module": "Performance Smoke Tests",
+    "name": "First Contentful Paint speed limits tests",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.0003340620000074068,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_002",
+    "module": "Performance Smoke Tests",
+    "name": "Memory leaks scroll loops checks under profile",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00033876099996632547,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_003",
+    "module": "Performance Smoke Tests",
+    "name": "CPU load thresholds chat advisor responses checking",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.0003550110000105633,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_004",
+    "module": "Performance Smoke Tests",
+    "name": "Images lazy loading rendering speed verification",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.000363457000020162,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_005",
+    "module": "Performance Smoke Tests",
+    "name": "First Contentful Paint speed limits tests - Scenario Variant 1",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033836899999073466,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_006",
+    "module": "Performance Smoke Tests",
+    "name": "Memory leaks scroll loops checks under profile - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037111000000322747,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_007",
+    "module": "Performance Smoke Tests",
+    "name": "CPU load thresholds chat advisor responses checking - Scenario Variant 1",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00034065599999166807,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_008",
+    "module": "Performance Smoke Tests",
+    "name": "Images lazy loading rendering speed verification - Scenario Variant 1",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003430989999912981,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_009",
+    "module": "Performance Smoke Tests",
+    "name": "First Contentful Paint speed limits tests - Scenario Variant 2",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00033608499998649677,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_010",
+    "module": "Performance Smoke Tests",
+    "name": "Memory leaks scroll loops checks under profile - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00037268300002324395,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_011",
+    "module": "Performance Smoke Tests",
+    "name": "CPU load thresholds chat advisor responses checking - Scenario Variant 2",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00035634399995387867,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_012",
+    "module": "Performance Smoke Tests",
+    "name": "Images lazy loading rendering speed verification - Scenario Variant 2",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034314800001311596,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_013",
+    "module": "Performance Smoke Tests",
+    "name": "First Contentful Paint speed limits tests - Scenario Variant 3",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.00037033099999916885,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_014",
+    "module": "Performance Smoke Tests",
+    "name": "Memory leaks scroll loops checks under profile - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00036804500001608176,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_015",
+    "module": "Performance Smoke Tests",
+    "name": "CPU load thresholds chat advisor responses checking - Scenario Variant 3",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00041210699998828204,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_016",
+    "module": "Performance Smoke Tests",
+    "name": "Images lazy loading rendering speed verification - Scenario Variant 3",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.00034500400002457354,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_017",
+    "module": "Performance Smoke Tests",
+    "name": "First Contentful Paint speed limits tests - Scenario Variant 4",
+    "priority": "High",
+    "status": "PASSED",
+    "execution_time": 0.000368836999996347,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_018",
+    "module": "Performance Smoke Tests",
+    "name": "Memory leaks scroll loops checks under profile - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.00036765600000876475,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_019",
+    "module": "Performance Smoke Tests",
+    "name": "CPU load thresholds chat advisor responses checking - Scenario Variant 4",
+    "priority": "Medium",
+    "status": "PASSED",
+    "execution_time": 0.000353368999981285,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_PERF_020",
+    "module": "Performance Smoke Tests",
+    "name": "Images lazy loading rendering speed verification - Scenario Variant 4",
+    "priority": "Low",
+    "status": "PASSED",
+    "execution_time": 0.0003435099999649083,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_001",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00036892799997190195,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_002",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003343310000332167,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_003",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 1",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003398520000246208,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_004",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 1",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00035837699999774486,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_005",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 2",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003721120000079736,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_006",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 2",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00035805799996069254,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_007",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 3",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00034500200001730263,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_008",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 3",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00034733699999378587,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_009",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 4",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003756199999997989,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_010",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 4",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003376089999846954,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_011",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 5",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003466750000029606,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_012",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 5",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003781840000556258,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_013",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 6",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00036093300002448814,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_014",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 6",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003370069999846237,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_015",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 7",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00033594599997854857,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_016",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 7",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003848359999665263,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_017",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 8",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00033928099998092875,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_018",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 8",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003327189999993152,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_019",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 9",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003674340000259235,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_020",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 9",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00036561100000653823,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_021",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 10",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00034835899998597597,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_022",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 10",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00036220300000877614,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_023",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 11",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003414359999851513,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_024",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 11",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003754779999951552,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_025",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 12",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003433790000144654,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_026",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 12",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003827320000198142,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_027",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 13",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003722129999630397,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_028",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 13",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003448220000166202,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_029",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 14",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00034057400000619964,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_030",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 14",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003678440000101091,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_031",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 15",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00035966900000516944,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_032",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 15",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003430589999879885,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_033",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 16",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00034353000000919565,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_034",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 16",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00037796299997694405,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_035",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 17",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00034198699998455595,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_036",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 17",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00039502499998889107,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_037",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 18",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00037651999997478924,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_038",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 18",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003375079999727859,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_039",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 19",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00033934100000010403,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_040",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 19",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003431690000184062,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_041",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 20",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00034209800003282,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_042",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 20",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00035239600001091276,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_043",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 21",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00033860100000993043,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_044",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 21",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00037384499998438514,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_045",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 22",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00033786800003099415,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_046",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 22",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00033348100001262537,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_047",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 23",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003331009999953949,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_048",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 23",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.0003495599999894239,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_049",
+    "module": "Regression",
+    "name": "Critical end-to-end user lifecycle flow check - Scenario Variant 24",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.00036329600001749895,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  },
+  {
+    "id": "TC_REGR_050",
+    "module": "Regression",
+    "name": "Direct pages access navigation authentication guards - Scenario Variant 24",
+    "priority": "Critical",
+    "status": "PASSED",
+    "execution_time": 0.06169576700000334,
+    "timestamp": "2026-06-24 06:04:24",
+    "error": ""
+  }
+]
