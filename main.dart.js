@@ -37477,7 +37477,7 @@ if(a===2)return b+31
 s=B.d.fU(30.6*a-91.4)
 r=c?1:0
 return s+b+59+r},
-qB(){return"https://kisan-mitra-backend-p21a.onrender.com"},
+qB(){return"https://kisan-mitra-backend-v2.onrender.com"},
 a5(a,b){var s,r,q
 try{s=A.bH(a,!0,t.Dz).a
 if(B.ol.ao(s))if(B.ol.h(0,s).ao(b)){r=B.ol.h(0,s).h(0,b)
