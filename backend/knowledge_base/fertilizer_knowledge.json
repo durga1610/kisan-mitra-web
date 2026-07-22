@@ -1,0 +1,248 @@
+[
+  {
+    "id": "fert_urea",
+    "category": "fertilizer_knowledge",
+    "title": "Urea Fertilizer Application Guide",
+    "fertilizer_name": "Urea",
+    "npk_composition": "46% Nitrogen (46-0-0)",
+    "suitable_crops": [
+      "Rice",
+      "Wheat",
+      "Maize",
+      "Cotton",
+      "Sugarcane",
+      "All Green Vegetables"
+    ],
+    "application_stage": "Basal dose (1/3rd) + Active Tillering / Vegetative Growth split doses (2/3rd)",
+    "dosage": "45 - 50 kg per acre in split applications",
+    "safety_precautions": "Avoid applying Urea on wet foliage to prevent foliar burn. Do not broadcast immediately before heavy rain to prevent nitrate leaching. Wear gloves and eye protection.",
+    "content": "Urea is the most widely used concentrated nitrogenous fertilizer in India. It promotes vigorous green leaf growth, chlorophyll formation, and plant protein synthesis. Always incorporate into moist soil rather than surface broadcasting to minimize ammonia volatilization loss.",
+    "keywords": [
+      "urea",
+      "nitrogen",
+      "46% N",
+      "vegetative stage",
+      "split dose",
+      "foliar burn",
+      "fertilizer"
+    ],
+    "related_crops": [
+      "rice",
+      "wheat",
+      "maize",
+      "sugarcane"
+    ],
+    "language": "en",
+    "source": "Department of Fertilizers, Ministry of Chemicals & Fertilizers, Govt. of India"
+  },
+  {
+    "id": "fert_dap",
+    "category": "fertilizer_knowledge",
+    "title": "DAP (Di-Ammonium Phosphate) Application Guide",
+    "fertilizer_name": "Di-Ammonium Phosphate (DAP)",
+    "npk_composition": "18% Nitrogen, 46% Phosphorus (18-46-0)",
+    "suitable_crops": [
+      "Wheat",
+      "Chickpea",
+      "Mustard",
+      "Soybean",
+      "Groundnut",
+      "Paddy",
+      "Maize"
+    ],
+    "application_stage": "Basal Application at sowing or transplanting time near seed root zone",
+    "dosage": "50 kg per acre placed 3-5 cm below and to the side of seeds",
+    "safety_precautions": "Do not mix directly with seed kernels to prevent seedling burn. Keep stored bags in a dry, covered space.",
+    "content": "DAP is a popular phosphatic fertilizer providing water-soluble Phosphorus and ammoniacal Nitrogen. Phosphorus is crucial for strong root development, flowering, early crop establishment, and pod setting in legumes.",
+    "keywords": [
+      "dap",
+      "di-ammonium phosphate",
+      "phosphorus",
+      "18-46-0",
+      "basal application",
+      "root development"
+    ],
+    "related_crops": [
+      "wheat",
+      "chickpea",
+      "mustard",
+      "soybean"
+    ],
+    "language": "en",
+    "source": "ICAR Soil Fertility & Fertilizer Manual"
+  },
+  {
+    "id": "fert_mop",
+    "category": "fertilizer_knowledge",
+    "title": "MOP (Muriate of Potash) Application Guide",
+    "fertilizer_name": "Muriate of Potash (MOP / Potassium Chloride)",
+    "npk_composition": "60% Potassium (0-0-60)",
+    "suitable_crops": [
+      "Sugarcane",
+      "Banana",
+      "Potato",
+      "Cotton",
+      "Rice",
+      "Wheat",
+      "Pomegranate"
+    ],
+    "application_stage": "Basal dose at planting + Split dose at flowering / fruit development",
+    "dosage": "25 - 35 kg per acre depending on soil potassium test",
+    "safety_precautions": "Avoid heavy applications on chloride-sensitive crops such as tobacco or berry fruits. Store in moisture-proof containers.",
+    "content": "MOP supplies Potassium essential for water regulation, disease resistance, grain filling, sugar synthesis, and crop lodging resistance. Critical for fruit development in banana, potato, and sugarcane.",
+    "keywords": [
+      "mop",
+      "potash",
+      "potassium chloride",
+      "0-0-60",
+      "disease resistance",
+      "grain filling",
+      "sugarcane",
+      "banana"
+    ],
+    "related_crops": [
+      "banana",
+      "sugarcane",
+      "potato",
+      "cotton"
+    ],
+    "language": "en",
+    "source": "Indian Potash Limited (IPL) Advisory"
+  },
+  {
+    "id": "fert_ssp",
+    "category": "fertilizer_knowledge",
+    "title": "SSP (Single Super Phosphate) Application Guide",
+    "fertilizer_name": "Single Super Phosphate (SSP)",
+    "npk_composition": "16% P2O5, 11% Sulphur, 19% Calcium (0-16-0 + 11S)",
+    "suitable_crops": [
+      "Oilseeds (Mustard, Groundnut, Soybean)",
+      "Pulses (Chickpea, Lentil, Pigeonpea)"
+    ],
+    "application_stage": "Basal soil application at seed sowing",
+    "dosage": "100 - 150 kg per acre",
+    "safety_precautions": "Incorporate well into root zone soil during land preparation.",
+    "content": "SSP provides three macro/secondary nutrients: Phosphorus, Sulphur, and Calcium. Sulphur directly enhances oil percentage in oilseed crops like mustard, groundnut, and soybean.",
+    "keywords": [
+      "ssp",
+      "single super phosphate",
+      "sulphur",
+      "calcium",
+      "oilseeds",
+      "mustard",
+      "groundnut"
+    ],
+    "related_crops": [
+      "mustard",
+      "groundnut",
+      "soybean",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR National Institute of Oilseeds Research"
+  },
+  {
+    "id": "fert_npk_191919",
+    "category": "fertilizer_knowledge",
+    "title": "NPK 19:19:19 Water Soluble Foliar Fertilizer",
+    "fertilizer_name": "Complex NPK 19-19-19 (Water Soluble)",
+    "npk_composition": "19% Nitrogen, 19% Phosphorus, 19% Potassium (19-19-19)",
+    "suitable_crops": [
+      "Cotton",
+      "Vegetables",
+      "Tomato",
+      "Chilli",
+      "Pomegranate",
+      "Grapes",
+      "Papaya"
+    ],
+    "application_stage": "Vegetative & Flowering phase foliar spray or drip fertigation",
+    "dosage": "5 - 7 grams per liter of water (1 kg per acre for foliar spray; 3-5 kg/acre for fertigation)",
+    "safety_precautions": "Spray during early morning or late evening. Do not spray during peak hot afternoon hours.",
+    "content": "100% water-soluble NPK fertilizer ideal for rapid nutrient absorption via foliar spraying or drip fertigation. Corrects nutrient deficiencies rapidly during early crop growth stages.",
+    "keywords": [
+      "npk 19 19 19",
+      "foliar spray",
+      "fertigation",
+      "water soluble",
+      "vegetables",
+      "drip"
+    ],
+    "related_crops": [
+      "cotton",
+      "grapes",
+      "papaya",
+      "watermelon"
+    ],
+    "language": "en",
+    "source": "ICAR Extension Advisory"
+  },
+  {
+    "id": "fert_tnau_spinach_guide",
+    "category": "fertilizer_knowledge",
+    "title": "Tnau Spinach Guide",
+    "content": "Spinach (Spinacia oleracea) Leafy Vegetable Cultivation Guide\n\n Spinach is a nutrient-dense leafy vegetable rich in iron and vitamins grown during Rabi season.\n Requires fertile alluvial or clay loam soil with pH 6.5-7.5.\n Water management: Requires light frequent drip irrigation every 4-6 days.\n Nutrient management: Apply Urea and organic compost after each leaf harvest.",
+    "keywords": [
+      "alluvial",
+      "clay",
+      "drip",
+      "harvest",
+      "irrigation",
+      "loam",
+      "ph",
+      "rabi",
+      "soil",
+      "urea"
+    ],
+    "related_crops": [
+      "Spinach"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal (TXT Test)"
+  },
+  {
+    "id": "fert_banana_fertilizer___nutrient_management_",
+    "category": "fertilizer_knowledge",
+    "title": "Banana Fertilizer & Nutrient Management Guide",
+    "content": "| Home | Nursery Techniques | Deficiencies & Disorders | Fertilizer Schedule | Plant Protection | Photo Bank | Contact |\nHorticulture :: Fruits :: Banana\n## Banana\nBanana Varities\nHi Tech Banana Cultivation\nBanana Nematode Management\nSolar Dehydrated Banana | NRCB\nIntroduction\nBanana is the fruit of a plant of the genus  Musa  (family Musaceae), which is cultivated primarily for food and secondarily for the production of fibre used in the textile industry are also cultivated for ornamental purposes. Almost all the modern edible parthenocarpic bananas come from the two wild species   Musa acuminata Musa balbisiana . The scientific names of bananas are  Musa acuminata ,  Musa balbisiana  or hybrids of Musa acuminata and balbisiana,  depending on their genomic constitution.Bananas are vigorously growing, monocotyledonous herbaceous plants.The banana is not a tree but a high herb that can attain up to 15 meters of height. The cultivars vary greatly in plant an d fruit size, plant morphology, fruit quality and disease and insect resistance. Most bananas have a sweet flavor when ripe; exceptions to this are cooking bananas and plantains. Plantains are hybrid bananas in which the male flowering axis is either degenerated, lacking, or possess relicts of male flowers. Plantains are always cooked before consumption and are higher in starch than bananas. The two groups of plantains, French and Horn, produce fewer fruit per plant than sweet bananas. The groups differ in whether the male parts of the inflorescence are present or absent.\nVarieties\nDessert\nRobusta, Dwarf Cavendish, Grand Naine ,  Rasthali, Vayal vazhai, Poovan, Nendran, Red Banana, Karpooravalli, Co.1, Matti, Sannachenkadali, Udayam and Neypoovan are popular varieties in banana. Cavendish groups are generally prefered in export market.\nCulinary\nMonthan, Vayal vazhai, Ash Monthan and Chakkia are cultivated for culinary purpose. Nendran is a dual purpose variety used for dessert and culinary.\nHill areas\nThe popular varieties of bananas suitable for hilly areas are Virupakshi, Sirumalai and Namarai. Red Banana, Manoranjitham (Santhana vazhai) and Ladan are also cultivated in hills.\nKarpuravalli\nRasthali\nMore Varieties...\nRed Banana\nGrandnine",
+    "keywords": [
+      "disease",
+      "fertilizer"
+    ],
+    "related_crops": [
+      "Banana"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (banana.html)"
+  },
+  {
+    "id": "fert_mango_fertilizer___nutrient_management_g",
+    "category": "fertilizer_knowledge",
+    "title": "Mango Fertilizer & Nutrient Management Guide",
+    "content": "| Home | Nursery Techniques | Deficiencies & Disorders | Fertilizer Schedule | Plant Protection | Photo Bank | Contact |\nHorticulture :: Fruits:: Mango\nMango ( Mangifera indica L.)\nAnacardiaceae\nGood Agricultural Practices in Mango - Photo Gallery\nMango Varieties Photo Bank\nSuccess Story of Mango Farmer - Video\nVarieties\nNeelum, Bangalora, Alphonso, Rumani, Banganapalli, Kalepad, Peter, PKM 1, PKM 2, Sendura, Jahangir, Mulgoa, Himayuddin, Paiyur 1, Mallika, Amrapali and Salem Bangalora, Arka Anmol, Arka Aruna, Arka Neelkiran, Arka Puneeth and Sindhu are popular varieties in mango.\nVarieties suiable for Tamil Nadu\nBanganapalli, Bangalora, Neelum, Rumani, Mulgoa, Alphonso, Senthura, Kalepad, Imam Pasand.\nBanganapalli\nSenthura\nImam Pasand\nProcessing varieties          :    Alphonso,Banganapalli,Totapuri\nExport varieties                 :    Alphonso,Banganapalli,Sendura",
+    "keywords": [
+      "fertilizer"
+    ],
+    "related_crops": [
+      "Mango"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (mango.html)"
+  },
+  {
+    "id": "fert_sugarcane_fertilizer___nutrient_manageme",
+    "category": "fertilizer_knowledge",
+    "title": "Sugarcane Fertilizer & Nutrient Management Guide",
+    "content": "Fertilizer Management\nWater Management\nPre Harvest Practices\n1. Season and Planting\nSugarcane is grown chiefly in the main season (December - May) in the entire State. In parts of Tiruchirapalli, Perambalur, Karur, Salem, Namakkal and Coimbatore districts, it is also raised during the special season (June - September). The particulars in respect of each season are given below:\nSeason, Period of Planting\n1.   Main season\ni) Early    : Dec - Jan            ii) Mid : Feb - March            iii) Late: April - May\n2. Special season : June - July\nEarly season varieties are suitable for special season.\nCo 86032\nCo 99004\nCo 99004 (Damodar)\nII. Particulars of Variety\nVariety\nDuration (Month)\nCane yield (t/ha)\nCCS%\nCCS(t/ha)\nCOC 671\n10\n123.5\n14.20\n17.50\nCOC 771\n10\n140.0\n13.10\n18.30\nCOC 772\n10\n143.3\n14.00\n20.00\nCOC 773\n10\n97.5\n13.20\n12.60\nCOC 8001 (C 66191)\n10 - 11\n102.9\n13.20\n13.50\nCOC 774\n11\n159.8\n11.90\n17.90\nCOC 775\n11\n122.5\n13.40\n16.40\nCOC 776\n11\n112.3\n14.00\n15.50\nCOC 777\n12\n171.3\n11.80\n20.00\nCOC 778\n12\n165.5\n11.00\n18.10\nCOC 779\n12\n204.6\n11.80\n24.00\nCO 419\n12\n112.5\n10.50\n11.80\nCO 6304\n12\n115.0\n13.50\n15.50\nCOC 8001\n10 - 11\n102.5\n13.20\n13.50\nCOC 85061\n10 - 11\n128.5\n12.90\n16.60\nCOC 86062\n10 - 11\n133.5\n12.60\n16.80\nCOSi 86071\n10 - 11\n131.7\n12.20\n16.00\nCOC 90063\n10 - 11\n124.0\n12.30\n15.40\nCO 8021\n10 - 11\n137.7\n11.00\n14.60\nCOC 91061\n10 - 11\n131.0\n11.30\n15.60\nCOC 92061\n8 - 11\n132.7\n12.76\n16.05\nCO 8362\n11 - 12\n124.3\n12.40\n15.40\nCOG 93076\n11 - 12\n132.0\n13.20\n17.40\nCO 8208\n11 - 13\n141.5\n11.07\n15.28\nCOG 94077\n11\n133.2\n13.5\n17.6\nCOG 95076\n10 - 11\n108.2\n11.5\n12.4\nCO 85019\n12\n134.5\n12.5\n16.8\nCOSi 95071\n10\n152.0\n12.9\n21\nCOSi 96071\n10\n145.0\n11.9\n17.3\nCO 86010\n10 - 12\n146.1\n10.78\n15.64\nCOC 98061\n10 - 11\n120.0\n11.60\n13.80\nCOSi 98071\n12\n144.7\n12.3\n17.7\nCO 86249\n10 - 12\n128.7\n11.3\n14.3\nCOC 99061\n10-12\n130.3\n11.9\n15.6\nCO 86032\n10-12\n110.0\n13.0\n14.3\nCOC (SC) 22\n10-12\n135.9\n12.1\n16.5\nCO Si (SC) 6\n10-11\n142.0\n13.1\n18.6\nCOG (SC) 5\n11-12\n115.0\n12.7\n14.6\nCoC 23\n10-11\n133.0\n12.95\n17.23\nCoC 24\n10-11\n133.0\n12.82\n17.05\nTNAU SC Si 7\n10-11\n156\n13.4\n20.9\nTNAU SC Si 8\n11-12\n146\n12.9\n18.0\nTop\nII. Morphological Characters\nCharacters\nCOC 671\nCOC 771\nCOC 772\nCOC 773\nParentage\nQ63xCO775\nCO419xCO658\nCO740xCO658\nCO658XCO1305\nLeaf size\nBroad\nBroad\nBroad\nBroad\nLeaf colour\nGreen\nGreen\nGreen\nGreen\nSheath colour\nGreen with purple tinge\nGreen with purple tinge\nGreen with purple tinge\nGreen with purple tinge\nSheath\nClasping\nLoose\nLoose\nLoose\nLoose\nSpines\nPresent\nPresent\nPresent\nPresent\nLigular process\nPresent\nAbsent\nAbsent\nPresent\nStem colour\nGreen with\nYellow with\nYellow with\nYellow with\npurple tinge\npurple tinge\nGreen tinge\ngreen tinge\nGirth\nThick\nMedium\nMedium\nMedium\nJoint\nStaggered\nStraight\nStaggered\nStraight\nBud Groove\nAbsent\nPresent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nMedium\nCharacter\nCOC 778\nCOC 779\nCO 419\nCOC 85061\nParentage\nCO419xCO 853\nCO419xCO853\nPoj 2878xCO290\nCO6304 GC\nLeaf size\nBroad\nBroad\nBroad\nMedium\nLeaf colour\nGreen\nGreen\nGreen\nLight green\nSheath colour\nPurple\nPurple\nGreen with Green tinge\nGreen with pink tinge\nSheath\nClasping\nLoose\nLoose\nLoose\nTight\nSpines\nPresent\nPresent\nPresent\nGlabrous\nLigular process\nPresent\nPresent\nLanceolate\nPresent on one side\nStem colour\nPurple\nPurple with green tinge\nPurple\nGreenish yellow turns to pink on exposure to sunlight\nGirth\nMedium\nMedium\nThick\nMedium\nJoint\nStaggered\nStraight\nStaggered\nStaggered\nBud Groove\nAbsent\nAbsent\nPresent\nAbsent\nSize\nMedium\nMedium\nMedium\nMedium\nCharacters\nCOC86062\nCOSi 86071\nCO6304\nC66191(COC 8001)\nParentage\nMS68/47GC\nCO775xCO842\nCO419xCO605\nPO2874XCO658\nLeaf size\nMedium\nBroad\nBroad\nBroad\nLeaf colour\nGreen\nDark green\nGreen\nGreen\nSheath colour\nDark pink\nYellowish green with pink tinge\nGreen with Purple tinge\nGreenish\nSheath\nClasping\nLoose\nTight\nLoose\nLoose\nSpines\nGlabrous\nPresent\nPresent\nAbsent\nLigular process\nAbsent\nPresent on both sides\nPresent\nBow shape\nStem colour\nYellowish green turns to dark pink on exposure to sunlight\nPurplish green turns to pink on exposure to sunlight\nGreen with purple tinge\nGreenish with light yellowish tinge\nGirth\nMedium\nThick\nThick\nMedium\nJoint\nStaggered\nStaggered\nStaggered\nStraight\nBud Groove\nAbsent\nPresent\nPresent\nIndicated\nSize\nSmall\nBig\nMedium\nMedium\nCharacter\nCOC 8201\nCOC 90063\nCO 8021\nCOC 91061\nParentage\nCO740xCO62174\nCO6304XCOC671\nCO740xCO6806\nCOC779 G.C.\nLeaf size\nMedium\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nGreen\nGreen\nGreen\nSheath colour\nGreen with Pink tinge\nGreen\nPurple\nWhitish Yellow\nSheath clasping\nLoose\nLoose\nLoose\nTight\nSpines\nGlabrous\nPresent\nGlabrous\nAbsent\nSplits\n..\nAbsent\nPresent\nAbsent\nLigular\nLanceolate\nPresent on\nPresent on one\nAbsent\nprocess\none side\nside Lanceolate\n(4-5 cm)\nStem colour\nGreenish yellow\nYellowish green\nPurple with heavy wax deposition\nYellowish green\nGirth\nMedium\nMedium\nMedium\nMedium\nJoint\nThick\nStaggered\nErect\nStaggered\nBud Groove\nPresent\nAbsent\nPresent and Prominent\nAbsent\nSize\nMedium\nMedium\nMedium/Big\nSmall\nCharacter\nCOC 92061\nCO 8362\nCOG93076\nCO 8208\nParentage\nCO 7314 GC\n(Natural cross) Involving CO6314 as female\nCO 6304X COC 671\nCOC 772X CO 419\nCO 62198X COC 671\nLeaf size\nBroad\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nGreen\nDark green\nDark green\nSheath Colour\nPurple with heavy bloom\nGreen\nDark green\nGreenish purple\nSheath clasping\nLoose\nLoose\nSpines\nDeciduous\nDeciduous\nDeciduous\nDeciduous\nSplits\nAbsent\nAbsent\nAbsent\nLigular process\nOne side indica- ted and the other side rudimentary\nPresent on both side\nOne side\nPresent Asymmetrical\nStem colour\nGreenish yellow with pink tinge\nPurple green\nGreenish light yellow\nGreen with purple tinge\nGirth\n-\n-\n-\n-\nJoint\nSlightly staggered\nStraight\nSlightly staggered\nStraight\nBud Groove\nAbsent\nAbsent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nSmall\nCharacter\nCOG 94077\nCOG 95076\nCO 85019\nCOSi 95071\nParentage\nCO 740 x C0 775\nCOC 771 x CO 775\nCO 7201 x CO 775\nCOC 671x MS 6847\nLeaf size\nMedium\nMedium\nLength 140 cm Medium width 6.0 cm\nMedium\nLeaf colour\nDark green\nGreen\nLight green at harvest\nGreen\nSheath colour\nGreenish with\nPurple tingle\nGreen\nGreen with purple tinge\nLight greenish yellow\nSheath\nEasily trashing\nLoose\nClasping\nLoose\nLoose\nSpines\nAbsent\nPresent,deciduous\nHard few\nAbsent\nLigular process\nPresent on One side\none side lanceolate and one side dentoid\nAbsent\nPresent, Asymmetrical\nStem colour\nGreenish yellow\nGreenish yellow with purplish tinge\nExposed purple unexposed yellowish green with heavy waxy coating\nGreenish yellow\nGirth\nMedium\nMedium\nMedium\nMedium\nJoint\nSlightly staggered\nSlightly staggered\nZig Zag\nStaggered\nBud groove\nShort, shallow\nIndicated\nAbsent\nPresent\nSize\nMedium\nMedium\nSmall\nMedium\nCharacter\nCO Si 96071\nCO 86010\nCOC 98061\nCO Si 98071\nCO 86249\nParentage\nC 82061GC\nCO 740xCo 7409\nC80 172 GC\nBo 91/Co 62198\nCO J 64 x CoA 7601\nLeaf size\nMedium\nBroad\nMedium\nBroad\nMedium\nLeaf colour\nGreen\nLight green\nGreen\nDark green\nGreen\nSheath colour\nLight green with pink blotches\nLight green with pink blotches\nGreen with pink tinge\nYellowish green\nLight green\nSpines\nPresent & deciduous\nAbsent\nAbsent\nDeciduous\nLigular\nAsymmetrical\n-\nAbsent on both sides\nShort lanceolate\nSmall, present on one side\nStem colour\nPurplish\nYellowish with green tinge\nGreenish yellow with slight purple tinge\nYellowish green\nGreenish yellow\nGirth\nMedium\nThick\nMedium\nThick\nThick\nJoint\nConcave, convex\n-\nCylindrical\nCylindrical\nCylindrical\nBudgroove\nAbsent\nProminent\nAbsent\nNumerous\nAbsent\nSize\nSmall\nBig\nMedium\nBig\nBig\nCharacter\nCoC 99061CoC\nCO 86032\nCOC (SC) 22\nParentage\nCO 6806 X CO 740\nCo 62198 x CoC 671\nCO 62198 XCOC 671\nCO 8208 GC\nLeaf size\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nDark green\nGreen\nSheath colour\nGreen with pink tinge\nGreen with purple\nGreen with slight scarious border\nSheath clasping\nTight\nLoose\nLoose\nSpines\nDeciduous\nFew, hard, deciduous\nAbsent\nSplits\nAbsent\nPresent\nAbsent\nLigular process\nPresent, asymmetrical,\nlanceolate\nO\nPresent asymmetrical\nStem colour\nDark green (Exposed)\nYellowish green\n(Unexposed)\nReddish pink (exposed)\nGreenish yellow (unexposed)\nReddish Pink with purple (exposed)\nGreenish yellow(unexposed)\nGirth\nMedium\nMedium\nMedium\nJoint\nCylindrical\nCylinderical\nCylindrical\nBud groove\nAbsent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nCharacter\nCOC 23\nCOC 24\nParentage\n69A591 GC\nCO 8371 x MS 6847\nLeaf size\nMedium\nMedium\nLeaf colour\nLight Green\nDark green\nSheath colour\nGreen\nGreen with purple tinge\nSheath clasping\nLoose\nLoose\nSpines\nAbsent\nAbsent\nSplits\nAbsent\nAbsent\nLigular process\nPresent\nPresent\nStem colour\nGreen with purple tinge (Exposed) Yellowish green (Unexposed)\nGreen (exposed) Greenish yellow (unexposed)\nGirth\nMedium\nThick\nJoint\nStraight\nStaggered\nBud groove\nAbsent\npresent\nSize\nMedium\nMedium\nCharacter\nTNAU SC Si7\nTNAU SC Si8\nParentage\nCo 99034xCoG 93076\nCoC 90063xCo8213\nLeaf size\nMedium\nMedium\nLeaf colour\nDark Green Yellowish\nGreen\nSheath colour\nGreen with purple tinge\nGreen with purple stripes\nSheath clasping\nSlightly tight\nLoose\nSpines\nPresent(de ciduous)\nVery few, soft and deciduous\nSplits\nAbsent\nAbsent\nLigular process\nPresent\nPresent(Asymmetrical)\nStem colour\nYellowish Green(exposed)\npinkish yellow(unexposed)\nGreenish Yellow (Exposed) Greenish Yellow (Unexposed)\nGirth\nMedium\nMedium\nJoint\nStraight\nStraight\nBud groove\nAbsent\nPresent, shallow\nSize\nMedium\nBig\nCOC (SC) 24\nTNAU Sugarcane SI 7\nTop\nIII.District/Season - Suitable Varieties\nAll Districts(except  Kanniyakumari and Nilgiris)\nEarly\nMid\nLate\nSpecial\nFactory\nJaggery\nFactory\nJaggery\nFactory\nJaggery\nFactory\nJaggery\nCO 658\n..\nCO 658\nCO 419\nCO 6304\nCO 62175\nEarly varieties are suitable for Special\n..\nCO 62174\nCOC 671\nCO 62198\nCO 449\nCOC 8201\nCO 419\n..\n..\nCO 62198\nCOC 771\nCO 6304\nCO 6304\nCOC 771\nCO 6304\n..\n..\nCOC 671\nCOC 772\nCOC 774\nCOC 776\nCOC 778\nCOC 8201\n..\n..\nCOC 771\nCOC 773\nCOC 775\nCOC 8001\nCOC 779\nCO 740\n..\n..\nCOC 772\nCOC 8001\nCOC 8001\n..\nCO 419\n..\n..\n..\nCOC 8001\nCOC 85061\n, ..\n..\nCO 740\n..\n..\n..\nCOC 85061\nCOC 86062\nCO 658\n..\n..\n..\nCOC 86062\n..\n..\n..\n..\n..\n..\n..\nCOSi 86071\nCOSi 86071\n..\n..\n..\n..\n..\n..\nCOC 90063\nCOC 90063\n..\n..\n..\n..\nCOC 91061\nCOG 94077\nCOC 91061  COG 94077\n..\n..\n..\n..\n..\n..\nCO Si 95071\nCOC 98061\nCO   86010\nCO   86249 CoC 23, CoC 24, TNAU SC Si7\nCOG 93076\nCO   85019\nCOC 99061\nCO    86032\nCOC (Sc) 22, TNAU SC Si 8\n..\nCOG 93076 CO   85019\nCOC 99061\nCO    86032\nCOC (Sc) 22,\nTNAU SC Si8\n..\n..\n..\nRight seed\nTNAU  in collaboration with  Sugar Cane Breeding Institute, Coimbatore released   many high yielding varieties with high recovery to suit various eco systems and other biotic and abiotic problematic area and  of which the following listed varieties can be recommended for higher cane productivity\nVariety\nPerformance\nCo 86032",
+    "keywords": [
+      "fertilizer",
+      "harvest",
+      "yield"
+    ],
+    "related_crops": [
+      "Sugarcane"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (sugarcane.html)"
+  }
+]

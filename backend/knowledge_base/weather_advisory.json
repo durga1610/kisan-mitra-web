@@ -1,0 +1,79 @@
+[
+  {
+    "id": "weather_heavy_rain",
+    "category": "weather_advisory",
+    "title": "Heavy Rain & Waterlogging Farm Advisory",
+    "weather_condition": "Heavy Rainfall / Torrential Downpour",
+    "content": "Provide immediate field drainage trenches at lower boundaries to evacuate excess surface water. Suspend all fertilizer broadcasts, pesticide sprays, and irrigation. Post-rain, apply a light foliar spray of 1% Urea + 0.5% Zinc Sulphate to restore root activity once water recedes.",
+    "keywords": ["heavy rain", "waterlogging", "drainage", "flood", "monsoon", "foliar spray"],
+    "related_crops": ["rice", "cotton", "maize", "soybean", "vegetables"],
+    "language": "en",
+    "source": "India Meteorological Department (IMD) Agromet Advisory"
+  },
+  {
+    "id": "weather_drought",
+    "category": "weather_advisory",
+    "title": "Dry Spell & Drought Farm Advisory",
+    "weather_condition": "Drought / Prolonged Dry Spell",
+    "content": "Apply organic straw or plastic mulch around crop rows to conserve soil moisture. Execute protective micro-irrigation at critical stages (flowering and seed formation). Spray 1% Potassium Nitrate (13-0-45) to induce drought tolerance and reduce leaf transpiration.",
+    "keywords": ["drought", "dry spell", "mulching", "potassium nitrate", "moisture conservation"],
+    "related_crops": ["cotton", "maize", "groundnut", "chickpea", "pigeonpeas"],
+    "language": "en",
+    "source": "IMD Agromet & ICAR Drought Management Division"
+  },
+  {
+    "id": "weather_heat_wave",
+    "category": "weather_advisory",
+    "title": "Heat Wave & High Temperature Farm Advisory",
+    "weather_condition": "Heat Wave (Temperature > 40°C)",
+    "content": "Provide light frequent irrigations during evening hours to maintain root zone cool temperature. Irrigate nursery beds daily. Apply kaolin clay foliar spray (5%) to reflect excess sunlight and protect fruits from sunscald.",
+    "keywords": ["heat wave", "high temperature", "sunscald", "evening irrigation", "kaolin"],
+    "related_crops": ["watermelon", "muskmelon", "papaya", "tomato", "maize"],
+    "language": "en",
+    "source": "IMD & ICAR Arid Zone Advisory"
+  },
+  {
+    "id": "weather_cold_wave",
+    "category": "weather_advisory",
+    "title": "Cold Wave & Frost Protection Advisory",
+    "weather_condition": "Cold Wave / Frost Danger (Temperature < 5°C)",
+    "content": "Apply light evening irrigation to raise soil temperature overnight. Create smoke fires on western boundaries using dry farm waste to create a protective thermal blanket over crops. Spray 0.1% Dilute Sulphuric Acid or soluble Potassium.",
+    "keywords": ["cold wave", "frost", "winter", "thermal smoke", "evening irrigation"],
+    "related_crops": ["mustard", "wheat", "potato", "chickpea", "tomato"],
+    "language": "en",
+    "source": "IMD Agromet Advisory Service"
+  },
+  {
+    "id": "weather_high_humidity",
+    "category": "weather_advisory",
+    "title": "High Humidity & Fungal Disease Risk Advisory",
+    "weather_condition": "High Humidity (> 85% RH)",
+    "content": "High humidity combined with warm temperatures creates optimal conditions for fungal diseases (Downy Mildew, Blast, Blight, Powdery Mildew). Ensure proper plant spacing and prunings for canopy aeration. Apply preventive copper or sulfur sprays.",
+    "keywords": ["high humidity", "fungal disease", "mildew", "blast", "blight", "aeration"],
+    "related_crops": ["rice", "grapes", "tomato", "cotton", "chickpea"],
+    "language": "en",
+    "source": "ICAR Plant Protection Division"
+  },
+  {
+    "id": "weather_low_humidity",
+    "category": "weather_advisory",
+    "title": "Low Humidity & Dry Air Advisory",
+    "weather_condition": "Low Humidity (< 35% RH)",
+    "content": "Accelerates evapotranspiration causing rapid soil drying and flower drop. Irrigate fields regularly and maintain organic mulching to prevent soil surface crusting and blossom desiccating.",
+    "keywords": ["low humidity", "dry air", "evapotranspiration", "flower drop", "mulch"],
+    "related_crops": ["cotton", "banana", "papaya", "watermelon"],
+    "language": "en",
+    "source": "IMD Agromet"
+  },
+  {
+    "id": "weather_strong_wind",
+    "category": "weather_advisory",
+    "title": "Strong Winds & Storm Lodging Protection",
+    "weather_condition": "Strong Winds / Squall (> 40 km/h)",
+    "content": "Provide mechanical staking support for tall crops like sugarcane, banana, and papaya to prevent wind lodging. Postpone tall chemical spraying. Earthing up soil around crop base strengthens anchorage against squalls.",
+    "keywords": ["strong wind", "storm", "lodging", "propping", "banana", "sugarcane", "staking"],
+    "related_crops": ["banana", "sugarcane", "maize", "papaya"],
+    "language": "en",
+    "source": "IMD Severe Weather Advisory"
+  }
+]

@@ -1,0 +1,1652 @@
+[
+  {
+    "index": 0,
+    "id": "crop_rice",
+    "category": "crop_profiles",
+    "title": "Rice (Oryza sativa) Crop Profile & Cultivation Guide",
+    "content": "Rice is the primary staple food crop in India grown predominantly during the Kharif season. It thrives in heavy clay or alluvial soils capable of holding standing water. Key stages include nursery bed preparation, transplanting 21-25 day old seedlings, maintaining 2-5cm water level during tillering, and applying split doses of Nitrogen and Zinc Sulphate.",
+    "keywords": [
+      "rice",
+      "paddy",
+      "kharif",
+      "clay soil",
+      "alluvial",
+      "transplanting",
+      "npk",
+      "flooded irrigation"
+    ],
+    "related_crops": [
+      "rice",
+      "maize",
+      "wheat"
+    ],
+    "language": "en",
+    "source": "Indian Council of Agricultural Research (ICAR) & Directorate of Rice Research",
+    "searchable_text": "Title: Rice (Oryza sativa) Crop Profile & Cultivation Guide\nCategory: crop_profiles\nContent: Rice is the primary staple food crop in India grown predominantly during the Kharif season. It thrives in heavy clay or alluvial soils capable of holding standing water. Key stages include nursery bed preparation, transplanting 21-25 day old seedlings, maintaining 2-5cm water level during tillering, and applying split doses of Nitrogen and Zinc Sulphate.\nKeywords: rice, paddy, kharif, clay soil, alluvial, transplanting, npk, flooded irrigation\nRelated Crops: rice, maize, wheat"
+  },
+  {
+    "index": 1,
+    "id": "crop_maize",
+    "category": "crop_profiles",
+    "title": "Maize (Zea mays) Crop Profile & Cultivation Guide",
+    "content": "Maize (Corn) is a versatile cereal crop grown for food, fodder, and industrial bio-products. Requires well-drained fertile loamy soils. Susceptible to waterlogging during early seedling stages. Critical growth stages needing irrigation are knee-high stage, tasseling, silking, and grain filling.",
+    "keywords": [
+      "maize",
+      "corn",
+      "kharif",
+      "rabi",
+      "loam soil",
+      "tasseling",
+      "silking",
+      "fodder"
+    ],
+    "related_crops": [
+      "maize",
+      "wheat",
+      "soybean"
+    ],
+    "language": "en",
+    "source": "ICAR - Indian Institute of Maize Research (IIMR)",
+    "searchable_text": "Title: Maize (Zea mays) Crop Profile & Cultivation Guide\nCategory: crop_profiles\nContent: Maize (Corn) is a versatile cereal crop grown for food, fodder, and industrial bio-products. Requires well-drained fertile loamy soils. Susceptible to waterlogging during early seedling stages. Critical growth stages needing irrigation are knee-high stage, tasseling, silking, and grain filling.\nKeywords: maize, corn, kharif, rabi, loam soil, tasseling, silking, fodder\nRelated Crops: maize, wheat, soybean"
+  },
+  {
+    "index": 2,
+    "id": "crop_chickpea",
+    "category": "crop_profiles",
+    "title": "Chickpea / Gram (Cicer arietinum) Cultivation Guide",
+    "content": "Chickpea (Chana) is the premier pulse crop of India grown during the cool Rabi season. It fixes atmospheric nitrogen in soil through root nodules. Highly sensitive to waterlogging and high humidity at flowering. Requires 1-2 light irrigations at pre-flowering and pod-development stages.",
+    "keywords": [
+      "chickpea",
+      "chana",
+      "gram",
+      "rabi",
+      "pulse",
+      "nitrogen fixation",
+      "black soil",
+      "rhizobium"
+    ],
+    "related_crops": [
+      "chickpea",
+      "lentil",
+      "wheat"
+    ],
+    "language": "en",
+    "source": "ICAR - Indian Institute of Pulses Research (IIPR)",
+    "searchable_text": "Title: Chickpea / Gram (Cicer arietinum) Cultivation Guide\nCategory: crop_profiles\nContent: Chickpea (Chana) is the premier pulse crop of India grown during the cool Rabi season. It fixes atmospheric nitrogen in soil through root nodules. Highly sensitive to waterlogging and high humidity at flowering. Requires 1-2 light irrigations at pre-flowering and pod-development stages.\nKeywords: chickpea, chana, gram, rabi, pulse, nitrogen fixation, black soil, rhizobium\nRelated Crops: chickpea, lentil, wheat"
+  },
+  {
+    "index": 3,
+    "id": "crop_cotton",
+    "category": "crop_profiles",
+    "title": "Cotton (Gossypium hirsutum) Cultivation Guide",
+    "content": "Cotton is the leading commercial cash fiber crop in India. It grows best in deep moisture-retentive black clay soils. Requires 180 frost-free days and bright sunshine during boll maturation. Avoid excessive nitrogen which causes rank vegetative growth.",
+    "keywords": [
+      "cotton",
+      "kapas",
+      "bt cotton",
+      "black soil",
+      "regur",
+      "fiber",
+      "boll",
+      "kharif"
+    ],
+    "related_crops": [
+      "cotton",
+      "soybean",
+      "pigeonpeas"
+    ],
+    "language": "en",
+    "source": "ICAR - Central Institute for Cotton Research (CICR)",
+    "searchable_text": "Title: Cotton (Gossypium hirsutum) Cultivation Guide\nCategory: crop_profiles\nContent: Cotton is the leading commercial cash fiber crop in India. It grows best in deep moisture-retentive black clay soils. Requires 180 frost-free days and bright sunshine during boll maturation. Avoid excessive nitrogen which causes rank vegetative growth.\nKeywords: cotton, kapas, bt cotton, black soil, regur, fiber, boll, kharif\nRelated Crops: cotton, soybean, pigeonpeas"
+  },
+  {
+    "index": 4,
+    "id": "crop_wheat",
+    "category": "crop_profiles",
+    "title": "Wheat (Triticum aestivum) Cultivation Guide",
+    "content": "Wheat is the dominant winter cereal crop in Northern and Central India. Crown Root Initiation (CRI stage at 21 days) is the most critical irrigation stage. Proper cold temperature during tillering promotes higher yield.",
+    "keywords": [
+      "wheat",
+      "gehun",
+      "rabi",
+      "alluvial",
+      "crown root initiation",
+      "tillering",
+      "npk"
+    ],
+    "related_crops": [
+      "wheat",
+      "mustard",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR - Indian Institute of Wheat and Barley Research (IIWBR)",
+    "searchable_text": "Title: Wheat (Triticum aestivum) Cultivation Guide\nCategory: crop_profiles\nContent: Wheat is the dominant winter cereal crop in Northern and Central India. Crown Root Initiation (CRI stage at 21 days) is the most critical irrigation stage. Proper cold temperature during tillering promotes higher yield.\nKeywords: wheat, gehun, rabi, alluvial, crown root initiation, tillering, npk\nRelated Crops: wheat, mustard, chickpea"
+  },
+  {
+    "index": 5,
+    "id": "crop_sugarcane",
+    "category": "crop_profiles",
+    "title": "Sugarcane (Saccharum officinarum) Cultivation Guide",
+    "content": "Sugarcane is a long-duration commercial sugar crop. It requires warm, humid climate, high water availability, and deep rich loamy or black soils. Earthing-up and trash mulching help conserve soil moisture and prevent lodging.",
+    "keywords": [
+      "sugarcane",
+      "ganna",
+      "perennial",
+      "setts",
+      "sucrose",
+      "alluvial",
+      "drip irrigation"
+    ],
+    "related_crops": [
+      "sugarcane",
+      "rice",
+      "banana"
+    ],
+    "language": "en",
+    "source": "ICAR - Sugarcane Breeding Institute (SBI)",
+    "searchable_text": "Title: Sugarcane (Saccharum officinarum) Cultivation Guide\nCategory: crop_profiles\nContent: Sugarcane is a long-duration commercial sugar crop. It requires warm, humid climate, high water availability, and deep rich loamy or black soils. Earthing-up and trash mulching help conserve soil moisture and prevent lodging.\nKeywords: sugarcane, ganna, perennial, setts, sucrose, alluvial, drip irrigation\nRelated Crops: sugarcane, rice, banana"
+  },
+  {
+    "index": 6,
+    "id": "crop_groundnut",
+    "category": "crop_profiles",
+    "title": "Groundnut / Peanut (Arachis hypogaea) Cultivation Guide",
+    "content": "Groundnut (Peanut) is an important oilseed and food legume crop. Requires friable loose sandy loam soil allowing easy peg penetration into the soil for pod formation. Apply Gypsum at 45 days (flowering/pegging) to supply Calcium and Sulphur essential for pod filling.",
+    "keywords": [
+      "groundnut",
+      "peanut",
+      "mungfali",
+      "oilseed",
+      "gypsum",
+      "pegging",
+      "sandy loam"
+    ],
+    "related_crops": [
+      "groundnut",
+      "cotton",
+      "sesame"
+    ],
+    "language": "en",
+    "source": "ICAR - Directorate of Groundnut Research (DGR)",
+    "searchable_text": "Title: Groundnut / Peanut (Arachis hypogaea) Cultivation Guide\nCategory: crop_profiles\nContent: Groundnut (Peanut) is an important oilseed and food legume crop. Requires friable loose sandy loam soil allowing easy peg penetration into the soil for pod formation. Apply Gypsum at 45 days (flowering/pegging) to supply Calcium and Sulphur essential for pod filling.\nKeywords: groundnut, peanut, mungfali, oilseed, gypsum, pegging, sandy loam\nRelated Crops: groundnut, cotton, sesame"
+  },
+  {
+    "index": 7,
+    "id": "crop_mustard",
+    "category": "crop_profiles",
+    "title": "Mustard / Rapeseed (Brassica juncea) Cultivation Guide",
+    "content": "Mustard is a major winter oilseed crop in India. It thrives under cool temperatures and moderate moisture. Highly responsive to Sulphur application which increases seed oil concentration.",
+    "keywords": [
+      "mustard",
+      "sarson",
+      "rabi",
+      "oilseed",
+      "sulphur",
+      "sandy loam"
+    ],
+    "related_crops": [
+      "mustard",
+      "wheat",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR - Directorate of Rapeseed-Mustard Research (DRMR)",
+    "searchable_text": "Title: Mustard / Rapeseed (Brassica juncea) Cultivation Guide\nCategory: crop_profiles\nContent: Mustard is a major winter oilseed crop in India. It thrives under cool temperatures and moderate moisture. Highly responsive to Sulphur application which increases seed oil concentration.\nKeywords: mustard, sarson, rabi, oilseed, sulphur, sandy loam\nRelated Crops: mustard, wheat, chickpea"
+  },
+  {
+    "index": 8,
+    "id": "crop_mango",
+    "category": "crop_profiles",
+    "title": "Mango (Mangifera indica) Cultivation Guide",
+    "content": "Mango is the King of Fruits in India. Thrives in tropical to sub-tropical climates with a distinct dry period prior to flowering. Avoid nitrogen fertilizer during flowering to prevent flower drop.",
+    "keywords": [
+      "mango",
+      "aam",
+      "fruit tree",
+      "alluvial",
+      "grafting",
+      "perennial"
+    ],
+    "related_crops": [
+      "mango",
+      "guava",
+      "citrus"
+    ],
+    "language": "en",
+    "source": "ICAR - Central Institute for Subtropical Horticulture (CISH)",
+    "searchable_text": "Title: Mango (Mangifera indica) Cultivation Guide\nCategory: crop_profiles\nContent: Mango is the King of Fruits in India. Thrives in tropical to sub-tropical climates with a distinct dry period prior to flowering. Avoid nitrogen fertilizer during flowering to prevent flower drop.\nKeywords: mango, aam, fruit tree, alluvial, grafting, perennial\nRelated Crops: mango, guava, citrus"
+  },
+  {
+    "index": 9,
+    "id": "crop_banana",
+    "category": "crop_profiles",
+    "title": "Banana (Musa acuminata) Cultivation Guide",
+    "content": "Banana is a fast-growing, heavy feeding fruit crop. Requires warm humid climate, abundant water, and high potassium fertilization. Drip irrigation and fertigation produce maximum bunch weight.",
+    "keywords": [
+      "banana",
+      "kela",
+      "tissue culture",
+      "drip irrigation",
+      "potassium",
+      "fruit"
+    ],
+    "related_crops": [
+      "banana",
+      "papaya",
+      "sugarcane"
+    ],
+    "language": "en",
+    "source": "ICAR - National Research Centre for Banana (NRCB)",
+    "searchable_text": "Title: Banana (Musa acuminata) Cultivation Guide\nCategory: crop_profiles\nContent: Banana is a fast-growing, heavy feeding fruit crop. Requires warm humid climate, abundant water, and high potassium fertilization. Drip irrigation and fertigation produce maximum bunch weight.\nKeywords: banana, kela, tissue culture, drip irrigation, potassium, fruit\nRelated Crops: banana, papaya, sugarcane"
+  },
+  {
+    "index": 10,
+    "id": "crop_maize_ipm",
+    "category": "crop_profiles",
+    "title": "Maize Ipm",
+    "content": "",
+    "keywords": [],
+    "related_crops": [
+      "Maize"
+    ],
+    "language": "en",
+    "source": "ICAR IPM Manual (maize_ipm.pdf)",
+    "searchable_text": "Title: Maize Ipm\nCategory: crop_profiles\nContent: \nKeywords: \nRelated Crops: Maize"
+  },
+  {
+    "index": 11,
+    "id": "crop_wheat_ipm",
+    "category": "crop_profiles",
+    "title": "Wheat Ipm",
+    "content": "",
+    "keywords": [],
+    "related_crops": [
+      "Wheat"
+    ],
+    "language": "en",
+    "source": "ICAR IPM Manual (wheat_ipm.pdf)",
+    "searchable_text": "Title: Wheat Ipm\nCategory: crop_profiles\nContent: \nKeywords: \nRelated Crops: Wheat"
+  },
+  {
+    "index": 12,
+    "id": "faq_001",
+    "category": "faq",
+    "title": "Which crop is best for black soil during Kharif season?",
+    "content": "Cotton and Soybean are the most suitable crops for black clay soil during the Kharif season due to the soil's excellent water retention and mineral composition.",
+    "keywords": [
+      "crop selection",
+      "black soil",
+      "kharif",
+      "cotton",
+      "soybean"
+    ],
+    "related_crops": [
+      "cotton",
+      "soybean"
+    ],
+    "language": "en",
+    "source": "ICAR Extension Advisory",
+    "searchable_text": "Title: Which crop is best for black soil during Kharif season?\nCategory: faq\nContent: Cotton and Soybean are the most suitable crops for black clay soil during the Kharif season due to the soil's excellent water retention and mineral composition.\nKeywords: crop selection, black soil, kharif, cotton, soybean\nRelated Crops: cotton, soybean"
+  },
+  {
+    "index": 13,
+    "id": "faq_002",
+    "category": "faq",
+    "title": "What crops grow well in sandy loam soil with low water availability?",
+    "content": "Groundnut, Bajra (Pearl Millet), Mothbean, Chickpea, and Mustard perform extremely well in sandy loam soils with low water requirements.",
+    "keywords": [
+      "sandy loam",
+      "low water",
+      "groundnut",
+      "chickpea",
+      "mustard",
+      "mothbeans"
+    ],
+    "related_crops": [
+      "groundnut",
+      "chickpea",
+      "mustard"
+    ],
+    "language": "en",
+    "source": "ICAR Arid Zone Research",
+    "searchable_text": "Title: What crops grow well in sandy loam soil with low water availability?\nCategory: faq\nContent: Groundnut, Bajra (Pearl Millet), Mothbean, Chickpea, and Mustard perform extremely well in sandy loam soils with low water requirements.\nKeywords: sandy loam, low water, groundnut, chickpea, mustard, mothbeans\nRelated Crops: groundnut, chickpea, mustard"
+  },
+  {
+    "index": 14,
+    "id": "faq_003",
+    "category": "faq",
+    "title": "How to increase soil organic carbon naturally?",
+    "content": "Incorporate green manure crops (Dhaincha, Sunnhemp) into the soil before flowering, apply well-rotted Farmyard Manure (FYM) or Vermicompost @ 4-5 tonnes/acre, and practice zero-tillage or stubble retention.",
+    "keywords": [
+      "soil organic carbon",
+      "fym",
+      "vermicompost",
+      "green manure",
+      "dhaincha",
+      "zero tillage"
+    ],
+    "related_crops": [
+      "all"
+    ],
+    "language": "en",
+    "source": "ICAR Indian Institute of Soil Science",
+    "searchable_text": "Title: How to increase soil organic carbon naturally?\nCategory: faq\nContent: Incorporate green manure crops (Dhaincha, Sunnhemp) into the soil before flowering, apply well-rotted Farmyard Manure (FYM) or Vermicompost @ 4-5 tonnes/acre, and practice zero-tillage or stubble retention.\nKeywords: soil organic carbon, fym, vermicompost, green manure, dhaincha, zero tillage\nRelated Crops: all"
+  },
+  {
+    "index": 15,
+    "id": "faq_004",
+    "category": "faq",
+    "title": "How to treat acidic soil with low pH?",
+    "content": "Apply agricultural Lime (Calcium Carbonate / Dolomite) @ 200-400 kg/acre based on soil test recommendation 2-3 weeks prior to sowing. Wood ash and organic compost also help neutralize soil acidity.",
+    "keywords": [
+      "acidic soil",
+      "low ph",
+      "liming",
+      "calcium carbonate",
+      "dolomite"
+    ],
+    "related_crops": [
+      "all"
+    ],
+    "language": "en",
+    "source": "ICAR Soil Health Division",
+    "searchable_text": "Title: How to treat acidic soil with low pH?\nCategory: faq\nContent: Apply agricultural Lime (Calcium Carbonate / Dolomite) @ 200-400 kg/acre based on soil test recommendation 2-3 weeks prior to sowing. Wood ash and organic compost also help neutralize soil acidity.\nKeywords: acidic soil, low ph, liming, calcium carbonate, dolomite\nRelated Crops: all"
+  },
+  {
+    "index": 16,
+    "id": "faq_005",
+    "category": "faq",
+    "title": "When is the best time to apply Urea to wheat crops?",
+    "content": "Apply 50% of the total Urea as a basal dose during sowing, 25% at Crown Root Initiation (CRI stage, 21 days after sowing), and the remaining 25% during late tillering stage before irrigation.",
+    "keywords": [
+      "urea",
+      "wheat",
+      "crown root initiation",
+      "cri stage",
+      "split dose"
+    ],
+    "related_crops": [
+      "wheat"
+    ],
+    "language": "en",
+    "source": "IIWBR Wheat Agronomy",
+    "searchable_text": "Title: When is the best time to apply Urea to wheat crops?\nCategory: faq\nContent: Apply 50% of the total Urea as a basal dose during sowing, 25% at Crown Root Initiation (CRI stage, 21 days after sowing), and the remaining 25% during late tillering stage before irrigation.\nKeywords: urea, wheat, crown root initiation, cri stage, split dose\nRelated Crops: wheat"
+  },
+  {
+    "index": 17,
+    "id": "faq_006",
+    "category": "faq",
+    "title": "Why is Sulphur important for oilseed crops like Mustard and Groundnut?",
+    "content": "Sulphur is a key component of oil-synthesizing enzymes and sulfur-containing amino acids (Methionine, Cysteine). Applying 20-30 kg Sulphur/acre increases oil content in mustard and groundnut seeds by 3-5%.",
+    "keywords": [
+      "sulphur",
+      "mustard",
+      "groundnut",
+      "oil content",
+      "oilseeds",
+      "ssp"
+    ],
+    "related_crops": [
+      "mustard",
+      "groundnut",
+      "soybean"
+    ],
+    "language": "en",
+    "source": "ICAR Directorate of Rapeseed-Mustard Research",
+    "searchable_text": "Title: Why is Sulphur important for oilseed crops like Mustard and Groundnut?\nCategory: faq\nContent: Sulphur is a key component of oil-synthesizing enzymes and sulfur-containing amino acids (Methionine, Cysteine). Applying 20-30 kg Sulphur/acre increases oil content in mustard and groundnut seeds by 3-5%.\nKeywords: sulphur, mustard, groundnut, oil content, oilseeds, ssp\nRelated Crops: mustard, groundnut, soybean"
+  },
+  {
+    "index": 18,
+    "id": "faq_007",
+    "category": "faq",
+    "title": "What are the most critical irrigation stages for wheat?",
+    "content": "The most critical stage is Crown Root Initiation (CRI stage at 20-25 days after sowing). Missing CRI irrigation can cause up to 30% yield loss. Other key stages are tillering, flowering, and milk/grain filling.",
+    "keywords": [
+      "critical irrigation",
+      "wheat",
+      "cri stage",
+      "yield loss"
+    ],
+    "related_crops": [
+      "wheat"
+    ],
+    "language": "en",
+    "source": "ICAR Wheat Research Manual",
+    "searchable_text": "Title: What are the most critical irrigation stages for wheat?\nCategory: faq\nContent: The most critical stage is Crown Root Initiation (CRI stage at 20-25 days after sowing). Missing CRI irrigation can cause up to 30% yield loss. Other key stages are tillering, flowering, and milk/grain filling.\nKeywords: critical irrigation, wheat, cri stage, yield loss\nRelated Crops: wheat"
+  },
+  {
+    "index": 19,
+    "id": "faq_008",
+    "category": "faq",
+    "title": "How does Drip Irrigation help in Sugarcane and Banana cultivation?",
+    "content": "Drip irrigation saves 40-50% water, enables precise daily fertigation (liquid fertilizer application), reduces weed proliferation between rows, and increases crop yield by 20-35%.",
+    "keywords": [
+      "drip irrigation",
+      "sugarcane",
+      "banana",
+      "fertigation",
+      "water saving"
+    ],
+    "related_crops": [
+      "sugarcane",
+      "banana"
+    ],
+    "language": "en",
+    "source": "PMKSY Drip Guidelines",
+    "searchable_text": "Title: How does Drip Irrigation help in Sugarcane and Banana cultivation?\nCategory: faq\nContent: Drip irrigation saves 40-50% water, enables precise daily fertigation (liquid fertilizer application), reduces weed proliferation between rows, and increases crop yield by 20-35%.\nKeywords: drip irrigation, sugarcane, banana, fertigation, water saving\nRelated Crops: sugarcane, banana"
+  },
+  {
+    "index": 20,
+    "id": "faq_009",
+    "category": "faq",
+    "title": "How to protect vegetable crops from heatwave conditions?",
+    "content": "Irrigate crops in the evening hours, maintain straw or organic mulch on soil beds, erect green shade nets over nursery beds, and spray 1% Potassium Nitrate to reduce heat stress.",
+    "keywords": [
+      "heatwave",
+      "vegetables",
+      "evening irrigation",
+      "mulching",
+      "shade net"
+    ],
+    "related_crops": [
+      "tomato",
+      "watermelon",
+      "muskmelon"
+    ],
+    "language": "en",
+    "source": "IMD Agromet Advisory",
+    "searchable_text": "Title: How to protect vegetable crops from heatwave conditions?\nCategory: faq\nContent: Irrigate crops in the evening hours, maintain straw or organic mulch on soil beds, erect green shade nets over nursery beds, and spray 1% Potassium Nitrate to reduce heat stress.\nKeywords: heatwave, vegetables, evening irrigation, mulching, shade net\nRelated Crops: tomato, watermelon, muskmelon"
+  },
+  {
+    "index": 21,
+    "id": "faq_010",
+    "category": "faq",
+    "title": "What to do if there is waterlogging after heavy rainfall?",
+    "content": "Open surface drainage channels immediately to drain standing water within 24 hours. Once standing water recedes, apply a foliar spray of 1% Urea + 0.5% Zinc Sulphate to restore root metabolism.",
+    "keywords": [
+      "waterlogging",
+      "heavy rain",
+      "drainage",
+      "foliar spray",
+      "zinc sulphate"
+    ],
+    "related_crops": [
+      "cotton",
+      "maize",
+      "soybean",
+      "rice"
+    ],
+    "language": "en",
+    "source": "ICAR Disaster Management Advisory",
+    "searchable_text": "Title: What to do if there is waterlogging after heavy rainfall?\nCategory: faq\nContent: Open surface drainage channels immediately to drain standing water within 24 hours. Once standing water recedes, apply a foliar spray of 1% Urea + 0.5% Zinc Sulphate to restore root metabolism.\nKeywords: waterlogging, heavy rain, drainage, foliar spray, zinc sulphate\nRelated Crops: cotton, maize, soybean, rice"
+  },
+  {
+    "index": 22,
+    "id": "faq_011",
+    "category": "faq",
+    "title": "How to prepare Jeevamrutha for organic crop nutrition?",
+    "content": "Mix 10 kg fresh cow dung, 10 liters cow urine, 2 kg jaggery, 2 kg pulse flour (besan), and 200 grams fertile soil in 200 liters water. Stir twice daily and ferment for 48-72 hours. Apply 200 liters per acre with irrigation water.",
+    "keywords": [
+      "jeevamrutha",
+      "organic farming",
+      "natural farming",
+      "cow dung",
+      "cow urine",
+      "jaggery"
+    ],
+    "related_crops": [
+      "all"
+    ],
+    "language": "en",
+    "source": "National Centre of Organic and Natural Farming (NCONF)",
+    "searchable_text": "Title: How to prepare Jeevamrutha for organic crop nutrition?\nCategory: faq\nContent: Mix 10 kg fresh cow dung, 10 liters cow urine, 2 kg jaggery, 2 kg pulse flour (besan), and 200 grams fertile soil in 200 liters water. Stir twice daily and ferment for 48-72 hours. Apply 200 liters per acre with irrigation water.\nKeywords: jeevamrutha, organic farming, natural farming, cow dung, cow urine, jaggery\nRelated Crops: all"
+  },
+  {
+    "index": 23,
+    "id": "faq_012",
+    "category": "faq",
+    "title": "How to control sap-sucking pests like Aphids and Whiteflies organically?",
+    "content": "Spray Neem Oil (10,000 ppm) @ 5 ml/liter water mixed with 1 ml liquid soap. Install yellow sticky traps @ 10-15 per acre. Spray Agniastra or Dashparni Kashayam for severe infestations.",
+    "keywords": [
+      "organic pest control",
+      "neem oil",
+      "aphids",
+      "whiteflies",
+      "yellow sticky trap",
+      "agniastra"
+    ],
+    "related_crops": [
+      "cotton",
+      "mustard",
+      "tomato",
+      "vegetables"
+    ],
+    "language": "en",
+    "source": "NCONF Organic Pest Management",
+    "searchable_text": "Title: How to control sap-sucking pests like Aphids and Whiteflies organically?\nCategory: faq\nContent: Spray Neem Oil (10,000 ppm) @ 5 ml/liter water mixed with 1 ml liquid soap. Install yellow sticky traps @ 10-15 per acre. Spray Agniastra or Dashparni Kashayam for severe infestations.\nKeywords: organic pest control, neem oil, aphids, whiteflies, yellow sticky trap, agniastra\nRelated Crops: cotton, mustard, tomato, vegetables"
+  },
+  {
+    "index": 24,
+    "id": "faq_013",
+    "category": "faq",
+    "title": "What is crop rotation and why is it beneficial?",
+    "content": "Crop rotation is growing different crop types (e.g. Cereal followed by Legume) sequentially on the same plot. It breaks pest/disease cycles, restores soil nitrogen via pulse root nodules, and prevents soil nutrient depletion.",
+    "keywords": [
+      "crop rotation",
+      "sustainable farming",
+      "legume",
+      "soil fertility",
+      "pest cycle"
+    ],
+    "related_crops": [
+      "wheat",
+      "chickpea",
+      "rice",
+      "mustard"
+    ],
+    "language": "en",
+    "source": "ICAR Sustainable Agriculture Guidelines",
+    "searchable_text": "Title: What is crop rotation and why is it beneficial?\nCategory: faq\nContent: Crop rotation is growing different crop types (e.g. Cereal followed by Legume) sequentially on the same plot. It breaks pest/disease cycles, restores soil nitrogen via pulse root nodules, and prevents soil nutrient depletion.\nKeywords: crop rotation, sustainable farming, legume, soil fertility, pest cycle\nRelated Crops: wheat, chickpea, rice, mustard"
+  },
+  {
+    "index": 25,
+    "id": "faq_014",
+    "category": "faq",
+    "title": "How to determine the right moisture level for grain storage?",
+    "content": "Grains should be sun-dried until moisture drops below 12% for cereal grains (Wheat, Paddy, Maize) and below 9-10% for oilseeds and pulses. Grains should crack sharply when bitten between teeth without softness.",
+    "keywords": [
+      "grain storage",
+      "moisture level",
+      "sun drying",
+      "post harvest",
+      "12 percent moisture"
+    ],
+    "related_crops": [
+      "wheat",
+      "rice",
+      "chickpea",
+      "maize"
+    ],
+    "language": "en",
+    "source": "Food Corporation of India (FCI) Quality Standards",
+    "searchable_text": "Title: How to determine the right moisture level for grain storage?\nCategory: faq\nContent: Grains should be sun-dried until moisture drops below 12% for cereal grains (Wheat, Paddy, Maize) and below 9-10% for oilseeds and pulses. Grains should crack sharply when bitten between teeth without softness.\nKeywords: grain storage, moisture level, sun drying, post harvest, 12 percent moisture\nRelated Crops: wheat, rice, chickpea, maize"
+  },
+  {
+    "index": 26,
+    "id": "faq_015",
+    "category": "faq",
+    "title": "What is e-NAM and how does it help farmers get better prices?",
+    "content": "e-NAM (National Agriculture Market) connects mandis across India electronically. Farmers get produce quality tested at APMC assaying labs, list their lot online, and receive competitive bids from buyers nationwide, eliminating local cartel price suppression.",
+    "keywords": [
+      "enam",
+      "apmc",
+      "mandi price",
+      "transparent bidding",
+      "assaying"
+    ],
+    "related_crops": [
+      "all"
+    ],
+    "language": "en",
+    "source": "Small Farmers' Agribusiness Consortium (SFAC)",
+    "searchable_text": "Title: What is e-NAM and how does it help farmers get better prices?\nCategory: faq\nContent: e-NAM (National Agriculture Market) connects mandis across India electronically. Farmers get produce quality tested at APMC assaying labs, list their lot online, and receive competitive bids from buyers nationwide, eliminating local cartel price suppression.\nKeywords: enam, apmc, mandi price, transparent bidding, assaying\nRelated Crops: all"
+  },
+  {
+    "index": 27,
+    "id": "fert_urea",
+    "category": "fertilizer_knowledge",
+    "title": "Urea Fertilizer Application Guide",
+    "content": "Urea is the most widely used concentrated nitrogenous fertilizer in India. It promotes vigorous green leaf growth, chlorophyll formation, and plant protein synthesis. Always incorporate into moist soil rather than surface broadcasting to minimize ammonia volatilization loss.",
+    "keywords": [
+      "urea",
+      "nitrogen",
+      "46% N",
+      "vegetative stage",
+      "split dose",
+      "foliar burn",
+      "fertilizer"
+    ],
+    "related_crops": [
+      "rice",
+      "wheat",
+      "maize",
+      "sugarcane"
+    ],
+    "language": "en",
+    "source": "Department of Fertilizers, Ministry of Chemicals & Fertilizers, Govt. of India",
+    "searchable_text": "Title: Urea Fertilizer Application Guide\nCategory: fertilizer_knowledge\nContent: Urea is the most widely used concentrated nitrogenous fertilizer in India. It promotes vigorous green leaf growth, chlorophyll formation, and plant protein synthesis. Always incorporate into moist soil rather than surface broadcasting to minimize ammonia volatilization loss.\nKeywords: urea, nitrogen, 46% N, vegetative stage, split dose, foliar burn, fertilizer\nRelated Crops: rice, wheat, maize, sugarcane"
+  },
+  {
+    "index": 28,
+    "id": "fert_dap",
+    "category": "fertilizer_knowledge",
+    "title": "DAP (Di-Ammonium Phosphate) Application Guide",
+    "content": "DAP is a popular phosphatic fertilizer providing water-soluble Phosphorus and ammoniacal Nitrogen. Phosphorus is crucial for strong root development, flowering, early crop establishment, and pod setting in legumes.",
+    "keywords": [
+      "dap",
+      "di-ammonium phosphate",
+      "phosphorus",
+      "18-46-0",
+      "basal application",
+      "root development"
+    ],
+    "related_crops": [
+      "wheat",
+      "chickpea",
+      "mustard",
+      "soybean"
+    ],
+    "language": "en",
+    "source": "ICAR Soil Fertility & Fertilizer Manual",
+    "searchable_text": "Title: DAP (Di-Ammonium Phosphate) Application Guide\nCategory: fertilizer_knowledge\nContent: DAP is a popular phosphatic fertilizer providing water-soluble Phosphorus and ammoniacal Nitrogen. Phosphorus is crucial for strong root development, flowering, early crop establishment, and pod setting in legumes.\nKeywords: dap, di-ammonium phosphate, phosphorus, 18-46-0, basal application, root development\nRelated Crops: wheat, chickpea, mustard, soybean"
+  },
+  {
+    "index": 29,
+    "id": "fert_mop",
+    "category": "fertilizer_knowledge",
+    "title": "MOP (Muriate of Potash) Application Guide",
+    "content": "MOP supplies Potassium essential for water regulation, disease resistance, grain filling, sugar synthesis, and crop lodging resistance. Critical for fruit development in banana, potato, and sugarcane.",
+    "keywords": [
+      "mop",
+      "potash",
+      "potassium chloride",
+      "0-0-60",
+      "disease resistance",
+      "grain filling",
+      "sugarcane",
+      "banana"
+    ],
+    "related_crops": [
+      "banana",
+      "sugarcane",
+      "potato",
+      "cotton"
+    ],
+    "language": "en",
+    "source": "Indian Potash Limited (IPL) Advisory",
+    "searchable_text": "Title: MOP (Muriate of Potash) Application Guide\nCategory: fertilizer_knowledge\nContent: MOP supplies Potassium essential for water regulation, disease resistance, grain filling, sugar synthesis, and crop lodging resistance. Critical for fruit development in banana, potato, and sugarcane.\nKeywords: mop, potash, potassium chloride, 0-0-60, disease resistance, grain filling, sugarcane, banana\nRelated Crops: banana, sugarcane, potato, cotton"
+  },
+  {
+    "index": 30,
+    "id": "fert_ssp",
+    "category": "fertilizer_knowledge",
+    "title": "SSP (Single Super Phosphate) Application Guide",
+    "content": "SSP provides three macro/secondary nutrients: Phosphorus, Sulphur, and Calcium. Sulphur directly enhances oil percentage in oilseed crops like mustard, groundnut, and soybean.",
+    "keywords": [
+      "ssp",
+      "single super phosphate",
+      "sulphur",
+      "calcium",
+      "oilseeds",
+      "mustard",
+      "groundnut"
+    ],
+    "related_crops": [
+      "mustard",
+      "groundnut",
+      "soybean",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR National Institute of Oilseeds Research",
+    "searchable_text": "Title: SSP (Single Super Phosphate) Application Guide\nCategory: fertilizer_knowledge\nContent: SSP provides three macro/secondary nutrients: Phosphorus, Sulphur, and Calcium. Sulphur directly enhances oil percentage in oilseed crops like mustard, groundnut, and soybean.\nKeywords: ssp, single super phosphate, sulphur, calcium, oilseeds, mustard, groundnut\nRelated Crops: mustard, groundnut, soybean, chickpea"
+  },
+  {
+    "index": 31,
+    "id": "fert_npk_191919",
+    "category": "fertilizer_knowledge",
+    "title": "NPK 19:19:19 Water Soluble Foliar Fertilizer",
+    "content": "100% water-soluble NPK fertilizer ideal for rapid nutrient absorption via foliar spraying or drip fertigation. Corrects nutrient deficiencies rapidly during early crop growth stages.",
+    "keywords": [
+      "npk 19 19 19",
+      "foliar spray",
+      "fertigation",
+      "water soluble",
+      "vegetables",
+      "drip"
+    ],
+    "related_crops": [
+      "cotton",
+      "grapes",
+      "papaya",
+      "watermelon"
+    ],
+    "language": "en",
+    "source": "ICAR Extension Advisory",
+    "searchable_text": "Title: NPK 19:19:19 Water Soluble Foliar Fertilizer\nCategory: fertilizer_knowledge\nContent: 100% water-soluble NPK fertilizer ideal for rapid nutrient absorption via foliar spraying or drip fertigation. Corrects nutrient deficiencies rapidly during early crop growth stages.\nKeywords: npk 19 19 19, foliar spray, fertigation, water soluble, vegetables, drip\nRelated Crops: cotton, grapes, papaya, watermelon"
+  },
+  {
+    "index": 32,
+    "id": "fert_tnau_spinach_guide",
+    "category": "fertilizer_knowledge",
+    "title": "Tnau Spinach Guide",
+    "content": "Spinach (Spinacia oleracea) Leafy Vegetable Cultivation Guide\n\n Spinach is a nutrient-dense leafy vegetable rich in iron and vitamins grown during Rabi season.\n Requires fertile alluvial or clay loam soil with pH 6.5-7.5.\n Water management: Requires light frequent drip irrigation every 4-6 days.\n Nutrient management: Apply Urea and organic compost after each leaf harvest.",
+    "keywords": [
+      "alluvial",
+      "clay",
+      "drip",
+      "harvest",
+      "irrigation",
+      "loam",
+      "ph",
+      "rabi",
+      "soil",
+      "urea"
+    ],
+    "related_crops": [
+      "Spinach"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal (TXT Test)",
+    "searchable_text": "Title: Tnau Spinach Guide\nCategory: fertilizer_knowledge\nContent: Spinach (Spinacia oleracea) Leafy Vegetable Cultivation Guide\n\n Spinach is a nutrient-dense leafy vegetable rich in iron and vitamins grown during Rabi season.\n Requires fertile alluvial or clay loam soil with pH 6.5-7.5.\n Water management: Requires light frequent drip irrigation every 4-6 days.\n Nutrient management: Apply Urea and organic compost after each leaf harvest.\nKeywords: alluvial, clay, drip, harvest, irrigation, loam, ph, rabi, soil, urea\nRelated Crops: Spinach"
+  },
+  {
+    "index": 33,
+    "id": "fert_banana_fertilizer___nutrient_management_",
+    "category": "fertilizer_knowledge",
+    "title": "Banana Fertilizer & Nutrient Management Guide",
+    "content": "| Home | Nursery Techniques | Deficiencies & Disorders | Fertilizer Schedule | Plant Protection | Photo Bank | Contact |\nHorticulture :: Fruits :: Banana\n## Banana\nBanana Varities\nHi Tech Banana Cultivation\nBanana Nematode Management\nSolar Dehydrated Banana | NRCB\nIntroduction\nBanana is the fruit of a plant of the genus  Musa  (family Musaceae), which is cultivated primarily for food and secondarily for the production of fibre used in the textile industry are also cultivated for ornamental purposes. Almost all the modern edible parthenocarpic bananas come from the two wild species   Musa acuminata Musa balbisiana . The scientific names of bananas are  Musa acuminata ,  Musa balbisiana  or hybrids of Musa acuminata and balbisiana,  depending on their genomic constitution.Bananas are vigorously growing, monocotyledonous herbaceous plants.The banana is not a tree but a high herb that can attain up to 15 meters of height. The cultivars vary greatly in plant an d fruit size, plant morphology, fruit quality and disease and insect resistance. Most bananas have a sweet flavor when ripe; exceptions to this are cooking bananas and plantains. Plantains are hybrid bananas in which the male flowering axis is either degenerated, lacking, or possess relicts of male flowers. Plantains are always cooked before consumption and are higher in starch than bananas. The two groups of plantains, French and Horn, produce fewer fruit per plant than sweet bananas. The groups differ in whether the male parts of the inflorescence are present or absent.\nVarieties\nDessert\nRobusta, Dwarf Cavendish, Grand Naine ,  Rasthali, Vayal vazhai, Poovan, Nendran, Red Banana, Karpooravalli, Co.1, Matti, Sannachenkadali, Udayam and Neypoovan are popular varieties in banana. Cavendish groups are generally prefered in export market.\nCulinary\nMonthan, Vayal vazhai, Ash Monthan and Chakkia are cultivated for culinary purpose. Nendran is a dual purpose variety used for dessert and culinary.\nHill areas\nThe popular varieties of bananas suitable for hilly areas are Virupakshi, Sirumalai and Namarai. Red Banana, Manoranjitham (Santhana vazhai) and Ladan are also cultivated in hills.\nKarpuravalli\nRasthali\nMore Varieties...\nRed Banana\nGrandnine",
+    "keywords": [
+      "disease",
+      "fertilizer"
+    ],
+    "related_crops": [
+      "Banana"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (banana.html)",
+    "searchable_text": "Title: Banana Fertilizer & Nutrient Management Guide\nCategory: fertilizer_knowledge\nContent: | Home | Nursery Techniques | Deficiencies & Disorders | Fertilizer Schedule | Plant Protection | Photo Bank | Contact |\nHorticulture :: Fruits :: Banana\n## Banana\nBanana Varities\nHi Tech Banana Cultivation\nBanana Nematode Management\nSolar Dehydrated Banana | NRCB\nIntroduction\nBanana is the fruit of a plant of the genus  Musa  (family Musaceae), which is cultivated primarily for food and secondarily for the production of fibre used in the textile industry are also cultivated for ornamental purposes. Almost all the modern edible parthenocarpic bananas come from the two wild species   Musa acuminata Musa balbisiana . The scientific names of bananas are  Musa acuminata ,  Musa balbisiana  or hybrids of Musa acuminata and balbisiana,  depending on their genomic constitution.Bananas are vigorously growing, monocotyledonous herbaceous plants.The banana is not a tree but a high herb that can attain up to 15 meters of height. The cultivars vary greatly in plant an d fruit size, plant morphology, fruit quality and disease and insect resistance. Most bananas have a sweet flavor when ripe; exceptions to this are cooking bananas and plantains. Plantains are hybrid bananas in which the male flowering axis is either degenerated, lacking, or possess relicts of male flowers. Plantains are always cooked before consumption and are higher in starch than bananas. The two groups of plantains, French and Horn, produce fewer fruit per plant than sweet bananas. The groups differ in whether the male parts of the inflorescence are present or absent.\nVarieties\nDessert\nRobusta, Dwarf Cavendish, Grand Naine ,  Rasthali, Vayal vazhai, Poovan, Nendran, Red Banana, Karpooravalli, Co.1, Matti, Sannachenkadali, Udayam and Neypoovan are popular varieties in banana. Cavendish groups are generally prefered in export market.\nCulinary\nMonthan, Vayal vazhai, Ash Monthan and Chakkia are cultivated for culinary purpose. Nendran is a dual purpose variety used for dessert and culinary.\nHill areas\nThe popular varieties of bananas suitable for hilly areas are Virupakshi, Sirumalai and Namarai. Red Banana, Manoranjitham (Santhana vazhai) and Ladan are also cultivated in hills.\nKarpuravalli\nRasthali\nMore Varieties...\nRed Banana\nGrandnine\nKeywords: disease, fertilizer\nRelated Crops: Banana"
+  },
+  {
+    "index": 34,
+    "id": "fert_mango_fertilizer___nutrient_management_g",
+    "category": "fertilizer_knowledge",
+    "title": "Mango Fertilizer & Nutrient Management Guide",
+    "content": "| Home | Nursery Techniques | Deficiencies & Disorders | Fertilizer Schedule | Plant Protection | Photo Bank | Contact |\nHorticulture :: Fruits:: Mango\nMango ( Mangifera indica L.)\nAnacardiaceae\nGood Agricultural Practices in Mango - Photo Gallery\nMango Varieties Photo Bank\nSuccess Story of Mango Farmer - Video\nVarieties\nNeelum, Bangalora, Alphonso, Rumani, Banganapalli, Kalepad, Peter, PKM 1, PKM 2, Sendura, Jahangir, Mulgoa, Himayuddin, Paiyur 1, Mallika, Amrapali and Salem Bangalora, Arka Anmol, Arka Aruna, Arka Neelkiran, Arka Puneeth and Sindhu are popular varieties in mango.\nVarieties suiable for Tamil Nadu\nBanganapalli, Bangalora, Neelum, Rumani, Mulgoa, Alphonso, Senthura, Kalepad, Imam Pasand.\nBanganapalli\nSenthura\nImam Pasand\nProcessing varieties          :    Alphonso,Banganapalli,Totapuri\nExport varieties                 :    Alphonso,Banganapalli,Sendura",
+    "keywords": [
+      "fertilizer"
+    ],
+    "related_crops": [
+      "Mango"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (mango.html)",
+    "searchable_text": "Title: Mango Fertilizer & Nutrient Management Guide\nCategory: fertilizer_knowledge\nContent: | Home | Nursery Techniques | Deficiencies & Disorders | Fertilizer Schedule | Plant Protection | Photo Bank | Contact |\nHorticulture :: Fruits:: Mango\nMango ( Mangifera indica L.)\nAnacardiaceae\nGood Agricultural Practices in Mango - Photo Gallery\nMango Varieties Photo Bank\nSuccess Story of Mango Farmer - Video\nVarieties\nNeelum, Bangalora, Alphonso, Rumani, Banganapalli, Kalepad, Peter, PKM 1, PKM 2, Sendura, Jahangir, Mulgoa, Himayuddin, Paiyur 1, Mallika, Amrapali and Salem Bangalora, Arka Anmol, Arka Aruna, Arka Neelkiran, Arka Puneeth and Sindhu are popular varieties in mango.\nVarieties suiable for Tamil Nadu\nBanganapalli, Bangalora, Neelum, Rumani, Mulgoa, Alphonso, Senthura, Kalepad, Imam Pasand.\nBanganapalli\nSenthura\nImam Pasand\nProcessing varieties          :    Alphonso,Banganapalli,Totapuri\nExport varieties                 :    Alphonso,Banganapalli,Sendura\nKeywords: fertilizer\nRelated Crops: Mango"
+  },
+  {
+    "index": 35,
+    "id": "fert_sugarcane_fertilizer___nutrient_manageme",
+    "category": "fertilizer_knowledge",
+    "title": "Sugarcane Fertilizer & Nutrient Management Guide",
+    "content": "Fertilizer Management\nWater Management\nPre Harvest Practices\n1. Season and Planting\nSugarcane is grown chiefly in the main season (December - May) in the entire State. In parts of Tiruchirapalli, Perambalur, Karur, Salem, Namakkal and Coimbatore districts, it is also raised during the special season (June - September). The particulars in respect of each season are given below:\nSeason, Period of Planting\n1.   Main season\ni) Early    : Dec - Jan            ii) Mid : Feb - March            iii) Late: April - May\n2. Special season : June - July\nEarly season varieties are suitable for special season.\nCo 86032\nCo 99004\nCo 99004 (Damodar)\nII. Particulars of Variety\nVariety\nDuration (Month)\nCane yield (t/ha)\nCCS%\nCCS(t/ha)\nCOC 671\n10\n123.5\n14.20\n17.50\nCOC 771\n10\n140.0\n13.10\n18.30\nCOC 772\n10\n143.3\n14.00\n20.00\nCOC 773\n10\n97.5\n13.20\n12.60\nCOC 8001 (C 66191)\n10 - 11\n102.9\n13.20\n13.50\nCOC 774\n11\n159.8\n11.90\n17.90\nCOC 775\n11\n122.5\n13.40\n16.40\nCOC 776\n11\n112.3\n14.00\n15.50\nCOC 777\n12\n171.3\n11.80\n20.00\nCOC 778\n12\n165.5\n11.00\n18.10\nCOC 779\n12\n204.6\n11.80\n24.00\nCO 419\n12\n112.5\n10.50\n11.80\nCO 6304\n12\n115.0\n13.50\n15.50\nCOC 8001\n10 - 11\n102.5\n13.20\n13.50\nCOC 85061\n10 - 11\n128.5\n12.90\n16.60\nCOC 86062\n10 - 11\n133.5\n12.60\n16.80\nCOSi 86071\n10 - 11\n131.7\n12.20\n16.00\nCOC 90063\n10 - 11\n124.0\n12.30\n15.40\nCO 8021\n10 - 11\n137.7\n11.00\n14.60\nCOC 91061\n10 - 11\n131.0\n11.30\n15.60\nCOC 92061\n8 - 11\n132.7\n12.76\n16.05\nCO 8362\n11 - 12\n124.3\n12.40\n15.40\nCOG 93076\n11 - 12\n132.0\n13.20\n17.40\nCO 8208\n11 - 13\n141.5\n11.07\n15.28\nCOG 94077\n11\n133.2\n13.5\n17.6\nCOG 95076\n10 - 11\n108.2\n11.5\n12.4\nCO 85019\n12\n134.5\n12.5\n16.8\nCOSi 95071\n10\n152.0\n12.9\n21\nCOSi 96071\n10\n145.0\n11.9\n17.3\nCO 86010\n10 - 12\n146.1\n10.78\n15.64\nCOC 98061\n10 - 11\n120.0\n11.60\n13.80\nCOSi 98071\n12\n144.7\n12.3\n17.7\nCO 86249\n10 - 12\n128.7\n11.3\n14.3\nCOC 99061\n10-12\n130.3\n11.9\n15.6\nCO 86032\n10-12\n110.0\n13.0\n14.3\nCOC (SC) 22\n10-12\n135.9\n12.1\n16.5\nCO Si (SC) 6\n10-11\n142.0\n13.1\n18.6\nCOG (SC) 5\n11-12\n115.0\n12.7\n14.6\nCoC 23\n10-11\n133.0\n12.95\n17.23\nCoC 24\n10-11\n133.0\n12.82\n17.05\nTNAU SC Si 7\n10-11\n156\n13.4\n20.9\nTNAU SC Si 8\n11-12\n146\n12.9\n18.0\nTop\nII. Morphological Characters\nCharacters\nCOC 671\nCOC 771\nCOC 772\nCOC 773\nParentage\nQ63xCO775\nCO419xCO658\nCO740xCO658\nCO658XCO1305\nLeaf size\nBroad\nBroad\nBroad\nBroad\nLeaf colour\nGreen\nGreen\nGreen\nGreen\nSheath colour\nGreen with purple tinge\nGreen with purple tinge\nGreen with purple tinge\nGreen with purple tinge\nSheath\nClasping\nLoose\nLoose\nLoose\nLoose\nSpines\nPresent\nPresent\nPresent\nPresent\nLigular process\nPresent\nAbsent\nAbsent\nPresent\nStem colour\nGreen with\nYellow with\nYellow with\nYellow with\npurple tinge\npurple tinge\nGreen tinge\ngreen tinge\nGirth\nThick\nMedium\nMedium\nMedium\nJoint\nStaggered\nStraight\nStaggered\nStraight\nBud Groove\nAbsent\nPresent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nMedium\nCharacter\nCOC 778\nCOC 779\nCO 419\nCOC 85061\nParentage\nCO419xCO 853\nCO419xCO853\nPoj 2878xCO290\nCO6304 GC\nLeaf size\nBroad\nBroad\nBroad\nMedium\nLeaf colour\nGreen\nGreen\nGreen\nLight green\nSheath colour\nPurple\nPurple\nGreen with Green tinge\nGreen with pink tinge\nSheath\nClasping\nLoose\nLoose\nLoose\nTight\nSpines\nPresent\nPresent\nPresent\nGlabrous\nLigular process\nPresent\nPresent\nLanceolate\nPresent on one side\nStem colour\nPurple\nPurple with green tinge\nPurple\nGreenish yellow turns to pink on exposure to sunlight\nGirth\nMedium\nMedium\nThick\nMedium\nJoint\nStaggered\nStraight\nStaggered\nStaggered\nBud Groove\nAbsent\nAbsent\nPresent\nAbsent\nSize\nMedium\nMedium\nMedium\nMedium\nCharacters\nCOC86062\nCOSi 86071\nCO6304\nC66191(COC 8001)\nParentage\nMS68/47GC\nCO775xCO842\nCO419xCO605\nPO2874XCO658\nLeaf size\nMedium\nBroad\nBroad\nBroad\nLeaf colour\nGreen\nDark green\nGreen\nGreen\nSheath colour\nDark pink\nYellowish green with pink tinge\nGreen with Purple tinge\nGreenish\nSheath\nClasping\nLoose\nTight\nLoose\nLoose\nSpines\nGlabrous\nPresent\nPresent\nAbsent\nLigular process\nAbsent\nPresent on both sides\nPresent\nBow shape\nStem colour\nYellowish green turns to dark pink on exposure to sunlight\nPurplish green turns to pink on exposure to sunlight\nGreen with purple tinge\nGreenish with light yellowish tinge\nGirth\nMedium\nThick\nThick\nMedium\nJoint\nStaggered\nStaggered\nStaggered\nStraight\nBud Groove\nAbsent\nPresent\nPresent\nIndicated\nSize\nSmall\nBig\nMedium\nMedium\nCharacter\nCOC 8201\nCOC 90063\nCO 8021\nCOC 91061\nParentage\nCO740xCO62174\nCO6304XCOC671\nCO740xCO6806\nCOC779 G.C.\nLeaf size\nMedium\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nGreen\nGreen\nGreen\nSheath colour\nGreen with Pink tinge\nGreen\nPurple\nWhitish Yellow\nSheath clasping\nLoose\nLoose\nLoose\nTight\nSpines\nGlabrous\nPresent\nGlabrous\nAbsent\nSplits\n..\nAbsent\nPresent\nAbsent\nLigular\nLanceolate\nPresent on\nPresent on one\nAbsent\nprocess\none side\nside Lanceolate\n(4-5 cm)\nStem colour\nGreenish yellow\nYellowish green\nPurple with heavy wax deposition\nYellowish green\nGirth\nMedium\nMedium\nMedium\nMedium\nJoint\nThick\nStaggered\nErect\nStaggered\nBud Groove\nPresent\nAbsent\nPresent and Prominent\nAbsent\nSize\nMedium\nMedium\nMedium/Big\nSmall\nCharacter\nCOC 92061\nCO 8362\nCOG93076\nCO 8208\nParentage\nCO 7314 GC\n(Natural cross) Involving CO6314 as female\nCO 6304X COC 671\nCOC 772X CO 419\nCO 62198X COC 671\nLeaf size\nBroad\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nGreen\nDark green\nDark green\nSheath Colour\nPurple with heavy bloom\nGreen\nDark green\nGreenish purple\nSheath clasping\nLoose\nLoose\nSpines\nDeciduous\nDeciduous\nDeciduous\nDeciduous\nSplits\nAbsent\nAbsent\nAbsent\nLigular process\nOne side indica- ted and the other side rudimentary\nPresent on both side\nOne side\nPresent Asymmetrical\nStem colour\nGreenish yellow with pink tinge\nPurple green\nGreenish light yellow\nGreen with purple tinge\nGirth\n-\n-\n-\n-\nJoint\nSlightly staggered\nStraight\nSlightly staggered\nStraight\nBud Groove\nAbsent\nAbsent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nSmall\nCharacter\nCOG 94077\nCOG 95076\nCO 85019\nCOSi 95071\nParentage\nCO 740 x C0 775\nCOC 771 x CO 775\nCO 7201 x CO 775\nCOC 671x MS 6847\nLeaf size\nMedium\nMedium\nLength 140 cm Medium width 6.0 cm\nMedium\nLeaf colour\nDark green\nGreen\nLight green at harvest\nGreen\nSheath colour\nGreenish with\nPurple tingle\nGreen\nGreen with purple tinge\nLight greenish yellow\nSheath\nEasily trashing\nLoose\nClasping\nLoose\nLoose\nSpines\nAbsent\nPresent,deciduous\nHard few\nAbsent\nLigular process\nPresent on One side\none side lanceolate and one side dentoid\nAbsent\nPresent, Asymmetrical\nStem colour\nGreenish yellow\nGreenish yellow with purplish tinge\nExposed purple unexposed yellowish green with heavy waxy coating\nGreenish yellow\nGirth\nMedium\nMedium\nMedium\nMedium\nJoint\nSlightly staggered\nSlightly staggered\nZig Zag\nStaggered\nBud groove\nShort, shallow\nIndicated\nAbsent\nPresent\nSize\nMedium\nMedium\nSmall\nMedium\nCharacter\nCO Si 96071\nCO 86010\nCOC 98061\nCO Si 98071\nCO 86249\nParentage\nC 82061GC\nCO 740xCo 7409\nC80 172 GC\nBo 91/Co 62198\nCO J 64 x CoA 7601\nLeaf size\nMedium\nBroad\nMedium\nBroad\nMedium\nLeaf colour\nGreen\nLight green\nGreen\nDark green\nGreen\nSheath colour\nLight green with pink blotches\nLight green with pink blotches\nGreen with pink tinge\nYellowish green\nLight green\nSpines\nPresent & deciduous\nAbsent\nAbsent\nDeciduous\nLigular\nAsymmetrical\n-\nAbsent on both sides\nShort lanceolate\nSmall, present on one side\nStem colour\nPurplish\nYellowish with green tinge\nGreenish yellow with slight purple tinge\nYellowish green\nGreenish yellow\nGirth\nMedium\nThick\nMedium\nThick\nThick\nJoint\nConcave, convex\n-\nCylindrical\nCylindrical\nCylindrical\nBudgroove\nAbsent\nProminent\nAbsent\nNumerous\nAbsent\nSize\nSmall\nBig\nMedium\nBig\nBig\nCharacter\nCoC 99061CoC\nCO 86032\nCOC (SC) 22\nParentage\nCO 6806 X CO 740\nCo 62198 x CoC 671\nCO 62198 XCOC 671\nCO 8208 GC\nLeaf size\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nDark green\nGreen\nSheath colour\nGreen with pink tinge\nGreen with purple\nGreen with slight scarious border\nSheath clasping\nTight\nLoose\nLoose\nSpines\nDeciduous\nFew, hard, deciduous\nAbsent\nSplits\nAbsent\nPresent\nAbsent\nLigular process\nPresent, asymmetrical,\nlanceolate\nO\nPresent asymmetrical\nStem colour\nDark green (Exposed)\nYellowish green\n(Unexposed)\nReddish pink (exposed)\nGreenish yellow (unexposed)\nReddish Pink with purple (exposed)\nGreenish yellow(unexposed)\nGirth\nMedium\nMedium\nMedium\nJoint\nCylindrical\nCylinderical\nCylindrical\nBud groove\nAbsent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nCharacter\nCOC 23\nCOC 24\nParentage\n69A591 GC\nCO 8371 x MS 6847\nLeaf size\nMedium\nMedium\nLeaf colour\nLight Green\nDark green\nSheath colour\nGreen\nGreen with purple tinge\nSheath clasping\nLoose\nLoose\nSpines\nAbsent\nAbsent\nSplits\nAbsent\nAbsent\nLigular process\nPresent\nPresent\nStem colour\nGreen with purple tinge (Exposed) Yellowish green (Unexposed)\nGreen (exposed) Greenish yellow (unexposed)\nGirth\nMedium\nThick\nJoint\nStraight\nStaggered\nBud groove\nAbsent\npresent\nSize\nMedium\nMedium\nCharacter\nTNAU SC Si7\nTNAU SC Si8\nParentage\nCo 99034xCoG 93076\nCoC 90063xCo8213\nLeaf size\nMedium\nMedium\nLeaf colour\nDark Green Yellowish\nGreen\nSheath colour\nGreen with purple tinge\nGreen with purple stripes\nSheath clasping\nSlightly tight\nLoose\nSpines\nPresent(de ciduous)\nVery few, soft and deciduous\nSplits\nAbsent\nAbsent\nLigular process\nPresent\nPresent(Asymmetrical)\nStem colour\nYellowish Green(exposed)\npinkish yellow(unexposed)\nGreenish Yellow (Exposed) Greenish Yellow (Unexposed)\nGirth\nMedium\nMedium\nJoint\nStraight\nStraight\nBud groove\nAbsent\nPresent, shallow\nSize\nMedium\nBig\nCOC (SC) 24\nTNAU Sugarcane SI 7\nTop\nIII.District/Season - Suitable Varieties\nAll Districts(except  Kanniyakumari and Nilgiris)\nEarly\nMid\nLate\nSpecial\nFactory\nJaggery\nFactory\nJaggery\nFactory\nJaggery\nFactory\nJaggery\nCO 658\n..\nCO 658\nCO 419\nCO 6304\nCO 62175\nEarly varieties are suitable for Special\n..\nCO 62174\nCOC 671\nCO 62198\nCO 449\nCOC 8201\nCO 419\n..\n..\nCO 62198\nCOC 771\nCO 6304\nCO 6304\nCOC 771\nCO 6304\n..\n..\nCOC 671\nCOC 772\nCOC 774\nCOC 776\nCOC 778\nCOC 8201\n..\n..\nCOC 771\nCOC 773\nCOC 775\nCOC 8001\nCOC 779\nCO 740\n..\n..\nCOC 772\nCOC 8001\nCOC 8001\n..\nCO 419\n..\n..\n..\nCOC 8001\nCOC 85061\n, ..\n..\nCO 740\n..\n..\n..\nCOC 85061\nCOC 86062\nCO 658\n..\n..\n..\nCOC 86062\n..\n..\n..\n..\n..\n..\n..\nCOSi 86071\nCOSi 86071\n..\n..\n..\n..\n..\n..\nCOC 90063\nCOC 90063\n..\n..\n..\n..\nCOC 91061\nCOG 94077\nCOC 91061  COG 94077\n..\n..\n..\n..\n..\n..\nCO Si 95071\nCOC 98061\nCO   86010\nCO   86249 CoC 23, CoC 24, TNAU SC Si7\nCOG 93076\nCO   85019\nCOC 99061\nCO    86032\nCOC (Sc) 22, TNAU SC Si 8\n..\nCOG 93076 CO   85019\nCOC 99061\nCO    86032\nCOC (Sc) 22,\nTNAU SC Si8\n..\n..\n..\nRight seed\nTNAU  in collaboration with  Sugar Cane Breeding Institute, Coimbatore released   many high yielding varieties with high recovery to suit various eco systems and other biotic and abiotic problematic area and  of which the following listed varieties can be recommended for higher cane productivity\nVariety\nPerformance\nCo 86032",
+    "keywords": [
+      "fertilizer",
+      "harvest",
+      "yield"
+    ],
+    "related_crops": [
+      "Sugarcane"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (sugarcane.html)",
+    "searchable_text": "Title: Sugarcane Fertilizer & Nutrient Management Guide\nCategory: fertilizer_knowledge\nContent: Fertilizer Management\nWater Management\nPre Harvest Practices\n1. Season and Planting\nSugarcane is grown chiefly in the main season (December - May) in the entire State. In parts of Tiruchirapalli, Perambalur, Karur, Salem, Namakkal and Coimbatore districts, it is also raised during the special season (June - September). The particulars in respect of each season are given below:\nSeason, Period of Planting\n1.   Main season\ni) Early    : Dec - Jan            ii) Mid : Feb - March            iii) Late: April - May\n2. Special season : June - July\nEarly season varieties are suitable for special season.\nCo 86032\nCo 99004\nCo 99004 (Damodar)\nII. Particulars of Variety\nVariety\nDuration (Month)\nCane yield (t/ha)\nCCS%\nCCS(t/ha)\nCOC 671\n10\n123.5\n14.20\n17.50\nCOC 771\n10\n140.0\n13.10\n18.30\nCOC 772\n10\n143.3\n14.00\n20.00\nCOC 773\n10\n97.5\n13.20\n12.60\nCOC 8001 (C 66191)\n10 - 11\n102.9\n13.20\n13.50\nCOC 774\n11\n159.8\n11.90\n17.90\nCOC 775\n11\n122.5\n13.40\n16.40\nCOC 776\n11\n112.3\n14.00\n15.50\nCOC 777\n12\n171.3\n11.80\n20.00\nCOC 778\n12\n165.5\n11.00\n18.10\nCOC 779\n12\n204.6\n11.80\n24.00\nCO 419\n12\n112.5\n10.50\n11.80\nCO 6304\n12\n115.0\n13.50\n15.50\nCOC 8001\n10 - 11\n102.5\n13.20\n13.50\nCOC 85061\n10 - 11\n128.5\n12.90\n16.60\nCOC 86062\n10 - 11\n133.5\n12.60\n16.80\nCOSi 86071\n10 - 11\n131.7\n12.20\n16.00\nCOC 90063\n10 - 11\n124.0\n12.30\n15.40\nCO 8021\n10 - 11\n137.7\n11.00\n14.60\nCOC 91061\n10 - 11\n131.0\n11.30\n15.60\nCOC 92061\n8 - 11\n132.7\n12.76\n16.05\nCO 8362\n11 - 12\n124.3\n12.40\n15.40\nCOG 93076\n11 - 12\n132.0\n13.20\n17.40\nCO 8208\n11 - 13\n141.5\n11.07\n15.28\nCOG 94077\n11\n133.2\n13.5\n17.6\nCOG 95076\n10 - 11\n108.2\n11.5\n12.4\nCO 85019\n12\n134.5\n12.5\n16.8\nCOSi 95071\n10\n152.0\n12.9\n21\nCOSi 96071\n10\n145.0\n11.9\n17.3\nCO 86010\n10 - 12\n146.1\n10.78\n15.64\nCOC 98061\n10 - 11\n120.0\n11.60\n13.80\nCOSi 98071\n12\n144.7\n12.3\n17.7\nCO 86249\n10 - 12\n128.7\n11.3\n14.3\nCOC 99061\n10-12\n130.3\n11.9\n15.6\nCO 86032\n10-12\n110.0\n13.0\n14.3\nCOC (SC) 22\n10-12\n135.9\n12.1\n16.5\nCO Si (SC) 6\n10-11\n142.0\n13.1\n18.6\nCOG (SC) 5\n11-12\n115.0\n12.7\n14.6\nCoC 23\n10-11\n133.0\n12.95\n17.23\nCoC 24\n10-11\n133.0\n12.82\n17.05\nTNAU SC Si 7\n10-11\n156\n13.4\n20.9\nTNAU SC Si 8\n11-12\n146\n12.9\n18.0\nTop\nII. Morphological Characters\nCharacters\nCOC 671\nCOC 771\nCOC 772\nCOC 773\nParentage\nQ63xCO775\nCO419xCO658\nCO740xCO658\nCO658XCO1305\nLeaf size\nBroad\nBroad\nBroad\nBroad\nLeaf colour\nGreen\nGreen\nGreen\nGreen\nSheath colour\nGreen with purple tinge\nGreen with purple tinge\nGreen with purple tinge\nGreen with purple tinge\nSheath\nClasping\nLoose\nLoose\nLoose\nLoose\nSpines\nPresent\nPresent\nPresent\nPresent\nLigular process\nPresent\nAbsent\nAbsent\nPresent\nStem colour\nGreen with\nYellow with\nYellow with\nYellow with\npurple tinge\npurple tinge\nGreen tinge\ngreen tinge\nGirth\nThick\nMedium\nMedium\nMedium\nJoint\nStaggered\nStraight\nStaggered\nStraight\nBud Groove\nAbsent\nPresent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nMedium\nCharacter\nCOC 778\nCOC 779\nCO 419\nCOC 85061\nParentage\nCO419xCO 853\nCO419xCO853\nPoj 2878xCO290\nCO6304 GC\nLeaf size\nBroad\nBroad\nBroad\nMedium\nLeaf colour\nGreen\nGreen\nGreen\nLight green\nSheath colour\nPurple\nPurple\nGreen with Green tinge\nGreen with pink tinge\nSheath\nClasping\nLoose\nLoose\nLoose\nTight\nSpines\nPresent\nPresent\nPresent\nGlabrous\nLigular process\nPresent\nPresent\nLanceolate\nPresent on one side\nStem colour\nPurple\nPurple with green tinge\nPurple\nGreenish yellow turns to pink on exposure to sunlight\nGirth\nMedium\nMedium\nThick\nMedium\nJoint\nStaggered\nStraight\nStaggered\nStaggered\nBud Groove\nAbsent\nAbsent\nPresent\nAbsent\nSize\nMedium\nMedium\nMedium\nMedium\nCharacters\nCOC86062\nCOSi 86071\nCO6304\nC66191(COC 8001)\nParentage\nMS68/47GC\nCO775xCO842\nCO419xCO605\nPO2874XCO658\nLeaf size\nMedium\nBroad\nBroad\nBroad\nLeaf colour\nGreen\nDark green\nGreen\nGreen\nSheath colour\nDark pink\nYellowish green with pink tinge\nGreen with Purple tinge\nGreenish\nSheath\nClasping\nLoose\nTight\nLoose\nLoose\nSpines\nGlabrous\nPresent\nPresent\nAbsent\nLigular process\nAbsent\nPresent on both sides\nPresent\nBow shape\nStem colour\nYellowish green turns to dark pink on exposure to sunlight\nPurplish green turns to pink on exposure to sunlight\nGreen with purple tinge\nGreenish with light yellowish tinge\nGirth\nMedium\nThick\nThick\nMedium\nJoint\nStaggered\nStaggered\nStaggered\nStraight\nBud Groove\nAbsent\nPresent\nPresent\nIndicated\nSize\nSmall\nBig\nMedium\nMedium\nCharacter\nCOC 8201\nCOC 90063\nCO 8021\nCOC 91061\nParentage\nCO740xCO62174\nCO6304XCOC671\nCO740xCO6806\nCOC779 G.C.\nLeaf size\nMedium\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nGreen\nGreen\nGreen\nSheath colour\nGreen with Pink tinge\nGreen\nPurple\nWhitish Yellow\nSheath clasping\nLoose\nLoose\nLoose\nTight\nSpines\nGlabrous\nPresent\nGlabrous\nAbsent\nSplits\n..\nAbsent\nPresent\nAbsent\nLigular\nLanceolate\nPresent on\nPresent on one\nAbsent\nprocess\none side\nside Lanceolate\n(4-5 cm)\nStem colour\nGreenish yellow\nYellowish green\nPurple with heavy wax deposition\nYellowish green\nGirth\nMedium\nMedium\nMedium\nMedium\nJoint\nThick\nStaggered\nErect\nStaggered\nBud Groove\nPresent\nAbsent\nPresent and Prominent\nAbsent\nSize\nMedium\nMedium\nMedium/Big\nSmall\nCharacter\nCOC 92061\nCO 8362\nCOG93076\nCO 8208\nParentage\nCO 7314 GC\n(Natural cross) Involving CO6314 as female\nCO 6304X COC 671\nCOC 772X CO 419\nCO 62198X COC 671\nLeaf size\nBroad\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nGreen\nDark green\nDark green\nSheath Colour\nPurple with heavy bloom\nGreen\nDark green\nGreenish purple\nSheath clasping\nLoose\nLoose\nSpines\nDeciduous\nDeciduous\nDeciduous\nDeciduous\nSplits\nAbsent\nAbsent\nAbsent\nLigular process\nOne side indica- ted and the other side rudimentary\nPresent on both side\nOne side\nPresent Asymmetrical\nStem colour\nGreenish yellow with pink tinge\nPurple green\nGreenish light yellow\nGreen with purple tinge\nGirth\n-\n-\n-\n-\nJoint\nSlightly staggered\nStraight\nSlightly staggered\nStraight\nBud Groove\nAbsent\nAbsent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nSmall\nCharacter\nCOG 94077\nCOG 95076\nCO 85019\nCOSi 95071\nParentage\nCO 740 x C0 775\nCOC 771 x CO 775\nCO 7201 x CO 775\nCOC 671x MS 6847\nLeaf size\nMedium\nMedium\nLength 140 cm Medium width 6.0 cm\nMedium\nLeaf colour\nDark green\nGreen\nLight green at harvest\nGreen\nSheath colour\nGreenish with\nPurple tingle\nGreen\nGreen with purple tinge\nLight greenish yellow\nSheath\nEasily trashing\nLoose\nClasping\nLoose\nLoose\nSpines\nAbsent\nPresent,deciduous\nHard few\nAbsent\nLigular process\nPresent on One side\none side lanceolate and one side dentoid\nAbsent\nPresent, Asymmetrical\nStem colour\nGreenish yellow\nGreenish yellow with purplish tinge\nExposed purple unexposed yellowish green with heavy waxy coating\nGreenish yellow\nGirth\nMedium\nMedium\nMedium\nMedium\nJoint\nSlightly staggered\nSlightly staggered\nZig Zag\nStaggered\nBud groove\nShort, shallow\nIndicated\nAbsent\nPresent\nSize\nMedium\nMedium\nSmall\nMedium\nCharacter\nCO Si 96071\nCO 86010\nCOC 98061\nCO Si 98071\nCO 86249\nParentage\nC 82061GC\nCO 740xCo 7409\nC80 172 GC\nBo 91/Co 62198\nCO J 64 x CoA 7601\nLeaf size\nMedium\nBroad\nMedium\nBroad\nMedium\nLeaf colour\nGreen\nLight green\nGreen\nDark green\nGreen\nSheath colour\nLight green with pink blotches\nLight green with pink blotches\nGreen with pink tinge\nYellowish green\nLight green\nSpines\nPresent & deciduous\nAbsent\nAbsent\nDeciduous\nLigular\nAsymmetrical\n-\nAbsent on both sides\nShort lanceolate\nSmall, present on one side\nStem colour\nPurplish\nYellowish with green tinge\nGreenish yellow with slight purple tinge\nYellowish green\nGreenish yellow\nGirth\nMedium\nThick\nMedium\nThick\nThick\nJoint\nConcave, convex\n-\nCylindrical\nCylindrical\nCylindrical\nBudgroove\nAbsent\nProminent\nAbsent\nNumerous\nAbsent\nSize\nSmall\nBig\nMedium\nBig\nBig\nCharacter\nCoC 99061CoC\nCO 86032\nCOC (SC) 22\nParentage\nCO 6806 X CO 740\nCo 62198 x CoC 671\nCO 62198 XCOC 671\nCO 8208 GC\nLeaf size\nMedium\nMedium\nMedium\nLeaf colour\nGreen\nDark green\nGreen\nSheath colour\nGreen with pink tinge\nGreen with purple\nGreen with slight scarious border\nSheath clasping\nTight\nLoose\nLoose\nSpines\nDeciduous\nFew, hard, deciduous\nAbsent\nSplits\nAbsent\nPresent\nAbsent\nLigular process\nPresent, asymmetrical,\nlanceolate\nO\nPresent asymmetrical\nStem colour\nDark green (Exposed)\nYellowish green\n(Unexposed)\nReddish pink (exposed)\nGreenish yellow (unexposed)\nReddish Pink with purple (exposed)\nGreenish yellow(unexposed)\nGirth\nMedium\nMedium\nMedium\nJoint\nCylindrical\nCylinderical\nCylindrical\nBud groove\nAbsent\nAbsent\nAbsent\nSize\nMedium\nMedium\nMedium\nCharacter\nCOC 23\nCOC 24\nParentage\n69A591 GC\nCO 8371 x MS 6847\nLeaf size\nMedium\nMedium\nLeaf colour\nLight Green\nDark green\nSheath colour\nGreen\nGreen with purple tinge\nSheath clasping\nLoose\nLoose\nSpines\nAbsent\nAbsent\nSplits\nAbsent\nAbsent\nLigular process\nPresent\nPresent\nStem colour\nGreen with purple tinge (Exposed) Yellowish green (Unexposed)\nGreen (exposed) Greenish yellow (unexposed)\nGirth\nMedium\nThick\nJoint\nStraight\nStaggered\nBud groove\nAbsent\npresent\nSize\nMedium\nMedium\nCharacter\nTNAU SC Si7\nTNAU SC Si8\nParentage\nCo 99034xCoG 93076\nCoC 90063xCo8213\nLeaf size\nMedium\nMedium\nLeaf colour\nDark Green Yellowish\nGreen\nSheath colour\nGreen with purple tinge\nGreen with purple stripes\nSheath clasping\nSlightly tight\nLoose\nSpines\nPresent(de ciduous)\nVery few, soft and deciduous\nSplits\nAbsent\nAbsent\nLigular process\nPresent\nPresent(Asymmetrical)\nStem colour\nYellowish Green(exposed)\npinkish yellow(unexposed)\nGreenish Yellow (Exposed) Greenish Yellow (Unexposed)\nGirth\nMedium\nMedium\nJoint\nStraight\nStraight\nBud groove\nAbsent\nPresent, shallow\nSize\nMedium\nBig\nCOC (SC) 24\nTNAU Sugarcane SI 7\nTop\nIII.District/Season - Suitable Varieties\nAll Districts(except  Kanniyakumari and Nilgiris)\nEarly\nMid\nLate\nSpecial\nFactory\nJaggery\nFactory\nJaggery\nFactory\nJaggery\nFactory\nJaggery\nCO 658\n..\nCO 658\nCO 419\nCO 6304\nCO 62175\nEarly varieties are suitable for Special\n..\nCO 62174\nCOC 671\nCO 62198\nCO 449\nCOC 8201\nCO 419\n..\n..\nCO 62198\nCOC 771\nCO 6304\nCO 6304\nCOC 771\nCO 6304\n..\n..\nCOC 671\nCOC 772\nCOC 774\nCOC 776\nCOC 778\nCOC 8201\n..\n..\nCOC 771\nCOC 773\nCOC 775\nCOC 8001\nCOC 779\nCO 740\n..\n..\nCOC 772\nCOC 8001\nCOC 8001\n..\nCO 419\n..\n..\n..\nCOC 8001\nCOC 85061\n, ..\n..\nCO 740\n..\n..\n..\nCOC 85061\nCOC 86062\nCO 658\n..\n..\n..\nCOC 86062\n..\n..\n..\n..\n..\n..\n..\nCOSi 86071\nCOSi 86071\n..\n..\n..\n..\n..\n..\nCOC 90063\nCOC 90063\n..\n..\n..\n..\nCOC 91061\nCOG 94077\nCOC 91061  COG 94077\n..\n..\n..\n..\n..\n..\nCO Si 95071\nCOC 98061\nCO   86010\nCO   86249 CoC 23, CoC 24, TNAU SC Si7\nCOG 93076\nCO   85019\nCOC 99061\nCO    86032\nCOC (Sc) 22, TNAU SC Si 8\n..\nCOG 93076 CO   85019\nCOC 99061\nCO    86032\nCOC (Sc) 22,\nTNAU SC Si8\n..\n..\n..\nRight seed\nTNAU  in collaboration with  Sugar Cane Breeding Institute, Coimbatore released   many high yielding varieties with high recovery to suit various eco systems and other biotic and abiotic problematic area and  of which the following listed varieties can be recommended for higher cane productivity\nVariety\nPerformance\nCo 86032\nKeywords: fertilizer, harvest, yield\nRelated Crops: Sugarcane"
+  },
+  {
+    "index": 36,
+    "id": "scheme_pm_kisan",
+    "category": "government_schemes",
+    "title": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "content": "PM-KISAN is a Central Sector Scheme providing financial assistance to landholding farmers for procuring agricultural inputs like seeds, fertilizers, and equipment.",
+    "keywords": [
+      "pm kisan",
+      "income support",
+      "6000 rupees",
+      "direct benefit transfer",
+      "dbt",
+      "farmer scheme"
+    ],
+    "related_crops": [
+      "all"
+    ],
+    "language": "en",
+    "source": "Ministry of Agriculture & Farmers Welfare, Govt. of India",
+    "searchable_text": "Title: PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)\nCategory: government_schemes\nContent: PM-KISAN is a Central Sector Scheme providing financial assistance to landholding farmers for procuring agricultural inputs like seeds, fertilizers, and equipment.\nKeywords: pm kisan, income support, 6000 rupees, direct benefit transfer, dbt, farmer scheme\nRelated Crops: all"
+  },
+  {
+    "index": 37,
+    "id": "scheme_pmfby",
+    "category": "government_schemes",
+    "title": "PMFBY (Pradhan Mantri Fasal Bima Yojana)",
+    "content": "PMFBY provides comprehensive crop insurance cover against yield loss due to non-preventable natural risks (drought, flood, cyclone, pests, localized hazards).",
+    "keywords": [
+      "pmfby",
+      "crop insurance",
+      "fasal bima",
+      "premium subsidy",
+      "yield loss compensation"
+    ],
+    "related_crops": [
+      "rice",
+      "wheat",
+      "cotton",
+      "soybean",
+      "maize",
+      "groundnut"
+    ],
+    "language": "en",
+    "source": "Ministry of Agriculture & Farmers Welfare",
+    "searchable_text": "Title: PMFBY (Pradhan Mantri Fasal Bima Yojana)\nCategory: government_schemes\nContent: PMFBY provides comprehensive crop insurance cover against yield loss due to non-preventable natural risks (drought, flood, cyclone, pests, localized hazards).\nKeywords: pmfby, crop insurance, fasal bima, premium subsidy, yield loss compensation\nRelated Crops: rice, wheat, cotton, soybean, maize, groundnut"
+  },
+  {
+    "index": 38,
+    "id": "scheme_kcc",
+    "category": "government_schemes",
+    "title": "KCC (Kisan Credit Card Scheme)",
+    "content": "KCC ensures adequate and timely credit support from the formal banking system to meet cultivation expenses, post-harvest needs, and working capital requirements.",
+    "keywords": [
+      "kcc",
+      "kisan credit card",
+      "crop loan",
+      "low interest",
+      "concessional credit"
+    ],
+    "related_crops": [
+      "all"
+    ],
+    "language": "en",
+    "source": "Reserve Bank of India (RBI) & NABARD",
+    "searchable_text": "Title: KCC (Kisan Credit Card Scheme)\nCategory: government_schemes\nContent: KCC ensures adequate and timely credit support from the formal banking system to meet cultivation expenses, post-harvest needs, and working capital requirements.\nKeywords: kcc, kisan credit card, crop loan, low interest, concessional credit\nRelated Crops: all"
+  },
+  {
+    "index": 39,
+    "id": "scheme_soil_health_card",
+    "category": "government_schemes",
+    "title": "Soil Health Card (SHC) Scheme",
+    "content": "Soil Health Card promotes balanced fertilizer application, reduces unnecessary input costs, and improves long-term soil health.",
+    "keywords": [
+      "soil health card",
+      "shc",
+      "soil test",
+      "npk report",
+      "fertilizer recommendation"
+    ],
+    "related_crops": [
+      "all"
+    ],
+    "language": "en",
+    "source": "Ministry of Agriculture & Farmers Welfare",
+    "searchable_text": "Title: Soil Health Card (SHC) Scheme\nCategory: government_schemes\nContent: Soil Health Card promotes balanced fertilizer application, reduces unnecessary input costs, and improves long-term soil health.\nKeywords: soil health card, shc, soil test, npk report, fertilizer recommendation\nRelated Crops: all"
+  },
+  {
+    "index": 40,
+    "id": "irrig_drip",
+    "category": "irrigation_knowledge",
+    "title": "Drip Irrigation Systems & Efficiency Management",
+    "content": "Drip irrigation delivers water and soluble liquid nutrients directly to the plant root zone at low discharge rates (2-4 LPH). It maintains uniform soil moisture, prevents waterlogging, and minimizes evaporative losses.",
+    "keywords": [
+      "drip irrigation",
+      "fertigation",
+      "water conservation",
+      "banana",
+      "sugarcane",
+      "cotton",
+      "pomegranate"
+    ],
+    "related_crops": [
+      "banana",
+      "sugarcane",
+      "cotton",
+      "grapes",
+      "pomegranate"
+    ],
+    "language": "en",
+    "source": "Pradhan Mantri Krishi Sinchayee Yojana (PMKSY) Manual",
+    "searchable_text": "Title: Drip Irrigation Systems & Efficiency Management\nCategory: irrigation_knowledge\nContent: Drip irrigation delivers water and soluble liquid nutrients directly to the plant root zone at low discharge rates (2-4 LPH). It maintains uniform soil moisture, prevents waterlogging, and minimizes evaporative losses.\nKeywords: drip irrigation, fertigation, water conservation, banana, sugarcane, cotton, pomegranate\nRelated Crops: banana, sugarcane, cotton, grapes, pomegranate"
+  },
+  {
+    "index": 41,
+    "id": "irrig_sprinkler",
+    "category": "irrigation_knowledge",
+    "title": "Sprinkler Irrigation System Guide",
+    "content": "Sprinkler systems distribute water under pressure through pipes and rotating nozzles over the crop canopy. Excellent for sandy soils, oilseeds, wheat, and pulses. Avoid operating under strong wind conditions.",
+    "keywords": [
+      "sprinkler irrigation",
+      "overhead spray",
+      "groundnut",
+      "wheat",
+      "mustard",
+      "sandy soil"
+    ],
+    "related_crops": [
+      "wheat",
+      "groundnut",
+      "mustard",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR Central Institute of Agricultural Engineering",
+    "searchable_text": "Title: Sprinkler Irrigation System Guide\nCategory: irrigation_knowledge\nContent: Sprinkler systems distribute water under pressure through pipes and rotating nozzles over the crop canopy. Excellent for sandy soils, oilseeds, wheat, and pulses. Avoid operating under strong wind conditions.\nKeywords: sprinkler irrigation, overhead spray, groundnut, wheat, mustard, sandy soil\nRelated Crops: wheat, groundnut, mustard, chickpea"
+  },
+  {
+    "index": 42,
+    "id": "irrig_awd_rice",
+    "category": "irrigation_knowledge",
+    "title": "Alternate Wetting and Drying (AWD) for Paddy Rice",
+    "content": "Alternate Wetting and Drying (AWD) is a smart water-saving technology for lowland rice. A 30cm long, 15cm wide perforated PVC pipe is placed in the paddy field to observe water depth below the surface.",
+    "keywords": [
+      "alternate wetting and drying",
+      "awd",
+      "rice",
+      "paddy",
+      "pani pipe",
+      "water saving"
+    ],
+    "related_crops": [
+      "rice"
+    ],
+    "language": "en",
+    "source": "International Rice Research Institute (IRRI) & ICAR",
+    "searchable_text": "Title: Alternate Wetting and Drying (AWD) for Paddy Rice\nCategory: irrigation_knowledge\nContent: Alternate Wetting and Drying (AWD) is a smart water-saving technology for lowland rice. A 30cm long, 15cm wide perforated PVC pipe is placed in the paddy field to observe water depth below the surface.\nKeywords: alternate wetting and drying, awd, rice, paddy, pani pipe, water saving\nRelated Crops: rice"
+  },
+  {
+    "index": 43,
+    "id": "irrig_furrow_basin",
+    "category": "irrigation_knowledge",
+    "title": "Furrow & Basin Irrigation Management",
+    "content": "Furrow irrigation is widely used for row crops like maize, cotton, and vegetables. Water flows along narrow channels (furrows) between crop ridges, infiltrating sideways into root zones without submerging plant stems.",
+    "keywords": [
+      "furrow irrigation",
+      "basin irrigation",
+      "alternate furrow",
+      "maize",
+      "cotton",
+      "row crops"
+    ],
+    "related_crops": [
+      "maize",
+      "cotton",
+      "mango"
+    ],
+    "language": "en",
+    "source": "ICAR Irrigation & Drainage Engineering",
+    "searchable_text": "Title: Furrow & Basin Irrigation Management\nCategory: irrigation_knowledge\nContent: Furrow irrigation is widely used for row crops like maize, cotton, and vegetables. Water flows along narrow channels (furrows) between crop ridges, infiltrating sideways into root zones without submerging plant stems.\nKeywords: furrow irrigation, basin irrigation, alternate furrow, maize, cotton, row crops\nRelated Crops: maize, cotton, mango"
+  },
+  {
+    "index": 44,
+    "id": "irri_banana_irrigation___water_management_gui",
+    "category": "irrigation_knowledge",
+    "title": "Banana Irrigation & Water Management Guide",
+    "content": "Drip Irrigation Schedule\nS.No\nCrop Growth Stage\nDuration (Weeks)\nQuantity of Water\n(1/Plant)\n1.\nAfter Planting\n1-4\n4\n2.\nJuvenile Phase\n5-9\n8-10\n3.\nCritical Growth Stage\n10-19\n12\n4.\nFlower bud differentiation Stage\n20-32\n16-20\n5.\nShooting Stage\n33-37\n20 and above\n6.\nBunch Development Stage\n38 x 50\n20 and above\nIntercropping\nLeguminous vegetables, beetroot, elephant foot yam and sunhemp can be grown as intercrops. Avoid growing cucurbitaceous vegetables.",
+    "keywords": [
+      "drip",
+      "irrigation"
+    ],
+    "related_crops": [
+      "Banana"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (banana.html)",
+    "searchable_text": "Title: Banana Irrigation & Water Management Guide\nCategory: irrigation_knowledge\nContent: Drip Irrigation Schedule\nS.No\nCrop Growth Stage\nDuration (Weeks)\nQuantity of Water\n(1/Plant)\n1.\nAfter Planting\n1-4\n4\n2.\nJuvenile Phase\n5-9\n8-10\n3.\nCritical Growth Stage\n10-19\n12\n4.\nFlower bud differentiation Stage\n20-32\n16-20\n5.\nShooting Stage\n33-37\n20 and above\n6.\nBunch Development Stage\n38 x 50\n20 and above\nIntercropping\nLeguminous vegetables, beetroot, elephant foot yam and sunhemp can be grown as intercrops. Avoid growing cucurbitaceous vegetables.\nKeywords: drip, irrigation\nRelated Crops: Banana"
+  },
+  {
+    "index": 45,
+    "id": "irri_cotton_irrigation___water_management_gui",
+    "category": "irrigation_knowledge",
+    "title": "Cotton Irrigation & Water Management Guide",
+    "content": "Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Cotton\nCotton\nVideos on Cotton\nCotton Cultivation Status in Tamil Nadu\nSeason & Varieties\nMethods of Cotton Cultivation\nIrrigated - (Winter & Summer)\nRainfed\nRice Fallow\nHigh Density Planting System ( HDPS)\nOrganic Cotton cultivation\nCrop Protection\nNutrient Deficiency Symptoms\nFarm Mechanization\nSeed Production\nCost of Cultivation\nCotton Related Websites\nContent Validator: Dr. A. Subramanian, Prof & Head , Dept. of Cotton, TNAU, Coimbatore.\nTNAU 2008-2025 All Rights Reserved.",
+    "keywords": [
+      "irrigation"
+    ],
+    "related_crops": [
+      "Cotton",
+      "Rice"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (cotton.html)",
+    "searchable_text": "Title: Cotton Irrigation & Water Management Guide\nCategory: irrigation_knowledge\nContent: Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Cotton\nCotton\nVideos on Cotton\nCotton Cultivation Status in Tamil Nadu\nSeason & Varieties\nMethods of Cotton Cultivation\nIrrigated - (Winter & Summer)\nRainfed\nRice Fallow\nHigh Density Planting System ( HDPS)\nOrganic Cotton cultivation\nCrop Protection\nNutrient Deficiency Symptoms\nFarm Mechanization\nSeed Production\nCost of Cultivation\nCotton Related Websites\nContent Validator: Dr. A. Subramanian, Prof & Head , Dept. of Cotton, TNAU, Coimbatore.\nTNAU 2008-2025 All Rights Reserved.\nKeywords: irrigation\nRelated Crops: Cotton, Rice"
+  },
+  {
+    "index": 46,
+    "id": "irri_general_crop_irrigation___water_manageme",
+    "category": "irrigation_knowledge",
+    "title": "General Crop Irrigation & Water Management Guide",
+    "content": "Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Oilseeds :: Groundnut\nGroundnut\nGroundnut Growing Districts of Tamil Nadu\nCrop Improvement\nCrop Production\nIrrigated\nRainfed\nCrop Protection\nNutrient Deficiency Symptoms\nFarm Mechanization\nPost Harvest Technology\nSeed Production\nCost of Cultivation\nUpdated on May 2023\nTNAU 2008 - 2024 All Rights Reserved.",
+    "keywords": [
+      "harvest",
+      "irrigation"
+    ],
+    "related_crops": [
+      "Groundnut"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (groundnut.html)",
+    "searchable_text": "Title: General Crop Irrigation & Water Management Guide\nCategory: irrigation_knowledge\nContent: Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Oilseeds :: Groundnut\nGroundnut\nGroundnut Growing Districts of Tamil Nadu\nCrop Improvement\nCrop Production\nIrrigated\nRainfed\nCrop Protection\nNutrient Deficiency Symptoms\nFarm Mechanization\nPost Harvest Technology\nSeed Production\nCost of Cultivation\nUpdated on May 2023\nTNAU 2008 - 2024 All Rights Reserved.\nKeywords: harvest, irrigation\nRelated Crops: Groundnut"
+  },
+  {
+    "index": 47,
+    "id": "irri_mango_irrigation___water_management_guid",
+    "category": "irrigation_knowledge",
+    "title": "Mango Irrigation & Water Management Guide",
+    "content": "Regular watering is recommended till establishment. Under conventional irrigation systems, weekly irrigation is essential. However, under micro-irrigation the requirement is restricted to one-third of the water required for conventional method.\nIntercropping\nShort duration crops like legumes, vegetables, groundnut etc. can be raised during pre- bearing age.",
+    "keywords": [
+      "irrigation"
+    ],
+    "related_crops": [
+      "Groundnut",
+      "Mango"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (mango.html)",
+    "searchable_text": "Title: Mango Irrigation & Water Management Guide\nCategory: irrigation_knowledge\nContent: Regular watering is recommended till establishment. Under conventional irrigation systems, weekly irrigation is essential. However, under micro-irrigation the requirement is restricted to one-third of the water required for conventional method.\nIntercropping\nShort duration crops like legumes, vegetables, groundnut etc. can be raised during pre- bearing age.\nKeywords: irrigation\nRelated Crops: Groundnut, Mango"
+  },
+  {
+    "index": 48,
+    "id": "irri_sugarcane_irrigation___water_management_",
+    "category": "irrigation_knowledge",
+    "title": "Sugarcane Irrigation & Water Management Guide",
+    "content": "Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Sugarcrops ::Sugarcane\nSUGARCANE ( Saccharum officinarum )\nPit Planting Videos\nFarmer's Interview - Paired Row Planting - Videos\nPokkah Boeng - Disease of Sugarcane\nTamil Nadu Cane Registration and Supply\nThe Sugar Technologists Association of India\nSugarCane Institute CANEINFO\nIndian Institute of Sugarcane Research, Lucknow\nTamil Nadu Sugarcane Department\nSugarcane Breeding Institute, Coimbatore\nTamil Nadu Cooperative Sugar Federation Ltd.\nDirectorate of Sugarcane Development\nSustainable Sugarcane Initiative\nCrop Imporvement\nA. Planted(Main)crop\nSeason & Varieties\nMorphological Characters\nDistrict/ Season\nCrop Management\nImproved Technologies",
+    "keywords": [
+      "disease",
+      "irrigation"
+    ],
+    "related_crops": [
+      "Sugarcane"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (sugarcane.html)",
+    "searchable_text": "Title: Sugarcane Irrigation & Water Management Guide\nCategory: irrigation_knowledge\nContent: Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Sugarcrops ::Sugarcane\nSUGARCANE ( Saccharum officinarum )\nPit Planting Videos\nFarmer's Interview - Paired Row Planting - Videos\nPokkah Boeng - Disease of Sugarcane\nTamil Nadu Cane Registration and Supply\nThe Sugar Technologists Association of India\nSugarCane Institute CANEINFO\nIndian Institute of Sugarcane Research, Lucknow\nTamil Nadu Sugarcane Department\nSugarcane Breeding Institute, Coimbatore\nTamil Nadu Cooperative Sugar Federation Ltd.\nDirectorate of Sugarcane Development\nSustainable Sugarcane Initiative\nCrop Imporvement\nA. Planted(Main)crop\nSeason & Varieties\nMorphological Characters\nDistrict/ Season\nCrop Management\nImproved Technologies\nKeywords: disease, irrigation\nRelated Crops: Sugarcane"
+  },
+  {
+    "index": 49,
+    "id": "market_msp",
+    "category": "market_knowledge",
+    "title": "Minimum Support Price (MSP) & Government Procurement",
+    "content": "MSP is a guaranteed floor price announced by the Government of India for 22 mandated crops prior to sowing season based on recommendations of CACP. If market mandi prices drop below MSP, government agencies (NAFED, FCI, Cotton Corporation of India) procure crop produce directly from farmers.",
+    "keywords": [
+      "msp",
+      "minimum support price",
+      "fci",
+      "nafed",
+      "enam",
+      "mandi price",
+      "procurement"
+    ],
+    "related_crops": [
+      "wheat",
+      "paddy",
+      "cotton",
+      "chickpea",
+      "mustard",
+      "maize"
+    ],
+    "language": "en",
+    "source": "Commission for Agricultural Costs and Prices (CACP)",
+    "searchable_text": "Title: Minimum Support Price (MSP) & Government Procurement\nCategory: market_knowledge\nContent: MSP is a guaranteed floor price announced by the Government of India for 22 mandated crops prior to sowing season based on recommendations of CACP. If market mandi prices drop below MSP, government agencies (NAFED, FCI, Cotton Corporation of India) procure crop produce directly from farmers.\nKeywords: msp, minimum support price, fci, nafed, enam, mandi price, procurement\nRelated Crops: wheat, paddy, cotton, chickpea, mustard, maize"
+  },
+  {
+    "index": 50,
+    "id": "market_storage_post_harvest",
+    "category": "market_knowledge",
+    "title": "Post-Harvest Grain & Produce Storage Advice",
+    "content": "Proper post-harvest grain drying and storage prevent losses from mold, moisture rot, and storage pests (weevils, beetles). Storing produce during peak harvest glut and selling 2-3 months later often yields 20-30% higher market prices.",
+    "keywords": [
+      "grain storage",
+      "post harvest",
+      "wdra",
+      "warehouse receipt",
+      "pusa bin",
+      "hermetic bag",
+      "price cycle"
+    ],
+    "related_crops": [
+      "wheat",
+      "rice",
+      "chickpea",
+      "maize",
+      "mustard"
+    ],
+    "language": "en",
+    "source": "Warehousing Development and Regulatory Authority (WDRA)",
+    "searchable_text": "Title: Post-Harvest Grain & Produce Storage Advice\nCategory: market_knowledge\nContent: Proper post-harvest grain drying and storage prevent losses from mold, moisture rot, and storage pests (weevils, beetles). Storing produce during peak harvest glut and selling 2-3 months later often yields 20-30% higher market prices.\nKeywords: grain storage, post harvest, wdra, warehouse receipt, pusa bin, hermetic bag, price cycle\nRelated Crops: wheat, rice, chickpea, maize, mustard"
+  },
+  {
+    "index": 51,
+    "id": "market_enam_direct_sale",
+    "category": "market_knowledge",
+    "title": "e-NAM & Direct Farm Gate Sales Strategy",
+    "content": "e-NAM is a pan-India electronic trading portal linking existing APMC mandis to create a unified national market for agricultural commodities. It allows farmers to upload assaying reports and receive competitive transparent bids from buyers across India.",
+    "keywords": [
+      "enam",
+      "apmc",
+      "mandi",
+      "fpo",
+      "direct sale",
+      "transparent bidding",
+      "quality assaying"
+    ],
+    "related_crops": [
+      "all"
+    ],
+    "language": "en",
+    "source": "Small Farmers' Agribusiness Consortium (SFAC)",
+    "searchable_text": "Title: e-NAM & Direct Farm Gate Sales Strategy\nCategory: market_knowledge\nContent: e-NAM is a pan-India electronic trading portal linking existing APMC mandis to create a unified national market for agricultural commodities. It allows farmers to upload assaying reports and receive competitive transparent bids from buyers across India.\nKeywords: enam, apmc, mandi, fpo, direct sale, transparent bidding, quality assaying\nRelated Crops: all"
+  },
+  {
+    "index": 52,
+    "id": "disease_rice_blast",
+    "category": "pest_disease_knowledge",
+    "title": "Rice Blast (Magnaporthe oryzae) Management",
+    "content": "Rice Blast is a destructive fungal disease favored by high humidity and warm temperatures. Spindle lesions quickly expand causing complete leaf necrosis and empty chaffy grains.",
+    "keywords": [
+      "rice blast",
+      "spindle lesions",
+      "magnaporthe",
+      "tricyclazole",
+      "fungicide",
+      "rice"
+    ],
+    "related_crops": [
+      "rice"
+    ],
+    "language": "en",
+    "source": "ICAR National Rice Research Institute (NRRI)",
+    "searchable_text": "Title: Rice Blast (Magnaporthe oryzae) Management\nCategory: pest_disease_knowledge\nContent: Rice Blast is a destructive fungal disease favored by high humidity and warm temperatures. Spindle lesions quickly expand causing complete leaf necrosis and empty chaffy grains.\nKeywords: rice blast, spindle lesions, magnaporthe, tricyclazole, fungicide, rice\nRelated Crops: rice"
+  },
+  {
+    "index": 53,
+    "id": "disease_wheat_rust",
+    "category": "pest_disease_knowledge",
+    "title": "Wheat Yellow Rust & Brown Rust Management",
+    "content": "Yellow rust is a high-risk winter disease in North-Western wheat belts. Spreads rapidly under cool, moist weather.",
+    "keywords": [
+      "wheat rust",
+      "yellow rust",
+      "puccinia",
+      "propiconazole",
+      "wheat"
+    ],
+    "related_crops": [
+      "wheat"
+    ],
+    "language": "en",
+    "source": "ICAR Indian Institute of Wheat and Barley Research",
+    "searchable_text": "Title: Wheat Yellow Rust & Brown Rust Management\nCategory: pest_disease_knowledge\nContent: Yellow rust is a high-risk winter disease in North-Western wheat belts. Spreads rapidly under cool, moist weather.\nKeywords: wheat rust, yellow rust, puccinia, propiconazole, wheat\nRelated Crops: wheat"
+  },
+  {
+    "index": 54,
+    "id": "pest_cotton_pink_bollworm",
+    "category": "pest_disease_knowledge",
+    "title": "Cotton Pink Bollworm (Pectinophora gossypiella) Management",
+    "content": "Pink bollworm larvae tunnel inside green cotton bolls, destroying developing seeds and lint. Strict crop window management is critical.",
+    "keywords": [
+      "cotton",
+      "pink bollworm",
+      "pectinophora",
+      "rosette flower",
+      "emamectin benzoate",
+      "pheromone trap"
+    ],
+    "related_crops": [
+      "cotton"
+    ],
+    "language": "en",
+    "source": "ICAR Central Institute for Cotton Research",
+    "searchable_text": "Title: Cotton Pink Bollworm (Pectinophora gossypiella) Management\nCategory: pest_disease_knowledge\nContent: Pink bollworm larvae tunnel inside green cotton bolls, destroying developing seeds and lint. Strict crop window management is critical.\nKeywords: cotton, pink bollworm, pectinophora, rosette flower, emamectin benzoate, pheromone trap\nRelated Crops: cotton"
+  },
+  {
+    "index": 55,
+    "id": "pest_fall_armyworm",
+    "category": "pest_disease_knowledge",
+    "title": "Fall Armyworm (Spodoptera frugiperda) Management in Maize",
+    "content": "Fall Armyworm is an aggressive migratory caterpillar attacking maize from seedling to cob stage. Whorl application of recommended insecticides is vital.",
+    "keywords": [
+      "fall armyworm",
+      "faw",
+      "maize",
+      "corn",
+      "whorl application",
+      "emamectin",
+      "chlorantraniliprole"
+    ],
+    "related_crops": [
+      "maize"
+    ],
+    "language": "en",
+    "source": "ICAR National Bureau of Agricultural Insect Resources (NBAIR)",
+    "searchable_text": "Title: Fall Armyworm (Spodoptera frugiperda) Management in Maize\nCategory: pest_disease_knowledge\nContent: Fall Armyworm is an aggressive migratory caterpillar attacking maize from seedling to cob stage. Whorl application of recommended insecticides is vital.\nKeywords: fall armyworm, faw, maize, corn, whorl application, emamectin, chlorantraniliprole\nRelated Crops: maize"
+  },
+  {
+    "index": 56,
+    "id": "disease_tomato_blight",
+    "category": "pest_disease_knowledge",
+    "title": "Tomato Early & Late Blight Management",
+    "content": "Blight diseases cause rapid defoliation and fruit decay in tomatoes. Avoid overhead sprinkler watering.",
+    "keywords": [
+      "tomato blight",
+      "alternaria",
+      "phytophthora",
+      "mancozeb",
+      "metalaxyl",
+      "target spots"
+    ],
+    "related_crops": [
+      "tomato",
+      "potato"
+    ],
+    "language": "en",
+    "source": "ICAR Indian Institute of Horticultural Research (IIHR)",
+    "searchable_text": "Title: Tomato Early & Late Blight Management\nCategory: pest_disease_knowledge\nContent: Blight diseases cause rapid defoliation and fruit decay in tomatoes. Avoid overhead sprinkler watering.\nKeywords: tomato blight, alternaria, phytophthora, mancozeb, metalaxyl, target spots\nRelated Crops: tomato, potato"
+  },
+  {
+    "index": 57,
+    "id": "pest_icar_tomato_cultivation_and",
+    "category": "pest_disease_knowledge",
+    "title": "ICAR Tomato Cultivation and Blight Protection Guide",
+    "content": "ICAR Tomato Cultivation and Blight Protection Guide\n# Tomato (Solanum lycopersicum) Farming Guide\nTomato is an important commercial vegetable crop in India requiring warm weather and well-drained loamy soil.\n## Fertilizer Dose & NPK Management\nApply split doses of Nitrogen and Urea @ 40kg/acre along with DAP during land preparation.\n## Early Blight Disease Prevention\nHigh humidity causes fungal Early Blight. Apply Mancozeb spray at 15-day intervals.",
+    "keywords": [
+      "blight",
+      "dap",
+      "disease",
+      "fertilizer",
+      "nitrogen",
+      "npk",
+      "soil",
+      "urea"
+    ],
+    "related_crops": [
+      "Tomato"
+    ],
+    "language": "en",
+    "source": "ICAR Agriportal (HTML Test)",
+    "searchable_text": "Title: ICAR Tomato Cultivation and Blight Protection Guide\nCategory: pest_disease_knowledge\nContent: ICAR Tomato Cultivation and Blight Protection Guide\n# Tomato (Solanum lycopersicum) Farming Guide\nTomato is an important commercial vegetable crop in India requiring warm weather and well-drained loamy soil.\n## Fertilizer Dose & NPK Management\nApply split doses of Nitrogen and Urea @ 40kg/acre along with DAP during land preparation.\n## Early Blight Disease Prevention\nHigh humidity causes fungal Early Blight. Apply Mancozeb spray at 15-day intervals.\nKeywords: blight, dap, disease, fertilizer, nitrogen, npk, soil, urea\nRelated Crops: Tomato"
+  },
+  {
+    "index": 58,
+    "id": "pest_sugarcane_pest___disease_management_guid",
+    "category": "pest_disease_knowledge",
+    "title": "Sugarcane Pest & Disease Management Guide",
+    "content": "Weed Management in pure crop of Sugarcane\nWherever weed menace is higher, one line weeding along the crop row and spade digging of ridges have to be done on 30, 60 and 90 DAP\nSpray Atrazine 2 kg or Oxyflurofen 750 ml/ha mixed in 600 liters of water as pre emergence herbicide on the 3rd day of planting, using deflector or fan type nozzle fitted with knapsack sprayer.\nThe pre emergence application of atrazine @ 1.0 kg a.i. ha-1 on 3 DAP followed by post emergence directed application of glyphosate @ 1.0 lit ha-1on 45 DAP with hood+ one hand weeding on 90 DAP registered the maximum cane yield.\nIf pre-emergence spray is not carried out, go in for post-emergence spray of Grammaxone litre + 2,4-D sodium salt 2.5 kg/ha in 600 liter of water on 21st day of planting.",
+    "keywords": [
+      "dap",
+      "disease",
+      "pest",
+      "yield"
+    ],
+    "related_crops": [
+      "Sugarcane"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (sugarcane.html)",
+    "searchable_text": "Title: Sugarcane Pest & Disease Management Guide\nCategory: pest_disease_knowledge\nContent: Weed Management in pure crop of Sugarcane\nWherever weed menace is higher, one line weeding along the crop row and spade digging of ridges have to be done on 30, 60 and 90 DAP\nSpray Atrazine 2 kg or Oxyflurofen 750 ml/ha mixed in 600 liters of water as pre emergence herbicide on the 3rd day of planting, using deflector or fan type nozzle fitted with knapsack sprayer.\nThe pre emergence application of atrazine @ 1.0 kg a.i. ha-1 on 3 DAP followed by post emergence directed application of glyphosate @ 1.0 lit ha-1on 45 DAP with hood+ one hand weeding on 90 DAP registered the maximum cane yield.\nIf pre-emergence spray is not carried out, go in for post-emergence spray of Grammaxone litre + 2,4-D sodium salt 2.5 kg/ha in 600 liter of water on 21st day of planting.\nKeywords: dap, disease, pest, yield\nRelated Crops: Sugarcane"
+  },
+  {
+    "index": 59,
+    "id": "soil_alluvial",
+    "category": "soil_knowledge",
+    "title": "Alluvial Soil Characteristics & Farming Guide",
+    "content": "Alluvial soil covers over 40% of India's land area, predominantly across the Indo-Gangetic plains and coastal deltas. It is the most productive agricultural soil. Supplement with Nitrogenous fertilizers (Urea) and Phosphatic fertilizers (DAP) for optimum yields.",
+    "keywords": [
+      "alluvial soil",
+      "silt",
+      "indo-gangetic plain",
+      "high fertility",
+      "potash",
+      "rice",
+      "wheat"
+    ],
+    "related_crops": [
+      "rice",
+      "wheat",
+      "sugarcane",
+      "maize"
+    ],
+    "language": "en",
+    "source": "Indian Council of Agricultural Research (ICAR) Soil Bureau",
+    "searchable_text": "Title: Alluvial Soil Characteristics & Farming Guide\nCategory: soil_knowledge\nContent: Alluvial soil covers over 40% of India's land area, predominantly across the Indo-Gangetic plains and coastal deltas. It is the most productive agricultural soil. Supplement with Nitrogenous fertilizers (Urea) and Phosphatic fertilizers (DAP) for optimum yields.\nKeywords: alluvial soil, silt, indo-gangetic plain, high fertility, potash, rice, wheat\nRelated Crops: rice, wheat, sugarcane, maize"
+  },
+  {
+    "index": 60,
+    "id": "soil_black",
+    "category": "soil_knowledge",
+    "title": "Black Soil (Regur Soil) Characteristics & Farming Guide",
+    "content": "Black soil is prominent across Maharashtra, Madhya Pradesh, Gujarat, and Telangana. Its exceptional moisture retention capability makes it ideal for rainfed cotton, soybean, and Rabi chickpea crops. Requires careful irrigation management to prevent waterlogging during heavy monsoon downpours.",
+    "keywords": [
+      "black soil",
+      "regur",
+      "cotton soil",
+      "clay",
+      "self-ploughing",
+      "moisture retention",
+      "soybean",
+      "chickpea"
+    ],
+    "related_crops": [
+      "cotton",
+      "soybean",
+      "chickpea",
+      "groundnut"
+    ],
+    "language": "en",
+    "source": "National Bureau of Soil Survey and Land Use Planning (NBSS&LUP)",
+    "searchable_text": "Title: Black Soil (Regur Soil) Characteristics & Farming Guide\nCategory: soil_knowledge\nContent: Black soil is prominent across Maharashtra, Madhya Pradesh, Gujarat, and Telangana. Its exceptional moisture retention capability makes it ideal for rainfed cotton, soybean, and Rabi chickpea crops. Requires careful irrigation management to prevent waterlogging during heavy monsoon downpours.\nKeywords: black soil, regur, cotton soil, clay, self-ploughing, moisture retention, soybean, chickpea\nRelated Crops: cotton, soybean, chickpea, groundnut"
+  },
+  {
+    "index": 61,
+    "id": "soil_red",
+    "category": "soil_knowledge",
+    "title": "Red Soil Characteristics & Farming Guide",
+    "content": "Red soil covers vast areas of Tamil Nadu, Karnataka, Andhra Pradesh, Odisha, and Chota Nagpur plateau. Due to low moisture retention, it is best suited for drought-tolerant rainfed crops, pulses, and oilseeds under sprinkler/drip irrigation.",
+    "keywords": [
+      "red soil",
+      "iron oxide",
+      "porous",
+      "groundnut",
+      "ragi",
+      "millets",
+      "acidic soil"
+    ],
+    "related_crops": [
+      "groundnut",
+      "pigeonpeas",
+      "potato"
+    ],
+    "language": "en",
+    "source": "ICAR Soil Science Division",
+    "searchable_text": "Title: Red Soil Characteristics & Farming Guide\nCategory: soil_knowledge\nContent: Red soil covers vast areas of Tamil Nadu, Karnataka, Andhra Pradesh, Odisha, and Chota Nagpur plateau. Due to low moisture retention, it is best suited for drought-tolerant rainfed crops, pulses, and oilseeds under sprinkler/drip irrigation.\nKeywords: red soil, iron oxide, porous, groundnut, ragi, millets, acidic soil\nRelated Crops: groundnut, pigeonpeas, potato"
+  },
+  {
+    "index": 62,
+    "id": "soil_clay",
+    "category": "soil_knowledge",
+    "title": "Clay Soil Characteristics & Management",
+    "content": "Clay soils hold water and nutrients extremely well, making them perfect for puddled rice fields and sugarcane. Adding organic manure or gypsum improves soil structure and water infiltration.",
+    "keywords": [
+      "clay soil",
+      "heavy soil",
+      "high retention",
+      "paddy",
+      "rice",
+      "sugarcane"
+    ],
+    "related_crops": [
+      "rice",
+      "sugarcane",
+      "jute"
+    ],
+    "language": "en",
+    "source": "ICAR Soil Physics Division",
+    "searchable_text": "Title: Clay Soil Characteristics & Management\nCategory: soil_knowledge\nContent: Clay soils hold water and nutrients extremely well, making them perfect for puddled rice fields and sugarcane. Adding organic manure or gypsum improves soil structure and water infiltration.\nKeywords: clay soil, heavy soil, high retention, paddy, rice, sugarcane\nRelated Crops: rice, sugarcane, jute"
+  },
+  {
+    "index": 63,
+    "id": "soil_loamy",
+    "category": "soil_knowledge",
+    "title": "Loamy Soil Characteristics & Farming Guide",
+    "content": "Loam is considered the gold standard for agricultural cultivation. It offers easy root penetration, excellent microbial activity, and efficient fertilizer response across all crop species.",
+    "keywords": [
+      "loamy soil",
+      "loam",
+      "balanced soil",
+      "ideal soil",
+      "high fertility",
+      "vegetables",
+      "maize"
+    ],
+    "related_crops": [
+      "maize",
+      "wheat",
+      "papaya",
+      "banana"
+    ],
+    "language": "en",
+    "source": "ICAR Agricultural Extension Manual",
+    "searchable_text": "Title: Loamy Soil Characteristics & Farming Guide\nCategory: soil_knowledge\nContent: Loam is considered the gold standard for agricultural cultivation. It offers easy root penetration, excellent microbial activity, and efficient fertilizer response across all crop species.\nKeywords: loamy soil, loam, balanced soil, ideal soil, high fertility, vegetables, maize\nRelated Crops: maize, wheat, papaya, banana"
+  },
+  {
+    "index": 64,
+    "id": "soil_sandy",
+    "category": "soil_knowledge",
+    "title": "Sandy Soil Characteristics & Management",
+    "content": "Sandy soils require frequent light irrigations and split applications of fertilizers to prevent nutrient leaching. Organic matter addition (FYM, compost) significantly improves water holding capacity.",
+    "keywords": [
+      "sandy soil",
+      "coarse",
+      "watermelon",
+      "muskmelon",
+      "leaching",
+      "drip irrigation"
+    ],
+    "related_crops": [
+      "watermelon",
+      "muskmelon",
+      "groundnut"
+    ],
+    "language": "en",
+    "source": "ICAR Arid Zone Research Institute",
+    "searchable_text": "Title: Sandy Soil Characteristics & Management\nCategory: soil_knowledge\nContent: Sandy soils require frequent light irrigations and split applications of fertilizers to prevent nutrient leaching. Organic matter addition (FYM, compost) significantly improves water holding capacity.\nKeywords: sandy soil, coarse, watermelon, muskmelon, leaching, drip irrigation\nRelated Crops: watermelon, muskmelon, groundnut"
+  },
+  {
+    "index": 65,
+    "id": "soil_banana_suitable_soil___land_preparation",
+    "category": "soil_knowledge",
+    "title": "Banana Suitable Soil & Land Preparation",
+    "content": "Well drained loamy soils are suitable for banana cultivation. Alkaline and saline soils should be avoided.\nSeason of planting\nWet lands\nGarden lands\nHill Banana\nPadugai lands\nPoovan, Rasthali, Monthan, Karpooravalli and Neypoovan can be cultivated during February April. Nendran and Robusta can be cultivated during April May.\nBanana can be cultivated in garden lands during January February and November December.\nApril May (lower Palani hills), June August (Sirumalai) are the suitable seasons for cultivating hill banana.\nIn Padugai lands, the crop can be cultivated during January February and August September.\nSelection and pre-treatment of suckers\nSelect sword suckers of 1.5 to 2.0 kg weight which are free from diseases and nematodes. Trim the roots and decayed portion of the corm, cut the pseudostem leaving 20 cm from the corm and grade the suckers to size. To avoid wilt disease in Rasthali, Monthan, Virupakshi and other wilt susceptible varieties, infected portions of the corm may be pared and dipped for 5 minutes in 0.1% Emisan solution (1 g in 1 lit of water). Pralinage is done with 40 g of Carbofuran 3 G granules per sucker. (Dip the corm in slurry solution containing 4 parts clay plus 5 parts water and sprinkle Carbofuran to control nematodes). Alternatively,shade dry for atleast 24 hours and plant. Sow Sunhemp on 45th day; incorporate it after about a month.This operation reduces nematode build up. Use tissue cultured banana plants with 5-6 leaves. At the time of planting, apply 25 g Bacillus Subtils / plant.\nField preparation\nWet lands\nNo preparatory cultivation is necessary.\nGarden land\n2 4 ploughings are required before planting.\nPadugai\nOne deep spade digging is essential.\nHill Banana\nClean the jungle and construct contour stone walls before planting. Digging Pits Wet lands\nPlace the suckers at ground level and earth up at stages.\nSucker treatment and planting\nSpacing\nS.No.\nSystem of Planting\nPlanting Distance\nPlant population /ha\n1.\nDwarf Cavendish\n1.5 x 1.5\n4440\n2.\nRobusta and Nendran\n1.8 x 1.8\n3080\n3.\nRasthali, Poovan, Karpooravalli, Monthan\n2.1 x 2.1\n2260\n4.\nPaired row\n1.2 x 1.2 x 2.0\n5200\n5.\n2-Suckers /hill\n1.8 x 3.6\n3200\n6.\n3-Suckers/hill\n1.8 x 3.6\n4800\nHigh density planting can be adopted for higher productivity. Plant 3 suckers / pit at a spacing of 1.8 x 3.6m (4600 plants/ha) for Cavendish varieties and 2 m x 3 m for Nendran (5000 plants/ha).\n1 sucker / pit at 2x2 m\n3 suckers / pit at 3.6x3.6 m\n3- Plants /Hill\n1.8 X 3.6 m (4800 pi/ha)\nPaired row system  1.2x1.2x2.0m  (5200 pl/ha\nNormal planting (2.0 x 2.0 m)\n3 suckers/pit\n(3.6 x 3.6 m)\n4 suckers/pit\n(1.8 x 3.6 m)",
+    "keywords": [
+      "clay",
+      "disease",
+      "soil"
+    ],
+    "related_crops": [
+      "Banana"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (banana.html)",
+    "searchable_text": "Title: Banana Suitable Soil & Land Preparation\nCategory: soil_knowledge\nContent: Well drained loamy soils are suitable for banana cultivation. Alkaline and saline soils should be avoided.\nSeason of planting\nWet lands\nGarden lands\nHill Banana\nPadugai lands\nPoovan, Rasthali, Monthan, Karpooravalli and Neypoovan can be cultivated during February April. Nendran and Robusta can be cultivated during April May.\nBanana can be cultivated in garden lands during January February and November December.\nApril May (lower Palani hills), June August (Sirumalai) are the suitable seasons for cultivating hill banana.\nIn Padugai lands, the crop can be cultivated during January February and August September.\nSelection and pre-treatment of suckers\nSelect sword suckers of 1.5 to 2.0 kg weight which are free from diseases and nematodes. Trim the roots and decayed portion of the corm, cut the pseudostem leaving 20 cm from the corm and grade the suckers to size. To avoid wilt disease in Rasthali, Monthan, Virupakshi and other wilt susceptible varieties, infected portions of the corm may be pared and dipped for 5 minutes in 0.1% Emisan solution (1 g in 1 lit of water). Pralinage is done with 40 g of Carbofuran 3 G granules per sucker. (Dip the corm in slurry solution containing 4 parts clay plus 5 parts water and sprinkle Carbofuran to control nematodes). Alternatively,shade dry for atleast 24 hours and plant. Sow Sunhemp on 45th day; incorporate it after about a month.This operation reduces nematode build up. Use tissue cultured banana plants with 5-6 leaves. At the time of planting, apply 25 g Bacillus Subtils / plant.\nField preparation\nWet lands\nNo preparatory cultivation is necessary.\nGarden land\n2 4 ploughings are required before planting.\nPadugai\nOne deep spade digging is essential.\nHill Banana\nClean the jungle and construct contour stone walls before planting. Digging Pits Wet lands\nPlace the suckers at ground level and earth up at stages.\nSucker treatment and planting\nSpacing\nS.No.\nSystem of Planting\nPlanting Distance\nPlant population /ha\n1.\nDwarf Cavendish\n1.5 x 1.5\n4440\n2.\nRobusta and Nendran\n1.8 x 1.8\n3080\n3.\nRasthali, Poovan, Karpooravalli, Monthan\n2.1 x 2.1\n2260\n4.\nPaired row\n1.2 x 1.2 x 2.0\n5200\n5.\n2-Suckers /hill\n1.8 x 3.6\n3200\n6.\n3-Suckers/hill\n1.8 x 3.6\n4800\nHigh density planting can be adopted for higher productivity. Plant 3 suckers / pit at a spacing of 1.8 x 3.6m (4600 plants/ha) for Cavendish varieties and 2 m x 3 m for Nendran (5000 plants/ha).\n1 sucker / pit at 2x2 m\n3 suckers / pit at 3.6x3.6 m\n3- Plants /Hill\n1.8 X 3.6 m (4800 pi/ha)\nPaired row system  1.2x1.2x2.0m  (5200 pl/ha\nNormal planting (2.0 x 2.0 m)\n3 suckers/pit\n(3.6 x 3.6 m)\n4 suckers/pit\n(1.8 x 3.6 m)\nKeywords: clay, disease, soil\nRelated Crops: Banana"
+  },
+  {
+    "index": 66,
+    "id": "soil_mango_suitable_soil___land_preparation",
+    "category": "soil_knowledge",
+    "title": "Mango Suitable Soil & Land Preparation",
+    "content": "Ideal soil for mango is red loamy. Good drainage is preferable for better establishment. Ideal pH range is from 6.5 to 8.0.\nSeason of planting\nPlanting spreads from July to December.\nPlanting material\nApproach and epicotyl grafts are used for planting.\nMango seedlings used for approach / epicotyl grafting\nApproach and epicotyl grafting videos\n(Download approach grafting video)\n(Download epicotyl grafting video)\nField preparation",
+    "keywords": [
+      "drainage",
+      "ph",
+      "soil"
+    ],
+    "related_crops": [
+      "Mango"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (mango.html)",
+    "searchable_text": "Title: Mango Suitable Soil & Land Preparation\nCategory: soil_knowledge\nContent: Ideal soil for mango is red loamy. Good drainage is preferable for better establishment. Ideal pH range is from 6.5 to 8.0.\nSeason of planting\nPlanting spreads from July to December.\nPlanting material\nApproach and epicotyl grafts are used for planting.\nMango seedlings used for approach / epicotyl grafting\nApproach and epicotyl grafting videos\n(Download approach grafting video)\n(Download epicotyl grafting video)\nField preparation\nKeywords: drainage, ph, soil\nRelated Crops: Mango"
+  },
+  {
+    "index": 67,
+    "id": "soil_sugarcane_suitable_soil___land_preparati",
+    "category": "soil_knowledge",
+    "title": "Sugarcane Suitable Soil & Land Preparation",
+    "content": "Performs well in all soil types and extremely well in garden land condition.  Good quality cane with higher yield.  Has multi ratooning capacity.  Can be grown throughout the year.  Gives higher recovery.  Self detrashing in nature.  Amenable for wide row spacing.\nCoV 92102",
+    "keywords": [
+      "soil",
+      "yield"
+    ],
+    "related_crops": [
+      "Sugarcane"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (sugarcane.html)",
+    "searchable_text": "Title: Sugarcane Suitable Soil & Land Preparation\nCategory: soil_knowledge\nContent: Performs well in all soil types and extremely well in garden land condition.  Good quality cane with higher yield.  Has multi ratooning capacity.  Can be grown throughout the year.  Gives higher recovery.  Self detrashing in nature.  Amenable for wide row spacing.\nCoV 92102\nKeywords: soil, yield\nRelated Crops: Sugarcane"
+  },
+  {
+    "index": 68,
+    "id": "weather_heavy_rain",
+    "category": "weather_advisory",
+    "title": "Heavy Rain & Waterlogging Farm Advisory",
+    "content": "Provide immediate field drainage trenches at lower boundaries to evacuate excess surface water. Suspend all fertilizer broadcasts, pesticide sprays, and irrigation. Post-rain, apply a light foliar spray of 1% Urea + 0.5% Zinc Sulphate to restore root activity once water recedes.",
+    "keywords": [
+      "heavy rain",
+      "waterlogging",
+      "drainage",
+      "flood",
+      "monsoon",
+      "foliar spray"
+    ],
+    "related_crops": [
+      "rice",
+      "cotton",
+      "maize",
+      "soybean",
+      "vegetables"
+    ],
+    "language": "en",
+    "source": "India Meteorological Department (IMD) Agromet Advisory",
+    "searchable_text": "Title: Heavy Rain & Waterlogging Farm Advisory\nCategory: weather_advisory\nContent: Provide immediate field drainage trenches at lower boundaries to evacuate excess surface water. Suspend all fertilizer broadcasts, pesticide sprays, and irrigation. Post-rain, apply a light foliar spray of 1% Urea + 0.5% Zinc Sulphate to restore root activity once water recedes.\nKeywords: heavy rain, waterlogging, drainage, flood, monsoon, foliar spray\nRelated Crops: rice, cotton, maize, soybean, vegetables"
+  },
+  {
+    "index": 69,
+    "id": "weather_drought",
+    "category": "weather_advisory",
+    "title": "Dry Spell & Drought Farm Advisory",
+    "content": "Apply organic straw or plastic mulch around crop rows to conserve soil moisture. Execute protective micro-irrigation at critical stages (flowering and seed formation). Spray 1% Potassium Nitrate (13-0-45) to induce drought tolerance and reduce leaf transpiration.",
+    "keywords": [
+      "drought",
+      "dry spell",
+      "mulching",
+      "potassium nitrate",
+      "moisture conservation"
+    ],
+    "related_crops": [
+      "cotton",
+      "maize",
+      "groundnut",
+      "chickpea",
+      "pigeonpeas"
+    ],
+    "language": "en",
+    "source": "IMD Agromet & ICAR Drought Management Division",
+    "searchable_text": "Title: Dry Spell & Drought Farm Advisory\nCategory: weather_advisory\nContent: Apply organic straw or plastic mulch around crop rows to conserve soil moisture. Execute protective micro-irrigation at critical stages (flowering and seed formation). Spray 1% Potassium Nitrate (13-0-45) to induce drought tolerance and reduce leaf transpiration.\nKeywords: drought, dry spell, mulching, potassium nitrate, moisture conservation\nRelated Crops: cotton, maize, groundnut, chickpea, pigeonpeas"
+  },
+  {
+    "index": 70,
+    "id": "weather_heat_wave",
+    "category": "weather_advisory",
+    "title": "Heat Wave & High Temperature Farm Advisory",
+    "content": "Provide light frequent irrigations during evening hours to maintain root zone cool temperature. Irrigate nursery beds daily. Apply kaolin clay foliar spray (5%) to reflect excess sunlight and protect fruits from sunscald.",
+    "keywords": [
+      "heat wave",
+      "high temperature",
+      "sunscald",
+      "evening irrigation",
+      "kaolin"
+    ],
+    "related_crops": [
+      "watermelon",
+      "muskmelon",
+      "papaya",
+      "tomato",
+      "maize"
+    ],
+    "language": "en",
+    "source": "IMD & ICAR Arid Zone Advisory",
+    "searchable_text": "Title: Heat Wave & High Temperature Farm Advisory\nCategory: weather_advisory\nContent: Provide light frequent irrigations during evening hours to maintain root zone cool temperature. Irrigate nursery beds daily. Apply kaolin clay foliar spray (5%) to reflect excess sunlight and protect fruits from sunscald.\nKeywords: heat wave, high temperature, sunscald, evening irrigation, kaolin\nRelated Crops: watermelon, muskmelon, papaya, tomato, maize"
+  },
+  {
+    "index": 71,
+    "id": "weather_cold_wave",
+    "category": "weather_advisory",
+    "title": "Cold Wave & Frost Protection Advisory",
+    "content": "Apply light evening irrigation to raise soil temperature overnight. Create smoke fires on western boundaries using dry farm waste to create a protective thermal blanket over crops. Spray 0.1% Dilute Sulphuric Acid or soluble Potassium.",
+    "keywords": [
+      "cold wave",
+      "frost",
+      "winter",
+      "thermal smoke",
+      "evening irrigation"
+    ],
+    "related_crops": [
+      "mustard",
+      "wheat",
+      "potato",
+      "chickpea",
+      "tomato"
+    ],
+    "language": "en",
+    "source": "IMD Agromet Advisory Service",
+    "searchable_text": "Title: Cold Wave & Frost Protection Advisory\nCategory: weather_advisory\nContent: Apply light evening irrigation to raise soil temperature overnight. Create smoke fires on western boundaries using dry farm waste to create a protective thermal blanket over crops. Spray 0.1% Dilute Sulphuric Acid or soluble Potassium.\nKeywords: cold wave, frost, winter, thermal smoke, evening irrigation\nRelated Crops: mustard, wheat, potato, chickpea, tomato"
+  },
+  {
+    "index": 72,
+    "id": "weather_high_humidity",
+    "category": "weather_advisory",
+    "title": "High Humidity & Fungal Disease Risk Advisory",
+    "content": "High humidity combined with warm temperatures creates optimal conditions for fungal diseases (Downy Mildew, Blast, Blight, Powdery Mildew). Ensure proper plant spacing and prunings for canopy aeration. Apply preventive copper or sulfur sprays.",
+    "keywords": [
+      "high humidity",
+      "fungal disease",
+      "mildew",
+      "blast",
+      "blight",
+      "aeration"
+    ],
+    "related_crops": [
+      "rice",
+      "grapes",
+      "tomato",
+      "cotton",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR Plant Protection Division",
+    "searchable_text": "Title: High Humidity & Fungal Disease Risk Advisory\nCategory: weather_advisory\nContent: High humidity combined with warm temperatures creates optimal conditions for fungal diseases (Downy Mildew, Blast, Blight, Powdery Mildew). Ensure proper plant spacing and prunings for canopy aeration. Apply preventive copper or sulfur sprays.\nKeywords: high humidity, fungal disease, mildew, blast, blight, aeration\nRelated Crops: rice, grapes, tomato, cotton, chickpea"
+  },
+  {
+    "index": 73,
+    "id": "weather_low_humidity",
+    "category": "weather_advisory",
+    "title": "Low Humidity & Dry Air Advisory",
+    "content": "Accelerates evapotranspiration causing rapid soil drying and flower drop. Irrigate fields regularly and maintain organic mulching to prevent soil surface crusting and blossom desiccating.",
+    "keywords": [
+      "low humidity",
+      "dry air",
+      "evapotranspiration",
+      "flower drop",
+      "mulch"
+    ],
+    "related_crops": [
+      "cotton",
+      "banana",
+      "papaya",
+      "watermelon"
+    ],
+    "language": "en",
+    "source": "IMD Agromet",
+    "searchable_text": "Title: Low Humidity & Dry Air Advisory\nCategory: weather_advisory\nContent: Accelerates evapotranspiration causing rapid soil drying and flower drop. Irrigate fields regularly and maintain organic mulching to prevent soil surface crusting and blossom desiccating.\nKeywords: low humidity, dry air, evapotranspiration, flower drop, mulch\nRelated Crops: cotton, banana, papaya, watermelon"
+  },
+  {
+    "index": 74,
+    "id": "weather_strong_wind",
+    "category": "weather_advisory",
+    "title": "Strong Winds & Storm Lodging Protection",
+    "content": "Provide mechanical staking support for tall crops like sugarcane, banana, and papaya to prevent wind lodging. Postpone tall chemical spraying. Earthing up soil around crop base strengthens anchorage against squalls.",
+    "keywords": [
+      "strong wind",
+      "storm",
+      "lodging",
+      "propping",
+      "banana",
+      "sugarcane",
+      "staking"
+    ],
+    "related_crops": [
+      "banana",
+      "sugarcane",
+      "maize",
+      "papaya"
+    ],
+    "language": "en",
+    "source": "IMD Severe Weather Advisory",
+    "searchable_text": "Title: Strong Winds & Storm Lodging Protection\nCategory: weather_advisory\nContent: Provide mechanical staking support for tall crops like sugarcane, banana, and papaya to prevent wind lodging. Postpone tall chemical spraying. Earthing up soil around crop base strengthens anchorage against squalls.\nKeywords: strong wind, storm, lodging, propping, banana, sugarcane, staking\nRelated Crops: banana, sugarcane, maize, papaya"
+  }
+]

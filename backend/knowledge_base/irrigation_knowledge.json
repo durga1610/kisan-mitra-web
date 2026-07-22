@@ -1,0 +1,175 @@
+[
+  {
+    "id": "irrig_drip",
+    "category": "irrigation_knowledge",
+    "title": "Drip Irrigation Systems & Efficiency Management",
+    "irrigation_methods": "Micro-drip irrigation via inline drippers or online emitters",
+    "crop_wise_schedules": "Banana (every 1-2 days, 25-35 L/plant), Sugarcane (3-5 days), Cotton (3-4 days), Grapes (2 days), Pomegranate (2 days)",
+    "water_saving_techniques": "Saves 40-60% water compared to flood irrigation. Allows direct root-zone fertigation, reduces weed growth by keeping non-crop soil dry, and prevents fungal foliage diseases.",
+    "content": "Drip irrigation delivers water and soluble liquid nutrients directly to the plant root zone at low discharge rates (2-4 LPH). It maintains uniform soil moisture, prevents waterlogging, and minimizes evaporative losses.",
+    "keywords": [
+      "drip irrigation",
+      "fertigation",
+      "water conservation",
+      "banana",
+      "sugarcane",
+      "cotton",
+      "pomegranate"
+    ],
+    "related_crops": [
+      "banana",
+      "sugarcane",
+      "cotton",
+      "grapes",
+      "pomegranate"
+    ],
+    "language": "en",
+    "source": "Pradhan Mantri Krishi Sinchayee Yojana (PMKSY) Manual"
+  },
+  {
+    "id": "irrig_sprinkler",
+    "category": "irrigation_knowledge",
+    "title": "Sprinkler Irrigation System Guide",
+    "irrigation_methods": "Overhead pressurized sprinkler nozzles simulating natural rainfall",
+    "crop_wise_schedules": "Wheat (every 10-12 days), Groundnut (8-10 days), Mustard (12-15 days), Pulses (10-14 days)",
+    "water_saving_techniques": "Saves 30-40% water compared to surface flooding. Ideal for undulating or sandy soils where surface levelling is difficult.",
+    "content": "Sprinkler systems distribute water under pressure through pipes and rotating nozzles over the crop canopy. Excellent for sandy soils, oilseeds, wheat, and pulses. Avoid operating under strong wind conditions.",
+    "keywords": [
+      "sprinkler irrigation",
+      "overhead spray",
+      "groundnut",
+      "wheat",
+      "mustard",
+      "sandy soil"
+    ],
+    "related_crops": [
+      "wheat",
+      "groundnut",
+      "mustard",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR Central Institute of Agricultural Engineering"
+  },
+  {
+    "id": "irrig_awd_rice",
+    "category": "irrigation_knowledge",
+    "title": "Alternate Wetting and Drying (AWD) for Paddy Rice",
+    "irrigation_methods": "Controlled intermittent flooding using a perforated field water tube (Pani Pipe)",
+    "crop_wise_schedules": "Allow water level in field tube to drop 15cm below soil surface before re-flooding field to 5cm depth. Keep field flooded continuously only during flowering stage.",
+    "water_saving_techniques": "Reduces irrigation water consumption by 35% without reducing rice yield. Significantly cuts methane emissions from paddy fields.",
+    "content": "Alternate Wetting and Drying (AWD) is a smart water-saving technology for lowland rice. A 30cm long, 15cm wide perforated PVC pipe is placed in the paddy field to observe water depth below the surface.",
+    "keywords": [
+      "alternate wetting and drying",
+      "awd",
+      "rice",
+      "paddy",
+      "pani pipe",
+      "water saving"
+    ],
+    "related_crops": [
+      "rice"
+    ],
+    "language": "en",
+    "source": "International Rice Research Institute (IRRI) & ICAR"
+  },
+  {
+    "id": "irrig_furrow_basin",
+    "category": "irrigation_knowledge",
+    "title": "Furrow & Basin Irrigation Management",
+    "irrigation_methods": "Surface gravity irrigation using alternating ridges and furrows or circular tree basins",
+    "crop_wise_schedules": "Maize (every 8-10 days in summer), Cotton (every 10-12 days), Fruit Orchards (every 7-10 days)",
+    "water_saving_techniques": "Alternate furrow irrigation (watering every second furrow) cuts water use by 30-40% while maintaining yield.",
+    "content": "Furrow irrigation is widely used for row crops like maize, cotton, and vegetables. Water flows along narrow channels (furrows) between crop ridges, infiltrating sideways into root zones without submerging plant stems.",
+    "keywords": [
+      "furrow irrigation",
+      "basin irrigation",
+      "alternate furrow",
+      "maize",
+      "cotton",
+      "row crops"
+    ],
+    "related_crops": [
+      "maize",
+      "cotton",
+      "mango"
+    ],
+    "language": "en",
+    "source": "ICAR Irrigation & Drainage Engineering"
+  },
+  {
+    "id": "irri_banana_irrigation___water_management_gui",
+    "category": "irrigation_knowledge",
+    "title": "Banana Irrigation & Water Management Guide",
+    "content": "Drip Irrigation Schedule\nS.No\nCrop Growth Stage\nDuration (Weeks)\nQuantity of Water\n(1/Plant)\n1.\nAfter Planting\n1-4\n4\n2.\nJuvenile Phase\n5-9\n8-10\n3.\nCritical Growth Stage\n10-19\n12\n4.\nFlower bud differentiation Stage\n20-32\n16-20\n5.\nShooting Stage\n33-37\n20 and above\n6.\nBunch Development Stage\n38 x 50\n20 and above\nIntercropping\nLeguminous vegetables, beetroot, elephant foot yam and sunhemp can be grown as intercrops. Avoid growing cucurbitaceous vegetables.",
+    "keywords": [
+      "drip",
+      "irrigation"
+    ],
+    "related_crops": [
+      "Banana"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (banana.html)"
+  },
+  {
+    "id": "irri_cotton_irrigation___water_management_gui",
+    "category": "irrigation_knowledge",
+    "title": "Cotton Irrigation & Water Management Guide",
+    "content": "Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Cotton\nCotton\nVideos on Cotton\nCotton Cultivation Status in Tamil Nadu\nSeason & Varieties\nMethods of Cotton Cultivation\nIrrigated - (Winter & Summer)\nRainfed\nRice Fallow\nHigh Density Planting System ( HDPS)\nOrganic Cotton cultivation\nCrop Protection\nNutrient Deficiency Symptoms\nFarm Mechanization\nSeed Production\nCost of Cultivation\nCotton Related Websites\nContent Validator: Dr. A. Subramanian, Prof & Head , Dept. of Cotton, TNAU, Coimbatore.\nTNAU 2008-2025 All Rights Reserved.",
+    "keywords": [
+      "irrigation"
+    ],
+    "related_crops": [
+      "Cotton",
+      "Rice"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (cotton.html)"
+  },
+  {
+    "id": "irri_general_crop_irrigation___water_manageme",
+    "category": "irrigation_knowledge",
+    "title": "General Crop Irrigation & Water Management Guide",
+    "content": "Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Oilseeds :: Groundnut\nGroundnut\nGroundnut Growing Districts of Tamil Nadu\nCrop Improvement\nCrop Production\nIrrigated\nRainfed\nCrop Protection\nNutrient Deficiency Symptoms\nFarm Mechanization\nPost Harvest Technology\nSeed Production\nCost of Cultivation\nUpdated on May 2023\nTNAU 2008 - 2024 All Rights Reserved.",
+    "keywords": [
+      "harvest",
+      "irrigation"
+    ],
+    "related_crops": [
+      "Groundnut"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (groundnut.html)"
+  },
+  {
+    "id": "irri_mango_irrigation___water_management_guid",
+    "category": "irrigation_knowledge",
+    "title": "Mango Irrigation & Water Management Guide",
+    "content": "Regular watering is recommended till establishment. Under conventional irrigation systems, weekly irrigation is essential. However, under micro-irrigation the requirement is restricted to one-third of the water required for conventional method.\nIntercropping\nShort duration crops like legumes, vegetables, groundnut etc. can be raised during pre- bearing age.",
+    "keywords": [
+      "irrigation"
+    ],
+    "related_crops": [
+      "Groundnut",
+      "Mango"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (mango.html)"
+  },
+  {
+    "id": "irri_sugarcane_irrigation___water_management_",
+    "category": "irrigation_knowledge",
+    "title": "Sugarcane Irrigation & Water Management Guide",
+    "content": "Home | Seasons & Varieties | Tillage | Nutrient Mgmnt | Irrigation Mgmnt | Weed Mgmnt | Crop Protection | Cost of Cultivation | Photobank\nCrop Production :: Sugarcrops ::Sugarcane\nSUGARCANE ( Saccharum officinarum )\nPit Planting Videos\nFarmer's Interview - Paired Row Planting - Videos\nPokkah Boeng - Disease of Sugarcane\nTamil Nadu Cane Registration and Supply\nThe Sugar Technologists Association of India\nSugarCane Institute CANEINFO\nIndian Institute of Sugarcane Research, Lucknow\nTamil Nadu Sugarcane Department\nSugarcane Breeding Institute, Coimbatore\nTamil Nadu Cooperative Sugar Federation Ltd.\nDirectorate of Sugarcane Development\nSustainable Sugarcane Initiative\nCrop Imporvement\nA. Planted(Main)crop\nSeason & Varieties\nMorphological Characters\nDistrict/ Season\nCrop Management\nImproved Technologies",
+    "keywords": [
+      "disease",
+      "irrigation"
+    ],
+    "related_crops": [
+      "Sugarcane"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (sugarcane.html)"
+  }
+]

@@ -8,4 +8,3 @@ class HomePage(BasePage):
     PROFILE_TAB = (By.XPATH, "//*[contains(@content-desc, 'Profile')] | //*[contains(@text, 'Profile')]")
     MARKET_TILE = (By.XPATH, "//*[@content-desc='Market'] | //*[@text='Market']")
     ADVISORY_TILE = (By.XPATH, "//*[@content-desc='AI Advisory'] | //*[@text='AI Advisory']")
-    SCAN_DISEASE_TILE = (By.XPATH, "//*[@content-desc='Scan Disease'] | //*[@text='Scan Disease']")

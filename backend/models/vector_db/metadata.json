@@ -1,0 +1,23 @@
+{
+  "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_dimension": 384,
+  "total_records": 75,
+  "created_at": "2026-07-22T19:17:49.491942",
+  "total_generation_time_seconds": 1.7898,
+  "avg_time_per_record_ms": 23.86,
+  "files": {
+    "embeddings": "embeddings.npy",
+    "documents": "documents.json",
+    "metadata": "metadata.json"
+  },
+  "faiss": {
+    "index_type": "IndexFlatIP",
+    "index_file": "faiss_index.bin",
+    "total_vectors": 75,
+    "dimension": 384,
+    "index_size_bytes": 115245,
+    "build_time_ms": 0.065,
+    "avg_search_latency_us": 3.93,
+    "queries_per_second": 254213.59
+  }
+}

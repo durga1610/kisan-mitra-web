@@ -2519,6 +2519,29 @@ def normalize_previous_crop(planted_crops: List[str]) -> str:
         if "soybean" in c: return "soybean"
     return "none"
 
+def get_soil_default_values(soil_type: str) -> dict:
+    """
+    Maps soil types to standard agronomic baseline values for Nitrogen (N),
+    Phosphorus (P), Potassium (K), and pH levels.
+    """
+    s = (soil_type or "").strip().lower()
+    
+    if "alluvial" in s:
+        return {"N": 80, "P": 50, "K": 45, "ph": 6.8}
+    elif "black" in s or "regur" in s:
+        return {"N": 50, "P": 55, "K": 50, "ph": 7.5}
+    elif "red" in s or "laterite" in s:
+        return {"N": 35, "P": 30, "K": 35, "ph": 5.8}
+    elif "clay" in s:
+        return {"N": 60, "P": 45, "K": 55, "ph": 7.2}
+    elif "loamy" in s or "loam" in s:
+        return {"N": 70, "P": 45, "K": 40, "ph": 6.5}
+    elif "sandy" in s:
+        return {"N": 25, "P": 20, "K": 20, "ph": 6.0}
+    else:
+        # Default fallback for unknown or unspecified soil types
+        return {"N": 50, "P": 40, "K": 40, "ph": 6.5}
+
 def extract_prediction_features(farm_ctx: Optional[Any], weather_ctx: Optional[Any]) -> dict:
     f_dict = {}
     if farm_ctx:
@@ -2568,7 +2591,7 @@ def extract_prediction_features(farm_ctx: Optional[Any], weather_ctx: Optional[A
     if not farm_details:
         farm_details = {}
 
-    soil_raw = farm_details.get("soil_type") or f_dict.get("soilType") or f_dict.get("soil_type")
+    soil_raw = farm_details.get("soil_type") or f_dict.get("soilType") or f_dict.get("soil_type") or ""
     soil_type = normalize_soil(soil_raw)
     
     state_raw = farm_details.get("state") or f_dict.get("location")
@@ -2601,82 +2624,169 @@ def extract_prediction_features(farm_ctx: Optional[Any], weather_ctx: Optional[A
 
     previous_crop = normalize_previous_crop(active_crops)
 
+    # Extract N, P, K, pH baseline mapping from soil_type
+    soil_defaults = get_soil_default_values(soil_raw if soil_raw else soil_type)
+
     return {
+        "N": soil_defaults["N"],
+        "P": soil_defaults["P"],
+        "K": soil_defaults["K"],
+        "temperature": temp_val,
+        "humidity": humidity_val,
+        "ph": soil_defaults["ph"],
+        "rainfall": rainfall_val,
+        # Preserve metadata fields for backward compatibility with existing engine helpers
         "soil_type": soil_type,
         "state": state,
         "district": district,
         "season": season,
-        "rainfall": rainfall_val,
-        "temperature": temp_val,
-        "humidity": humidity_val,
         "water_availability": water_availability,
         "farm_size": farm_size,
-        "previous_crop": previous_crop
+        "previous_crop": previous_crop,
     }
 
+
+_crop_label_encoder = None
+
+def _load_crop_recommendation_model():
+    global _crop_recommendation_model, _crop_label_encoder
+    if _crop_recommendation_model is not None and _crop_label_encoder is not None:
+        return _crop_recommendation_model, _crop_label_encoder
+
+    import joblib
+    models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
+    model_path = os.path.join(models_dir, "crop_recommendation_model.pkl")
+    encoder_path = os.path.join(models_dir, "label_encoder.pkl")
+
+    if os.path.exists(model_path) and os.path.exists(encoder_path):
+        try:
+            logger.info("[Prediction ML] Loading Random Forest model & LabelEncoder from disk...")
+            _crop_recommendation_model = joblib.load(model_path)
+            _crop_label_encoder = joblib.load(encoder_path)
+            logger.info("[Prediction ML] Random Forest model & LabelEncoder loaded successfully into memory.")
+        except Exception as e:
+            logger.error(f"[Prediction ML] Error loading model binaries: {e}")
+            _crop_recommendation_model = None
+            _crop_label_encoder = None
+    else:
+        logger.warning(f"[Prediction ML] Model files missing at {model_path} or {encoder_path}")
+
+    return _crop_recommendation_model, _crop_label_encoder
+
+
+CROP_METADATA_CATALOG = {
+    "apple": {"marketDemand": "High", "expectedProfit": "₹80,000 - ₹1,20,000 / Acre", "growthPeriod": "150-180 Days"},
+    "banana": {"marketDemand": "High", "expectedProfit": "₹70,000 - ₹1,00,000 / Acre", "growthPeriod": "300-365 Days"},
+    "blackgram": {"marketDemand": "Medium", "expectedProfit": "₹30,000 - ₹45,000 / Acre", "growthPeriod": "75-90 Days"},
+    "chickpea": {"marketDemand": "High", "expectedProfit": "₹40,000 - ₹60,000 / Acre", "growthPeriod": "90-110 Days"},
+    "coconut": {"marketDemand": "High", "expectedProfit": "₹90,000 - ₹1,30,000 / Acre", "growthPeriod": "365+ Days"},
+    "coffee": {"marketDemand": "High", "expectedProfit": "₹1,00,000 - ₹1,50,000 / Acre", "growthPeriod": "200-240 Days"},
+    "cotton": {"marketDemand": "High", "expectedProfit": "₹50,000 - ₹75,000 / Acre", "growthPeriod": "150-180 Days"},
+    "grapes": {"marketDemand": "High", "expectedProfit": "₹1,20,000 - ₹1,80,000 / Acre", "growthPeriod": "120-150 Days"},
+    "jute": {"marketDemand": "Medium", "expectedProfit": "₹35,000 - ₹50,000 / Acre", "growthPeriod": "120-150 Days"},
+    "kidneybeans": {"marketDemand": "High", "expectedProfit": "₹45,000 - ₹65,000 / Acre", "growthPeriod": "90-120 Days"},
+    "lentil": {"marketDemand": "Medium", "expectedProfit": "₹35,000 - ₹50,000 / Acre", "growthPeriod": "100-120 Days"},
+    "maize": {"marketDemand": "High", "expectedProfit": "₹35,000 - ₹55,000 / Acre", "growthPeriod": "90-110 Days"},
+    "mango": {"marketDemand": "High", "expectedProfit": "₹1,10,000 - ₹1,60,000 / Acre", "growthPeriod": "120-150 Days"},
+    "mothbeans": {"marketDemand": "Medium", "expectedProfit": "₹25,000 - ₹40,000 / Acre", "growthPeriod": "75-90 Days"},
+    "mungbean": {"marketDemand": "High", "expectedProfit": "₹30,000 - ₹45,000 / Acre", "growthPeriod": "60-75 Days"},
+    "muskmelon": {"marketDemand": "High", "expectedProfit": "₹50,000 - ₹75,000 / Acre", "growthPeriod": "75-90 Days"},
+    "orange": {"marketDemand": "High", "expectedProfit": "₹75,000 - ₹1,10,000 / Acre", "growthPeriod": "180-240 Days"},
+    "papaya": {"marketDemand": "High", "expectedProfit": "₹80,000 - ₹1,20,000 / Acre", "growthPeriod": "240-300 Days"},
+    "pigeonpeas": {"marketDemand": "High", "expectedProfit": "₹40,000 - ₹60,000 / Acre", "growthPeriod": "150-180 Days"},
+    "pomegranate": {"marketDemand": "High", "expectedProfit": "₹1,20,000 - ₹1,80,000 / Acre", "growthPeriod": "150-180 Days"},
+    "rice": {"marketDemand": "High", "expectedProfit": "₹55,000 - ₹75,000 / Acre", "growthPeriod": "120-140 Days"},
+    "watermelon": {"marketDemand": "High", "expectedProfit": "₹50,000 - ₹75,000 / Acre", "growthPeriod": "80-100 Days"},
+}
+
+
 def predict_crop_recommendations(features: dict, timing: Optional[dict] = None) -> list:
-    global _crop_recommendation_model, _crop_preprocessors
+    """
+    Executes Random Forest machine learning inference to recommend top suitable crops
+    based on N, P, K, temperature, humidity, pH, and rainfall features.
+    """
+    start_time = time.perf_counter()
+    model, encoder = _load_crop_recommendation_model()
     
-    # Render Free Tier OOM Prevention: Bypass the heavy 13MB RandomForest model pickle load
-    # unconditionally in all environment modes to stay under 512MB RAM, and use the rule-based recommender instead.
-    # This keeps idle server memory stable at ~230MB.
-    bypass_ml = True
-    
-    if bypass_ml:
-        logger.info("[Prediction] Bypassing heavy crop recommendation ML model loading in production/low-mem mode. Running rule-based recommendations.")
-        return recommend_crops_rule_based(
-            soil_type=features.get("soil_type", "Alluvial"),
-            water_availability=features.get("water_availability", "High"),
-            season=features.get("season", "Kharif"),
-            temperature=features.get("temperature", 30.0)
-        )
-        
-    if _crop_recommendation_model is None or _crop_preprocessors is None:
-        model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "crop_recommendation_model.pkl")
-        preprocessors_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models", "crop_recommendation_preprocessors.pkl")
-        if os.path.exists(model_path) and os.path.exists(preprocessors_path):
-            try:
-                load_start = time.perf_counter()
-                _crop_recommendation_model = safe_pickle_load(model_path)  # F-05
-                _crop_preprocessors = safe_pickle_load(preprocessors_path)  # F-05
-                if timing is not None:
-                    timing["model_loading_time"] += time.perf_counter() - load_start
-            except Exception as e:
-                logger.warning(f"[Prediction] Error loading model dynamically: {e}")
-                
-    if _crop_recommendation_model is None or _crop_preprocessors is None:
+    if model is None or encoder is None:
+        logger.warning("[Prediction ML] Random Forest model or LabelEncoder unavailable. Returning empty list.")
         return []
-    
-    label_encoders = _crop_preprocessors["label_encoders"]
-    target_encoder = _crop_preprocessors["target_encoder"]
-    scaler = _crop_preprocessors["scaler"]
-    categorical_cols = _crop_preprocessors["categorical_cols"]
-    numeric_cols = _crop_preprocessors["numeric_cols"]
-    
-    encoded_features = {}
-    for col in categorical_cols:
-        val = features.get(col, "<unknown>")
-        le = label_encoders[col]
-        if val not in le.classes_:
-            val = "<unknown>"
-        encoded_features[col] = le.transform([val])[0]
-        
-    cat_df = pd.DataFrame([{col: encoded_features[col] for col in categorical_cols}])
-    num_df = pd.DataFrame([{col: features[col] for col in numeric_cols}])
-    
-    scaled_num = pd.DataFrame(scaler.transform(num_df), columns=numeric_cols)
-    X_inference = pd.concat([cat_df, scaled_num], axis=1)
-    
-    probabilities = _crop_recommendation_model.predict_proba(X_inference)[0]
-    classes = target_encoder.classes_
-    recommendations = []
-    for cls_idx, prob in enumerate(probabilities):
-        crop_name = classes[cls_idx]
-        score = int(round(prob * 100))
-        recommendations.append({"crop": crop_name.title(), "score": score})
-        
-    recommendations.sort(key=lambda x: x["score"], reverse=True)
-    return recommendations
+
+    # Extract 7 features in EXACT required order
+    N = float(features.get("N", 50))
+    P = float(features.get("P", 40))
+    K = float(features.get("K", 40))
+    temperature = float(features.get("temperature", 25.0))
+    humidity = float(features.get("humidity", 70.0))
+    ph = float(features.get("ph", 6.5))
+    rainfall = float(features.get("rainfall", 100.0))
+
+    # Construct DataFrame with exact column names matching model training
+    input_df = pd.DataFrame(
+        [[N, P, K, temperature, humidity, ph, rainfall]],
+        columns=['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']
+    )
+
+    try:
+        probabilities = model.predict_proba(input_df)[0]
+        classes = encoder.classes_
+
+        crop_probs = []
+        for cls_idx, prob in enumerate(probabilities):
+            crop_name = str(classes[cls_idx])
+            crop_probs.append((crop_name, float(prob)))
+
+        crop_probs.sort(key=lambda x: x[1], reverse=True)
+        inference_time_ms = (time.perf_counter() - start_time) * 1000.0
+
+        top_crop_name, top_prob = crop_probs[0]
+        logger.info(
+            f"[Prediction ML] Input Features: N={N:.1f}, P={P:.1f}, K={K:.1f}, temp={temperature:.1f}°C, hum={humidity:.1f}%, ph={ph:.2f}, rain={rainfall:.1f}mm | "
+            f"Predicted Crop: '{top_crop_name.title()}' | Confidence: {top_prob*100:.2f}% | "
+            f"Inference Time: {inference_time_ms:.2f}ms | Model Version: RF_Crop_Rec_v1.0"
+        )
+
+        recommendations = []
+        for crop_raw, prob in crop_probs[:4]:
+            crop_key = crop_raw.lower().strip()
+            crop_title = crop_raw.title()
+
+            meta = CROP_METADATA_CATALOG.get(
+                crop_key,
+                {"marketDemand": "High", "expectedProfit": "₹45,000 - ₹65,000 / Acre", "growthPeriod": "90-120 Days"}
+            )
+
+            score_val = round(prob, 4)
+            score_percentage = int(round(prob * 100))
+
+            soil_name = features.get("soil_type", "Soil")
+            match_reason = (
+                f"Optimal Random Forest match ({score_percentage}% confidence) based on {soil_name} "
+                f"(N:{int(N)}, P:{int(P)}, K:{int(K)}, pH:{ph}) and climate (Temp:{temperature:.1f}°C, Humidity:{humidity:.0f}%, Rainfall:{rainfall:.0f}mm)."
+            )
+
+            recommendations.append({
+                "cropName": crop_title,
+                "crop": crop_title,
+                "suitabilityScore": score_val,
+                "score": score_percentage,
+                "marketDemand": meta["marketDemand"],
+                "demandScore": score_val,
+                "expectedProfit": meta["expectedProfit"],
+                "growthPeriod": meta["growthPeriod"],
+                "matchReason": match_reason,
+                "source": "ML_MODEL",
+            })
+
+        if timing is not None:
+            timing["ml_inference_time_ms"] = inference_time_ms
+
+        return recommendations
+
+    except Exception as e:
+        logger.error(f"[Prediction ML] Error during Random Forest inference: {e}")
+        return []
+
 
 
 def parse_sections_fast(file_path: str) -> Dict[str, str]:

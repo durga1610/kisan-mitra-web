@@ -37,60 +37,6 @@ class GeminiService {
     );
   }
 
-  Future<Map<String, dynamic>> detectDisease(List<int> imageBytes, {String? filename, String? crop}) async {
-    try {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        throw Exception('FirebaseAuth.instance.currentUser is null. User must be authenticated to run disease analysis.');
-      }
-
-      final token = await user.getIdToken(true);
-      final request = http.MultipartRequest(
-        'POST',
-        Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/disease/detect'),
-      );
-      
-      request.headers['Authorization'] = 'Bearer $token';
-      request.headers['Accept'] = 'application/json';
-      
-      String mimeType = 'image/jpeg';
-      final actualFilename = filename ?? 'image.jpg';
-      final lowerFilename = actualFilename.toLowerCase();
-      if (lowerFilename.endsWith('.png')) {
-        mimeType = 'image/png';
-      } else if (lowerFilename.endsWith('.webp')) {
-        mimeType = 'image/webp';
-      }
-      
-      request.files.add(
-        http.MultipartFile.fromBytes(
-          'file',
-          imageBytes,
-          filename: actualFilename,
-          contentType: MediaType.parse(mimeType),
-        ),
-      );
-      
-      request.fields['language'] = languageCode;
-      if (crop != null) {
-        request.fields['crop'] = crop.toLowerCase();
-      }
-      
-      final streamedResponse = await request.send().timeout(const Duration(seconds: 90));
-      final response = await http.Response.fromStream(streamedResponse);
-      
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-        return data;
-      } else {
-        throw Exception('Server returned status code ${response.statusCode}. Body: ${response.body}');
-      }
-    } catch (e) {
-      if (kDebugMode) print('Error in custom API detectDisease: $e');
-      throw Exception('Failed to analyze image: $e');
-    }
-  }
-
   Future<String> generateAdvisory({
     required String crop,
     required String soil,

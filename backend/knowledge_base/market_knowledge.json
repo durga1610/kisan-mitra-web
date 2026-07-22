@@ -1,0 +1,41 @@
+[
+  {
+    "id": "market_msp",
+    "category": "market_knowledge",
+    "title": "Minimum Support Price (MSP) & Government Procurement",
+    "concept_name": "Minimum Support Price (MSP)",
+    "content": "MSP is a guaranteed floor price announced by the Government of India for 22 mandated crops prior to sowing season based on recommendations of CACP. If market mandi prices drop below MSP, government agencies (NAFED, FCI, Cotton Corporation of India) procure crop produce directly from farmers.",
+    "storage_advice": "Ensure moisture content meets government procurement standards (e.g., Paddy < 17%, Wheat < 12%, Chana < 10%) before bringing produce to procurement centers.",
+    "selling_recommendations": "Register on e-NAM (National Agriculture Market) portal or state procurement portals early to secure procurement slots and avoid distress sales to private traders below MSP.",
+    "keywords": ["msp", "minimum support price", "fci", "nafed", "enam", "mandi price", "procurement"],
+    "related_crops": ["wheat", "paddy", "cotton", "chickpea", "mustard", "maize"],
+    "language": "en",
+    "source": "Commission for Agricultural Costs and Prices (CACP)"
+  },
+  {
+    "id": "market_storage_post_harvest",
+    "category": "market_knowledge",
+    "title": "Post-Harvest Grain & Produce Storage Advice",
+    "concept_name": "Grain Storage & Warehousing",
+    "content": "Proper post-harvest grain drying and storage prevent losses from mold, moisture rot, and storage pests (weevils, beetles). Storing produce during peak harvest glut and selling 2-3 months later often yields 20-30% higher market prices.",
+    "storage_advice": "Dry grains to under 12% moisture. Use hermetic storage bags (Pusa bins, Super grain bags) or WD-N2 gas flushing. Use WDRA registered warehouses to avail 7% concessional pledge loans against Negotiable Warehouse Receipts (NWR).",
+    "selling_recommendations": "Avoid selling immediately at peak harvest when market supply is flooded. Utilize WDRA warehouse receipts to get liquidity while holding grain for better price cycles.",
+    "keywords": ["grain storage", "post harvest", "wdra", "warehouse receipt", "pusa bin", "hermetic bag", "price cycle"],
+    "related_crops": ["wheat", "rice", "chickpea", "maize", "mustard"],
+    "language": "en",
+    "source": "Warehousing Development and Regulatory Authority (WDRA)"
+  },
+  {
+    "id": "market_enam_direct_sale",
+    "category": "market_knowledge",
+    "title": "e-NAM & Direct Farm Gate Sales Strategy",
+    "concept_name": "e-NAM (National Agriculture Market)",
+    "content": "e-NAM is a pan-India electronic trading portal linking existing APMC mandis to create a unified national market for agricultural commodities. It allows farmers to upload assaying reports and receive competitive transparent bids from buyers across India.",
+    "storage_advice": "Sample produce at accredited APMC testing labs to receive official quality grading certificates.",
+    "selling_recommendations": "Compare prices across neighboring district mandis on the e-NAM mobile app before dispatching produce. Consider direct sales to Farmer Producer Organizations (FPOs) to save middleman commissions.",
+    "keywords": ["enam", "apmc", "mandi", "fpo", "direct sale", "transparent bidding", "quality assaying"],
+    "related_crops": ["all"],
+    "language": "en",
+    "source": "Small Farmers' Agribusiness Consortium (SFAC)"
+  }
+]

@@ -1,0 +1,357 @@
+[
+  {
+    "id": "crop_rice",
+    "category": "crop_profiles",
+    "title": "Rice (Oryza sativa) Crop Profile & Cultivation Guide",
+    "crop_name": "Rice",
+    "scientific_name": "Oryza sativa",
+    "season": "Kharif",
+    "suitable_soil": "Clay, Clay Loam, Alluvial Soil (pH 5.5 - 7.0)",
+    "temperature": "20°C - 35°C",
+    "rainfall": "1500mm - 3000mm (or assured flooded irrigation)",
+    "water_requirement": "High (1200mm - 1400mm total depth)",
+    "growth_duration": "120 - 150 Days",
+    "seed_rate": "20 - 25 kg/acre for transplanted rice; 8 - 10 kg/acre for SRD",
+    "fertilizer_recommendation": "N:P:K = 100:50:50 kg/hectare (Apply N in 3 split doses: basal, tillering, panicle initiation)",
+    "harvest_period": "Harvest when 80-85% of grains turn straw-golden yellow and grain moisture drops to 20%.",
+    "content": "Rice is the primary staple food crop in India grown predominantly during the Kharif season. It thrives in heavy clay or alluvial soils capable of holding standing water. Key stages include nursery bed preparation, transplanting 21-25 day old seedlings, maintaining 2-5cm water level during tillering, and applying split doses of Nitrogen and Zinc Sulphate.",
+    "keywords": [
+      "rice",
+      "paddy",
+      "kharif",
+      "clay soil",
+      "alluvial",
+      "transplanting",
+      "npk",
+      "flooded irrigation"
+    ],
+    "related_crops": [
+      "rice",
+      "maize",
+      "wheat"
+    ],
+    "language": "en",
+    "source": "Indian Council of Agricultural Research (ICAR) & Directorate of Rice Research"
+  },
+  {
+    "id": "crop_maize",
+    "category": "crop_profiles",
+    "title": "Maize (Zea mays) Crop Profile & Cultivation Guide",
+    "crop_name": "Maize",
+    "scientific_name": "Zea mays",
+    "season": "Kharif / Rabi / Zaid",
+    "suitable_soil": "Well-drained Fertile Loamy, Alluvial, or Black Soil (pH 6.0 - 7.5)",
+    "temperature": "18°C - 32°C",
+    "rainfall": "500mm - 800mm",
+    "water_requirement": "Moderate (500mm - 600mm)",
+    "growth_duration": "90 - 110 Days",
+    "seed_rate": "8 - 10 kg/acre for hybrid varieties",
+    "fertilizer_recommendation": "N:P:K = 120:60:40 kg/hectare (Split Nitrogen at basal, knee-high stage, and tasseling stage)",
+    "harvest_period": "Harvest when cob husk leaves dry up and turn pale brown and grain moisture is around 20%.",
+    "content": "Maize (Corn) is a versatile cereal crop grown for food, fodder, and industrial bio-products. Requires well-drained fertile loamy soils. Susceptible to waterlogging during early seedling stages. Critical growth stages needing irrigation are knee-high stage, tasseling, silking, and grain filling.",
+    "keywords": [
+      "maize",
+      "corn",
+      "kharif",
+      "rabi",
+      "loam soil",
+      "tasseling",
+      "silking",
+      "fodder"
+    ],
+    "related_crops": [
+      "maize",
+      "wheat",
+      "soybean"
+    ],
+    "language": "en",
+    "source": "ICAR - Indian Institute of Maize Research (IIMR)"
+  },
+  {
+    "id": "crop_chickpea",
+    "category": "crop_profiles",
+    "title": "Chickpea / Gram (Cicer arietinum) Cultivation Guide",
+    "crop_name": "Chickpea",
+    "scientific_name": "Cicer arietinum",
+    "season": "Rabi",
+    "suitable_soil": "Well-drained Black Soil, Sandy Loam, Clay Loam (pH 6.0 - 8.0)",
+    "temperature": "15°C - 25°C",
+    "rainfall": "300mm - 400mm",
+    "water_requirement": "Low (250mm - 350mm)",
+    "growth_duration": "90 - 110 Days",
+    "seed_rate": "30 - 35 kg/acre for Desi; 40 - 45 kg/acre for Kabuli",
+    "fertilizer_recommendation": "N:P:K = 20:50:20 kg/hectare + Rhizobium inoculation + 20 kg Sulphur/ha",
+    "harvest_period": "Harvest when leaves turn yellow and pods dry up, producing a rattling sound when shaken.",
+    "content": "Chickpea (Chana) is the premier pulse crop of India grown during the cool Rabi season. It fixes atmospheric nitrogen in soil through root nodules. Highly sensitive to waterlogging and high humidity at flowering. Requires 1-2 light irrigations at pre-flowering and pod-development stages.",
+    "keywords": [
+      "chickpea",
+      "chana",
+      "gram",
+      "rabi",
+      "pulse",
+      "nitrogen fixation",
+      "black soil",
+      "rhizobium"
+    ],
+    "related_crops": [
+      "chickpea",
+      "lentil",
+      "wheat"
+    ],
+    "language": "en",
+    "source": "ICAR - Indian Institute of Pulses Research (IIPR)"
+  },
+  {
+    "id": "crop_cotton",
+    "category": "crop_profiles",
+    "title": "Cotton (Gossypium hirsutum) Cultivation Guide",
+    "crop_name": "Cotton",
+    "scientific_name": "Gossypium hirsutum",
+    "season": "Kharif",
+    "suitable_soil": "Deep Black Soil (Regur), Alluvial Soil (pH 7.0 - 8.5)",
+    "temperature": "21°C - 35°C",
+    "rainfall": "500mm - 800mm",
+    "water_requirement": "Moderate to High (700mm - 1000mm)",
+    "growth_duration": "150 - 180 Days",
+    "seed_rate": "1.5 - 2.0 kg/acre for Bt Hybrid Cotton",
+    "fertilizer_recommendation": "N:P:K = 120:60:60 kg/hectare (Apply N in 3 splits at 30, 60, and 90 days post sowing)",
+    "harvest_period": "Harvest in multiple pickings as bolls burst open fully exposing dry white cotton lint.",
+    "content": "Cotton is the leading commercial cash fiber crop in India. It grows best in deep moisture-retentive black clay soils. Requires 180 frost-free days and bright sunshine during boll maturation. Avoid excessive nitrogen which causes rank vegetative growth.",
+    "keywords": [
+      "cotton",
+      "kapas",
+      "bt cotton",
+      "black soil",
+      "regur",
+      "fiber",
+      "boll",
+      "kharif"
+    ],
+    "related_crops": [
+      "cotton",
+      "soybean",
+      "pigeonpeas"
+    ],
+    "language": "en",
+    "source": "ICAR - Central Institute for Cotton Research (CICR)"
+  },
+  {
+    "id": "crop_wheat",
+    "category": "crop_profiles",
+    "title": "Wheat (Triticum aestivum) Cultivation Guide",
+    "crop_name": "Wheat",
+    "scientific_name": "Triticum aestivum",
+    "season": "Rabi",
+    "suitable_soil": "Fertile Alluvial Soil, Clay Loam, Loamy Soil (pH 6.0 - 7.5)",
+    "temperature": "10°C - 25°C",
+    "rainfall": "350mm - 500mm",
+    "water_requirement": "Moderate (400mm - 500mm)",
+    "growth_duration": "120 - 135 Days",
+    "seed_rate": "40 - 45 kg/acre for normal sowing; 50 kg/acre for late sowing",
+    "fertilizer_recommendation": "N:P:K = 120:60:40 kg/hectare (Apply 50% N + 100% P & K as basal; 50% N at Crown Root Initiation)",
+    "harvest_period": "Harvest when straw turns golden yellow, grains feel hard and moisture drops below 14%.",
+    "content": "Wheat is the dominant winter cereal crop in Northern and Central India. Crown Root Initiation (CRI stage at 21 days) is the most critical irrigation stage. Proper cold temperature during tillering promotes higher yield.",
+    "keywords": [
+      "wheat",
+      "gehun",
+      "rabi",
+      "alluvial",
+      "crown root initiation",
+      "tillering",
+      "npk"
+    ],
+    "related_crops": [
+      "wheat",
+      "mustard",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR - Indian Institute of Wheat and Barley Research (IIWBR)"
+  },
+  {
+    "id": "crop_sugarcane",
+    "category": "crop_profiles",
+    "title": "Sugarcane (Saccharum officinarum) Cultivation Guide",
+    "crop_name": "Sugarcane",
+    "scientific_name": "Saccharum officinarum",
+    "season": "Annual / Perennial",
+    "suitable_soil": "Deep Alluvial, Loamy, and Heavy Black Soils (pH 6.5 - 8.0)",
+    "temperature": "20°C - 38°C",
+    "rainfall": "1200mm - 1500mm",
+    "water_requirement": "Very High (1500mm - 2500mm)",
+    "growth_duration": "300 - 365 Days",
+    "seed_rate": "35,000 - 40,000 three-budded setts per hectare",
+    "fertilizer_recommendation": "N:P:K = 250:115:115 kg/hectare (Split Nitrogen applications over vegetative growth phase)",
+    "harvest_period": "Harvest when sucrose content reaches 16-18% and brix reading exceeds 18.",
+    "content": "Sugarcane is a long-duration commercial sugar crop. It requires warm, humid climate, high water availability, and deep rich loamy or black soils. Earthing-up and trash mulching help conserve soil moisture and prevent lodging.",
+    "keywords": [
+      "sugarcane",
+      "ganna",
+      "perennial",
+      "setts",
+      "sucrose",
+      "alluvial",
+      "drip irrigation"
+    ],
+    "related_crops": [
+      "sugarcane",
+      "rice",
+      "banana"
+    ],
+    "language": "en",
+    "source": "ICAR - Sugarcane Breeding Institute (SBI)"
+  },
+  {
+    "id": "crop_groundnut",
+    "category": "crop_profiles",
+    "title": "Groundnut / Peanut (Arachis hypogaea) Cultivation Guide",
+    "crop_name": "Groundnut",
+    "scientific_name": "Arachis hypogaea",
+    "season": "Kharif / Summer",
+    "suitable_soil": "Well-drained Sandy Loam, Red Loam, Light Clay Loam (pH 6.0 - 7.5)",
+    "temperature": "22°C - 30°C",
+    "rainfall": "500mm - 700mm",
+    "water_requirement": "Moderate (450mm - 600mm)",
+    "growth_duration": "100 - 120 Days",
+    "seed_rate": "40 - 50 kg/acre of kernel seeds",
+    "fertilizer_recommendation": "N:P:K = 20:40:40 kg/ha + 200 kg Gypsum/ha at flowering (peg initiation)",
+    "harvest_period": "Harvest when leaves turn yellow, inner pod shell turns dark brown, and kernel skin becomes pink.",
+    "content": "Groundnut (Peanut) is an important oilseed and food legume crop. Requires friable loose sandy loam soil allowing easy peg penetration into the soil for pod formation. Apply Gypsum at 45 days (flowering/pegging) to supply Calcium and Sulphur essential for pod filling.",
+    "keywords": [
+      "groundnut",
+      "peanut",
+      "mungfali",
+      "oilseed",
+      "gypsum",
+      "pegging",
+      "sandy loam"
+    ],
+    "related_crops": [
+      "groundnut",
+      "cotton",
+      "sesame"
+    ],
+    "language": "en",
+    "source": "ICAR - Directorate of Groundnut Research (DGR)"
+  },
+  {
+    "id": "crop_mustard",
+    "category": "crop_profiles",
+    "title": "Mustard / Rapeseed (Brassica juncea) Cultivation Guide",
+    "crop_name": "Mustard",
+    "scientific_name": "Brassica juncea",
+    "season": "Rabi",
+    "suitable_soil": "Sandy Loam to Heavy Loam Soils (pH 6.0 - 7.5)",
+    "temperature": "10°C - 25°C",
+    "rainfall": "250mm - 400mm",
+    "water_requirement": "Low (200mm - 300mm)",
+    "growth_duration": "100 - 120 Days",
+    "seed_rate": "1.5 - 2.0 kg/acre",
+    "fertilizer_recommendation": "N:P:K = 80:40:40 kg/ha + 40 kg Sulphur/ha",
+    "harvest_period": "Harvest when 75% of pods turn yellowish-golden to prevent pod shattering.",
+    "content": "Mustard is a major winter oilseed crop in India. It thrives under cool temperatures and moderate moisture. Highly responsive to Sulphur application which increases seed oil concentration.",
+    "keywords": [
+      "mustard",
+      "sarson",
+      "rabi",
+      "oilseed",
+      "sulphur",
+      "sandy loam"
+    ],
+    "related_crops": [
+      "mustard",
+      "wheat",
+      "chickpea"
+    ],
+    "language": "en",
+    "source": "ICAR - Directorate of Rapeseed-Mustard Research (DRMR)"
+  },
+  {
+    "id": "crop_mango",
+    "category": "crop_profiles",
+    "title": "Mango (Mangifera indica) Cultivation Guide",
+    "crop_name": "Mango",
+    "scientific_name": "Mangifera indica",
+    "season": "Perennial Fruit Crop",
+    "suitable_soil": "Deep, well-drained Alluvial or Red Loamy Soil (pH 5.5 - 7.5)",
+    "temperature": "24°C - 35°C",
+    "rainfall": "750mm - 2500mm",
+    "water_requirement": "Moderate (Requires dry spell during winter for flowering initiation)",
+    "growth_duration": "Perennial (Trees fruit for 30-50+ years)",
+    "seed_rate": "Grafted saplings planted at 10m x 10m spacing (100 trees/ha)",
+    "fertilizer_recommendation": "1000g N, 500g P2O5, 1000g K2O per bearing tree per year applied post-harvest.",
+    "harvest_period": "Harvest when fruits reach full size and shoulder maturity (specific gravity 1.01-1.02).",
+    "content": "Mango is the King of Fruits in India. Thrives in tropical to sub-tropical climates with a distinct dry period prior to flowering. Avoid nitrogen fertilizer during flowering to prevent flower drop.",
+    "keywords": [
+      "mango",
+      "aam",
+      "fruit tree",
+      "alluvial",
+      "grafting",
+      "perennial"
+    ],
+    "related_crops": [
+      "mango",
+      "guava",
+      "citrus"
+    ],
+    "language": "en",
+    "source": "ICAR - Central Institute for Subtropical Horticulture (CISH)"
+  },
+  {
+    "id": "crop_banana",
+    "category": "crop_profiles",
+    "title": "Banana (Musa acuminata) Cultivation Guide",
+    "crop_name": "Banana",
+    "scientific_name": "Musa acuminata",
+    "season": "Kharif / Year-round",
+    "suitable_soil": "Rich, well-drained Deep Loam Soil (pH 6.0 - 7.5)",
+    "temperature": "15°C - 35°C",
+    "rainfall": "1200mm - 2000mm",
+    "water_requirement": "High (1200mm - 1800mm total depth)",
+    "growth_duration": "300 - 365 Days",
+    "seed_rate": "Tissue culture plantlets planted at 1.8m x 1.8m (3000 plants/ha)",
+    "fertilizer_recommendation": "N:P:K = 200:50:300 grams per plant in 4-6 split doses",
+    "harvest_period": "Harvest when fruit angles become rounded and color changes from dark green to light green.",
+    "content": "Banana is a fast-growing, heavy feeding fruit crop. Requires warm humid climate, abundant water, and high potassium fertilization. Drip irrigation and fertigation produce maximum bunch weight.",
+    "keywords": [
+      "banana",
+      "kela",
+      "tissue culture",
+      "drip irrigation",
+      "potassium",
+      "fruit"
+    ],
+    "related_crops": [
+      "banana",
+      "papaya",
+      "sugarcane"
+    ],
+    "language": "en",
+    "source": "ICAR - National Research Centre for Banana (NRCB)"
+  },
+  {
+    "id": "crop_maize_ipm",
+    "category": "crop_profiles",
+    "title": "Maize Ipm",
+    "content": "",
+    "keywords": [],
+    "related_crops": [
+      "Maize"
+    ],
+    "language": "en",
+    "source": "ICAR IPM Manual (maize_ipm.pdf)"
+  },
+  {
+    "id": "crop_wheat_ipm",
+    "category": "crop_profiles",
+    "title": "Wheat Ipm",
+    "content": "",
+    "keywords": [],
+    "related_crops": [
+      "Wheat"
+    ],
+    "language": "en",
+    "source": "ICAR IPM Manual (wheat_ipm.pdf)"
+  }
+]

@@ -3135,37 +3135,52 @@ def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(get_
             weather_dict = body.weather.dict()
 
     try:
-        from advisory_engine import query_rag
-        result, confidence, source = query_rag(
-            body.message,
-            language=body.language,
-            session_id=session_id,
+        from rag.rag_engine import query_local_rag_engine
+
+        farmer_profile = {
+            "name": user.get("name", user.get("email", "Farmer")).split("@")[0].title() if isinstance(user, dict) else "Farmer",
+            "user_id": user_id,
+            "language": body.language,
+        }
+
+        t_rag = time.perf_counter()
+        rag_res = query_local_rag_engine(
+            query_text=body.message,
+            farmer_profile=farmer_profile,
             farm_context=farm_dict,
-            weather_context=weather_dict,
-            return_confidence=True,
-            timing=timing
+            weather_data=weather_dict,
+            market_data=None,
+            top_k=5,
+        )
+        timing["database_lookup_time"] = round(time.perf_counter() - t_rag, 4)
+
+        result = rag_res["answer"]
+        confidence = rag_res["confidence_score"]
+        source = f"LOCAL_RAG_ENGINE ({rag_res['category']})"
+
+        logger.info(
+            f"[Local RAG Chat Telemetry] User: {user_id} | Query: '{body.message[:50]}' | "
+            f"Intent: {rag_res['category']} | Confidence: {confidence:.4f} ({rag_res['confidence_level']}) | "
+            f"Retrieved Docs: {len(rag_res['retrieved_sources'])} | "
+            f"Execution Time: {rag_res['execution_time_ms']} ms"
         )
     except Exception as e:
-        logger.error(f"[Advisory Chat] Error in query_rag: {e}. Falling back to local farming advice.")
+        logger.error(f"[Advisory Chat] Error in Local RAG Engine: {e}. Falling back to local farming advice.", exc_info=True)
+        print(f"[Advisory Chat Error Traceback]: {e}")
+        import traceback
+        traceback.print_exc()
         result = "Ensure balanced crop management by checking weather and soil conditions daily. Avoid overwatering and ensure proper drainage."
-        try:
-            from advisory_engine import translate_to_language
-            result = translate_to_language(result, body.language)
-        except Exception:
-            pass
         confidence = 0.5
-        source = "LOCAL_ENGINE"
+        source = "LOCAL_ENGINE_FALLBACK"
+
 
     req_start = getattr(request.state, "start_time", start_time)
     timing["total_response_time"] = time.perf_counter() - req_start
-    
+
     logger.info(
         f"[Advisory Chat Timing Log] User: {user_id} | Message: '{body.message[:50]}' | "
         f"Auth Time: {timing['auth_time']:.4f}s | "
-        f"Weather Lookup: {timing['weather_lookup_time']:.4f}s | "
-        f"DB Lookup: {timing['database_lookup_time']:.4f}s | "
-        f"Gemini Time: {timing['gemini_time']:.4f}s | "
-        f"Model Load: {timing['model_loading_time']:.4f}s | "
+        f"DB/FAISS Lookup: {timing['database_lookup_time']:.4f}s | "
         f"Total Request Duration: {timing['total_response_time']:.4f}s"
     )
 
@@ -3177,6 +3192,7 @@ def chat_advisory(request: Request, body: ChatRequest, user: Dict = Depends(get_
     }
     trim_memory()
     return res
+
 
 
 

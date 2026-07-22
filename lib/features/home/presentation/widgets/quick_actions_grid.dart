@@ -32,13 +32,6 @@ class QuickActionsGrid extends StatelessWidget {
       bgColor: Color(0xFFE8F5E9),
       route: AppRouter.aiAssistant,
     ),
-    _QuickAction(
-      label: 'Scan Disease',
-      icon: Icons.document_scanner_outlined,
-      color: Color(0xFF7B1FA2),
-      bgColor: Color(0xFFF3E5F5),
-      route: AppRouter.diseaseDetection,
-    ),
 
     _QuickAction(
       label: 'Fertilizer',

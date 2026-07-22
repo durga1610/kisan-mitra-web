@@ -1,0 +1,58 @@
+[
+  {
+    "id": "scheme_pm_kisan",
+    "category": "government_schemes",
+    "title": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "scheme_name": "PM-KISAN",
+    "eligibility": "All landholding farmer families across India (subject to specific exclusion criteria)",
+    "benefits": "Direct income support of ₹6,000 per year transferred in 3 equal installments of ₹2,000 directly into bank accounts.",
+    "application_process": "Apply via PM-KISAN web portal (pmkisan.gov.in) or nearest Common Service Centre (CSC) with Aadhaar and land records.",
+    "content": "PM-KISAN is a Central Sector Scheme providing financial assistance to landholding farmers for procuring agricultural inputs like seeds, fertilizers, and equipment.",
+    "keywords": ["pm kisan", "income support", "6000 rupees", "direct benefit transfer", "dbt", "farmer scheme"],
+    "related_crops": ["all"],
+    "language": "en",
+    "source": "Ministry of Agriculture & Farmers Welfare, Govt. of India"
+  },
+  {
+    "id": "scheme_pmfby",
+    "category": "government_schemes",
+    "title": "PMFBY (Pradhan Mantri Fasal Bima Yojana)",
+    "scheme_name": "PMFBY Crop Insurance",
+    "eligibility": "All farmers growing notified crops in notified areas (loanee & non-loanee farmers)",
+    "benefits": "Low premium rate paid by farmers: 1.5% for Rabi crops, 2.0% for Kharif crops, and 5.0% for Commercial/Horticultural crops. Balance premium subsidized by Govt.",
+    "application_process": "Enroll through banks, insurance intermediaries, or PMFBY portal (pmfby.gov.in) before cut-off date.",
+    "content": "PMFBY provides comprehensive crop insurance cover against yield loss due to non-preventable natural risks (drought, flood, cyclone, pests, localized hazards).",
+    "keywords": ["pmfby", "crop insurance", "fasal bima", "premium subsidy", "yield loss compensation"],
+    "related_crops": ["rice", "wheat", "cotton", "soybean", "maize", "groundnut"],
+    "language": "en",
+    "source": "Ministry of Agriculture & Farmers Welfare"
+  },
+  {
+    "id": "scheme_kcc",
+    "category": "government_schemes",
+    "title": "KCC (Kisan Credit Card Scheme)",
+    "scheme_name": "Kisan Credit Card (KCC)",
+    "eligibility": "Individual/joint farmers, tenant farmers, sharecroppers, and self-help groups",
+    "benefits": "Short-term credit for crop cultivation at concessional interest rate of 4% per annum (with 3% prompt repayment incentive). Limit up to ₹3 Lakh without collateral.",
+    "application_process": "Apply at any commercial bank, regional rural bank (RRB), or cooperative bank branch.",
+    "content": "KCC ensures adequate and timely credit support from the formal banking system to meet cultivation expenses, post-harvest needs, and working capital requirements.",
+    "keywords": ["kcc", "kisan credit card", "crop loan", "low interest", "concessional credit"],
+    "related_crops": ["all"],
+    "language": "en",
+    "source": "Reserve Bank of India (RBI) & NABARD"
+  },
+  {
+    "id": "scheme_soil_health_card",
+    "category": "government_schemes",
+    "title": "Soil Health Card (SHC) Scheme",
+    "scheme_name": "Soil Health Card Scheme",
+    "eligibility": "All farmers across India",
+    "benefits": "Free soil testing report showing N, P, K, micro-nutrients, pH, and electrical conductivity, along with customized crop-wise fertilizer recommendations.",
+    "application_process": "Contact District Agriculture Officer or local Krishi Vigyan Kendra (KVK).",
+    "content": "Soil Health Card promotes balanced fertilizer application, reduces unnecessary input costs, and improves long-term soil health.",
+    "keywords": ["soil health card", "shc", "soil test", "npk report", "fertilizer recommendation"],
+    "related_crops": ["all"],
+    "language": "en",
+    "source": "Ministry of Agriculture & Farmers Welfare"
+  }
+]

@@ -3,7 +3,6 @@ import pytest
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
 from pages.advisory_page import AdvisoryPage
-from pages.disease_scan_page import DiseaseScanPage
 
 @pytest.fixture(scope="function")
 def auth_driver(driver):
@@ -56,23 +55,6 @@ def test_ai_advisor_page_load(auth_driver):
     advisory_page = AdvisoryPage(auth_driver)
     advisory_page.capture_screenshot("mobile_ai_advisor_load")
     print("[MobileTest] AI Advisor verified.")
-
-def test_disease_scanner_page_load(auth_driver):
-    """Verify that the Disease Scanner interface opens successfully."""
-    home_page = HomePage(auth_driver)
-    # Scroll down to reveal the quick actions grid
-    home_page.swipe(720, 1600, 720, 800, 300)
-    # Click Scan Disease quick action card
-    home_page.click(home_page.SCAN_DISEASE_TILE)
-    
-    # Assert Disease Scanner title is visible
-    from selenium.webdriver.common.by import By
-    scanner_title = (By.XPATH, "//*[contains(@content-desc, 'Scan Plant Disease')] | //*[contains(@text, 'Scan Plant Disease')]")
-    assert home_page.wait_for_element(scanner_title) is not None, "Disease Scanner page failed to load"
-    
-    scan_page = DiseaseScanPage(auth_driver)
-    scan_page.capture_screenshot("mobile_disease_scanner_load")
-    print("[MobileTest] Disease Scanner verified.")
 
 def test_navigation_between_screens(auth_driver):
     """Verify navigation flows between different main sections of the app."""

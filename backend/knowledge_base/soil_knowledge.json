@@ -1,0 +1,264 @@
+[
+  {
+    "id": "soil_alluvial",
+    "category": "soil_knowledge",
+    "title": "Alluvial Soil Characteristics & Farming Guide",
+    "soil_type": "Alluvial Soil",
+    "characteristics": "Formed by river silt deposition. Rich in Potash and Lime, but low in Nitrogen and Phosphoric Acid. High natural fertility and excellent workability.",
+    "suitable_crops": [
+      "Rice",
+      "Wheat",
+      "Sugarcane",
+      "Maize",
+      "Cotton",
+      "Jute",
+      "Pulses",
+      "Oilseeds"
+    ],
+    "water_retention": "High to Moderate water holding capacity",
+    "fertility": "Very High",
+    "ph_range": "6.5 - 8.4 (Neutral to slightly alkaline)",
+    "content": "Alluvial soil covers over 40% of India's land area, predominantly across the Indo-Gangetic plains and coastal deltas. It is the most productive agricultural soil. Supplement with Nitrogenous fertilizers (Urea) and Phosphatic fertilizers (DAP) for optimum yields.",
+    "keywords": [
+      "alluvial soil",
+      "silt",
+      "indo-gangetic plain",
+      "high fertility",
+      "potash",
+      "rice",
+      "wheat"
+    ],
+    "related_crops": [
+      "rice",
+      "wheat",
+      "sugarcane",
+      "maize"
+    ],
+    "language": "en",
+    "source": "Indian Council of Agricultural Research (ICAR) Soil Bureau"
+  },
+  {
+    "id": "soil_black",
+    "category": "soil_knowledge",
+    "title": "Black Soil (Regur Soil) Characteristics & Farming Guide",
+    "soil_type": "Black Soil (Regur / Black Cotton Soil)",
+    "characteristics": "Derived from basalt volcanic lava. High clay content (montmorillonite clay). Swells when wet and develops deep fissures/cracks when dry (self-ploughing property). High in Calcium, Potassium, Magnesium, and Carbonates.",
+    "suitable_crops": [
+      "Cotton",
+      "Soybean",
+      "Chickpea",
+      "Sorghum",
+      "Wheat",
+      "Groundnut",
+      "Sunflower"
+    ],
+    "water_retention": "Very High (Retains moisture for extended drought periods)",
+    "fertility": "High",
+    "ph_range": "7.2 - 8.5 (Neutral to moderately alkaline)",
+    "content": "Black soil is prominent across Maharashtra, Madhya Pradesh, Gujarat, and Telangana. Its exceptional moisture retention capability makes it ideal for rainfed cotton, soybean, and Rabi chickpea crops. Requires careful irrigation management to prevent waterlogging during heavy monsoon downpours.",
+    "keywords": [
+      "black soil",
+      "regur",
+      "cotton soil",
+      "clay",
+      "self-ploughing",
+      "moisture retention",
+      "soybean",
+      "chickpea"
+    ],
+    "related_crops": [
+      "cotton",
+      "soybean",
+      "chickpea",
+      "groundnut"
+    ],
+    "language": "en",
+    "source": "National Bureau of Soil Survey and Land Use Planning (NBSS&LUP)"
+  },
+  {
+    "id": "soil_red",
+    "category": "soil_knowledge",
+    "title": "Red Soil Characteristics & Farming Guide",
+    "soil_type": "Red Soil",
+    "characteristics": "Formed from crystalline igneous rocks. Red color due to high Iron Oxide (Fe2O3) content. Porous, friable structure. Deficient in Nitrogen, Phosphorus, Humus, and Lime.",
+    "suitable_crops": [
+      "Groundnut",
+      "Millets (Ragi, Bajra)",
+      "Pulses",
+      "Tobacco",
+      "Potato",
+      "Pigeonpea"
+    ],
+    "water_retention": "Low to Moderate (Highly permeable, drains quickly)",
+    "fertility": "Low to Medium (Responds very well to fertilizers & organic FYM)",
+    "ph_range": "5.5 - 6.8 (Slightly acidic to neutral)",
+    "content": "Red soil covers vast areas of Tamil Nadu, Karnataka, Andhra Pradesh, Odisha, and Chota Nagpur plateau. Due to low moisture retention, it is best suited for drought-tolerant rainfed crops, pulses, and oilseeds under sprinkler/drip irrigation.",
+    "keywords": [
+      "red soil",
+      "iron oxide",
+      "porous",
+      "groundnut",
+      "ragi",
+      "millets",
+      "acidic soil"
+    ],
+    "related_crops": [
+      "groundnut",
+      "pigeonpeas",
+      "potato"
+    ],
+    "language": "en",
+    "source": "ICAR Soil Science Division"
+  },
+  {
+    "id": "soil_clay",
+    "category": "soil_knowledge",
+    "title": "Clay Soil Characteristics & Management",
+    "soil_type": "Clay Soil",
+    "characteristics": "Contains over 40% fine clay particles. Heavy texture, highly cohesive, forms sticky plastic mass when wet and hard clods when dry. High Cation Exchange Capacity (CEC).",
+    "suitable_crops": [
+      "Rice",
+      "Paddy",
+      "Wheat",
+      "Sugarcane",
+      "Jute"
+    ],
+    "water_retention": "Very High (Slow drainage, prone to waterlogging)",
+    "fertility": "High (Retains plant nutrients effectively)",
+    "ph_range": "6.8 - 8.0",
+    "content": "Clay soils hold water and nutrients extremely well, making them perfect for puddled rice fields and sugarcane. Adding organic manure or gypsum improves soil structure and water infiltration.",
+    "keywords": [
+      "clay soil",
+      "heavy soil",
+      "high retention",
+      "paddy",
+      "rice",
+      "sugarcane"
+    ],
+    "related_crops": [
+      "rice",
+      "sugarcane",
+      "jute"
+    ],
+    "language": "en",
+    "source": "ICAR Soil Physics Division"
+  },
+  {
+    "id": "soil_loamy",
+    "category": "soil_knowledge",
+    "title": "Loamy Soil Characteristics & Farming Guide",
+    "soil_type": "Loamy Soil",
+    "characteristics": "Ideal balanced mix of Sand (40%), Silt (40%), and Clay (20%). Soft, crumbly texture with optimal aeration, internal drainage, and organic humus content.",
+    "suitable_crops": [
+      "All Crops",
+      "Vegetables",
+      "Maize",
+      "Wheat",
+      "Cotton",
+      "Fruits",
+      "Pulses"
+    ],
+    "water_retention": "Optimal (Retains moisture without becoming waterlogged)",
+    "fertility": "Very High",
+    "ph_range": "6.0 - 7.2 (Ideal neutral range for plant nutrient uptake)",
+    "content": "Loam is considered the gold standard for agricultural cultivation. It offers easy root penetration, excellent microbial activity, and efficient fertilizer response across all crop species.",
+    "keywords": [
+      "loamy soil",
+      "loam",
+      "balanced soil",
+      "ideal soil",
+      "high fertility",
+      "vegetables",
+      "maize"
+    ],
+    "related_crops": [
+      "maize",
+      "wheat",
+      "papaya",
+      "banana"
+    ],
+    "language": "en",
+    "source": "ICAR Agricultural Extension Manual"
+  },
+  {
+    "id": "soil_sandy",
+    "category": "soil_knowledge",
+    "title": "Sandy Soil Characteristics & Management",
+    "soil_type": "Sandy Soil",
+    "characteristics": "Coarse texture with over 80% sand particles. High aeration, low nutrient retention, fast water infiltration, rapid warming in spring.",
+    "suitable_crops": [
+      "Watermelon",
+      "Muskmelon",
+      "Peanuts",
+      "Carrot",
+      "Radish",
+      "Potato"
+    ],
+    "water_retention": "Very Low (Water drains away rapidly)",
+    "fertility": "Low (Nutrients leach easily into subsoil)",
+    "ph_range": "5.5 - 6.5",
+    "content": "Sandy soils require frequent light irrigations and split applications of fertilizers to prevent nutrient leaching. Organic matter addition (FYM, compost) significantly improves water holding capacity.",
+    "keywords": [
+      "sandy soil",
+      "coarse",
+      "watermelon",
+      "muskmelon",
+      "leaching",
+      "drip irrigation"
+    ],
+    "related_crops": [
+      "watermelon",
+      "muskmelon",
+      "groundnut"
+    ],
+    "language": "en",
+    "source": "ICAR Arid Zone Research Institute"
+  },
+  {
+    "id": "soil_banana_suitable_soil___land_preparation",
+    "category": "soil_knowledge",
+    "title": "Banana Suitable Soil & Land Preparation",
+    "content": "Well drained loamy soils are suitable for banana cultivation. Alkaline and saline soils should be avoided.\nSeason of planting\nWet lands\nGarden lands\nHill Banana\nPadugai lands\nPoovan, Rasthali, Monthan, Karpooravalli and Neypoovan can be cultivated during February April. Nendran and Robusta can be cultivated during April May.\nBanana can be cultivated in garden lands during January February and November December.\nApril May (lower Palani hills), June August (Sirumalai) are the suitable seasons for cultivating hill banana.\nIn Padugai lands, the crop can be cultivated during January February and August September.\nSelection and pre-treatment of suckers\nSelect sword suckers of 1.5 to 2.0 kg weight which are free from diseases and nematodes. Trim the roots and decayed portion of the corm, cut the pseudostem leaving 20 cm from the corm and grade the suckers to size. To avoid wilt disease in Rasthali, Monthan, Virupakshi and other wilt susceptible varieties, infected portions of the corm may be pared and dipped for 5 minutes in 0.1% Emisan solution (1 g in 1 lit of water). Pralinage is done with 40 g of Carbofuran 3 G granules per sucker. (Dip the corm in slurry solution containing 4 parts clay plus 5 parts water and sprinkle Carbofuran to control nematodes). Alternatively,shade dry for atleast 24 hours and plant. Sow Sunhemp on 45th day; incorporate it after about a month.This operation reduces nematode build up. Use tissue cultured banana plants with 5-6 leaves. At the time of planting, apply 25 g Bacillus Subtils / plant.\nField preparation\nWet lands\nNo preparatory cultivation is necessary.\nGarden land\n2 4 ploughings are required before planting.\nPadugai\nOne deep spade digging is essential.\nHill Banana\nClean the jungle and construct contour stone walls before planting. Digging Pits Wet lands\nPlace the suckers at ground level and earth up at stages.\nSucker treatment and planting\nSpacing\nS.No.\nSystem of Planting\nPlanting Distance\nPlant population /ha\n1.\nDwarf Cavendish\n1.5 x 1.5\n4440\n2.\nRobusta and Nendran\n1.8 x 1.8\n3080\n3.\nRasthali, Poovan, Karpooravalli, Monthan\n2.1 x 2.1\n2260\n4.\nPaired row\n1.2 x 1.2 x 2.0\n5200\n5.\n2-Suckers /hill\n1.8 x 3.6\n3200\n6.\n3-Suckers/hill\n1.8 x 3.6\n4800\nHigh density planting can be adopted for higher productivity. Plant 3 suckers / pit at a spacing of 1.8 x 3.6m (4600 plants/ha) for Cavendish varieties and 2 m x 3 m for Nendran (5000 plants/ha).\n1 sucker / pit at 2x2 m\n3 suckers / pit at 3.6x3.6 m\n3- Plants /Hill\n1.8 X 3.6 m (4800 pi/ha)\nPaired row system  1.2x1.2x2.0m  (5200 pl/ha\nNormal planting (2.0 x 2.0 m)\n3 suckers/pit\n(3.6 x 3.6 m)\n4 suckers/pit\n(1.8 x 3.6 m)",
+    "keywords": [
+      "clay",
+      "disease",
+      "soil"
+    ],
+    "related_crops": [
+      "Banana"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (banana.html)"
+  },
+  {
+    "id": "soil_mango_suitable_soil___land_preparation",
+    "category": "soil_knowledge",
+    "title": "Mango Suitable Soil & Land Preparation",
+    "content": "Ideal soil for mango is red loamy. Good drainage is preferable for better establishment. Ideal pH range is from 6.5 to 8.0.\nSeason of planting\nPlanting spreads from July to December.\nPlanting material\nApproach and epicotyl grafts are used for planting.\nMango seedlings used for approach / epicotyl grafting\nApproach and epicotyl grafting videos\n(Download approach grafting video)\n(Download epicotyl grafting video)\nField preparation",
+    "keywords": [
+      "drainage",
+      "ph",
+      "soil"
+    ],
+    "related_crops": [
+      "Mango"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (mango.html)"
+  },
+  {
+    "id": "soil_sugarcane_suitable_soil___land_preparati",
+    "category": "soil_knowledge",
+    "title": "Sugarcane Suitable Soil & Land Preparation",
+    "content": "Performs well in all soil types and extremely well in garden land condition.  Good quality cane with higher yield.  Has multi ratooning capacity.  Can be grown throughout the year.  Gives higher recovery.  Self detrashing in nature.  Amenable for wide row spacing.\nCoV 92102",
+    "keywords": [
+      "soil",
+      "yield"
+    ],
+    "related_crops": [
+      "Sugarcane"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (sugarcane.html)"
+  }
+]

@@ -1,0 +1,161 @@
+[
+  {
+    "id": "disease_rice_blast",
+    "category": "pest_disease_knowledge",
+    "title": "Rice Blast (Magnaporthe oryzae) Management",
+    "target_type": "Fungal Disease",
+    "common_pest_or_disease": "Rice Blast / Leaf Blast / Neck Blast",
+    "symptoms": "Spindle-shaped lesions with greyish-white centers and reddish-brown borders on leaves. Dark brown rot at node/neck joints causing drooping dead panicles.",
+    "prevention": "Avoid excessive Nitrogen fertilization. Use resistant varieties (e.g. Swarna, IR-64). Treat seeds with Carbendazim (2g/kg seed).",
+    "treatment": "Foliar spray of Tricyclazole 75% WP @ 0.6 g/liter or Isoprothiolane 40% EC @ 1.5 ml/liter of water at first appearance of spots.",
+    "content": "Rice Blast is a destructive fungal disease favored by high humidity and warm temperatures. Spindle lesions quickly expand causing complete leaf necrosis and empty chaffy grains.",
+    "keywords": [
+      "rice blast",
+      "spindle lesions",
+      "magnaporthe",
+      "tricyclazole",
+      "fungicide",
+      "rice"
+    ],
+    "related_crops": [
+      "rice"
+    ],
+    "language": "en",
+    "source": "ICAR National Rice Research Institute (NRRI)"
+  },
+  {
+    "id": "disease_wheat_rust",
+    "category": "pest_disease_knowledge",
+    "title": "Wheat Yellow Rust & Brown Rust Management",
+    "target_type": "Fungal Disease",
+    "common_pest_or_disease": "Yellow Rust (Puccinia striiformis) / Brown Rust",
+    "symptoms": "Bright yellow pustules arranged in linear stripes along wheat leaves. Pustules rub off on fingers as yellow powder.",
+    "prevention": "Sow resistant cultivars (HD-2967, DBW-187). Avoid late sowing.",
+    "treatment": "Foliar spray of Propiconazole 25% EC @ 1.0 ml/liter of water as soon as first yellow pustules appear.",
+    "content": "Yellow rust is a high-risk winter disease in North-Western wheat belts. Spreads rapidly under cool, moist weather.",
+    "keywords": [
+      "wheat rust",
+      "yellow rust",
+      "puccinia",
+      "propiconazole",
+      "wheat"
+    ],
+    "related_crops": [
+      "wheat"
+    ],
+    "language": "en",
+    "source": "ICAR Indian Institute of Wheat and Barley Research"
+  },
+  {
+    "id": "pest_cotton_pink_bollworm",
+    "category": "pest_disease_knowledge",
+    "title": "Cotton Pink Bollworm (Pectinophora gossypiella) Management",
+    "target_type": "Insect Pest",
+    "common_pest_or_disease": "Pink Bollworm",
+    "symptoms": "Rosetted flowers ('rosette' appearance), exit holes in green bolls, damaged lint and stained brown cotton fiber.",
+    "prevention": "Install Pheromone traps @ 5/acre for monitoring. Destroy crop residues post-harvest. Avoid extending cotton crop beyond 160 days.",
+    "treatment": "Spray Profenofos 50% EC @ 2 ml/L or Emamectin Benzoate 5% SG @ 0.4 g/L when pheromone catch exceeds 8 moths/trap/night.",
+    "content": "Pink bollworm larvae tunnel inside green cotton bolls, destroying developing seeds and lint. Strict crop window management is critical.",
+    "keywords": [
+      "cotton",
+      "pink bollworm",
+      "pectinophora",
+      "rosette flower",
+      "emamectin benzoate",
+      "pheromone trap"
+    ],
+    "related_crops": [
+      "cotton"
+    ],
+    "language": "en",
+    "source": "ICAR Central Institute for Cotton Research"
+  },
+  {
+    "id": "pest_fall_armyworm",
+    "category": "pest_disease_knowledge",
+    "title": "Fall Armyworm (Spodoptera frugiperda) Management in Maize",
+    "target_type": "Insect Pest",
+    "common_pest_or_disease": "Fall Armyworm (FAW)",
+    "symptoms": "Pin-hole damage on young leaves, heavy frass (faecal matter) inside central leaf whorl, ragged torn leaf margins.",
+    "prevention": "Apply neem cake to soil. Erect erect pheromone traps @ 4/acre. Intercrop maize with cowpea or desmodium.",
+    "treatment": "Apply Chlorantraniliprole 18.5% SC @ 0.4 ml/L or Emamectin Benzoate 5% SG @ 0.4 g/L directly into leaf whorls.",
+    "content": "Fall Armyworm is an aggressive migratory caterpillar attacking maize from seedling to cob stage. Whorl application of recommended insecticides is vital.",
+    "keywords": [
+      "fall armyworm",
+      "faw",
+      "maize",
+      "corn",
+      "whorl application",
+      "emamectin",
+      "chlorantraniliprole"
+    ],
+    "related_crops": [
+      "maize"
+    ],
+    "language": "en",
+    "source": "ICAR National Bureau of Agricultural Insect Resources (NBAIR)"
+  },
+  {
+    "id": "disease_tomato_blight",
+    "category": "pest_disease_knowledge",
+    "title": "Tomato Early & Late Blight Management",
+    "target_type": "Fungal Disease",
+    "common_pest_or_disease": "Early Blight (Alternaria solani) & Late Blight (Phytophthora infestans)",
+    "symptoms": "Concentric dark rings ('target board' spots) on lower leaves (Early Blight); water-soaked dark lesions with white mold underneath (Late Blight).",
+    "prevention": "Ensure wide plant spacing, stakes for trellising, prune lower older leaves touching soil.",
+    "treatment": "Spray Mancozeb 75% WP @ 2.5 g/L or Metalaxyl 8% + Mancozeb 64% WP @ 2 g/L.",
+    "content": "Blight diseases cause rapid defoliation and fruit decay in tomatoes. Avoid overhead sprinkler watering.",
+    "keywords": [
+      "tomato blight",
+      "alternaria",
+      "phytophthora",
+      "mancozeb",
+      "metalaxyl",
+      "target spots"
+    ],
+    "related_crops": [
+      "tomato",
+      "potato"
+    ],
+    "language": "en",
+    "source": "ICAR Indian Institute of Horticultural Research (IIHR)"
+  },
+  {
+    "id": "pest_icar_tomato_cultivation_and",
+    "category": "pest_disease_knowledge",
+    "title": "ICAR Tomato Cultivation and Blight Protection Guide",
+    "content": "ICAR Tomato Cultivation and Blight Protection Guide\n# Tomato (Solanum lycopersicum) Farming Guide\nTomato is an important commercial vegetable crop in India requiring warm weather and well-drained loamy soil.\n## Fertilizer Dose & NPK Management\nApply split doses of Nitrogen and Urea @ 40kg/acre along with DAP during land preparation.\n## Early Blight Disease Prevention\nHigh humidity causes fungal Early Blight. Apply Mancozeb spray at 15-day intervals.",
+    "keywords": [
+      "blight",
+      "dap",
+      "disease",
+      "fertilizer",
+      "nitrogen",
+      "npk",
+      "soil",
+      "urea"
+    ],
+    "related_crops": [
+      "Tomato"
+    ],
+    "language": "en",
+    "source": "ICAR Agriportal (HTML Test)"
+  },
+  {
+    "id": "pest_sugarcane_pest___disease_management_guid",
+    "category": "pest_disease_knowledge",
+    "title": "Sugarcane Pest & Disease Management Guide",
+    "content": "Weed Management in pure crop of Sugarcane\nWherever weed menace is higher, one line weeding along the crop row and spade digging of ridges have to be done on 30, 60 and 90 DAP\nSpray Atrazine 2 kg or Oxyflurofen 750 ml/ha mixed in 600 liters of water as pre emergence herbicide on the 3rd day of planting, using deflector or fan type nozzle fitted with knapsack sprayer.\nThe pre emergence application of atrazine @ 1.0 kg a.i. ha-1 on 3 DAP followed by post emergence directed application of glyphosate @ 1.0 lit ha-1on 45 DAP with hood+ one hand weeding on 90 DAP registered the maximum cane yield.\nIf pre-emergence spray is not carried out, go in for post-emergence spray of Grammaxone litre + 2,4-D sodium salt 2.5 kg/ha in 600 liter of water on 21st day of planting.",
+    "keywords": [
+      "dap",
+      "disease",
+      "pest",
+      "yield"
+    ],
+    "related_crops": [
+      "Sugarcane"
+    ],
+    "language": "en",
+    "source": "TNAU Agriportal / ICAR (sugarcane.html)"
+  }
+]

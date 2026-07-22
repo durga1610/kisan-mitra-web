@@ -7,8 +7,6 @@ from appium.options.android import UiAutomator2Options
 from selenium.webdriver.common.by import By
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
-from pages.advisory_page import AdvisoryPage
-from pages.disease_scan_page import DiseaseScanPage
 
 def load_test_cases():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
