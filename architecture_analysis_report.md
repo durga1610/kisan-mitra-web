@@ -281,7 +281,7 @@ https://generativelanguage.googleapis       │
 | **OpenWeatherMap** | Live weather & 5-day forecast | `https://api.openweathermap.org/data/2.5/weather`<br>`https://api.openweathermap.org/data/2.5/forecast` | API Key (`appid`) | `weather_service.dart` | `HomeScreen`, `WeatherScreen`, `WeeklyForecastScreen` |
 | **data.gov.in Mandi API** | Commodity market prices | `https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070` | API Key (`api-key`) | `market_repository.dart` | `MarketScreen` |
 | **Google Gemini REST API** | AI chat & advisory | `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent` | API Key (`key`) | `gemini_service.dart`, `gemini_fallback.py` | `AIAssistantScreen`, `AIAdvisoryScreen` *(To be replaced)* |
-| **Custom FastAPI Backend** | Machine learning & analytical endpoints | `https://kisan-mitra-backend-p21a.onrender.com` / `http://10.0.2.2:8000` | Firebase Bearer Token | `gemini_service.dart`, `advisory_repository.dart` | `AIAdvisoryScreen`, `FertilizerScreen`, `CropRecommendationScreen` |
+| **Custom FastAPI Backend** | Machine learning & analytical endpoints | `https://kisan-mitra-backend-v2.onrender.com` / `http://10.0.2.2:8000` | Firebase Bearer Token | `gemini_service.dart`, `advisory_repository.dart` | `AIAdvisoryScreen`, `FertilizerScreen`, `CropRecommendationScreen` |
 
 ---
 

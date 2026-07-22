@@ -20,7 +20,7 @@ class ApiConfig {
     const customUrl = String.fromEnvironment('CUSTOM_AI_BACKEND_URL');
     if (customUrl.isNotEmpty) return customUrl;
     if (kIsWeb || kReleaseMode) {
-      return 'https://kisan-mitra-backend-p21a.onrender.com';
+      return 'https://kisan-mitra-backend-v2.onrender.com';
     }
     return 'http://10.0.2.2:8000';
   }

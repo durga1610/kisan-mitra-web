@@ -100,22 +100,15 @@ ALLOW_FILENAME_BYPASS = (
     and APP_ENV == "development"
 )
 
-# Initialize FastAPI based on environment for security compliance
-if APP_ENV == "development":
-    app = FastAPI(
-        title="Kisan Mitra AI Backend",
-        description="Custom trained models API for AI Advisory and Disease Scan",
-        version="1.0.0",
-    )
-else:
-    app = FastAPI(
-        title="Kisan Mitra AI Backend",
-        description="Custom trained models API for AI Advisory and Disease Scan",
-        version="1.0.0",
-        docs_url=None,
-        redoc_url=None,
-        openapi_url=None,
-    )
+# Initialize FastAPI
+app = FastAPI(
+    title="Kisan Mitra AI Backend",
+    description="Custom trained models API for AI Advisory and Disease Scan",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+)
 
 @app.get("/admin/db", response_class=HTMLResponse)
 async def view_database_ui(token: str = None, table: str = None):
