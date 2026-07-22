@@ -20,14 +20,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt \
-    && pip install --no-cache-dir faiss-cpu sentence-transformers transformers accelerate
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy backend files
 COPY . .
 
-# Run ingestion script to pre-build vector database during build phase
-RUN python ingest.py
+# Run ingestion script to pre-build vector database during build phase (disabled for fast, low-memory builds)
+# RUN python ingest.py
 
 # Expose backend port
 EXPOSE 8000

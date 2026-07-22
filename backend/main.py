@@ -43,13 +43,18 @@ os.environ["TRANSFORMERS_OFFLINE"] = "1"
 os.environ["HF_HUB_OFFLINE"] = "1"
 os.environ["PYTORCH_NO_CUDA_MEMORY_CACHING"] = "1"
 
-import torch
-try:
-    torch.set_num_threads(1)
-    torch.set_num_interop_threads(1)
-except RuntimeError:
-    pass
-torch.set_grad_enabled(False)
+def _configure_torch():
+    """Lazy configuration for PyTorch threading and autograd when imported."""
+    try:
+        import torch
+        try:
+            torch.set_num_threads(1)
+            torch.set_num_interop_threads(1)
+        except RuntimeError:
+            pass
+        torch.set_grad_enabled(False)
+    except ImportError:
+        pass
 
 def trim_memory():
     """Force Python garbage collection to release unused memory."""
@@ -417,25 +422,8 @@ def startup_event():
     except Exception as e:
         logger.warning("[Startup] Database setup failed: %s", e)
 
-    # ── Pre-warm models sequentially in background ────────────────────
-    # Pre-warms the disease model at startup to avoid response timeouts.
-    # The heavy SentenceTransformer is skipped at startup to preserve memory
-    # on Render Free Tier and will lazy-load on-demand if a RAG query is hit.
-    def _preload_sequentially():
-        import time as _t
-        
-        # 1. Pre-warm disease detection model (ResNet18)
-        _t0 = _t.perf_counter()
-        try:
-            init_disease_model()
-            logger.info("[Startup] Disease model pre-warmed in %.2fs", _t.perf_counter() - _t0)
-        except Exception as _e:
-            logger.warning("[Startup] Disease model pre-warm failed: %s", _e)
-            
-        trim_memory()
-        logger.info("[Startup] Advisory engine pre-warm deferred to lazy-load on-demand.")
-        
-    threading.Thread(target=_preload_sequentially, daemon=True).start()
+    # ── Pre-warm models sequentially in background (Disabled for Low-Memory Deployment) ──
+    logger.info("AI model preload disabled for low-memory deployment.")
 
     # ── Start async SQLite write worker ──────────────────────────────────
     from db_utils import _ensure_worker
@@ -653,6 +641,8 @@ def init_legacy_model():
 
 def init_disease_model():
     global CROP_MODEL, DISEASE_MODEL, CLASSES, CROPS, CROP_TO_DISEASE_INDICES
+    if DISEASE_MODEL is not None and CLASSES is not None:
+        return DISEASE_MODEL, CLASSES
     crop_model_path = os.path.join(_BASE_DIR, "models", "crop_model.pt")
     disease_model_path = os.path.join(_BASE_DIR, "models", "disease_model.pt")
     classes_path = os.path.join(_BASE_DIR, "models", "classes.json")
