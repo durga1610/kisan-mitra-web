@@ -7,8 +7,8 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html",
-    "build_number": "38",
-    "commit": "3625f0a6"
+    "build_number": "39",
+    "commit": "19339f90"
   },
   "android_e2e": {
     "status": "PASS",
@@ -18,8 +18,8 @@
     "skipped": 0,
     "pass_rate": 100.0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html",
-    "build_number": "38",
-    "commit": "3625f0a6"
+    "build_number": "39",
+    "commit": "19339f90"
   },
   "backend_security": {
     "status": "PASS",
@@ -28,8 +28,8 @@
     "medium": 0,
     "low": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md",
-    "build_number": "38",
-    "commit": "3625f0a6"
+    "build_number": "39",
+    "commit": "19339f90"
   },
   "secrets_scan": {
     "status": "FAIL",
@@ -71,9 +71,9 @@
         "author": "durga1610"
       }
     ],
-    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/29938950336",
-    "build_number": "38",
-    "commit": "3625f0a6"
+    "report_url": "https://github.com/durga1610/kisan-mitra-web/actions/runs/29942510664",
+    "build_number": "39",
+    "commit": "19339f90"
   },
   "unit_tests": {
     "status": "FAIL",
@@ -83,18 +83,18 @@
     "skipped": 0,
     "pass_rate": 99.75,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/backend/execution-report.html",
-    "build_number": "38",
-    "commit": "3625f0a6"
+    "build_number": "39",
+    "commit": "19339f90"
   },
-  "last_updated": "2026-07-22 16:51:54",
+  "last_updated": "2026-07-22 17:41:33",
   "load_testing": {
     "status": "PASS",
-    "total_requests": 25889,
-    "rps": 429.76,
-    "avg_latency": 222.17,
+    "total_requests": 23659,
+    "rps": 387.46,
+    "avg_latency": 245.31,
     "failed_requests": 0,
     "report_url": "https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.html",
-    "build_number": "38",
-    "commit": "3625f0a6"
+    "build_number": "39",
+    "commit": "19339f90"
   }
 }
