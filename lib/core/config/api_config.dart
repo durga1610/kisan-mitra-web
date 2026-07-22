@@ -15,14 +15,13 @@ class ApiConfig {
   static const String geminiVisionModel = 'gemini-2.5-flash';
 
   // Custom AI Backend URL
-  // Default to 10.0.2.2:8000 for Android emulator, or http://localhost:8000 for web/iOS
+  // Default to Render production URL for Web/Release, or 10.0.2.2:8000 for Android emulator
   static String get customAiBackendUrl {
     const customUrl = String.fromEnvironment('CUSTOM_AI_BACKEND_URL');
     if (customUrl.isNotEmpty) return customUrl;
-    if (kReleaseMode) {
+    if (kIsWeb || kReleaseMode) {
       return 'https://kisan-mitra-backend-p21a.onrender.com';
     }
-    if (kIsWeb) return 'http://localhost:8000';
     return 'http://10.0.2.2:8000';
   }
 
