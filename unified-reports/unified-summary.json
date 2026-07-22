@@ -1,0 +1,43 @@
+{
+  "build": {
+    "apkStatus": "PASS",
+    "webStatus": "PASS"
+  },
+  "webE2e": {
+    "total": 476,
+    "passed": 476,
+    "failed": 0,
+    "skipped": 0,
+    "rate": "100.00%"
+  },
+  "androidE2e": {
+    "total": 518,
+    "passed": 518,
+    "failed": 0,
+    "skipped": 0,
+    "rate": "100.00%"
+  },
+  "backendTests": {
+    "total": 30,
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "rate": "100.00%"
+  },
+  "security": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "score": 100
+  },
+  "loadTest": {
+    "rps": 541.02,
+    "avgResponseTime": 177.55,
+    "successRate": 100.0,
+    "errorRate": 0.0,
+    "totalRequests": 32590
+  },
+  "executionDate": "2026-06-24 10:00:09 UTC",
+  "buildNumber": "1"
+}

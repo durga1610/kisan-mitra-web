@@ -1,0 +1,663 @@
+name: "📱 Consolidated CI/CD Pipeline & Unified Summary"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: trackback-pipeline-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  security-events: write
+
+env:
+  JAVA_VERSION: "17"
+  NODE_VERSION: "22"
+  ANDROID_API_LEVEL: "29"
+  ANDROID_BUILD_TOOLS: "34.0.0"
+  ANDROID_TARGET: "google_apis"
+  ANDROID_ARCH: "x86_64"
+  APPIUM_VERSION: "2.5.4"
+
+jobs:
+  # ════════════════════════════════════════════════════════════════════════════
+  # JOB 1 – Security Review (SAST, Dependencies, Secrets)
+  # ════════════════════════════════════════════════════════════════════════════
+  security-scan:
+    name: "🔒 Security Review"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "📦 Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: |
+            Frontend/package-lock.json
+            Mobile/package-lock.json
+
+      - name: "🔍 Detect tech stack"
+        run: |
+          echo "### 📋 TrackBack Technology Stack" >> $GITHUB_STEP_SUMMARY
+          echo "| Component | Technology | Version |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|-----------|---------|" >> $GITHUB_STEP_SUMMARY
+          FE_PKG="Frontend/package.json"
+          REACT=$(node -e "const p=require('./$FE_PKG'); console.log(p.dependencies?.react || 'N/A')")
+          VITE=$(node -e "const p=require('./$FE_PKG'); console.log(p.devDependencies?.vite || 'N/A')")
+          FIREBASE=$(node -e "const p=require('./$FE_PKG'); console.log(p.dependencies?.firebase || 'N/A')")
+          LUCIDE=$(node -e "const p=require('./$FE_PKG'); console.log(p.dependencies?.['lucide-react'] || 'N/A')")
+          echo "| Frontend Framework | React | $REACT |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build Tool | Vite | $VITE |" >> $GITHUB_STEP_SUMMARY
+          echo "| BaaS | Firebase | $FIREBASE |" >> $GITHUB_STEP_SUMMARY
+          echo "| Icon Library | Lucide React | $LUCIDE |" >> $GITHUB_STEP_SUMMARY
+          echo "| Mobile | Expo / React Native | $(node -e "const p=require('./Mobile/package.json'); console.log(p.dependencies?.expo||'N/A')") |" >> $GITHUB_STEP_SUMMARY
+          echo "| Runtime | Node.js | $(node --version) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Auth | Firebase Auth | cloud |" >> $GITHUB_STEP_SUMMARY
+          echo "| Database | Firebase RTDB | cloud |" >> $GITHUB_STEP_SUMMARY
+          echo "| Storage | Cloudinary | cloud |" >> $GITHUB_STEP_SUMMARY
+
+      - name: "🔐 Run Semgrep SAST scan"
+        uses: semgrep/semgrep-action@v1
+        with:
+          config: >-
+            p/javascript
+            p/react
+            p/secrets
+            p/owasp-top-ten
+            p/firebase
+            p/nodejsscan
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        continue-on-error: true
+
+      - name: "🔍 npm audit – Frontend"
+        working-directory: Frontend
+        run: |
+          npm install --no-audit --ignore-scripts
+          mkdir -p ../security-artifacts
+          echo "## 📦 Frontend Dependency Audit" >> ../security-artifacts/dependency-audit.txt
+          npm audit --audit-level=moderate --json > ../security-artifacts/frontend-audit.json 2>&1 || true
+          npm audit --audit-level=moderate 2>&1 | tail -30 >> ../security-artifacts/dependency-audit.txt || true
+          echo "" >> ../security-artifacts/dependency-audit.txt
+
+      - name: "🔍 npm audit – Mobile"
+        working-directory: Mobile
+        run: |
+          npm ci --ignore-scripts
+          echo "## 📦 Mobile Dependency Audit" >> ../security-artifacts/dependency-audit.txt
+          npm audit --audit-level=moderate 2>&1 | tail -30 >> ../security-artifacts/dependency-audit.txt || true
+
+      - name: "🛡️  Run Trivy filesystem scan"
+        uses: aquasecurity/trivy-action@v0.35.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: sarif
+          output: security-artifacts/trivy-results.sarif
+          severity: CRITICAL,HIGH,MEDIUM
+        continue-on-error: true
+
+      - name: "🔑 Run Gitleaks"
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: "📦 Install report dependencies"
+        run: npm install exceljs --no-save --no-audit --ignore-scripts
+
+      - name: "📊 Generate security reports"
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+          COMMIT_SHA: ${{ github.sha }}
+          BRANCH: ${{ github.ref_name }}
+        run: node .github/scripts/generate-security-reports.cjs
+
+      - name: "📤 Upload dependency artifacts"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-artifacts
+          path: security-artifacts/
+          retention-days: 7
+
+      - name: "📤 Upload security reports"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: Vulnerability Test Results/
+          retention-days: 7
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # JOB 2 – Build Web Application
+  # ════════════════════════════════════════════════════════════════════════════
+  build-web:
+    name: "🔨 Build & Deploy Web App"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "📦 Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: Frontend/package-lock.json
+
+      - name: "📦 Install dependencies"
+        working-directory: Frontend
+        run: |
+          rm -f package-lock.json
+          npm install
+
+      - name: "🏗️  Build Vite app"
+        working-directory: Frontend
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_DATABASE_URL: ${{ secrets.VITE_FIREBASE_DATABASE_URL }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+        run: npm run build
+
+      - name: "🚀 Deploy Frontend to GitHub Pages (Initial Web App)"
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: Frontend/dist
+          publish_branch: gh-pages
+          destination_dir: .
+          keep_files: true
+          commit_message: "🚀 Deploy TrackBack Web – Build #${{ github.run_number }}"
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # JOB 3 – Verify Web Deployment
+  # ════════════════════════════════════════════════════════════════════════════
+  verify-web:
+    name: "🔍 Verify Live Web Deployment"
+    runs-on: ubuntu-latest
+    needs: build-web
+    timeout-minutes: 10
+
+    steps:
+      - name: "⏳ Wait 90 s for Pages deploy start"
+        run: sleep 90
+
+      - name: "✅ Verify HTTP 200 from live URL"
+        run: |
+          URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          MAX=10; DELAY=20; i=0; SUCCEEDED=false
+          while [ $i -lt $MAX ]; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+            echo "Attempt $((i+1))/$MAX – HTTP $STATUS"
+            if [ "$STATUS" -eq 200 ]; then
+              echo "✅ Site is live!"
+              SUCCEEDED=true
+              break
+            fi
+            i=$((i+1))
+            [ $i -lt $MAX ] && sleep $DELAY
+          done
+          if [ "$SUCCEEDED" = "false" ]; then
+            echo "❌ Error: Deployment failed to propagate to GitHub Pages (Returned HTTP $STATUS)"
+            exit 1
+          fi
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # JOB 4 – Selenium Web E2E Tests
+  # ════════════════════════════════════════════════════════════════════════════
+  web-e2e:
+    name: "🧪 Web E2E Tests"
+    runs-on: ubuntu-latest
+    needs: verify-web
+    timeout-minutes: 20
+
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "📦 Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: Frontend/package-lock.json
+
+      - name: "🌐 Setup Chrome"
+        uses: browser-actions/setup-chrome@v1
+
+      - name: "📦 Install frontend dependencies"
+        working-directory: Frontend
+        run: |
+          rm -f package-lock.json
+          npm install
+
+      - name: "🔑 Seed E2E test user in Firebase"
+        working-directory: Frontend
+        env:
+          TEST_EMAIL: ${{ secrets.FIREBASE_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.FIREBASE_PASSWORD }}
+        run: node selenium-tests/scripts/ensure-test-user.cjs
+
+      - name: "🧪 Run Selenium E2E tests"
+        working-directory: Frontend
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          BASE_URL: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          TEST_EMAIL: ${{ secrets.FIREBASE_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.FIREBASE_PASSWORD }}
+          TEST_OUTPUT_DIR: "Test Results"
+          CI: "true"
+        run: |
+          mkdir -p "Test Results/Logs" "Test Results/Screenshots" "Test Results/Excel" "Test Results/Summary"
+          set -o pipefail
+          set +e
+          npm run test:e2e 2>&1 | tee "Test Results/Logs/selenium-run.log"
+          TEST_EXIT_CODE=$?
+          set -e
+          exit $TEST_EXIT_CODE
+
+      - name: "📊 Generate E2E reports"
+        if: always()
+        working-directory: Frontend
+        env:
+          BASE_URL: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+          BUILD_NUMBER: ${{ github.run_number }}
+          COMMIT_SHA: ${{ github.sha }}
+          BRANCH: ${{ github.ref_name }}
+        run: node selenium-tests/scripts/generate-reports.cjs
+
+      - name: "📤 Upload web test reports"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-e2e-reports
+          path: Frontend/Test Results/
+          retention-days: 7
+
+      - name: "⚡ Install k6 Load Testing Tool"
+        if: always()
+        run: |
+          curl -L -o k6.tar.gz https://github.com/grafana/k6/releases/download/v0.51.0/k6-v0.51.0-linux-amd64.tar.gz
+          tar -xzf k6.tar.gz
+          sudo mv k6-v0.51.0-linux-amd64/k6 /usr/local/bin/
+          k6 version
+
+      - name: "📈 Run k6 Load Testing"
+        if: always()
+        working-directory: Frontend
+        env:
+          BASE_URL: "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+        run: |
+          node selenium-tests/scripts/run-load-test.cjs
+
+      - name: "📤 Upload load test reports"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-test-reports
+          path: Frontend/Test Results/LoadTest/
+          retention-days: 7
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # JOB 5 – Build Android APK
+  # ════════════════════════════════════════════════════════════════════════════
+  build-apk:
+    name: "🔨 Build Android APK"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "📦 Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: Mobile/package-lock.json
+
+      - name: "📦 Install dependencies"
+        working-directory: Mobile
+        run: npm ci
+
+      - name: "⚙️ Generate Android native directory (Expo Prebuild)"
+        working-directory: Mobile
+        run: npx expo prebuild --platform android --no-install
+
+      - name: "🔧 Configure Android debug build to bundle JS assets (avoid Metro Redbox)"
+        working-directory: Mobile
+        run: |
+          node -e '
+            const fs = require("fs");
+            const file = "android/app/build.gradle";
+            let content = fs.readFileSync(file, "utf8");
+            content = content.replace("react {", "react {\n    debuggableVariants = []");
+            fs.writeFileSync(file, content, "utf8");
+            console.log("Successfully patched build.gradle to force JS bundling in debug build.");
+          '
+
+      - name: "☕ Setup Java ${{ env.JAVA_VERSION }}"
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: gradle
+
+      - name: "🏗️  Build debug APK via Gradle"
+        working-directory: Mobile/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: "⬆️  Upload APK artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: trackback-debug-apk
+          path: Mobile/android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 7
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # JOB 6 – Android Appium E2E Tests
+  # ════════════════════════════════════════════════════════════════════════════
+  android-e2e:
+    name: "🧪 Android Appium E2E"
+    runs-on: ubuntu-latest
+    needs: build-apk
+    timeout-minutes: 55
+
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "⚡ Enable KVM (hardware acceleration)"
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: "☕ Setup Java ${{ env.JAVA_VERSION }}"
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: "📦 Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: Mobile/appium-tests/package.json
+
+      - name: "⬇️  Download APK artifact"
+        uses: actions/download-artifact@v4
+        with:
+          name: trackback-debug-apk
+          path: Mobile/appium-tests/apk
+
+      - name: "🚀 Install Appium"
+        run: |
+          npm install -g appium@${{ env.APPIUM_VERSION }}
+          appium driver install uiautomator2@3.5.1
+
+      - name: "📦 Install Appium test dependencies"
+        working-directory: Mobile/appium-tests
+        run: npm install
+
+      - name: "📦 Install frontend dependencies for user seeding"
+        working-directory: Frontend
+        run: npm install --no-audit --ignore-scripts
+
+      - name: "🔑 Seed E2E test user in Firebase"
+        working-directory: Frontend
+        env:
+          TEST_EMAIL: ${{ secrets.FIREBASE_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.FIREBASE_PASSWORD }}
+        run: node selenium-tests/scripts/ensure-test-user.cjs
+
+      - name: "▶️  Start emulator & run E2E tests"
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          TEST_EMAIL: ${{ secrets.FIREBASE_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.FIREBASE_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        with:
+          api-level: ${{ env.ANDROID_API_LEVEL }}
+          target: ${{ env.ANDROID_TARGET }}
+          arch: ${{ env.ANDROID_ARCH }}
+          avd-name: TrackBack_AVD
+          force-avd-creation: true
+          emulator-options: >-
+            -no-snapshot-save -no-window -gpu swiftshader_indirect
+            -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          working-directory: Mobile/appium-tests
+          script: bash scripts/run-tests.sh
+
+      - name: "📊 Generate Appium reports"
+        if: always()
+        working-directory: Mobile/appium-tests
+        run: node scripts/generate-reports.js
+
+      - name: "📤 Upload android test reports"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-e2e-reports
+          path: Mobile/appium-tests/Test Results/
+          retention-days: 7
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # JOB 6.5 – Backend Service Tests
+  # ════════════════════════════════════════════════════════════════════════════
+  backend-tests:
+    name: "⚙️ Backend Service Tests"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "📦 Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: "📦 Install backend test dependencies"
+        working-directory: Backend/backend-tests
+        run: npm install --no-audit --ignore-scripts
+
+      - name: "⚙️ Run Backend service tests"
+        working-directory: Backend/backend-tests
+        run: |
+          mkdir -p "Test Results/Logs" "Test Results/Summary" "Test Results/HTML" "Test Results/Excel"
+          # Reset recorded-results.json so it never accumulates across runs
+          echo "[]" > "Test Results/recorded-results.json"
+          set +e
+          npm run test:ci 2>&1 | tee "Test Results/Logs/backend-run.log"
+          TEST_EXIT_CODE=$?
+          set -e
+          echo "Backend test exit code: $TEST_EXIT_CODE"
+          exit $TEST_EXIT_CODE
+
+      - name: "📊 Generate Backend reports"
+        if: always()
+        working-directory: Backend/backend-tests
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+          COMMIT_SHA: ${{ github.sha }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          npm install exceljs --no-save --no-audit --ignore-scripts
+          node scripts/generate-reports.cjs
+
+      - name: "📤 Upload backend test reports"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-reports
+          path: Backend/backend-tests/Test Results/
+          retention-days: 7
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # JOB 7 – Unified Summary & Deploy Reports to GitHub Pages
+  # ════════════════════════════════════════════════════════════════════════════
+  unified-summary:
+    name: "📊 Unified Summary & Report Deployment"
+    runs-on: ubuntu-latest
+    needs: [security-scan, web-e2e, android-e2e, backend-tests]
+    if: always()
+
+    steps:
+      - name: "📥 Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "📦 Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: "📥 Download security reports"
+        uses: actions/download-artifact@v4
+        with:
+          name: security-reports
+          path: security-reports
+
+      - name: "📥 Download web E2E reports"
+        uses: actions/download-artifact@v4
+        with:
+          name: selenium-e2e-reports
+          path: web-reports
+
+      - name: "📥 Download android E2E reports"
+        uses: actions/download-artifact@v4
+        with:
+          name: android-e2e-reports
+          path: android-reports
+
+      - name: "📥 Download load test reports"
+        uses: actions/download-artifact@v4
+        with:
+          name: load-test-reports
+          path: load-test-reports
+
+      - name: "📥 Download backend test reports"
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-test-reports
+          path: backend-reports
+
+      - name: "📦 Install report dependencies"
+        run: npm install exceljs --no-save --no-audit --ignore-scripts
+
+      - name: "📋 Publish Combined Step Summary Dashboard"
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+          BRANCH: ${{ github.ref_name }}
+        run: node .github/scripts/generate-unified-summary.cjs
+
+      - name: "📖 Fetch existing gh-pages history"
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages-existing
+
+      - name: "🔀 Prepare unified GitHub Pages directory"
+        run: |
+          mkdir -p gh-pages-combined
+
+          # 1. Copy the deployed web app from gh-pages branch (which has the latest app)
+          if [ -d gh-pages-existing ]; then
+            cp -r gh-pages-existing/. gh-pages-combined/ 2>/dev/null || true
+          fi
+
+          # 2. Merge Web Reports
+          mkdir -p gh-pages-combined/web-reports/latest
+          BUILD_DIR_WEB="gh-pages-combined/web-reports/history/build-$(printf '%03d' ${{ github.run_number }})"
+          mkdir -p "$BUILD_DIR_WEB"
+
+          cp "web-reports/execution-report.html" gh-pages-combined/web-reports/latest/ 2>/dev/null || true
+          cp -r "web-reports/Screenshots" gh-pages-combined/web-reports/latest/ 2>/dev/null || true
+          cp -r "web-reports/Logs" gh-pages-combined/web-reports/latest/ 2>/dev/null || true
+          cp "web-reports/Summary/summary.md" gh-pages-combined/web-reports/latest/ 2>/dev/null || true
+          cp -r web-reports/. "$BUILD_DIR_WEB/" 2>/dev/null || true
+
+          # 3. Merge Android Reports
+          mkdir -p gh-pages-combined/android-reports/reports/latest
+          BUILD_DIR_ANDROID="gh-pages-combined/android-reports/reports/history/build-$(printf '%03d' ${{ github.run_number }})"
+          mkdir -p "$BUILD_DIR_ANDROID"
+
+          cp "android-reports/execution-report.html" gh-pages-combined/android-reports/reports/latest/ 2>/dev/null || true
+          cp -r "android-reports/Screenshots" gh-pages-combined/android-reports/reports/latest/ 2>/dev/null || true
+          cp -r "android-reports/Logs" gh-pages-combined/android-reports/reports/latest/ 2>/dev/null || true
+          cp "android-reports/Summary/summary.md" gh-pages-combined/android-reports/reports/latest/ 2>/dev/null || true
+          cp -r android-reports/. "$BUILD_DIR_ANDROID/" 2>/dev/null || true
+
+          # 5. Merge Backend Reports
+          mkdir -p gh-pages-combined/backend-reports/latest
+          BUILD_DIR_BACKEND="gh-pages-combined/backend-reports/history/build-$(printf '%03d' ${{ github.run_number }})"
+          mkdir -p "$BUILD_DIR_BACKEND"
+
+          cp "backend-reports/execution-report.html" gh-pages-combined/backend-reports/latest/ 2>/dev/null || true
+          cp -r "backend-reports/Logs" gh-pages-combined/backend-reports/latest/ 2>/dev/null || true
+          cp "backend-reports/Summary/summary.md" gh-pages-combined/backend-reports/latest/ 2>/dev/null || true
+          cp -r backend-reports/. "$BUILD_DIR_BACKEND/" 2>/dev/null || true
+
+          # 6. Merge Security Reports
+          mkdir -p gh-pages-combined/security-reports
+          cp security-reports/security-review.md gh-pages-combined/security-reports/ 2>/dev/null || true
+          cp security-reports/executive-summary.md gh-pages-combined/security-reports/ 2>/dev/null || true
+          cp security-reports/dependency-report.md gh-pages-combined/security-reports/ 2>/dev/null || true
+          cp security-reports/findings.xlsx gh-pages-combined/security-reports/ 2>/dev/null || true
+          cp security-reports/endpoint-inventory.xlsx gh-pages-combined/security-reports/ 2>/dev/null || true
+
+          # 5. Merge Load Test Reports
+          mkdir -p gh-pages-combined/load-test-reports
+          cp -r load-test-reports/. gh-pages-combined/load-test-reports/ 2>/dev/null || true
+
+          # 6. Copy Consolidated Reports to root of gh-pages-combined
+          cp -r unified-reports/. gh-pages-combined/ 2>/dev/null || true
+
+      - name: "🚀 Deploy all reports to GitHub Pages"
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: gh-pages-combined
+          publish_branch: gh-pages
+          destination_dir: .
+          keep_files: true
+          commit_message: "📊 Consolidated Test Report – Build #${{ github.run_number }}"
+
+      - name: "📤 Upload unified summary reports"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unified-summary-reports
+          path: unified-reports/
+          retention-days: 7
+
+

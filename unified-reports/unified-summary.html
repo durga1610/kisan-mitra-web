@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kisan Mitra Unified CI/CD Summary – Build #1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#0f172a;color:#e2e8f0;padding:2rem;min-height:100vh;}
+  .container{max-width:1100px;margin:0 auto;}
+  .header{background:linear-gradient(135deg,#0f172a,#1e1b4b);border:1px solid #334155;border-radius:1rem;padding:2.5rem;margin-bottom:2rem;text-align:center;}
+  .header h1{font-size:2.2rem;font-weight:700;color:#fff;margin-bottom:.5rem;}
+  .header p{color:#94a3b8;font-size:.95rem;}
+  .section{background:#1e293b;border-radius:.75rem;padding:2rem;border:1px solid #334155;margin-bottom:2rem;}
+  .section h2{font-size:1.3rem;font-weight:600;margin-bottom:1.25rem;border-bottom:1px solid #334155;padding-bottom:.5rem;color:#f8fafc;}
+  table{width:100%;border-collapse:collapse;margin-top:0.5rem;}
+  th{background:#0f172a;padding:1rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#64748b;text-align:left;}
+  td{padding:1rem;border-top:1px solid #273445;font-size:.85rem;color:#cbd5e1;}
+  .badge{display:inline-block;padding:.25rem .6rem;border-radius:.375rem;font-size:.75rem;font-weight:600;}
+  .badge-pass{background:rgba(16,185,129,.15);color:#10b981;}
+  .badge-fail{background:rgba(239,68,68,.15);color:#ef4444;}
+  .badge-warn{background:rgba(245,158,11,.15);color:#f59e0b;}
+  .badge-info{background:rgba(59,130,246,.15);color:#3b82f6;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+  .metric-row{display:flex;justify-content:space-between;padding:.75rem 0;border-bottom:1px solid #334155;}
+  .metric-row:last-child{border-bottom:none;}
+  .metric-row span:last-child{font-weight:600;color:#fff;}
+  a{color:#6366f1;text-decoration:none;font-weight:600;}
+  a:hover{text-decoration:underline;}
+  .footer{text-align:center;font-size:.75rem;color:#475569;margin-top:2rem;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🚀 Kisan Mitra Unified CI/CD Summary</h1>
+    <p>Build #1 &nbsp;•&nbsp; Branch: <code>main</code> &nbsp;•&nbsp; Date: 2026-06-24 10:00:09 UTC</p>
+  </div>
+
+  <div class="section">
+    <h2>🛠️ Build & Deploy Summary</h2>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; gap:2rem;">
+        <div>Android APK Build: <span class="badge badge-pass">✅ SUCCESS</span></div>
+        <div>Web Application Deploy: <span class="badge badge-pass">✅ SUCCESS</span></div>
+      </div>
+      <div>
+        <a href="https://durga1610.github.io/kisan-mitra-web/reports/latest/unified-summary.xlsx" class="badge badge-info" style="font-size: 0.9rem; padding: 0.5rem 1rem;">📥 Download Excel Summary Report</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📊 Executive Testing Status Board</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Testing Tier</th>
+          <th>Total Cases</th>
+          <th>Passed</th>
+          <th>Failed</th>
+          <th>Skipped</th>
+          <th>Pass Rate / Score</th>
+          <th>Status</th>
+          <th>Report Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🌐 Web Application E2E</strong></td>
+          <td>476</td>
+          <td>476</td>
+          <td>0</td>
+          <td>0</td>
+          <td>100.00%</td>
+          <td><span class="badge badge-pass">PASS</span></td>
+          <td><a href="https://durga1610.github.io/kisan-mitra-web/reports/latest/web/execution-report.html" target="_blank">View Report</a></td>
+        </tr>
+        <tr>
+          <td><strong>📱 Android Mobile E2E</strong></td>
+          <td>518</td>
+          <td>518</td>
+          <td>0</td>
+          <td>0</td>
+          <td>100.00%</td>
+          <td><span class="badge badge-pass">PASS</span></td>
+          <td><a href="https://durga1610.github.io/kisan-mitra-web/reports/latest/android/execution-report.html" target="_blank">View Report</a></td>
+        </tr>
+        <tr>
+          <td><strong>⚙️ Backend Service Tests</strong></td>
+          <td>30</td>
+          <td>30</td>
+          <td>0</td>
+          <td>0</td>
+          <td>100.00%</td>
+          <td><span class="badge badge-pass">PASS</span></td>
+          <td><a href="https://durga1610.github.io/kisan-mitra-web/reports/latest/backend/execution-report.html" target="_blank">View Report</a></td>
+        </tr>
+        <tr>
+          <td><strong>🛡️ Backend Security Scan</strong></td>
+          <td>400 (Rules)</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>100/100</td>
+          <td><span class="badge badge-pass">SECURE</span></td>
+          <td><a href="https://durga1610.github.io/kisan-mitra-web/reports/latest/security-review.md" target="_blank">View Report</a></td>
+        </tr>
+        <tr>
+          <td><strong>🔒 Security E2E Tests</strong></td>
+          <td>400</td>
+          <td>400</td>
+          <td>0</td>
+          <td>0</td>
+          <td>100.0%</td>
+          <td><span class="badge badge-pass">PASS</span></td>
+          <td><a href="https://durga1610.github.io/kisan-mitra-web/reports/latest/security-e2e/execution-report.html" target="_blank">View Report</a></td>
+        </tr>
+        <tr>
+          <td><strong>📈 Performance Load Test</strong></td>
+          <td>32590 (Reqs)</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>100.00% Success</td>
+          <td><span class="badge badge-pass">OPTIMAL</span></td>
+          <td><a href="https://durga1610.github.io/kisan-mitra-web/reports/latest/load-test-report.html" target="_blank">View Report</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="section">
+      <h2>🔒 Security Findings Review</h2>
+      <div class="metric-row"><span>Static Analysis (SAST) checked</span><span class="badge badge-info">262 Rules</span></div>
+      <div class="metric-row"><span>SAST Critical findings</span><span style="color:#ef4444;">0</span></div>
+      <div class="metric-row"><span>SAST High findings</span><span style="color:#f97316;">0</span></div>
+      <div class="metric-row"><span>SAST Medium findings</span><span style="color:#eab308;">0</span></div>
+      <div class="metric-row"><span>SAST Low findings</span><span>0</span></div>
+      <div class="metric-row"><span>Risk Score</span><span><strong>100/100</strong></span></div>
+    </div>
+
+    <div class="section">
+      <h2>📈 Performance Load Metrics (k6/Python)</h2>
+      <div class="metric-row"><span>Concurrent Virtual Users</span><span>100 VUs</span></div>
+      <div class="metric-row"><span>Throughput (Requests/Sec)</span><span>541.02 RPS</span></div>
+      <div class="metric-row"><span>Average Response Time</span><span>177.55 ms</span></div>
+      <div class="metric-row"><span>Successful Request Rate</span><span style="color:#10b981;">100.00% Success</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Consolidated Summary Report &nbsp;|&nbsp; Generated by Kisan Mitra Pipeline Integration
+  </div>
+</div>
+</body>
+</html>
