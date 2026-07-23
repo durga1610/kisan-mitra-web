@@ -17,8 +17,10 @@ class RecommendationRepository {
   static final Map<String, List<RecommendationModel>> _cache = {};
   static final Map<String, DateTime> _cacheTime = {};
 
-  static Future<Map<String, String>> _getHeaders() async {
+  static Future<Map<String, String>> _getHeaders([Stopwatch? sw]) async {
+    if (sw != null) debugPrint('[PERF] Before FirebaseAuth.instance.currentUser?.getIdToken() | t=${sw.elapsedMilliseconds} ms');
     final token = await FirebaseAuth.instance.currentUser?.getIdToken();
+    if (sw != null) debugPrint('[PERF] After FirebaseAuth.instance.currentUser?.getIdToken() | t=${sw.elapsedMilliseconds} ms');
     return {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -32,6 +34,8 @@ class RecommendationRepository {
     String languageCode = 'en',
     bool forceRefresh = false,
   }) async {
+    final sw = Stopwatch()..start();
+    debugPrint('[PERF] START getRecommendations | t=${sw.elapsedMilliseconds} ms');
     final cacheKey = '${farm.id ?? farm.name}_$languageCode';
     final userId = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
 
@@ -78,19 +82,25 @@ class RecommendationRepository {
       }
     }
 
-    // Fetch market prices for matching state using MarketRepository
+    // Check local market prices non-blockingly (bypasses after 800ms if live API fetch is slow)
     List<String> uniqueMarketCrops = [];
     try {
-      final marketPrices = await MarketRepository().getMarketPrices(preferredState: farm.state) ?? [];
-      uniqueMarketCrops = marketPrices.map((p) => p.cropName).toSet().toList();
+      final marketPrices = await MarketRepository()
+          .getMarketPrices(preferredState: farm.state)
+          .timeout(const Duration(milliseconds: 800), onTimeout: () => null);
+      if (marketPrices != null) {
+        uniqueMarketCrops = marketPrices.map((p) => p.cropName).toSet().toList();
+      }
     } catch (e) {
-      debugPrint('[RecommendationRepository] Market fetch failed: $e');
+      debugPrint('[RecommendationRepository] Non-blocking market check bypassed: $e');
     }
 
     try {
+      final headers = await _getHeaders(sw);
+      debugPrint('[PERF] Before http.post(/api/v1/recommendations) | t=${sw.elapsedMilliseconds} ms');
       final response = await http.post(
         Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/recommendations'),
-        headers: await _getHeaders(),
+        headers: headers,
         body: jsonEncode({
           'farm': {
             'id': farm.id,
@@ -113,6 +123,8 @@ class RecommendationRepository {
           'language': languageCode,
         }),
       ).timeout(const Duration(seconds: 45));
+
+      debugPrint('[PERF] After http.post(/api/v1/recommendations) | t=${sw.elapsedMilliseconds} ms | Status: ${response.statusCode} | Size: ${response.bodyBytes.length} bytes');
 
       if (response.statusCode == 200) {
         var cleanJson = response.body.replaceAll('```json', '').replaceAll('```', '').trim();

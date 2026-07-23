@@ -444,12 +444,16 @@ app.add_middleware(SecurityHeadersMiddleware)
 # ── CORS — explicit origin allowlist (F-03) ───────────────────────────────
 ALLOWED_ORIGINS = os.getenv(
     "CORS_ORIGINS",
-    "https://kisan-mitra.vercel.app,http://localhost:3000,http://localhost:8080",
+    "https://kisan-mitra.vercel.app,https://kisan-mitra-murex.vercel.app,http://localhost:3000,http://localhost:8080",
 ).split(",")
 
 # Explicitly ensure required Vercel origins are allowed
-if "https://kisan-mitra-web-olive.vercel.app" not in ALLOWED_ORIGINS:
-    ALLOWED_ORIGINS.append("https://kisan-mitra-web-olive.vercel.app")
+for vercel_origin in [
+    "https://kisan-mitra-web-olive.vercel.app",
+    "https://kisan-mitra-murex.vercel.app",
+]:
+    if vercel_origin not in ALLOWED_ORIGINS:
+        ALLOWED_ORIGINS.append(vercel_origin)
 
 app.add_middleware(
     CORSMiddleware,
@@ -470,6 +474,16 @@ _is_testing = "pytest" in sys.modules or os.getenv("TESTING") == "1"
 limiter = Limiter(key_func=get_remote_address, enabled=not _is_testing)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+@app.on_event("startup")
+async def startup_event():
+    logger.info("[Startup] Pre-loading Recommendation ML model binaries into memory...")
+    try:
+        from advisory_engine import _load_crop_recommendation_model
+        _load_crop_recommendation_model()
+        logger.info("[Startup] Recommendation ML model successfully pre-loaded.")
+    except Exception as e:
+        logger.error(f"[Startup] Failed to pre-load Recommendation ML model: {e}")
 
 # ── Firebase Authentication (F-01) ────────────────────────────────────────
 import firebase_admin
@@ -3322,8 +3336,12 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
     Suggests the top crops dynamically based on farm soil, weather, water availability, location, and existing crops.
     Uses the trained RandomForest model.
     """
+    t_start = time.perf_counter()
+    logger.info("[PERF BACKEND] START /api/v1/recommendations | Request received & auth completed")
     try:
-        res = await _generate_recommendations_inner(request, body, user)
+        res = await _generate_recommendations_inner(request, body, user, t_start)
+        t_total = (time.perf_counter() - t_start) * 1000.0
+        logger.info(f"[PERF BACKEND] END /api/v1/recommendations | Total request time: {t_total:.2f} ms")
         return res
     except Exception as e:
         logger.error(f"[generate_recommendations] Error generating recommendations: {e}. Returning safe defaults.")
@@ -3350,33 +3368,41 @@ async def generate_recommendations(request: Request, body: RecommendationRequest
     finally:
         trim_memory()
 
-async def _generate_recommendations_inner(request: Request, body: RecommendationRequest, user: Dict):
+async def _generate_recommendations_inner(request: Request, body: RecommendationRequest, user: Dict, t_start: float = None):
+    import time
+    if t_start is None:
+        t_start = time.perf_counter()
     lang = body.language.upper()
     
     from advisory_engine import extract_prediction_features, predict_crop_recommendations
-    # Extract prediction features from farm & weather contexts
-    features = extract_prediction_features(body.farm, body.weather)
     
-    # Run ML recommendations
+    t_feat_start = time.perf_counter()
+    features = extract_prediction_features(body.farm, body.weather)
+    t_feat_elapsed = (time.perf_counter() - t_feat_start) * 1000.0
+    logger.info(f"[PERF BACKEND] Feature extraction completed | Elapsed: {t_feat_elapsed:.2f} ms")
+    
+    t_ml_start = time.perf_counter()
     try:
         ml_recs = predict_crop_recommendations(features)
     except Exception as e_ml:
         logger.warning(f"[generate_recommendations] ML prediction failed: {e_ml}")
         ml_recs = []
+    t_ml_elapsed = (time.perf_counter() - t_ml_start) * 1000.0
+    logger.info(f"[PERF BACKEND] ML prediction completed | Elapsed: {t_ml_elapsed:.2f} ms | Recs count: {len(ml_recs)}")
     
     # Check if we should use Gemini recommendation fallback (ML returned 0 recs, or all scores are < 50)
     has_good_recs = ml_recs and any(r.get("score", 0) >= 50 for r in ml_recs)
     
     source = "LOCAL_ENGINE"
     if not has_good_recs:
-        logger.info("[generate_recommendations] ML model returned low confidence recommendations or no recommendations. Triggering Gemini fallback.")
+        logger.info("[PERF BACKEND] ML model returned low confidence recommendations or no recommendations. Triggering Gemini fallback.")
+        t_gemini_start = time.perf_counter()
         try:
             from services.gemini_fallback import generate_crop_recommendations
             import sqlite3
             
             user_uid = user.get("uid", "anonymous")
             
-            # Parse state and district from location or farm info if possible
             state = "Punjab"
             district = "Ludhiana"
             loc = body.farm.location or ""
@@ -3388,7 +3414,6 @@ async def _generate_recommendations_inner(request: Request, body: Recommendation
                 elif len(parts) == 1:
                     state = parts[0]
                     
-            # Load market data briefly
             market_data = []
             try:
                 db_path = DB_PATH
@@ -3420,15 +3445,19 @@ async def _generate_recommendations_inner(request: Request, body: Recommendation
                 market_data=market_data,
                 user_uid=user_uid
             )
+            t_gemini_elapsed = (time.perf_counter() - t_gemini_start) * 1000.0
+            logger.info(f"[PERF BACKEND] Gemini fallback completed | Elapsed: {t_gemini_elapsed:.2f} ms")
             if gemini_recs:
                 scores_map = {item["crop_name"].lower(): int(item["suitability_score"]) for item in gemini_recs}
                 source = "GEMINI_FALLBACK"
             else:
                 scores_map = {r["crop"].lower(): r["score"] for r in ml_recs}
         except Exception as e_fallback:
-            logger.warning(f"[generate_recommendations] Gemini recommendation fallback failed: {e_fallback}")
+            t_gemini_elapsed = (time.perf_counter() - t_gemini_start) * 1000.0
+            logger.warning(f"[PERF BACKEND] Gemini recommendation fallback failed: {e_fallback} | Elapsed: {t_gemini_elapsed:.2f} ms")
             scores_map = {r["crop"].lower(): r["score"] for r in ml_recs}
     else:
+        logger.info("[PERF BACKEND] High confidence ML recommendations found (score >= 50%). Gemini fallback SKIPPED.")
         scores_map = {r["crop"].lower(): r["score"] for r in ml_recs}
     
     available_crops = body.availableMarketCrops

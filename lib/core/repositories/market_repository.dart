@@ -148,8 +148,10 @@ class MarketRepository {
   }
 
   Future<List<MarketPrice>?> _fetchLiveApiAndUpdateCache(List<String>? preferredCrops, String? preferredState) async {
+    final msw = Stopwatch()..start();
     try {
-      final token = await FirebaseAuth.instance.currentUser?.getIdToken(true);
+      final token = await FirebaseAuth.instance.currentUser?.getIdToken(false);
+
       final headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -157,21 +159,19 @@ class MarketRepository {
       };
 
       final Map<String, String> queryParams = {};
-      // Fetch all crop prices so client-side can display "Other Markets" on dashboard
-      /*
-      if (preferredCrops != null && preferredCrops.isNotEmpty) {
-        queryParams['crops'] = preferredCrops.map((c) => normalizeCrop(c)).join(',');
-      }
-      */
       if (preferredState != null && preferredState.trim().isNotEmpty) {
         queryParams['state'] = preferredState.trim();
       }
 
       final uri = Uri.parse('${ApiConfig.customAiBackendUrl}/api/v1/market/prices').replace(queryParameters: queryParams);
+      debugPrint('[PERF] [MarketRepository] Before http.get(/api/v1/market/prices) | t=${msw.elapsedMilliseconds} ms');
       final response = await http.get(uri, headers: headers).timeout(const Duration(seconds: 45));
+      debugPrint('[PERF] [MarketRepository] After http.get(/api/v1/market/prices) | t=${msw.elapsedMilliseconds} ms | Status: ${response.statusCode}');
 
       if (response.statusCode == 200) {
+        debugPrint('[PERF] [MarketRepository] Before jsonDecode | t=${msw.elapsedMilliseconds} ms');
         final data = jsonDecode(response.body);
+        debugPrint('[PERF] [MarketRepository] After jsonDecode | t=${msw.elapsedMilliseconds} ms');
         isFallbackActive = data['isFallback'] ?? false;
         
         final lastUpdatedStr = data['lastUpdated'];
